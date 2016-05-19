@@ -7,3 +7,4 @@
 //
 
 #import <Google/SignIn.h>
+#import <Google/Analytics.h>

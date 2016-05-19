@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     @IBOutlet var signInButton: GIDSignInButton!
@@ -17,6 +18,14 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().signInSilently()
 
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker.set(kGAIScreenName, value: "SignIn")
+        
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker.send(builder.build() as [NSObject: AnyObject])
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,7 +49,29 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
             let emailDomain = user.profile.email.componentsSeparatedByString("@").last
             if (emailDomain?.containsString("westport.k12.ct.us") == true) {
                 print("confirmed wepo")
-                self.performSegueWithIdentifier("logIn", sender: self)
+                
+//                Alamofire.request(.POST, "http://localhost:9292/api/validateUser", parameters: ["token": user.authentication.idToken])
+//                    
+//                    .responseJSON { response in
+//                        print(response.request)  // original URL request
+//                        print(response.response) // URL response
+//                        print(response.data)     // server data
+//                        print(response.result)   // result of response serialization
+//                        print(response.result.error)
+//                        if let JSON = response.result.value {
+//                            print("JSON: \(JSON)")
+//                        }
+//                }
+                
+                UserManager.createCurrentUser(user.profile.name, email: user.profile.email, token: user.authentication.idToken, completion: { (success: Bool) in
+                    if (success) {
+                        print("success!")
+                    }
+                    else {
+                        print("error...:(")
+                    }
+                })
+                //self.performSegueWithIdentifier("logIn", sender: self)
                 
             }
             else {
