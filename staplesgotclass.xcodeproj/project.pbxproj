@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		078B0CEA10E638BFC57FE69E /* Pods_staplesgotclass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */; };
+		772DCA511CEF40D200F52AA6 /* LoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772DCA501CEF40D200F52AA6 /* LoginPageViewController.swift */; };
+		772DCA531CEF428500F52AA6 /* PageContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772DCA521CEF428500F52AA6 /* PageContentVC.swift */; };
+		772DCA551CF0FAEA00F52AA6 /* shs.png in Resources */ = {isa = PBXBuildFile; fileRef = 772DCA541CF0FAEA00F52AA6 /* shs.png */; };
 		775DC4491CED537F00046768 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775DC4481CED537F00046768 /* UserManager.swift */; };
 		775DC44B1CED558A00046768 /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775DC44A1CED558A00046768 /* Period.swift */; };
 		775DC44D1CED55CD00046768 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775DC44C1CED55CD00046768 /* User.swift */; };
 		775DC44F1CED583400046768 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775DC44E1CED583400046768 /* NetworkManager.swift */; };
 		77D54F741CECBEC600C11FA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D54F731CECBEC600C11FA5 /* AppDelegate.swift */; };
-		77D54F761CECBEC600C11FA5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D54F751CECBEC600C11FA5 /* ViewController.swift */; };
+		77D54F761CECBEC600C11FA5 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D54F751CECBEC600C11FA5 /* LoginVC.swift */; };
 		77D54F791CECBEC600C11FA5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77D54F771CECBEC600C11FA5 /* Main.storyboard */; };
 		77D54F7B1CECBEC600C11FA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77D54F7A1CECBEC600C11FA5 /* Assets.xcassets */; };
 		77D54F7E1CECBEC600C11FA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77D54F7C1CECBEC600C11FA5 /* LaunchScreen.storyboard */; };
@@ -23,6 +26,9 @@
 /* Begin PBXFileReference section */
 		382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_staplesgotclass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F3617A969EFDF047E0788E2 /* Pods-staplesgotclass.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-staplesgotclass.release.xcconfig"; path = "Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass.release.xcconfig"; sourceTree = "<group>"; };
+		772DCA501CEF40D200F52AA6 /* LoginPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPageViewController.swift; sourceTree = "<group>"; };
+		772DCA521CEF428500F52AA6 /* PageContentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageContentVC.swift; sourceTree = "<group>"; };
+		772DCA541CF0FAEA00F52AA6 /* shs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shs.png; path = ../../../../Desktop/shs.png; sourceTree = "<group>"; };
 		775DC4481CED537F00046768 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		775DC44A1CED558A00046768 /* Period.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
 		775DC44C1CED55CD00046768 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -30,7 +36,7 @@
 		77AB0F4D1CECC0E900A25110 /* staplesgotclass-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "staplesgotclass-Bridging-Header.h"; sourceTree = "<group>"; };
 		77D54F701CECBEC600C11FA5 /* staplesgotclass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = staplesgotclass.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D54F731CECBEC600C11FA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		77D54F751CECBEC600C11FA5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		77D54F751CECBEC600C11FA5 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		77D54F781CECBEC600C11FA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		77D54F7A1CECBEC600C11FA5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		77D54F7D1CECBEC600C11FA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -81,7 +87,9 @@
 		77AB0F4F1CECC35C00A25110 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				77D54F751CECBEC600C11FA5 /* ViewController.swift */,
+				77D54F751CECBEC600C11FA5 /* LoginVC.swift */,
+				772DCA501CEF40D200F52AA6 /* LoginPageViewController.swift */,
+				772DCA521CEF428500F52AA6 /* PageContentVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -124,6 +132,7 @@
 				77AB0F4F1CECC35C00A25110 /* Controllers */,
 				77AB0F4E1CECC35700A25110 /* Views */,
 				77D54F7A1CECBEC600C11FA5 /* Assets.xcassets */,
+				772DCA541CF0FAEA00F52AA6 /* shs.png */,
 				77D54F7F1CECBEC600C11FA5 /* Info.plist */,
 				77D54F851CECBEE600C11FA5 /* GoogleService-Info.plist */,
 			);
@@ -194,6 +203,7 @@
 				77D54F7E1CECBEC600C11FA5 /* LaunchScreen.storyboard in Resources */,
 				77D54F861CECBEE600C11FA5 /* GoogleService-Info.plist in Resources */,
 				77D54F7B1CECBEC600C11FA5 /* Assets.xcassets in Resources */,
+				772DCA551CF0FAEA00F52AA6 /* shs.png in Resources */,
 				77D54F791CECBEC600C11FA5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -255,10 +265,12 @@
 			files = (
 				775DC44F1CED583400046768 /* NetworkManager.swift in Sources */,
 				775DC4491CED537F00046768 /* UserManager.swift in Sources */,
-				77D54F761CECBEC600C11FA5 /* ViewController.swift in Sources */,
+				77D54F761CECBEC600C11FA5 /* LoginVC.swift in Sources */,
 				775DC44B1CED558A00046768 /* Period.swift in Sources */,
 				775DC44D1CED55CD00046768 /* User.swift in Sources */,
+				772DCA511CEF40D200F52AA6 /* LoginPageViewController.swift in Sources */,
 				77D54F741CECBEC600C11FA5 /* AppDelegate.swift in Sources */,
+				772DCA531CEF428500F52AA6 /* PageContentVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,7 +283,7 @@
 				77D54F781CECBEC600C11FA5 /* Base */,
 			);
 			name = Main.storyboard;
-			path = "/Users/dylancdiamond/Desktop/Xcode Work/staplesgotclass/staplesgotclass";
+			path = "/Users/dylancdiamond/Documents/Xcode Stuff/staplesgotclass/staplesgotclass";
 			sourceTree = "<absolute>";
 		};
 		77D54F7C1CECBEC600C11FA5 /* LaunchScreen.storyboard */ = {
@@ -280,7 +292,7 @@
 				77D54F7D1CECBEC600C11FA5 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			path = "/Users/dylancdiamond/Desktop/Xcode Work/staplesgotclass/staplesgotclass/Views/..";
+			path = "/Users/dylancdiamond/Documents/Xcode Stuff/staplesgotclass/staplesgotclass";
 			sourceTree = "<absolute>";
 		};
 /* End PBXVariantGroup section */
