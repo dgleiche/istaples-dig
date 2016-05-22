@@ -8,9 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		078B0CEA10E638BFC57FE69E /* Pods_staplesgotclass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */; };
+		771D46DC1CF13C9900458369 /* ClassmatesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771D46DB1CF13C9900458369 /* ClassmatesVC.swift */; };
 		772DCA511CEF40D200F52AA6 /* LoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772DCA501CEF40D200F52AA6 /* LoginPageViewController.swift */; };
 		772DCA531CEF428500F52AA6 /* PageContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772DCA521CEF428500F52AA6 /* PageContentVC.swift */; };
-		772DCA551CF0FAEA00F52AA6 /* shs.png in Resources */ = {isa = PBXBuildFile; fileRef = 772DCA541CF0FAEA00F52AA6 /* shs.png */; };
+		7746F38A1CF16312003E9D6A /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7746F3891CF16312003E9D6A /* ProfileVC.swift */; };
+		7746F38C1CF1755F003E9D6A /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7746F38B1CF1755F003E9D6A /* UIImageViewExtension.swift */; };
+		7746F38E1CF19241003E9D6A /* ClassmateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7746F38D1CF19241003E9D6A /* ClassmateCell.swift */; };
+		7746F3901CF19314003E9D6A /* shs.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7746F38F1CF19314003E9D6A /* shs.jpg */; };
 		775DC4491CED537F00046768 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775DC4481CED537F00046768 /* UserManager.swift */; };
 		775DC44B1CED558A00046768 /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775DC44A1CED558A00046768 /* Period.swift */; };
 		775DC44D1CED55CD00046768 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775DC44C1CED55CD00046768 /* User.swift */; };
@@ -21,14 +25,21 @@
 		77D54F7B1CECBEC600C11FA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77D54F7A1CECBEC600C11FA5 /* Assets.xcassets */; };
 		77D54F7E1CECBEC600C11FA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77D54F7C1CECBEC600C11FA5 /* LaunchScreen.storyboard */; };
 		77D54F861CECBEE600C11FA5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 77D54F851CECBEE600C11FA5 /* GoogleService-Info.plist */; };
+		77D8F2ED1CF0FFB6007A1002 /* ClassesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D8F2EC1CF0FFB6007A1002 /* ClassesVC.swift */; };
+		77D8F2F01CF11470007A1002 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D8F2EF1CF11470007A1002 /* StringExtension.swift */; };
+		77D8F2F21CF135C2007A1002 /* ClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D8F2F11CF135C2007A1002 /* ClassCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_staplesgotclass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F3617A969EFDF047E0788E2 /* Pods-staplesgotclass.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-staplesgotclass.release.xcconfig"; path = "Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass.release.xcconfig"; sourceTree = "<group>"; };
+		771D46DB1CF13C9900458369 /* ClassmatesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassmatesVC.swift; sourceTree = "<group>"; };
 		772DCA501CEF40D200F52AA6 /* LoginPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPageViewController.swift; sourceTree = "<group>"; };
 		772DCA521CEF428500F52AA6 /* PageContentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageContentVC.swift; sourceTree = "<group>"; };
-		772DCA541CF0FAEA00F52AA6 /* shs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shs.png; path = ../../../../Desktop/shs.png; sourceTree = "<group>"; };
+		7746F3891CF16312003E9D6A /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		7746F38B1CF1755F003E9D6A /* UIImageViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
+		7746F38D1CF19241003E9D6A /* ClassmateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassmateCell.swift; sourceTree = "<group>"; };
+		7746F38F1CF19314003E9D6A /* shs.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = shs.jpg; sourceTree = "<group>"; };
 		775DC4481CED537F00046768 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		775DC44A1CED558A00046768 /* Period.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
 		775DC44C1CED55CD00046768 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -42,6 +53,9 @@
 		77D54F7D1CECBEC600C11FA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		77D54F7F1CECBEC600C11FA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77D54F851CECBEE600C11FA5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		77D8F2EC1CF0FFB6007A1002 /* ClassesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassesVC.swift; sourceTree = "<group>"; };
+		77D8F2EF1CF11470007A1002 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		77D8F2F11CF135C2007A1002 /* ClassCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassCell.swift; sourceTree = "<group>"; };
 		ED17CD0C97B747CA1F5D3B30 /* Pods-staplesgotclass.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-staplesgotclass.debug.xcconfig"; path = "Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,15 +88,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7746F3911CF19318003E9D6A /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				7746F38F1CF19314003E9D6A /* shs.jpg */,
+			);
+			name = Graphics;
+			sourceTree = "<group>";
+		};
 		77AB0F4E1CECC35700A25110 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				77D54F771CECBEC600C11FA5 /* Main.storyboard */,
 				77D54F7C1CECBEC600C11FA5 /* LaunchScreen.storyboard */,
+				77D54F771CECBEC600C11FA5 /* Main.storyboard */,
+				77D8F2F11CF135C2007A1002 /* ClassCell.swift */,
+				7746F38D1CF19241003E9D6A /* ClassmateCell.swift */,
 			);
-			name = Views;
-			path = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/../../../../../../../../../Users/dylancdiamond/Desktop/Xcode Work/staplesgotclass/staplesgotclass/Views";
-			sourceTree = "<absolute>";
+			path = Views;
+			sourceTree = "<group>";
 		};
 		77AB0F4F1CECC35C00A25110 /* Controllers */ = {
 			isa = PBXGroup;
@@ -90,6 +113,9 @@
 				77D54F751CECBEC600C11FA5 /* LoginVC.swift */,
 				772DCA501CEF40D200F52AA6 /* LoginPageViewController.swift */,
 				772DCA521CEF428500F52AA6 /* PageContentVC.swift */,
+				77D8F2EC1CF0FFB6007A1002 /* ClassesVC.swift */,
+				771D46DB1CF13C9900458369 /* ClassmatesVC.swift */,
+				7746F3891CF16312003E9D6A /* ProfileVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -128,15 +154,25 @@
 			children = (
 				77D54F731CECBEC600C11FA5 /* AppDelegate.swift */,
 				77AB0F4D1CECC0E900A25110 /* staplesgotclass-Bridging-Header.h */,
+				77D8F2EE1CF1145A007A1002 /* Utilities */,
 				77AB0F501CECC36100A25110 /* Model */,
 				77AB0F4F1CECC35C00A25110 /* Controllers */,
 				77AB0F4E1CECC35700A25110 /* Views */,
 				77D54F7A1CECBEC600C11FA5 /* Assets.xcassets */,
-				772DCA541CF0FAEA00F52AA6 /* shs.png */,
+				7746F3911CF19318003E9D6A /* Graphics */,
 				77D54F7F1CECBEC600C11FA5 /* Info.plist */,
 				77D54F851CECBEE600C11FA5 /* GoogleService-Info.plist */,
 			);
 			path = staplesgotclass;
+			sourceTree = "<group>";
+		};
+		77D8F2EE1CF1145A007A1002 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				77D8F2EF1CF11470007A1002 /* StringExtension.swift */,
+				7746F38B1CF1755F003E9D6A /* UIImageViewExtension.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,7 +239,7 @@
 				77D54F7E1CECBEC600C11FA5 /* LaunchScreen.storyboard in Resources */,
 				77D54F861CECBEE600C11FA5 /* GoogleService-Info.plist in Resources */,
 				77D54F7B1CECBEC600C11FA5 /* Assets.xcassets in Resources */,
-				772DCA551CF0FAEA00F52AA6 /* shs.png in Resources */,
+				7746F3901CF19314003E9D6A /* shs.jpg in Resources */,
 				77D54F791CECBEC600C11FA5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,11 +301,18 @@
 			files = (
 				775DC44F1CED583400046768 /* NetworkManager.swift in Sources */,
 				775DC4491CED537F00046768 /* UserManager.swift in Sources */,
+				77D8F2F01CF11470007A1002 /* StringExtension.swift in Sources */,
+				77D8F2F21CF135C2007A1002 /* ClassCell.swift in Sources */,
 				77D54F761CECBEC600C11FA5 /* LoginVC.swift in Sources */,
 				775DC44B1CED558A00046768 /* Period.swift in Sources */,
+				771D46DC1CF13C9900458369 /* ClassmatesVC.swift in Sources */,
 				775DC44D1CED55CD00046768 /* User.swift in Sources */,
+				7746F38C1CF1755F003E9D6A /* UIImageViewExtension.swift in Sources */,
+				7746F38E1CF19241003E9D6A /* ClassmateCell.swift in Sources */,
+				7746F38A1CF16312003E9D6A /* ProfileVC.swift in Sources */,
 				772DCA511CEF40D200F52AA6 /* LoginPageViewController.swift in Sources */,
 				77D54F741CECBEC600C11FA5 /* AppDelegate.swift in Sources */,
+				77D8F2ED1CF0FFB6007A1002 /* ClassesVC.swift in Sources */,
 				772DCA531CEF428500F52AA6 /* PageContentVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,8 +326,8 @@
 				77D54F781CECBEC600C11FA5 /* Base */,
 			);
 			name = Main.storyboard;
-			path = "/Users/dylancdiamond/Documents/Xcode Stuff/staplesgotclass/staplesgotclass";
-			sourceTree = "<absolute>";
+			path = ..;
+			sourceTree = "<group>";
 		};
 		77D54F7C1CECBEC600C11FA5 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -292,8 +335,8 @@
 				77D54F7D1CECBEC600C11FA5 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			path = "/Users/dylancdiamond/Documents/Xcode Stuff/staplesgotclass/staplesgotclass";
-			sourceTree = "<absolute>";
+			path = ..;
+			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 

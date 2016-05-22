@@ -27,7 +27,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
         self.pageVC.dataSource = self
         
         self.pageTitles = ["Page 1", "Page 2", "Page 3"]
-        self.imageNames = ["shs.png"]
+        self.imageNames = ["shs.jpg"]
         
         let firstPageContentVC = self.viewControllerAtIndex(0)
         let pageViewControllers: [UIViewController] = [firstPageContentVC!]
@@ -146,9 +146,14 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
                 //                        }
                 //                }
                 
-                UserManager.createCurrentUser(user.profile.name, email: user.profile.email, token: user.authentication.idToken, completion: { (success: Bool) in
+                    let profilePicURL = user.profile.imageURLWithDimension(250).absoluteString
+                    print(profilePicURL)
+                                    
+                UserManager.createCurrentUser(user.profile.name, email: user.profile.email, token: user.authentication.idToken, profilePicURL: profilePicURL, completion: { (success: Bool) in
                     if (success) {
                         print("success!")
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                        
                     }
                     else {
                         print("error...:(")
