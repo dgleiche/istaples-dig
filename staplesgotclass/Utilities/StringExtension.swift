@@ -31,4 +31,24 @@ extension String {
             self.init(htmlEncodedString)     //Returning actual string if there is an error
         }
     }
+    
+    subscript (i: Int) -> Character {
+        return self[self.startIndex.advancedBy(i)]
+    }
+    
+    subscript (i: Int) -> String {
+        return String(self[i] as Character)
+    }
+    
+    subscript (r: Range<Int>) -> String {
+        return substringWithRange(Range(start: startIndex.advancedBy(r.startIndex), end: startIndex.advancedBy(r.endIndex)))
+    }
+    
+    func replace(string:String, replacement:String) -> String {
+        return self.stringByReplacingOccurrencesOfString(string, withString: replacement, options: NSStringCompareOptions.LiteralSearch, range: nil)
+    }
+    
+    func removeWhitespace() -> String {
+        return self.replace(" ", replacement: "")
+    }
 }

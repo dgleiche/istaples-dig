@@ -46,19 +46,22 @@ class ClassmatesVC: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("classmatesCell", forIndexPath: indexPath) as! ClassmateCell
         
         cell.nameLabel.text = self.currentClass?.users[indexPath.row].name
-        if (cell.classmateImageView.image == nil && self.currentClass?.users[indexPath.row].profilePicURL != nil) {
             cell.classmateImageView.clipsToBounds = true
             cell.classmateImageView.layer.cornerRadius = cell.classmateImageView.frame.width / 2
             
             if (self.currentClass?.users[indexPath.row].profilePic == nil) {
+                if (self.currentClass!.users[indexPath.row].profilePicURL != nil) {
                 cell.classmateImageView.downloadedFrom(link: self.currentClass!.users[indexPath.row].profilePicURL!, contentMode: UIViewContentMode.ScaleAspectFit, userImage: self.currentClass!.users[indexPath.row])
+                }
+                else {
+                    cell.classmateImageView.image = UIImage(named: "defaultGooglePic.png")
+                }
             }
             else if (self.currentClass?.users[indexPath.row].profilePic != nil) {
                 cell.classmateImageView.image = self.currentClass?.users[indexPath.row].profilePic
             }
             
-            
-        }
+        
         // Configure the cell...
 
         return cell

@@ -32,9 +32,9 @@ class User: NSObject {
     }
     
     func getClassmates(completion: ((Bool) -> Void)?) {
-        self.schedule = [Period]()
         self.network.performRequest(withMethod: "GET", endpoint: "classmates", parameters: ["email": email], headers: nil) { (response: Response<AnyObject, NSError>) in
             if (response.response?.statusCode == 200) {
+                self.schedule = [Period]()
                 if let classData = response.result.value as? NSDictionary {
                     if let periods = classData["periods"] as? [[String: AnyObject]] {
                         for period in periods {
@@ -45,6 +45,7 @@ class User: NSObject {
                                     newUsers.append(existingUser)
                                 }
                                 else {
+                                    
                                     let newUser = User(name: classmate["name"]! as! String, email: classmate["email"]! as! String, profilePicURL: classmate["profile_pic_url"] as? String)
                                     UserManager.sharedInstance?.allUsers[classmate["email"]! as! String] = newUser
                                     newUsers.append(newUser)

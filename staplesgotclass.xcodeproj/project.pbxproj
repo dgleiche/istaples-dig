@@ -28,6 +28,8 @@
 		77D8F2ED1CF0FFB6007A1002 /* ClassesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D8F2EC1CF0FFB6007A1002 /* ClassesVC.swift */; };
 		77D8F2F01CF11470007A1002 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D8F2EF1CF11470007A1002 /* StringExtension.swift */; };
 		77D8F2F21CF135C2007A1002 /* ClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D8F2F11CF135C2007A1002 /* ClassCell.swift */; };
+		77DB56201CF25C7C0014B002 /* AllUsersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DB561F1CF25C7C0014B002 /* AllUsersVC.swift */; };
+		77DB56221CF2AD2D0014B002 /* defaultGooglePic.png in Resources */ = {isa = PBXBuildFile; fileRef = 77DB56211CF2AD2D0014B002 /* defaultGooglePic.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +58,8 @@
 		77D8F2EC1CF0FFB6007A1002 /* ClassesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassesVC.swift; sourceTree = "<group>"; };
 		77D8F2EF1CF11470007A1002 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		77D8F2F11CF135C2007A1002 /* ClassCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassCell.swift; sourceTree = "<group>"; };
+		77DB561F1CF25C7C0014B002 /* AllUsersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllUsersVC.swift; sourceTree = "<group>"; };
+		77DB56211CF2AD2D0014B002 /* defaultGooglePic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultGooglePic.png; sourceTree = "<group>"; };
 		ED17CD0C97B747CA1F5D3B30 /* Pods-staplesgotclass.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-staplesgotclass.debug.xcconfig"; path = "Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,6 +95,7 @@
 		7746F3911CF19318003E9D6A /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				77DB56211CF2AD2D0014B002 /* defaultGooglePic.png */,
 				7746F38F1CF19314003E9D6A /* shs.jpg */,
 			);
 			name = Graphics;
@@ -116,6 +121,7 @@
 				77D8F2EC1CF0FFB6007A1002 /* ClassesVC.swift */,
 				771D46DB1CF13C9900458369 /* ClassmatesVC.swift */,
 				7746F3891CF16312003E9D6A /* ProfileVC.swift */,
+				77DB561F1CF25C7C0014B002 /* AllUsersVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -241,6 +247,7 @@
 				77D54F7B1CECBEC600C11FA5 /* Assets.xcassets in Resources */,
 				7746F3901CF19314003E9D6A /* shs.jpg in Resources */,
 				77D54F791CECBEC600C11FA5 /* Main.storyboard in Resources */,
+				77DB56221CF2AD2D0014B002 /* defaultGooglePic.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +321,7 @@
 				77D54F741CECBEC600C11FA5 /* AppDelegate.swift in Sources */,
 				77D8F2ED1CF0FFB6007A1002 /* ClassesVC.swift in Sources */,
 				772DCA531CEF428500F52AA6 /* PageContentVC.swift in Sources */,
+				77DB56201CF25C7C0014B002 /* AllUsersVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

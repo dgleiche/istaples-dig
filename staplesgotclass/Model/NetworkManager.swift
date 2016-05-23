@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 class NetworkManager: NSObject {
-        let baseURL = "http://localhost:9292/api"
+        let baseURL = "http://www.staplesgotclass.com/api"
         var alamofireManager : Alamofire.Manager?
         
         override init() {
@@ -20,16 +20,18 @@ class NetworkManager: NSObject {
         }
         
         func performRequest(withMethod method: String, endpoint: String, parameters: [String : String]?, headers: [String : String]?, completion: (Response<AnyObject, NSError>) -> Void) {
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             self.alamofireManager!.request(returnMethod(method), "\(baseURL)/\(endpoint)", headers: headers, parameters: parameters)
                 .responseJSON { response in
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                     //print("request body: \(NSString(data:(response.request?.HTTPBody)!, encoding:NSUTF8StringEncoding) as String?)")
                     print(response.request?.allHTTPHeaderFields) // URL response
                     print(response.response) // URL response
-                    print(response.data)     // server data
+                    //print(response.data)     // server data
                     print(response.result)   // result of response serialization
-                    if let JSON = response.result.value {
-                        print("JSON: \(JSON)")
-                    }
+//                    if let JSON = response.result.value {
+//                        print("JSON: \(JSON)")
+//                    }
                     completion(response)
             }
         }

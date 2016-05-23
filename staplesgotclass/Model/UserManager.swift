@@ -27,13 +27,13 @@ class UserManager: NSObject {
     }
     
     func verifyUser(completion: ((Bool) -> Void)?) {
-        self.currentUser.network.performRequest(withMethod: "POST", endpoint: "/validateUser", parameters: ["token": self.token], headers: nil) { (response: Response<AnyObject, NSError>) in
+        self.currentUser.network.performRequest(withMethod: "POST", endpoint: "validateUser", parameters: ["token": self.token, "name": self.currentUser.name], headers: nil) { (response: Response<AnyObject, NSError>) in
             if (response.response?.statusCode == 200) {
                 //success
                 completion!(true)
                 
                 if (self.currentUser.profilePicURL != nil) {
-                    self.currentUser.network.performRequest(withMethod: "POST", endpoint: "/setProfPicURL", parameters: ["url": self.currentUser.profilePicURL!], headers: nil, completion: { (response: Response<AnyObject, NSError>) in
+                    self.currentUser.network.performRequest(withMethod: "POST", endpoint: "setProfPicURL", parameters: ["url": self.currentUser.profilePicURL!], headers: nil, completion: { (response: Response<AnyObject, NSError>) in
                         if (response.response?.statusCode == 200) {
                             print("updated profile pic url")
                         }
@@ -46,6 +46,36 @@ class UserManager: NSObject {
             else {
                 completion!(false)
                 UserManager.destroy()
+            }
+        }
+    }
+    
+    func getAllUsers(completion: ((success: Bool, userList: [User]?) -> Void)?) {
+        self.currentUser.network.performRequest(withMethod: "GET", endpoint: "getUsers", parameters: nil, headers: nil) { (response: Response<AnyObject, NSError>) in
+            if (response.response?.statusCode == 200) {
+                if let userResponse = response.result.value as? [[String : AnyObject]] {
+                    var userList = [User]()
+                    for selectedUser in userResponse {
+                        //check if already in allUsers dict, if not create new. Then add to user list and pass back in completion handler. Fuck yes.
+                        if let existingUser = self.allUsers[selectedUser["email"]! as! String]{
+                            userList.append(existingUser)
+                        }
+                        else {
+                            let newUser = User(name: selectedUser["name"]! as! String, email: selectedUser["email"]! as! String, profilePicURL: selectedUser["profile_pic_url"] as? String)
+                            self.allUsers[selectedUser["email"]! as! String] = newUser
+                            userList.append(newUser)
+                        }
+
+                    }
+                    completion!(success: true, userList: userList)
+                }
+                else {
+                    completion!(success: false, userList: nil)
+                }
+            }
+            else {
+                completion!(success: false, userList: nil)
+
             }
         }
     }

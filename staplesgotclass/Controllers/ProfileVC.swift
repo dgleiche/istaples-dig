@@ -30,11 +30,16 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
             
             self.profileImageView.clipsToBounds = true
             self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
+            
             if (currentUser?.profilePicURL != nil && currentUser?.profilePic == nil) {
                 profileImageView.downloadedFrom(link: currentUser!.profilePicURL!, contentMode: UIViewContentMode.ScaleAspectFit, userImage: currentUser!)
             }
             else if (currentUser?.profilePic != nil) {
                 profileImageView.image = currentUser!.profilePic!
+            }
+            else if (currentUser?.profilePicURL == nil) {
+                print("setting default pic")
+                profileImageView.image = UIImage(named: "defaultGooglePic.png")
             }
             currentUser?.getClassmates({ (success: Bool) in
                 if (success) {
@@ -59,7 +64,6 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (currentUser?.schedule != nil) {
-            print("schedule not nil")
             return currentUser!.schedule!.count
         }
         return 0

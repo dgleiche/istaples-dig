@@ -34,6 +34,12 @@ class ClassesVC: UITableViewController {
                 if (success) {
                     print("success in view did appear")
                     self.myClasses = UserManager.sharedInstance?.currentUser.schedule
+                    if (self.myClasses?.count == 0) {
+                        let alert = UIAlertController(title: "No Classes!", message: "You have no classes. Please set up your schedule to view your classmates.", preferredStyle: .Alert)
+                        let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                        alert.addAction(ok)
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    }
                     self.tableView.reloadData()
                 }
             })
