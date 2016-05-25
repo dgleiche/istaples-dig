@@ -31,6 +31,10 @@
 		77D8F2F21CF135C2007A1002 /* ClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D8F2F11CF135C2007A1002 /* ClassCell.swift */; };
 		77DB56201CF25C7C0014B002 /* AllUsersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DB561F1CF25C7C0014B002 /* AllUsersVC.swift */; };
 		77DB56221CF2AD2D0014B002 /* defaultGooglePic.png in Resources */ = {isa = PBXBuildFile; fileRef = 77DB56211CF2AD2D0014B002 /* defaultGooglePic.png */; };
+		FC53CF851CF3E8690034266F /* EditPeriodVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC53CF841CF3E8690034266F /* EditPeriodVC.swift */; };
+		FC53CF991CF5215A0034266F /* MLPAutoCompleteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = FC53CF931CF5215A0034266F /* MLPAutoCompleteTextField.m */; };
+		FC53CF9A1CF5215A0034266F /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = FC53CF981CF5215A0034266F /* NSString+Levenshtein.m */; };
+		FC99DE2A1CF5652C0006F62E /* QuarterTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC99DE291CF5652C0006F62E /* QuarterTable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +67,15 @@
 		77DB561F1CF25C7C0014B002 /* AllUsersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllUsersVC.swift; sourceTree = "<group>"; };
 		77DB56211CF2AD2D0014B002 /* defaultGooglePic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultGooglePic.png; sourceTree = "<group>"; };
 		ED17CD0C97B747CA1F5D3B30 /* Pods-staplesgotclass.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-staplesgotclass.debug.xcconfig"; path = "Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass.debug.xcconfig"; sourceTree = "<group>"; };
+		FC53CF841CF3E8690034266F /* EditPeriodVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditPeriodVC.swift; path = ../Views/EditPeriodVC.swift; sourceTree = "<group>"; };
+		FC53CF921CF5215A0034266F /* MLPAutoCompleteTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompleteTextField.h; sourceTree = "<group>"; };
+		FC53CF931CF5215A0034266F /* MLPAutoCompleteTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPAutoCompleteTextField.m; sourceTree = "<group>"; };
+		FC53CF941CF5215A0034266F /* MLPAutoCompleteTextFieldDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompleteTextFieldDataSource.h; sourceTree = "<group>"; };
+		FC53CF951CF5215A0034266F /* MLPAutoCompleteTextFieldDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompleteTextFieldDelegate.h; sourceTree = "<group>"; };
+		FC53CF961CF5215A0034266F /* MLPAutoCompletionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompletionObject.h; sourceTree = "<group>"; };
+		FC53CF971CF5215A0034266F /* NSString+Levenshtein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Levenshtein.h"; sourceTree = "<group>"; };
+		FC53CF981CF5215A0034266F /* NSString+Levenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Levenshtein.m"; sourceTree = "<group>"; };
+		FC99DE291CF5652C0006F62E /* QuarterTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuarterTable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +135,8 @@
 				772DCA501CEF40D200F52AA6 /* LoginPageViewController.swift */,
 				772DCA521CEF428500F52AA6 /* PageContentVC.swift */,
 				77D8F2EC1CF0FFB6007A1002 /* ClassesVC.swift */,
+				FC53CF841CF3E8690034266F /* EditPeriodVC.swift */,
+				FC99DE291CF5652C0006F62E /* QuarterTable.swift */,
 				771D46DB1CF13C9900458369 /* ClassmatesVC.swift */,
 				7746F3891CF16312003E9D6A /* ProfileVC.swift */,
 				77DB561F1CF25C7C0014B002 /* AllUsersVC.swift */,
@@ -161,6 +176,7 @@
 		77D54F721CECBEC600C11FA5 /* staplesgotclass */ = {
 			isa = PBXGroup;
 			children = (
+				FC53CF911CF5214A0034266F /* MLPAutoCompleteTextField */,
 				77D54F731CECBEC600C11FA5 /* AppDelegate.swift */,
 				77AB0F4D1CECC0E900A25110 /* staplesgotclass-Bridging-Header.h */,
 				77D8F2EE1CF1145A007A1002 /* Utilities */,
@@ -184,6 +200,20 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		FC53CF911CF5214A0034266F /* MLPAutoCompleteTextField */ = {
+			isa = PBXGroup;
+			children = (
+				FC53CF921CF5215A0034266F /* MLPAutoCompleteTextField.h */,
+				FC53CF931CF5215A0034266F /* MLPAutoCompleteTextField.m */,
+				FC53CF941CF5215A0034266F /* MLPAutoCompleteTextFieldDataSource.h */,
+				FC53CF951CF5215A0034266F /* MLPAutoCompleteTextFieldDelegate.h */,
+				FC53CF961CF5215A0034266F /* MLPAutoCompletionObject.h */,
+				FC53CF971CF5215A0034266F /* NSString+Levenshtein.h */,
+				FC53CF981CF5215A0034266F /* NSString+Levenshtein.m */,
+			);
+			name = MLPAutoCompleteTextField;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -191,12 +221,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 77D54F821CECBEC600C11FA5 /* Build configuration list for PBXNativeTarget "staplesgotclass" */;
 			buildPhases = (
-				930A1E9B50CE6270BD86F68E /* Check Pods Manifest.lock */,
+				930A1E9B50CE6270BD86F68E /* 📦 Check Pods Manifest.lock */,
 				77D54F6C1CECBEC600C11FA5 /* Sources */,
 				77D54F6D1CECBEC600C11FA5 /* Frameworks */,
 				77D54F6E1CECBEC600C11FA5 /* Resources */,
-				79F08EE74151377351012531 /* Embed Pods Frameworks */,
-				EDBAE2C2A868474D4447DD8E /* Copy Pods Resources */,
+				79F08EE74151377351012531 /* 📦 Embed Pods Frameworks */,
+				EDBAE2C2A868474D4447DD8E /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -258,14 +288,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		79F08EE74151377351012531 /* Embed Pods Frameworks */ = {
+		79F08EE74151377351012531 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,14 +303,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		930A1E9B50CE6270BD86F68E /* Check Pods Manifest.lock */ = {
+		930A1E9B50CE6270BD86F68E /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,14 +318,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		EDBAE2C2A868474D4447DD8E /* Copy Pods Resources */ = {
+		EDBAE2C2A868474D4447DD8E /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,10 +344,14 @@
 				775DC4491CED537F00046768 /* UserManager.swift in Sources */,
 				77D8F2F01CF11470007A1002 /* StringExtension.swift in Sources */,
 				77D8F2F21CF135C2007A1002 /* ClassCell.swift in Sources */,
+				FC53CF9A1CF5215A0034266F /* NSString+Levenshtein.m in Sources */,
+				FC99DE2A1CF5652C0006F62E /* QuarterTable.swift in Sources */,
+				FC53CF851CF3E8690034266F /* EditPeriodVC.swift in Sources */,
 				77D54F761CECBEC600C11FA5 /* LoginVC.swift in Sources */,
 				775DC44B1CED558A00046768 /* Period.swift in Sources */,
 				771D46DC1CF13C9900458369 /* ClassmatesVC.swift in Sources */,
 				775DC44D1CED55CD00046768 /* User.swift in Sources */,
+				FC53CF991CF5215A0034266F /* MLPAutoCompleteTextField.m in Sources */,
 				7746F38C1CF1755F003E9D6A /* UIImageViewExtension.swift in Sources */,
 				7746F38E1CF19241003E9D6A /* ClassmateCell.swift in Sources */,
 				7746F38A1CF16312003E9D6A /* ProfileVC.swift in Sources */,

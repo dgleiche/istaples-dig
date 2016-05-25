@@ -7,5 +7,6 @@ target 'staplesgotclass' do
 	pod 'Google/Analytics'
 	pod 'Google/SignIn'
 	pod 'Alamofire', '~> 3.4'
+	pod 'MGSwipeTableCell'
 end
 

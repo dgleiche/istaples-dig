@@ -8,3 +8,8 @@
 
 #import <Google/SignIn.h>
 #import <Google/Analytics.h>
+#import "MLPAutoCompleteTextFieldDelegate.h"
+#import "MLPAutoCompleteTextFieldDataSource.h"
+#import "MLPAutoCompletionObject.h"
+#import "MLPAutoCompleteTextField.h"
+
