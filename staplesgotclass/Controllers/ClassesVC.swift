@@ -20,6 +20,7 @@ class ClassesVC: UITableViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 16)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
         UIApplication.sharedApplication().statusBarStyle = .LightContent
+        self.navigationItem.title = "STAPLES GOT CLASS"
 
         
         if (UserManager.sharedInstance == nil) {
@@ -68,7 +69,9 @@ class ClassesVC: UITableViewController {
         self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.myClasses!.count, inSection: 0)], withRowAnimation: .Automatic)
         }
         else {
+            if (self.tableView.numberOfRowsInSection(0) > self.myClasses!.count) {
             self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: self.myClasses!.count, inSection: 0)], withRowAnimation: .Automatic)
+            }
         }
     }
 
@@ -118,11 +121,16 @@ class ClassesVC: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if (self.editing && indexPath.row == self.myClasses!.count) {
-            let alert = UIAlertController(title: "Add class", message: nil, preferredStyle: .Alert)
-            let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
-            alert.addAction(ok)
-            self.presentViewController(alert, animated: true, completion: nil)
+        if (self.tableView.editing && indexPath.row == self.myClasses!.count) {
+//            let alert = UIAlertController(title: "Add class", message: nil, preferredStyle: .Alert)
+//            let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
+//            alert.addAction(ok)
+//            self.presentViewController(alert, animated: true, completion: nil)
+            
+            
+        }
+        else if (self.tableView.editing) {
+            
         }
     }
     
@@ -157,6 +165,7 @@ class ClassesVC: UITableViewController {
             print("Edit \(self.curPeriod!.name)")
             
             //Segue to the edit class vc
+            self.tableView.editing = false
             self.performSegueWithIdentifier("periodSegue", sender: nil)
         }
         edit.backgroundColor = UIColor.blueColor()

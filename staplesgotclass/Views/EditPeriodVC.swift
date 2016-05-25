@@ -28,6 +28,12 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
         
         self.tableView.allowsSelection = false
         
+        
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.17, green:0.28, blue:0.89, alpha:1.0)
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 16)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        
         quarterTable.dataSource = quarterTable
         quarterTable.delegate = quarterTable
         quarterTable.currentClass = currentClass
@@ -43,10 +49,13 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
         if let curClass = currentClass {
             //Load the default values for this class
             print("Cur Class: \(curClass.name)")
-            
+            self.navigationItem.title = "Edit Period"
             classTextField.text = curClass.name
             teacherTextField.text = curClass.teacherName
             periodPicker.selectRow(curClass.periodNumber - 1, inComponent: 0, animated: false)
+        }
+        else {
+            self.navigationItem.title = "New Period"
         }
     }
     
