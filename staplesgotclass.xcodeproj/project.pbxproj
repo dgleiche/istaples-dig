@@ -11,6 +11,7 @@
 		771D46DC1CF13C9900458369 /* ClassmatesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771D46DB1CF13C9900458369 /* ClassmatesVC.swift */; };
 		772DCA511CEF40D200F52AA6 /* LoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772DCA501CEF40D200F52AA6 /* LoginPageViewController.swift */; };
 		772DCA531CEF428500F52AA6 /* PageContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772DCA521CEF428500F52AA6 /* PageContentVC.swift */; };
+		773F5DF81CF6145600143C2D /* shs.png in Resources */ = {isa = PBXBuildFile; fileRef = 773F5DF71CF6145600143C2D /* shs.png */; };
 		7746F38A1CF16312003E9D6A /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7746F3891CF16312003E9D6A /* ProfileVC.swift */; };
 		7746F38C1CF1755F003E9D6A /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7746F38B1CF1755F003E9D6A /* UIImageViewExtension.swift */; };
 		7746F38E1CF19241003E9D6A /* ClassmateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7746F38D1CF19241003E9D6A /* ClassmateCell.swift */; };
@@ -38,6 +39,7 @@
 		771D46DB1CF13C9900458369 /* ClassmatesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassmatesVC.swift; sourceTree = "<group>"; };
 		772DCA501CEF40D200F52AA6 /* LoginPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPageViewController.swift; sourceTree = "<group>"; };
 		772DCA521CEF428500F52AA6 /* PageContentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageContentVC.swift; sourceTree = "<group>"; };
+		773F5DF71CF6145600143C2D /* shs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shs.png; sourceTree = "<group>"; };
 		7746F3891CF16312003E9D6A /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		7746F38B1CF1755F003E9D6A /* UIImageViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		7746F38D1CF19241003E9D6A /* ClassmateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassmateCell.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 			children = (
 				77DB56211CF2AD2D0014B002 /* defaultGooglePic.png */,
 				7746F38F1CF19314003E9D6A /* shs.jpg */,
+				773F5DF71CF6145600143C2D /* shs.png */,
 			);
 			name = Graphics;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				77D54F7B1CECBEC600C11FA5 /* Assets.xcassets in Resources */,
 				7746F3901CF19314003E9D6A /* shs.jpg in Resources */,
 				77D54F791CECBEC600C11FA5 /* Main.storyboard in Resources */,
+				773F5DF81CF6145600143C2D /* shs.png in Resources */,
 				77DB56221CF2AD2D0014B002 /* defaultGooglePic.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

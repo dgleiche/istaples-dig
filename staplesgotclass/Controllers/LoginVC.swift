@@ -27,7 +27,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
         self.pageVC.dataSource = self
         
         self.pageTitles = ["Page 1", "Page 2", "Page 3"]
-        self.imageNames = ["shs.jpg"]
+        self.imageNames = ["shs.png"]
         
         let firstPageContentVC = self.viewControllerAtIndex(0)
         let pageViewControllers: [UIViewController] = [firstPageContentVC!]

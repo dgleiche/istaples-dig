@@ -51,6 +51,15 @@ class AllUsersVC: UITableViewController {
         noResultsView.addSubview(noResultsLabel)
         self.tableView.insertSubview(noResultsView, belowSubview: self.tableView)
         
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        if (self.userDict.count == 0) {
+            self.getUsers()
+        }
+    }
+    
+    func getUsers() {
         if (UserManager.sharedInstance?.currentUser != nil) {
             UserManager.sharedInstance?.getAllUsers({ (success, userList) in
                 if (success) {
@@ -78,7 +87,6 @@ class AllUsersVC: UITableViewController {
                 
             })
         }
-        
     }
     
     
@@ -88,6 +96,10 @@ class AllUsersVC: UITableViewController {
     }
     
     // MARK: - Table view data source
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 50
+    }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if searchController.active && searchController.searchBar.text != "" {
@@ -126,7 +138,7 @@ class AllUsersVC: UITableViewController {
                 userCountLabel.hidden = false
             }
             if (allUsers != nil) {
-
+                
                 let userWithLetterArray: Array = userDict[sectionTitleArray[section] as! String]!
                 return userWithLetterArray.count
             }
@@ -148,19 +160,39 @@ class AllUsersVC: UITableViewController {
             indexUser = userWithLetterArray[indexPath.row]
         }
         cell.nameLabel.text = indexUser.name
-            cell.classmateImageView.clipsToBounds = true
-            cell.classmateImageView.layer.cornerRadius = cell.classmateImageView.frame.width / 2
-            if (indexUser.profilePic == nil) {
-                if (indexUser.profilePicURL != nil) {
+        cell.classmateImageView.clipsToBounds = true
+        cell.classmateImageView.layer.cornerRadius = cell.classmateImageView.frame.width / 2
+        
+        cell.initialView.clipsToBounds = true
+        cell.initialView.layer.cornerRadius = cell.initialView.frame.width / 2
+        
+        if (indexUser.profilePic == nil) {
+            if (indexUser.profilePicURL != nil) {
                 cell.classmateImageView.downloadedFrom(link: indexUser.profilePicURL!, contentMode: UIViewContentMode.ScaleAspectFit, userImage: indexUser)
-                }
-                else {
-                    cell.classmateImageView.image = UIImage(named: "defaultGooglePic.png")
-                }
+                cell.classmateImageView.hidden = false
+                cell.initialView.hidden = true
             }
-            else if (indexUser.profilePic != nil) {
-                cell.classmateImageView.image = indexUser.profilePic
+            else {
+                let names: [String] = indexUser.name.componentsSeparatedByString(" ")
+                if (names.count == 3) {
+                    cell.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)\(names[2][0].uppercaseString)"
+                }
+                else if (names.count == 2) {
+                    cell.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)"
+                    
+                }
+                else{
+                    cell.initialLabel.text = nil
+                }
+                cell.classmateImageView.hidden = true
+                cell.initialView.hidden = false
             }
+        }
+        else if (indexUser.profilePic != nil) {
+            cell.classmateImageView.image = indexUser.profilePic
+            cell.classmateImageView.hidden = false
+            cell.initialView.hidden = true
+        }
         
         
         return cell
