@@ -9,30 +9,43 @@
 import UIKit
 
 class ClassmatesVC: UITableViewController {
+    @IBOutlet var teacherNameLabel: UILabel!
+    @IBOutlet var quarterLabel: UILabel!
     var currentClass: Period?
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if (currentClass != nil) {
             self.navigationItem.title = currentClass!.name
+            self.teacherNameLabel.text = currentClass!.teacherName
+            self.quarterLabel.text = "Marking Periods: \(currentClass!.quarters)"
             self.tableView.reloadData()
         }
     }
-
+    
+    //    override func viewWillDisappear(animated: Bool) {
+    //        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "HelveticaNeue-Medium", size: 20)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+    //
+    //    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Classmates"
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if (currentClass?.users != nil) {
@@ -40,89 +53,107 @@ class ClassmatesVC: UITableViewController {
         }
         return 0
     }
-
+    
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("classmatesCell", forIndexPath: indexPath) as! ClassmateCell
         
         cell.nameLabel.text = self.currentClass?.users[indexPath.row].name
-            cell.classmateImageView.clipsToBounds = true
-            cell.classmateImageView.layer.cornerRadius = cell.classmateImageView.frame.width / 2
-            
-            if (self.currentClass?.users[indexPath.row].profilePic == nil) {
-                if (self.currentClass!.users[indexPath.row].profilePicURL != nil) {
+        cell.classmateImageView.clipsToBounds = true
+        cell.classmateImageView.layer.cornerRadius = cell.classmateImageView.frame.width / 2
+        
+        cell.initialView.clipsToBounds = true
+        cell.initialView.layer.cornerRadius = cell.initialView.frame.width / 2
+        
+        if (self.currentClass?.users[indexPath.row].profilePic == nil) {
+            if (self.currentClass!.users[indexPath.row].profilePicURL != nil) {
                 cell.classmateImageView.downloadedFrom(link: self.currentClass!.users[indexPath.row].profilePicURL!, contentMode: UIViewContentMode.ScaleAspectFit, userImage: self.currentClass!.users[indexPath.row])
-                }
-                else {
-                    cell.classmateImageView.image = UIImage(named: "defaultGooglePic.png")
-                }
+                cell.classmateImageView.hidden = false
+                cell.initialView.hidden = true
             }
-            else if (self.currentClass?.users[indexPath.row].profilePic != nil) {
-                cell.classmateImageView.image = self.currentClass?.users[indexPath.row].profilePic
+            else {
+                let names: [String] = self.currentClass!.users[indexPath.row].name.componentsSeparatedByString(" ")
+                if (names.count > 1) {
+                    cell.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)"
+                }
+                else if (names.count == 1) {
+                    cell.initialLabel.text = "\(names[0][0].uppercaseString)"
+                }
+                else{
+                    cell.initialLabel.text = nil
+                }
+                cell.classmateImageView.hidden = true
+                cell.initialView.hidden = false
             }
-            
+        }
+        else if (self.currentClass?.users[indexPath.row].profilePic != nil) {
+            cell.classmateImageView.image = self.currentClass?.users[indexPath.row].profilePic
+            cell.classmateImageView.hidden = false
+            cell.initialView.hidden = true
+        }
+        
         
         // Configure the cell...
-
+        
         return cell
     }
     
-
+    
     /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
+     // Override to support conditional editing of the table view.
+     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+     // Return false if you do not want the specified item to be editable.
+     return true
+     }
+     */
+    
     /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
+     // Override to support editing the table view.
+     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+     if editingStyle == .Delete {
+     // Delete the row from the data source
+     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+     } else if editingStyle == .Insert {
+     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+     }
+     }
+     */
+    
     /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
+     // Override to support rearranging the table view.
+     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+     
+     }
+     */
+    
     /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+     // Override to support conditional rearranging of the table view.
+     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+     // Return false if you do not want the item to be re-orderable.
+     return true
+     }
+     */
+    
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showProfile") {
             let newView = segue.destinationViewController as! ProfileVC
             let selectedIndexPath = self.tableView.indexPathForSelectedRow
             newView.currentUser = self.currentClass?.users[(selectedIndexPath?.row)!]
-                [(self.tableView.indexPathForSelectedRow?.row)!]
+            [(self.tableView.indexPathForSelectedRow?.row)!]
             
             let backButton = UIBarButtonItem(title: " ", style: .Plain, target: nil, action: nil)
             
             self.navigationItem.backBarButtonItem = backButton
-
+            
             self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForSelectedRow!, animated: true)
             
         }
-
+        
     }
     
-
+    
 }

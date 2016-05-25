@@ -16,7 +16,7 @@ class ClassesVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.43, blue:0.81, alpha:1.0)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.17, green:0.28, blue:0.89, alpha:1.0)
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 16)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
         UIApplication.sharedApplication().statusBarStyle = .LightContent
@@ -26,6 +26,8 @@ class ClassesVC: UITableViewController {
             let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
             self.tabBarController?.presentViewController(loginPage, animated: true, completion: nil)
         }
+        
+        self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
     }
     
@@ -59,6 +61,18 @@ class ClassesVC: UITableViewController {
     
     // MARK: - Table view data source
     
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: true)
+        if (editing) {
+            self.tableView.allowsSelectionDuringEditing = true
+        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.myClasses!.count, inSection: 0)], withRowAnimation: .Automatic)
+        }
+        else {
+            self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: self.myClasses!.count, inSection: 0)], withRowAnimation: .Automatic)
+        }
+    }
+
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -68,27 +82,66 @@ class ClassesVC: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         if (self.myClasses != nil) {
             print("not nil count: \(self.myClasses!.count)")
-            return self.myClasses!.count
+            if (self.tableView.editing) {
+            return self.myClasses!.count + 1
+            }
+            else {
+                return self.myClasses!.count
+            }
         }
         else {
+            if (self.tableView.editing) {
+                return 1
+            }
+            else {
             return 0
+            }
         }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("classCell", forIndexPath: indexPath) as! ClassCell
         
+        if (self.editing && indexPath.row == self.myClasses!.count) {
+            let cell = tableView.dequeueReusableCellWithIdentifier("newRowCell", forIndexPath: indexPath)
+            cell.textLabel?.text = "Add Class"
+            return cell
+        }
+        else {
+        let cell = tableView.dequeueReusableCellWithIdentifier("classCell", forIndexPath: indexPath) as! ClassCell
         cell.classTitleLabel.text = self.myClasses![indexPath.row].name
         cell.periodNumberLabel.text = "\(self.myClasses![indexPath.row].periodNumber)"
         cell.quarterLabel.text = "\(self.myClasses![indexPath.row].quarters)"
+        cell.teacherLabel.text = self.myClasses![indexPath.row].teacherName
         
         return cell
+        }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if (self.editing && indexPath.row == self.myClasses!.count) {
+            let alert = UIAlertController(title: "Add class", message: nil, preferredStyle: .Alert)
+            let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            alert.addAction(ok)
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        if self.editing == false {
+            return .None
+        }
+        else if self.editing && indexPath.row == (self.myClasses!.count) {
+            return .Insert
+        }
+        else {
+            return .Delete
+        }
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let height = Double(self.tableView.frame.height - 55) / Double((self.myClasses?.count)!)
-        if (height < 44) {
-            return 44
+        if (height < 55) {
+            return 55
         }
         else {
             return CGFloat(height)
@@ -166,6 +219,8 @@ class ClassesVC: UITableViewController {
             
             self.navigationItem.backBarButtonItem = backButton
             self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForSelectedRow!, animated: true)
+//            self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 16)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+
             
         } else if (segue.identifier == "periodSegue") {
             if curPeriod != nil {

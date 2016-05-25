@@ -10,6 +10,7 @@ import UIKit
 import MessageUI
 
 class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
+    @IBOutlet var loadingSpinner: UIActivityIndicatorView!
     @IBOutlet var profileImageView: UIImageView!
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var emailLabel: UIButton!
@@ -41,8 +42,12 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
                 print("setting default pic")
                 profileImageView.image = UIImage(named: "defaultGooglePic.png")
             }
+            if (currentUser?.schedule == nil) {
+                self.loadingSpinner.startAnimating()
+            }
             currentUser?.getClassmates({ (success: Bool) in
                 if (success) {
+                    self.loadingSpinner.stopAnimating()
                     self.tableView.reloadData()
                     print("schedule count: \(self.currentUser?.schedule?.count)")
                 }
