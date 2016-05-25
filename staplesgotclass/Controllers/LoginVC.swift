@@ -146,9 +146,14 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
                 //                        }
                 //                }
                 
-                    let profilePicURL = user.profile.imageURLWithDimension(250).absoluteString
+                
+                var profilePicURL: String?
+                
+                if (user.profile.hasImage) {
+                    profilePicURL = user.profile.imageURLWithDimension(250).absoluteString
                     print(profilePicURL)
-                                    
+                }
+
                 UserManager.createCurrentUser(user.profile.name, email: user.profile.email, token: user.authentication.idToken, profilePicURL: profilePicURL, completion: { (success: Bool) in
                     if (success) {
                         print("success!")

@@ -11,6 +11,8 @@ import UIKit
 class ClassmateCell: UITableViewCell {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var classmateImageView: UIImageView!
+    @IBOutlet var initialView: UIView!
+    @IBOutlet var initialLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
