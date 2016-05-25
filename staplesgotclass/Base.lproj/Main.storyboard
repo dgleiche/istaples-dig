@@ -213,6 +213,7 @@
                                     <outlet property="periodNumberLabel" destination="sZh-H6-kFR" id="JLl-pg-rVe"/>
                                     <outlet property="quarterLabel" destination="SDu-nQ-82B" id="cUN-dg-W9s"/>
                                     <segue destination="e5O-kn-KTK" kind="show" identifier="showClassmates" id="Wk5-fx-GIZ"/>
+                                    <segue destination="ZU1-ye-9pg" kind="presentation" identifier="periodSegue" trigger="accessoryAction" id="uxm-2y-bLg"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -224,7 +225,7 @@
                     <navigationItem key="navigationItem" title="STAPLES GOT CLASS" id="Jpa-WA-KEb">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="vnb-in-9ll">
                             <connections>
-                                <segue destination="2mA-BD-78E" kind="presentation" identifier="periodSegue" id="X3W-F8-3wq"/>
+                                <segue destination="ZU1-ye-9pg" kind="presentation" id="NFY-lQ-GFD"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -234,79 +235,158 @@
             <point key="canvasLocation" x="1704" y="1190"/>
         </scene>
         <!--Edit PeriodVC-->
-        <scene sceneID="UiZ-0P-Uq4">
+        <scene sceneID="9hY-jx-go4">
             <objects>
-                <viewController id="WUd-xL-HqN" customClass="EditPeriodVC" customModule="staplesgotclass" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="0f4-qW-1s7"/>
-                        <viewControllerLayoutGuide type="bottom" id="WKk-XI-wDr"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="d75-EW-8SG">
+                <tableViewController id="I0h-Pk-E3o" customClass="EditPeriodVC" customModule="staplesgotclass" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="YZA-4d-bSq">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Class" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YLW-oN-NOJ" customClass="MLPAutoCompleteTextField">
-                                <rect key="frame" x="20" y="261" width="560" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cSr-yJ-1fQ">
-                                <rect key="frame" x="20" y="104" width="187" height="149"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="WUd-xL-HqN" id="NsJ-3v-HKg"/>
-                                    <outlet property="delegate" destination="WUd-xL-HqN" id="up4-oW-qp5"/>
-                                </connections>
-                            </pickerView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OQD-Xt-yMi">
-                                <rect key="frame" x="20" y="405" width="277" height="152"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="quarterCell" id="SNA-ba-X91">
-                                        <rect key="frame" x="0.0" y="28" width="277" height="44"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <sections>
+                            <tableViewSection headerTitle="Period" footerTitle="" id="Gdf-4s-Y5F">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="143" id="YYV-NT-fA8">
+                                        <rect key="frame" x="0.0" y="113.5" width="600" height="143"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SNA-ba-X91" id="ZAo-UT-Xnq">
-                                            <rect key="frame" x="0.0" y="0.0" width="238" height="43.5"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YYV-NT-fA8" id="KGi-hj-qR3">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="142.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cSr-yJ-1fQ">
+                                                    <rect key="frame" x="8" y="0.0" width="584" height="142.5"/>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="I0h-Pk-E3o" id="AVJ-bM-Cma"/>
+                                                        <outlet property="delegate" destination="I0h-Pk-E3o" id="3RV-oC-OAP"/>
+                                                    </connections>
+                                                </pickerView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="cSr-yJ-1fQ" secondAttribute="bottom" id="0Ib-Ip-608"/>
+                                                <constraint firstItem="cSr-yJ-1fQ" firstAttribute="leading" secondItem="KGi-hj-qR3" secondAttribute="leading" constant="8" id="QUv-bt-RdB"/>
+                                                <constraint firstItem="cSr-yJ-1fQ" firstAttribute="top" secondItem="KGi-hj-qR3" secondAttribute="top" id="gEy-3A-KpG"/>
+                                                <constraint firstAttribute="trailing" secondItem="cSr-yJ-1fQ" secondAttribute="trailing" constant="8" id="h0F-sB-jXS"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="WUd-xL-HqN" id="uWq-IB-J7n"/>
-                                    <outlet property="delegate" destination="WUd-xL-HqN" id="wlx-eJ-wxw"/>
-                                </connections>
-                            </tableView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Teacher" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RRp-9e-5Ud" customClass="MLPAutoCompleteTextField">
-                                <rect key="frame" x="20" y="344" width="560" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="rsL-xY-qaL">
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Class" id="0vM-5J-QIq">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="Ywh-uq-S6t">
+                                        <rect key="frame" x="0.0" y="306.5" width="600" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ywh-uq-S6t" id="Qy3-UI-eRI">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="49.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Class" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="YLW-oN-NOJ" customClass="MLPAutoCompleteTextField">
+                                                    <rect key="frame" x="8" y="2" width="584" height="47.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="YLW-oN-NOJ" firstAttribute="top" secondItem="Qy3-UI-eRI" secondAttribute="top" constant="2" id="Bnm-qk-7Lf"/>
+                                                <constraint firstAttribute="trailing" secondItem="YLW-oN-NOJ" secondAttribute="trailing" constant="8" id="Xdn-Wn-x59"/>
+                                                <constraint firstItem="YLW-oN-NOJ" firstAttribute="leading" secondItem="Qy3-UI-eRI" secondAttribute="leading" constant="8" id="lqC-Pf-gK4"/>
+                                                <constraint firstAttribute="bottom" secondItem="YLW-oN-NOJ" secondAttribute="bottom" id="ybh-vb-113"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Teacher" id="yYL-Ld-Y88">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="48" id="g0N-tp-bGB">
+                                        <rect key="frame" x="0.0" y="406.5" width="600" height="48"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g0N-tp-bGB" id="PBm-sg-LZm">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="47.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Teacher" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RRp-9e-5Ud" customClass="MLPAutoCompleteTextField">
+                                                    <rect key="frame" x="8" y="0.0" width="584" height="47.5"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="RRp-9e-5Ud" firstAttribute="top" secondItem="PBm-sg-LZm" secondAttribute="top" id="3nR-qx-ZL0"/>
+                                                <constraint firstAttribute="trailing" secondItem="RRp-9e-5Ud" secondAttribute="trailing" constant="8" id="4lI-eD-lXM"/>
+                                                <constraint firstItem="RRp-9e-5Ud" firstAttribute="leading" secondItem="PBm-sg-LZm" secondAttribute="leading" constant="8" id="UXX-q1-WUC"/>
+                                                <constraint firstAttribute="bottom" secondItem="RRp-9e-5Ud" secondAttribute="bottom" id="ZJx-x0-JDB"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Quarters" id="Gqs-aJ-vQB">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="160" id="eL5-jo-teK">
+                                        <rect key="frame" x="0.0" y="504.5" width="600" height="160"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eL5-jo-teK" id="qpc-RE-MhG">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="159.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="53" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OQD-Xt-yMi" customClass="QuarterTable" customModule="staplesgotclass" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="0.0" width="592" height="160"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <prototypes>
+                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="quarterCell" rowHeight="53" id="SNA-ba-X91">
+                                                            <rect key="frame" x="0.0" y="28" width="592" height="53"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SNA-ba-X91" id="ZAo-UT-Xnq">
+                                                                <rect key="frame" x="0.0" y="0.0" width="553" height="52.5"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                            </tableViewCellContentView>
+                                                        </tableViewCell>
+                                                    </prototypes>
+                                                </tableView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="OQD-Xt-yMi" secondAttribute="trailing" id="SRa-53-ZCZ"/>
+                                                <constraint firstAttribute="bottom" secondItem="OQD-Xt-yMi" secondAttribute="bottom" constant="-0.5" id="Smp-go-v7P"/>
+                                                <constraint firstItem="OQD-Xt-yMi" firstAttribute="leading" secondItem="qpc-RE-MhG" secondAttribute="leading" constant="8" id="qkf-9P-JsH"/>
+                                                <constraint firstItem="OQD-Xt-yMi" firstAttribute="top" secondItem="qpc-RE-MhG" secondAttribute="top" id="vmz-Fp-fxN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="I0h-Pk-E3o" id="DBm-da-Vd9"/>
+                            <outlet property="delegate" destination="I0h-Pk-E3o" id="d1g-Zy-DEh"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="nvs-XD-yQL">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="qfd-AI-lFg">
                             <connections>
-                                <action selector="cancel:" destination="WUd-xL-HqN" id="So9-wf-Dva"/>
+                                <action selector="cancel:" destination="I0h-Pk-E3o" id="s8X-JO-tX1"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="Hjw-Aj-h5A">
                             <connections>
-                                <segue destination="ldo-ag-DKr" kind="unwind" unwindAction="unwindToClassesView:" id="Y72-QK-iP0"/>
+                                <segue destination="shg-Q4-s0Q" kind="unwind" unwindAction="unwindToClassesView:" id="UPK-kE-TOx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="classTextField" destination="YLW-oN-NOJ" id="2kI-er-j5A"/>
-                        <outlet property="periodPicker" destination="cSr-yJ-1fQ" id="rLC-DM-ujR"/>
-                        <outlet property="quarterTable" destination="OQD-Xt-yMi" id="a30-US-T6h"/>
-                        <outlet property="saveButton" destination="Hjw-Aj-h5A" id="FSl-SG-EC5"/>
-                        <outlet property="teacherTextField" destination="RRp-9e-5Ud" id="18L-Le-TDg"/>
+                        <outlet property="classTextField" destination="YLW-oN-NOJ" id="DXM-4t-6Q2"/>
+                        <outlet property="periodPicker" destination="cSr-yJ-1fQ" id="44d-eL-icc"/>
+                        <outlet property="quarterTable" destination="OQD-Xt-yMi" id="HPY-Ob-5vV"/>
+                        <outlet property="saveButton" destination="Hjw-Aj-h5A" id="Jf3-7c-3yZ"/>
+                        <outlet property="teacherTextField" destination="RRp-9e-5Ud" id="xOM-dQ-lpF"/>
                     </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eJ9-rC-Ohz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="ldo-ag-DKr" userLabel="Exit" sceneMemberID="exit"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sAM-Lx-fdu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="shg-Q4-s0Q" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2409" y="-111"/>
+            <point key="canvasLocation" x="1704" y="-191"/>
         </scene>
         <!--ClassmatesVC-->
         <scene sceneID="2OK-p9-3iA">
@@ -622,25 +702,26 @@
             <point key="canvasLocation" x="1717" y="1920"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="PVf-i2-rDs">
+        <scene sceneID="LhN-LI-ar9">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2mA-BD-78E" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZU1-ye-9pg" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yqr-EL-SPB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="quS-LZ-gIJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="WUd-xL-HqN" kind="relationship" relationship="rootViewController" id="koC-Fs-WpK"/>
+                        <segue destination="I0h-Pk-E3o" kind="relationship" relationship="rootViewController" id="XLu-bg-Pdg"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lmo-vl-hSa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="neh-PZ-XiU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2409" y="545"/>
+            <point key="canvasLocation" x="1717" y="509"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="uxm-2y-bLg"/>
         <segue reference="Mpo-zk-SGw"/>
     </inferredMetricsTieBreakers>
 </document>

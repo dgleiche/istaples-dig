@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditPeriodVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, MLPAutoCompleteTextFieldDataSource, UITableViewDataSource, UITableViewDelegate {
+class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate, MLPAutoCompleteTextFieldDataSource {
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
@@ -17,7 +17,7 @@ class EditPeriodVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelega
     @IBOutlet weak var classTextField: MLPAutoCompleteTextField!
     @IBOutlet weak var teacherTextField: MLPAutoCompleteTextField!
     
-    @IBOutlet weak var quarterTable: UITableView!
+    @IBOutlet weak var quarterTable: QuarterTable!
     
     //This is set prior to the segue for editing
     //Saving will update this class
@@ -25,6 +25,12 @@ class EditPeriodVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.allowsSelection = false
+        
+        quarterTable.dataSource = quarterTable
+        quarterTable.delegate = quarterTable
+        quarterTable.currentClass = currentClass
         
         classTextField.autoCompleteDataSource = self
         classTextField.autoCompleteTableAppearsAsKeyboardAccessory = true
@@ -58,6 +64,11 @@ class EditPeriodVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelega
     func autoCompleteTextField(textField: MLPAutoCompleteTextField!, possibleCompletionsForString string: String!) -> [AnyObject]! {
         var returnStrings = Array<String>()
         
+        //Return nothing if the string is empty
+        if string.isEmpty {
+            return returnStrings
+        }
+        
         if textField === classTextField {
             returnStrings = classes
         } else if textField === teacherTextField {
@@ -85,44 +96,6 @@ class EditPeriodVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelega
     }
     
     //MARK: Table View
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
-    }
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return tableView.frame.height / 4
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath)!
-        
-        //Toggle the check mark
-        if cell.accessoryType == UITableViewCellAccessoryType.None {
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
-        } else {
-            cell.accessoryType = UITableViewCellAccessoryType.None
-        }
-        
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = quarterTable.dequeueReusableCellWithIdentifier("quarterCell")!
-
-        cell.textLabel!.text = "Quarter \(indexPath.row + 1)"
-        
-        //Configure check mark
-        if let curClass = self.currentClass {
-            if curClass.quarters.rangeOfString("\(indexPath.row + 1)") != nil {
-                cell.accessoryType = UITableViewCellAccessoryType.Checkmark
-            } else {
-                cell.accessoryType = UITableViewCellAccessoryType.None
-            }
-        }
-        
-        return cell
-    }
     
     //MARK: Navigation
     

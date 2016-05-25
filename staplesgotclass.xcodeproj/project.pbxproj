@@ -33,6 +33,7 @@
 		FC53CF851CF3E8690034266F /* EditPeriodVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC53CF841CF3E8690034266F /* EditPeriodVC.swift */; };
 		FC53CF991CF5215A0034266F /* MLPAutoCompleteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = FC53CF931CF5215A0034266F /* MLPAutoCompleteTextField.m */; };
 		FC53CF9A1CF5215A0034266F /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = FC53CF981CF5215A0034266F /* NSString+Levenshtein.m */; };
+		FC99DE2A1CF5652C0006F62E /* QuarterTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC99DE291CF5652C0006F62E /* QuarterTable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		FC53CF961CF5215A0034266F /* MLPAutoCompletionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompletionObject.h; sourceTree = "<group>"; };
 		FC53CF971CF5215A0034266F /* NSString+Levenshtein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Levenshtein.h"; sourceTree = "<group>"; };
 		FC53CF981CF5215A0034266F /* NSString+Levenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Levenshtein.m"; sourceTree = "<group>"; };
+		FC99DE291CF5652C0006F62E /* QuarterTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuarterTable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 				772DCA521CEF428500F52AA6 /* PageContentVC.swift */,
 				77D8F2EC1CF0FFB6007A1002 /* ClassesVC.swift */,
 				FC53CF841CF3E8690034266F /* EditPeriodVC.swift */,
+				FC99DE291CF5652C0006F62E /* QuarterTable.swift */,
 				771D46DB1CF13C9900458369 /* ClassmatesVC.swift */,
 				7746F3891CF16312003E9D6A /* ProfileVC.swift */,
 				77DB561F1CF25C7C0014B002 /* AllUsersVC.swift */,
@@ -338,6 +341,7 @@
 				77D8F2F01CF11470007A1002 /* StringExtension.swift in Sources */,
 				77D8F2F21CF135C2007A1002 /* ClassCell.swift in Sources */,
 				FC53CF9A1CF5215A0034266F /* NSString+Levenshtein.m in Sources */,
+				FC99DE2A1CF5652C0006F62E /* QuarterTable.swift in Sources */,
 				FC53CF851CF3E8690034266F /* EditPeriodVC.swift in Sources */,
 				77D54F761CECBEC600C11FA5 /* LoginVC.swift in Sources */,
 				775DC44B1CED558A00046768 /* Period.swift in Sources */,
