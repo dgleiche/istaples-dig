@@ -128,7 +128,7 @@ class ClassesVC: UITableViewController {
     
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         if self.editing == false {
-            return .None
+            return .Delete
         }
         else if self.editing && indexPath.row == (self.myClasses!.count) {
             return .Insert
