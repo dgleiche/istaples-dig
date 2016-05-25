@@ -11,6 +11,8 @@ import UIKit
 class ClassesVC: UITableViewController {
     var myClasses: [Period]?
     
+    var curPeriod: Period?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,6 +31,10 @@ class ClassesVC: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         print("view did appear")
+        
+        //Resets this as to not save the last edited per
+        curPeriod = nil
+        
         if (UserManager.sharedInstance != nil) {
             UserManager.sharedInstance?.currentUser.getClassmates({ (success: Bool) in
                 if (success) {
@@ -90,23 +96,46 @@ class ClassesVC: UITableViewController {
         
     }
     
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        //Here we define the buttons for the table cell swipe
+        let edit = UITableViewRowAction(style: .Normal, title: "Edit") { action, index in
+            self.curPeriod = self.myClasses![indexPath.row]
+            
+            print("Edit \(self.curPeriod!.name)")
+            
+            //Segue to the edit class vc
+            self.performSegueWithIdentifier("periodSegue", sender: nil)
+        }
+        edit.backgroundColor = UIColor.blueColor()
+        
+        let delete = UITableViewRowAction(style: .Normal, title: "Delete") { action, index in
+            let period: Period = self.myClasses![indexPath.row]
+            
+            print("Delete \(period.name)")
+            
+            //Delete the class. TODO: Add a confirm
+            //Send the delete request to the server
+            
+            //Upon completion of the delete request reload the table 
+        }
+        delete.backgroundColor = UIColor.redColor()
+        
+        return [delete, edit]
+    }
+    
+    //These methods allows the swipes to occur
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    }
+    
     /*
      // Override to support conditional editing of the table view.
      override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
      // Return false if you do not want the specified item to be editable.
      return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-     if editingStyle == .Delete {
-     // Delete the row from the data source
-     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-     } else if editingStyle == .Insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
      }
      */
     
@@ -138,8 +167,18 @@ class ClassesVC: UITableViewController {
             self.navigationItem.backBarButtonItem = backButton
             self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForSelectedRow!, animated: true)
             
+        } else if (segue.identifier == "periodSegue") {
+            if curPeriod != nil {
+                let newView = (segue.destinationViewController as! UINavigationController).topViewController as! EditPeriodVC
+                newView.currentClass = self.curPeriod!
+            }
         }
      }
+    
+    //Allow cancel button to segue back here
+    @IBAction func unwindToClassesView(sender: UIStoryboardSegue) {
+        
+    }
  
     
 }

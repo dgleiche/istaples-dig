@@ -84,6 +84,7 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
         cell.periodNumberLabel.text = "\(currentUser!.schedule![indexPath.row].periodNumber)"
         cell.quarterLabel.text = "\(currentUser!.schedule![indexPath.row].quarters)"
         
+        cell.userInteractionEnabled = false
         
         return cell
     }
