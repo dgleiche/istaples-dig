@@ -75,7 +75,7 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 47
+        return 55
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -88,10 +88,16 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
         cell.classTitleLabel.text = currentUser!.schedule![indexPath.row].name
         cell.periodNumberLabel.text = "\(currentUser!.schedule![indexPath.row].periodNumber)"
         cell.quarterLabel.text = "\(currentUser!.schedule![indexPath.row].quarters)"
+        cell.teacherLabel.text = currentUser!.schedule![indexPath.row].teacherName
         
-        cell.userInteractionEnabled = false
         
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let classmatesVC = self.storyboard?.instantiateViewControllerWithIdentifier("classmatesVC") as! ClassmatesVC
+        classmatesVC.currentClass = self.currentUser!.schedule![indexPath.row]
+        self.navigationController?.pushViewController(classmatesVC, animated: true)
     }
     
     @IBAction func emailUser(sender: AnyObject) {

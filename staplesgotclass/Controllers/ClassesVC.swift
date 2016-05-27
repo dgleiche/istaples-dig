@@ -21,11 +21,12 @@ class ClassesVC: UITableViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 16)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         self.navigationItem.title = "STAPLES GOT CLASS"
-
+        
         
         if (UserManager.sharedInstance == nil) {
             let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
-            self.tabBarController?.presentViewController(loginPage, animated: true, completion: nil)
+            let nav = UINavigationController(rootViewController: loginPage)
+            self.tabBarController?.presentViewController(nav, animated: true, completion: nil)
         }
         
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
@@ -66,15 +67,15 @@ class ClassesVC: UITableViewController {
         super.setEditing(editing, animated: true)
         if (editing) {
             self.tableView.allowsSelectionDuringEditing = true
-        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.myClasses!.count, inSection: 0)], withRowAnimation: .Automatic)
+            self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.myClasses!.count, inSection: 0)], withRowAnimation: .Automatic)
         }
         else {
             if (self.tableView.numberOfRowsInSection(0) > self.myClasses!.count) {
-            self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: self.myClasses!.count, inSection: 0)], withRowAnimation: .Automatic)
+                self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: self.myClasses!.count, inSection: 0)], withRowAnimation: .Automatic)
             }
         }
     }
-
+    
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -86,7 +87,7 @@ class ClassesVC: UITableViewController {
         if (self.myClasses != nil) {
             print("not nil count: \(self.myClasses!.count)")
             if (self.tableView.editing) {
-            return self.myClasses!.count + 1
+                return self.myClasses!.count + 1
             }
             else {
                 return self.myClasses!.count
@@ -97,35 +98,34 @@ class ClassesVC: UITableViewController {
                 return 1
             }
             else {
-            return 0
+                return 0
             }
         }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if (self.editing && indexPath.row == self.myClasses!.count) {
+        if (self.tableView.editing && indexPath.row == self.myClasses!.count) {
             let cell = tableView.dequeueReusableCellWithIdentifier("newRowCell", forIndexPath: indexPath)
             cell.textLabel?.text = "Add Class"
             return cell
         }
         else {
-        let cell = tableView.dequeueReusableCellWithIdentifier("classCell", forIndexPath: indexPath) as! ClassCell
-        cell.classTitleLabel.text = self.myClasses![indexPath.row].name
-        cell.periodNumberLabel.text = "\(self.myClasses![indexPath.row].periodNumber)"
-        cell.quarterLabel.text = "\(self.myClasses![indexPath.row].quarters)"
-        cell.teacherLabel.text = self.myClasses![indexPath.row].teacherName
-        
-        return cell
+            let cell = tableView.dequeueReusableCellWithIdentifier("classCell", forIndexPath: indexPath) as! ClassCell
+            cell.classTitleLabel.text = self.myClasses![indexPath.row].name
+            cell.periodNumberLabel.text = "\(self.myClasses![indexPath.row].periodNumber)"
+            cell.quarterLabel.text = "\(self.myClasses![indexPath.row].quarters)"
+            cell.teacherLabel.text = self.myClasses![indexPath.row].teacherName
+            return cell
         }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if (self.tableView.editing && indexPath.row == self.myClasses!.count) {
-//            let alert = UIAlertController(title: "Add class", message: nil, preferredStyle: .Alert)
-//            let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
-//            alert.addAction(ok)
-//            self.presentViewController(alert, animated: true, completion: nil)
+            //            let alert = UIAlertController(title: "Add class", message: nil, preferredStyle: .Alert)
+            //            let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            //            alert.addAction(ok)
+            //            self.presentViewController(alert, animated: true, completion: nil)
             
             
         }
@@ -178,7 +178,7 @@ class ClassesVC: UITableViewController {
             //Delete the class. TODO: Add a confirm
             //Send the delete request to the server
             
-            //Upon completion of the delete request reload the table 
+            //Upon completion of the delete request reload the table
         }
         delete.backgroundColor = UIColor.redColor()
         
@@ -191,6 +191,14 @@ class ClassesVC: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    }
+    @IBAction func logout(sender: AnyObject) {
+        let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
+        let nav = UINavigationController(rootViewController: loginPage)
+        self.tabBarController?.presentViewController(nav, animated: true, completion: nil)
+        
+        GIDSignIn.sharedInstance().signOut()
+        
     }
     
     /*
@@ -217,10 +225,22 @@ class ClassesVC: UITableViewController {
      */
     
     
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        if (identifier == "showClassmates" && self.tableView.editing) {
+            let editVC = self.storyboard?.instantiateViewControllerWithIdentifier("editVC") as! EditPeriodVC
+            editVC.currentClass = self.myClasses![self.tableView.indexPathForSelectedRow!.row]
+            let nav = UINavigationController(rootViewController: editVC)
+            self.presentViewController(nav, animated: true, completion: nil)
+            return false
+        }
+        return true
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showClassmates") {
             let newView = segue.destinationViewController as! ClassmatesVC
             newView.currentClass = self.myClasses![(self.tableView.indexPathForSelectedRow?.row)!]
@@ -228,8 +248,8 @@ class ClassesVC: UITableViewController {
             
             self.navigationItem.backBarButtonItem = backButton
             self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForSelectedRow!, animated: true)
-//            self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 16)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
-
+            //            self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 16)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+            
             
         } else if (segue.identifier == "periodSegue") {
             if curPeriod != nil {
@@ -237,12 +257,12 @@ class ClassesVC: UITableViewController {
                 newView.currentClass = self.curPeriod!
             }
         }
-     }
+    }
     
     //Allow cancel button to segue back here
     @IBAction func unwindToClassesView(sender: UIStoryboardSegue) {
         
     }
- 
+    
     
 }
