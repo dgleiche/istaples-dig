@@ -9,9 +9,10 @@
 import UIKit
 import Alamofire
 
-class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageViewControllerDataSource {
+class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     @IBOutlet var signInButton: GIDSignInButton!
     @IBOutlet var pageVCHolder: UIView!
+    @IBOutlet var pageVCIndicator: UIPageControl!
     
     var pageVC: UIPageViewController!
     var pageTitles: [String]!
@@ -19,15 +20,24 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.17, green:0.28, blue:0.89, alpha:1.0)
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 16)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().signInSilently()
         
         self.pageVC = self.storyboard?.instantiateViewControllerWithIdentifier("LoginPageVC") as! UIPageViewController
         self.pageVC.dataSource = self
+        self.pageVC.delegate = self
         
-        self.pageTitles = ["Page 1", "Page 2", "Page 3"]
+        self.pageTitles = ["Discover your classmates", "Page 2", "Page 3"]
         self.imageNames = ["shs.png"]
+        self.pageVCIndicator.numberOfPages = self.pageTitles.count
+        self.pageVCIndicator.currentPage = 0
         
         let firstPageContentVC = self.viewControllerAtIndex(0)
         let pageViewControllers: [UIViewController] = [firstPageContentVC!]
@@ -108,12 +118,27 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
         
     }
     
-    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
-        return self.pageTitles.count
+//    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
+//        return self.pageTitles.count
+//    }
+//    
+//    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
+//        return 0
+//    }
+//    
+    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        
+        // If user bailed our early from the gesture,
+        // we have to revert page control to previous position
+        if !completed {
+            let pageContentView = previousViewControllers[0] as! PageContentVC;
+            self.pageVCIndicator.currentPage = pageContentView.pageIndex!;
+        }
     }
     
-    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
-        return 0
+    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
+        let pageContentView: PageContentVC = (pendingViewControllers[0] as! PageContentVC)
+        self.pageVCIndicator.currentPage = pageContentView.pageIndex!
     }
     
     func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
