@@ -51,7 +51,7 @@ class User: NSObject {
                                     newUsers.append(newUser)
                                 }
                             }
-                            let newPeriod = Period(name: period["name"]! as! String, periodNumber: period["period_number"]! as! Int, teacherName: period["teacher_name"]! as! String, quarters: period["quarters"]! as! String, users: newUsers)
+                            let newPeriod = Period(name: period["name"]! as! String, periodNumber: period["period_number"]! as! Int, teacherName: period["teacher_name"]! as! String, quarters: period["quarters"]! as! String, id: period["id"] as! Int, users: newUsers)
                             self.schedule?.append(newPeriod)
                         }
                         completion!(true)

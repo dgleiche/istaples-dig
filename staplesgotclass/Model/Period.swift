@@ -14,13 +14,15 @@ class Period: NSObject {
     let teacherName: String
     let quarters: String
     let users: [User]
+    let id: Int
     
-    init(name: String, periodNumber: Int, teacherName: String, quarters: String, users: [User]) {
+    init(name: String, periodNumber: Int, teacherName: String, quarters: String, id: Int, users: [User]) {
         self.name = String(htmlEncodedString: name)
         self.periodNumber = periodNumber
         self.teacherName = teacherName
         self.quarters = quarters
         self.users = users
+        self.id = id
     }
 
 }
