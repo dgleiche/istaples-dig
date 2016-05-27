@@ -15,6 +15,9 @@ class UserManager: NSObject {
     var allUsers = [String: User]()
     let token: String
     
+    var teacherNames = [String]()
+    var classNames = [String]()
+    
     private init(name: String, email: String, token: String, profilePicURL: String?, completion: ((Bool) -> Void)?) {
         self.currentUser = User(name: name, email: email, profilePicURL: profilePicURL)
         self.token = token
@@ -29,19 +32,30 @@ class UserManager: NSObject {
     func verifyUser(completion: ((Bool) -> Void)?) {
         self.currentUser.network.performRequest(withMethod: "POST", endpoint: "validateUser", parameters: ["token": self.token, "name": self.currentUser.name], headers: nil) { (response: Response<AnyObject, NSError>) in
             if (response.response?.statusCode == 200) {
-                //success
-                completion!(true)
                 
-                if (self.currentUser.profilePicURL != nil) {
-                    self.currentUser.network.performRequest(withMethod: "POST", endpoint: "setProfPicURL", parameters: ["url": self.currentUser.profilePicURL!], headers: nil, completion: { (response: Response<AnyObject, NSError>) in
-                        if (response.response?.statusCode == 200) {
-                            print("updated profile pic url")
+                //success
+                self.currentUser.network.performRequest(withMethod: "GET", endpoint: "getAutofillData", parameters: nil, headers: nil, completion: { (responseData: Response<AnyObject, NSError>) in
+                    if (responseData.response?.statusCode == 200) {
+                        completion!(true)
+                        if let responseJSON = responseData.result.value as? NSDictionary {
+                            self.teacherNames = responseJSON["staffList"] as! [String]
+                            self.classNames = responseJSON["classList"] as! [String]
                         }
-                        else {
-                            print("error updating profile pic url: \(response.result.error)")
+                        if (self.currentUser.profilePicURL != nil) {
+                            self.currentUser.network.performRequest(withMethod: "POST", endpoint: "setProfPicURL", parameters: ["url": self.currentUser.profilePicURL!], headers: nil, completion: { (response: Response<AnyObject, NSError>) in
+                                if (response.response?.statusCode == 200) {
+                                    print("updated profile pic url")
+                                }
+                                else {
+                                    print("error updating profile pic url: \(response.result.error)")
+                                }
+                            })
                         }
-                    })
-                }
+                    }
+                    else {
+                        completion!(false)
+                    }
+                })
             }
             else {
                 completion!(false)

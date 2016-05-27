@@ -168,7 +168,7 @@ class ClassesVC: UITableViewController {
             self.tableView.editing = false
             self.performSegueWithIdentifier("periodSegue", sender: nil)
         }
-        edit.backgroundColor = UIColor.blueColor()
+        edit.backgroundColor = UIColor.orangeColor()
         
         let delete = UITableViewRowAction(style: .Normal, title: "Delete") { action, index in
             let period: Period = self.myClasses![indexPath.row]

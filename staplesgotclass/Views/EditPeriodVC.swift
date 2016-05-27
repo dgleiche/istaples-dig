@@ -67,9 +67,9 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
     
     //MARK: Text Field
     
-    let classes = ["Chem", "Comp Sci", "AP Spanish", "Library"]
-    let teachers = ["Scrof Daddy", "Neenan", "Dewey", "William M. Jones IV", "Dr. Gleicher"]
-    
+    let classes = UserManager.sharedInstance!.classNames
+    let teachers = UserManager.sharedInstance!.teacherNames
+
     func autoCompleteTextField(textField: MLPAutoCompleteTextField!, possibleCompletionsForString string: String!) -> [AnyObject]! {
         var returnStrings = Array<String>()
         
