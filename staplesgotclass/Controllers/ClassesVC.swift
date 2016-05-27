@@ -168,15 +168,16 @@ class ClassesVC: UITableViewController {
             self.tableView.editing = false
             self.performSegueWithIdentifier("periodSegue", sender: nil)
         }
-        edit.backgroundColor = UIColor.blueColor()
+        edit.backgroundColor = UIColor.orangeColor()
         
         let delete = UITableViewRowAction(style: .Normal, title: "Delete") { action, index in
             let period: Period = self.myClasses![indexPath.row]
             
             print("Delete \(period.name)")
             
-            //Delete the class. TODO: Add a confirm
+            //Delete the class
             //Send the delete request to the server
+            
             
             //Upon completion of the delete request reload the table
         }
