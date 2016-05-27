@@ -175,8 +175,9 @@ class ClassesVC: UITableViewController {
             
             print("Delete \(period.name)")
             
-            //Delete the class. TODO: Add a confirm
+            //Delete the class
             //Send the delete request to the server
+            
             
             //Upon completion of the delete request reload the table
         }

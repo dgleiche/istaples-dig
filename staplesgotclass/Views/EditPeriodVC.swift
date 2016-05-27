@@ -19,6 +19,9 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
     
     @IBOutlet weak var quarterTable: QuarterTable!
     
+    var classes: [String] = []
+    var teachers: [String] = []
+    
     //This is set prior to the segue for editing
     //Saving will update this class
     var currentClass: Period?
@@ -46,6 +49,9 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
         
         quarterTable.scrollEnabled = false
         
+        classes = UserManager.sharedInstance!.classNames
+        teachers = UserManager.sharedInstance!.teacherNames
+        
         if let curClass = currentClass {
             //Load the default values for this class
             print("Cur Class: \(curClass.name)")
@@ -59,6 +65,14 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
         }
     }
     
+    func createAlert(title: String, alert: String) {
+        let alertController = UIAlertController(title: title, message:
+            alert, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     //MARK: Actions
     
     @IBAction func cancel(sender: AnyObject) {
@@ -66,9 +80,6 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
     }
     
     //MARK: Text Field
-    
-    let classes = UserManager.sharedInstance!.classNames
-    let teachers = UserManager.sharedInstance!.teacherNames
 
     func autoCompleteTextField(textField: MLPAutoCompleteTextField!, possibleCompletionsForString string: String!) -> [AnyObject]! {
         var returnStrings = Array<String>()
@@ -108,10 +119,68 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
     
     //MARK: Navigation
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
         if saveButton === sender {
-            //Save the new class or add the class
-            print("Save class")
+            
+            //Verify the class is set
+            if let selectedClass = classTextField.text {
+                
+                //Verify the class is in the array of classes
+                if classes.contains(selectedClass) {
+                    
+                    //If the teacher field is set, verify it's in the array
+                    if teacherTextField.text != nil && teacherTextField.text != "" {
+                        if !teachers.contains(teacherTextField.text!) {
+                            createAlert("Error", alert: "Please choose a teacher from the autocomplete field or leave the field blank if there is no teacher for your class. If the teacher doesn't exist in the autocomplete field, please contact us.")
+                            return false
+                        }
+                    }
+                    
+                    //Finally verify that a quarter was chosen
+                    var selectedQuartersText = ""
+                    
+                    for i in 0..<4 {
+                        let selected: Bool = quarterTable.cellForRowAtIndexPath(NSIndexPath(forItem: i, inSection: 0))!.accessoryType == UITableViewCellAccessoryType.Checkmark
+                        
+                        if selected {
+                            //Make sure to add the commas at the right spot
+                            if selectedQuartersText == "" {
+                                selectedQuartersText += "\(i+1)"
+                            } else {
+                                selectedQuartersText += ",\(i+1)"
+                            }
+                        }
+                    }
+                    
+                    //If the selected quarters is still empty, it wasn't set
+                    if selectedQuartersText == "" {
+                        createAlert("Error", alert: "Please select a quarter")
+                        return false
+                    }
+                    
+                    let selectedTeacher = teacherTextField.text ?? ""
+                    
+                    let period = periodPicker.selectedRowInComponent(0) + 1
+                    
+                    //All the variables should now be created and verified. Send the request
+                    print("Info: period: \(period) class: \(selectedClass) teacher: \(selectedTeacher) quarters: \(selectedQuartersText)")
+                    
+                    
+                    
+                    return true
+                    
+                } else {
+                    createAlert("Error", alert: "Please choose a class from the autocomplete field. If the class doesn't exist in the autocomplete field, please contact us.")
+                    return false
+                }
+                
+            } else {
+                createAlert("Error", alert: "Please select a class")
+                return false
+            }
         }
+        
+        return super.shouldPerformSegueWithIdentifier(identifier, sender: sender)
     }
+    
 }
