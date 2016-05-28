@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BNv-JV-qMG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BNv-JV-qMG">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -133,7 +133,7 @@
         <scene sceneID="cfo-yo-pua">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eCD-hb-3OC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Classes" id="or9-BX-dnr"/>
+                    <tabBarItem key="tabBarItem" title="Classes" image="school.png" selectedImage="schoolFilled.png" id="or9-BX-dnr"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="teJ-Z1-Cf1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -411,7 +411,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="Hjw-Aj-h5A">
                             <connections>
-                                <segue destination="shg-Q4-s0Q" kind="unwind" unwindAction="unwindToClassesView:" id="UPK-kE-TOx"/>
+                                <action selector="savePeriod:" destination="I0h-Pk-E3o" id="XL3-hh-exS"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -424,7 +424,6 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sAM-Lx-fdu" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="shg-Q4-s0Q" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3180" y="509"/>
         </scene>
@@ -735,7 +734,7 @@
         <scene sceneID="PDw-Z3-9Xu">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="M81-PC-nEs" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Users" id="oLB-qX-QZF"/>
+                    <tabBarItem key="tabBarItem" title="Users" image="users.png" selectedImage="usersFilled.png" id="oLB-qX-QZF"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Whq-rC-T6h">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -923,6 +922,12 @@
             <point key="canvasLocation" x="233" y="760"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="school.png" width="25" height="25"/>
+        <image name="schoolFilled.png" width="25" height="25"/>
+        <image name="users.png" width="25" height="25"/>
+        <image name="usersFilled.png" width="25" height="25"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Mpo-zk-SGw"/>
         <segue reference="1TA-fX-g7D"/>

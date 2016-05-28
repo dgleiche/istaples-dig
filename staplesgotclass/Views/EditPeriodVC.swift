@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate, MLPAutoCompleteTextFieldDataSource {
     
@@ -119,68 +120,71 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
     
     //MARK: Navigation
     
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        if saveButton === sender {
+
+    @IBAction func savePeriod(sender: AnyObject) {
+        
+        //Verify the class is set
+        if let selectedClass = classTextField.text {
             
-            //Verify the class is set
-            if let selectedClass = classTextField.text {
+            //Verify the class is in the array of classes
+            if classes.contains(selectedClass) {
                 
-                //Verify the class is in the array of classes
-                if classes.contains(selectedClass) {
-                    
-                    //If the teacher field is set, verify it's in the array
-                    if teacherTextField.text != nil && teacherTextField.text != "" {
-                        if !teachers.contains(teacherTextField.text!) {
-                            createAlert("Error", alert: "Please choose a teacher from the autocomplete field or leave the field blank if there is no teacher for your class. If the teacher doesn't exist in the autocomplete field, please contact us.")
-                            return false
-                        }
+                //If the teacher field is set, verify it's in the array
+                if teacherTextField.text != nil && teacherTextField.text != "" {
+                    if !teachers.contains(teacherTextField.text!) {
+                        createAlert("Error", alert: "Please choose a teacher from the autocomplete field or leave the field blank if there is no teacher for your class. If the teacher doesn't exist in the autocomplete field, please contact us.")
                     }
-                    
-                    //Finally verify that a quarter was chosen
-                    var selectedQuartersText = ""
-                    
-                    for i in 0..<4 {
-                        let selected: Bool = quarterTable.cellForRowAtIndexPath(NSIndexPath(forItem: i, inSection: 0))!.accessoryType == UITableViewCellAccessoryType.Checkmark
-                        
-                        if selected {
-                            //Make sure to add the commas at the right spot
-                            if selectedQuartersText == "" {
-                                selectedQuartersText += "\(i+1)"
-                            } else {
-                                selectedQuartersText += ",\(i+1)"
-                            }
-                        }
-                    }
-                    
-                    //If the selected quarters is still empty, it wasn't set
-                    if selectedQuartersText == "" {
-                        createAlert("Error", alert: "Please select a quarter")
-                        return false
-                    }
-                    
-                    let selectedTeacher = teacherTextField.text ?? ""
-                    
-                    let period = periodPicker.selectedRowInComponent(0) + 1
-                    
-                    //All the variables should now be created and verified. Send the request
-                    print("Info: period: \(period) class: \(selectedClass) teacher: \(selectedTeacher) quarters: \(selectedQuartersText)")
-                    
-                    
-                    
-                    return true
-                    
-                } else {
-                    createAlert("Error", alert: "Please choose a class from the autocomplete field. If the class doesn't exist in the autocomplete field, please contact us.")
-                    return false
                 }
                 
+                //Finally verify that a quarter was chosen
+                var selectedQuartersText = ""
+                
+                for i in 0..<4 {
+                    let selected: Bool = quarterTable.cellForRowAtIndexPath(NSIndexPath(forItem: i, inSection: 0))!.accessoryType == UITableViewCellAccessoryType.Checkmark
+                    
+                    if selected {
+                        //Make sure to add the commas at the right spot
+                        if selectedQuartersText == "" {
+                            selectedQuartersText += "\(i+1)"
+                        } else {
+                            selectedQuartersText += ", \(i+1)"
+                        }
+                    }
+                }
+                
+                //If the selected quarters is still empty, it wasn't set
+                if selectedQuartersText == "" {
+                    createAlert("Error", alert: "Please select a quarter")
+                }
+                
+                let selectedTeacher = teacherTextField.text ?? ""
+                
+                let period = periodPicker.selectedRowInComponent(0) + 1
+                
+                //All the variables should now be created and verified. Send the request
+                print("Info: period: \(period) class: \(selectedClass) teacher: \(selectedTeacher) quarters: \(selectedQuartersText)")
+                
+                var parameters = ["name": selectedClass, "teacher_name": selectedTeacher, "period_number": "\(period)", "quarters": selectedQuartersText]
+                if (currentClass != nil) {
+                    parameters["id"] = "\(currentClass!.id)"
+                }
+                UserManager.sharedInstance?.currentUser.network.performRequest(withMethod: "POST", endpoint: "edit", parameters: parameters, headers: nil, completion: { (response: Response<AnyObject, NSError>) in
+                    
+                    if (response.response?.statusCode == 200) {
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    }
+                    
+                })
+                
+                
             } else {
-                createAlert("Error", alert: "Please select a class")
-                return false
+                createAlert("Error", alert: "Please choose a class from the autocomplete field. If the class doesn't exist in the autocomplete field, please contact us.")
             }
+            
+        } else {
+            createAlert("Error", alert: "Please select a class")
         }
-        
-        return super.shouldPerformSegueWithIdentifier(identifier, sender: sender)
+
     }
     
 }
