@@ -80,6 +80,7 @@ class ClassesVC: UITableViewController {
     // MARK: - Table view data source
     
     override func setEditing(editing: Bool, animated: Bool) {
+        print("set editing \(editing)")
         super.setEditing(editing, animated: true)
         if (editing) {
             self.tableView.allowsSelectionDuringEditing = true
@@ -141,8 +142,7 @@ class ClassesVC: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if (self.myClasses != nil) {
-            print("not nil count: \(self.myClasses!.count)")
-            if (self.tableView.editing) {
+            if (self.editing == true) {
                 return self.myClasses!.count + 1
             }
             else {
@@ -150,7 +150,7 @@ class ClassesVC: UITableViewController {
             }
         }
         else {
-            if (self.tableView.editing) {
+            if (self.editing) {
                 return 1
             }
             else {
@@ -161,7 +161,7 @@ class ClassesVC: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if (self.tableView.editing && indexPath.row == self.myClasses!.count) {
+        if (self.editing == true && indexPath.row == self.myClasses!.count) {
             let cell = tableView.dequeueReusableCellWithIdentifier("newRowCell", forIndexPath: indexPath)
             cell.textLabel?.text = "Add Class"
             return cell
@@ -176,22 +176,9 @@ class ClassesVC: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if (self.tableView.editing && indexPath.row == self.myClasses!.count) {
-            //            let alert = UIAlertController(title: "Add class", message: nil, preferredStyle: .Alert)
-            //            let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
-            //            alert.addAction(ok)
-            //            self.presentViewController(alert, animated: true, completion: nil)
-            
-            
-        }
-        else if (self.tableView.editing) {
-            
-        }
-    }
-    
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         if self.editing == false {
+            print("editing false")
             return .Delete
         }
         else if self.editing && indexPath.row == (self.myClasses!.count) {
@@ -204,7 +191,7 @@ class ClassesVC: UITableViewController {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         //Smaller row for add class
-        if (self.tableView.editing && indexPath.row == self.myClasses!.count) {
+        if (self.editing && indexPath.row == self.myClasses!.count) {
             return 50
         }
         
@@ -219,7 +206,7 @@ class ClassesVC: UITableViewController {
             print("Edit \(self.curPeriod!.name)")
             
             //Segue to the edit class vc
-            self.tableView.editing = false
+            self.editing = false
             self.performSegueWithIdentifier("periodSegue", sender: nil)
         }
         edit.backgroundColor = UIColor.orangeColor()
@@ -234,18 +221,14 @@ class ClassesVC: UITableViewController {
             
             UserManager.sharedInstance?.currentUser.network.performRequest(withMethod: "POST", endpoint: "delete", parameters: ["id": "\(period.id)"], headers: nil, completion: { (response: Response<AnyObject, NSError>) in
                 
-                var realEditing = false
-                if (self.tableView.numberOfRowsInSection(0) == self.myClasses!.count + 1) {
-                    realEditing = true
-                }
-                
                 if (response.response?.statusCode == 200) {
                     print("successfully deleted period")
-                    self.tableView.editing = false
+                    
                     self.myClasses?.removeAtIndex(indexPath.row)
                     if (self.myClasses?.count > 0) {
                         self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-                        if (realEditing == false) {
+                        if (self.editing == false) {
+                            self.setEditing(false, animated: true)
                         }
                     }
                     else {
@@ -313,7 +296,7 @@ class ClassesVC: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        if (identifier == "showClassmates" && self.tableView.editing) {
+        if (identifier == "showClassmates" && self.editing) {
             let editVC = self.storyboard?.instantiateViewControllerWithIdentifier("editVC") as! EditPeriodVC
             editVC.currentClass = self.myClasses![self.tableView.indexPathForSelectedRow!.row]
             let nav = UINavigationController(rootViewController: editVC)
