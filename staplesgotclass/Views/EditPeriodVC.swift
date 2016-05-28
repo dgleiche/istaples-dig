@@ -133,6 +133,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
                 if teacherTextField.text != nil && teacherTextField.text != "" {
                     if !teachers.contains(teacherTextField.text!) {
                         createAlert("Error", alert: "Please choose a teacher from the autocomplete field or leave the field blank if there is no teacher for your class. If the teacher doesn't exist in the autocomplete field, please contact us.")
+                        return
                     }
                 }
                 
@@ -155,6 +156,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
                 //If the selected quarters is still empty, it wasn't set
                 if selectedQuartersText == "" {
                     createAlert("Error", alert: "Please select a quarter")
+                    return
                 }
                 
                 let selectedTeacher = teacherTextField.text ?? ""
@@ -179,10 +181,12 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
                 
             } else {
                 createAlert("Error", alert: "Please choose a class from the autocomplete field. If the class doesn't exist in the autocomplete field, please contact us.")
+                return
             }
             
         } else {
             createAlert("Error", alert: "Please select a class")
+            return
         }
 
     }
