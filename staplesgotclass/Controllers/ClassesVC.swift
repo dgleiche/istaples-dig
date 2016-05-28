@@ -19,6 +19,9 @@ class ClassesVC: UITableViewController {
         
         let sweetBlue = UIColor(red:0.17, green:0.28, blue:0.89, alpha:1.0)
         
+        //Turn off extra lines in the table view
+        self.tableView.tableFooterView = UIView(frame: CGRectZero)
+        
         self.navigationController?.navigationBar.barTintColor = sweetBlue
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 16)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
@@ -200,22 +203,12 @@ class ClassesVC: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        //Smaller row for add class
         if (self.tableView.editing && indexPath.row == self.myClasses!.count) {
-            return 55
-        }
-        else {
-            let height = Double(self.tableView.frame.height - 55) / Double((self.myClasses?.count)!)
-            if (self.myClasses!.count == 1 && self.tableView.editing) {
-                return CGFloat(height - 120)
-            }
-            else if (height < 55) {
-                return 55
-            }
-            else {
-                return CGFloat(height)
-            }
+            return 50
         }
         
+        return 70
     }
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
@@ -260,11 +253,6 @@ class ClassesVC: UITableViewController {
                     }
                 }
             })
-            
-            
-            
-            
-            
             
             //Upon completion of the delete request reload the table
         }
