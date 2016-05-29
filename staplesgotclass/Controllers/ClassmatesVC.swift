@@ -18,7 +18,7 @@ class ClassmatesVC: UITableViewController {
         super.viewDidLoad()
         
         if (currentClass != nil) {
-            self.navigationItem.title = currentClass!.name
+            self.navigationItem.title = currentClass!.name.uppercaseString
             self.teacherNameLabel.text = currentClass!.teacherName
             self.quarterLabel.text = "Marking Periods: \(currentClass!.quarters)"
             self.tableView.reloadData()
@@ -43,7 +43,7 @@ class ClassmatesVC: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Classmates"
+        return "\(self.currentClass!.users.count) Classmates"
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

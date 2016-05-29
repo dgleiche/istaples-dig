@@ -25,7 +25,7 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
         self.emailLabel.titleLabel!.lineBreakMode = NSLineBreakMode.ByClipping
         
         if (currentUser != nil) {
-            self.navigationItem.title = currentUser!.name
+            self.navigationItem.title = "PROFILE"
             self.nameLabel.text = currentUser!.name
             self.emailLabel.setTitle(currentUser!.email, forState: .Normal)
             

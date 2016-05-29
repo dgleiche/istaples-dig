@@ -14,6 +14,7 @@ class ClassesVC: UITableViewController {
     var swipeMode = false
     
     var curPeriod: Period?
+    @IBOutlet var activitySpinner: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,13 +22,12 @@ class ClassesVC: UITableViewController {
         let sweetBlue = UIColor(red:0.17, green:0.28, blue:0.89, alpha:1.0)
         
         //Turn off extra lines in the table view
-        self.tableView.tableFooterView = UIView(frame: CGRectZero)
         
         self.navigationController?.navigationBar.barTintColor = sweetBlue
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 16)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-UltraLight", size: 15)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
         UIApplication.sharedApplication().statusBarStyle = .LightContent
-        self.navigationItem.title = "STAPLES GOT CLASS"
+        self.navigationItem.title = "CLASSES"
         
         
         if (UserManager.sharedInstance == nil) {
@@ -57,6 +57,8 @@ class ClassesVC: UITableViewController {
         curPeriod = nil
         
         if (UserManager.sharedInstance != nil) {
+            
+            self.activitySpinner.startAnimating()
             UserManager.sharedInstance?.currentUser.getClassmates({ (success: Bool) in
                 if (success) {
                     print("success in view did appear")
@@ -68,7 +70,10 @@ class ClassesVC: UITableViewController {
                     //                        self.presentViewController(alert, animated: true, completion: nil)
                     //                    }
                     self.tableView.reloadData()
+                    self.tableView.tableFooterView = UIView(frame: CGRectZero)
+
                 }
+                self.activitySpinner.stopAnimating()
             })
         }
     }
@@ -86,7 +91,9 @@ class ClassesVC: UITableViewController {
         if (!self.swipeMode) {
             if (editing) {
                 self.tableView.allowsSelectionDuringEditing = true
-                self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.myClasses!.count, inSection: 0)], withRowAnimation: .Automatic)
+                if (self.myClasses!.count > 0) {
+                    self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.myClasses!.count, inSection: 0)], withRowAnimation: .Automatic)
+                }
             }
             else {
                 if (self.tableView.numberOfRowsInSection(0) > self.myClasses!.count) {
@@ -146,6 +153,7 @@ class ClassesVC: UITableViewController {
             self.tableView.backgroundView = newView
             self.tableView.separatorStyle = .None
             self.navigationItem.rightBarButtonItem?.enabled = false
+            
         }
         return 0
     }
@@ -275,6 +283,9 @@ class ClassesVC: UITableViewController {
     }
     
     func addClass() {
+        if (self.editing == false) {
+            self.setEditing(true, animated: false)
+        }
         self.performSegueWithIdentifier("periodSegue", sender: nil)
     }
     

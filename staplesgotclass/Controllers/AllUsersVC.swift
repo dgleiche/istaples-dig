@@ -16,14 +16,16 @@ class AllUsersVC: UITableViewController {
     var userDict = [String : [User]]()
     var sectionTitleArray1 = NSArray()
     var sectionTitleArray = NSMutableArray()
-    @IBOutlet var userCountLabel: UILabel!
     
+    @IBOutlet var activitySpinner: UIActivityIndicatorView!
+    @IBOutlet var userCountLabel: UILabel!
+    @IBOutlet var refresh: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.17, green:0.28, blue:0.89, alpha:1.0)
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 16)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-UltraLight", size: 15)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         
         
@@ -47,9 +49,21 @@ class AllUsersVC: UITableViewController {
         
         noResultsLabel.text = "No Results"
         
+        refresh.backgroundColor = UIColor.whiteColor()
+        refresh.tintColor = UIColor.darkGrayColor()
         noResultsView.hidden = true
         noResultsView.addSubview(noResultsLabel)
+        
+        self.tableView.backgroundView = UIView()
+        self.tableView.backgroundView!.backgroundColor = UIColor.clearColor()
+        
+        self.tableView.contentOffset = CGPointMake(0, 0 - self.refresh.frame.size.height);
+        
         self.tableView.insertSubview(noResultsView, belowSubview: self.tableView)
+        
+        self.activitySpinner.startAnimating()
+        
+        self.userCountLabel.text = nil
         
     }
     
@@ -57,6 +71,10 @@ class AllUsersVC: UITableViewController {
         if (self.userDict.count == 0) {
             self.getUsers()
         }
+    }
+    @IBAction func refresh(sender: AnyObject) {
+        self.getUsers()
+        
     }
     
     func getUsers() {
@@ -77,9 +95,21 @@ class AllUsersVC: UITableViewController {
                     }
                     self.sectionTitleArray1 = self.userDict.keys.sort { $0.localizedCaseInsensitiveCompare($1) == NSComparisonResult.OrderedAscending }
                     self.sectionTitleArray = self.sectionTitleArray1.mutableCopy() as! NSMutableArray
+                    self.activitySpinner.stopAnimating()
                     
-                    
+                    if (self.refresh.refreshing) {
+                        self.refresh.endRefreshing()
+                    }
                     self.tableView.reloadData()
+                    let dateFormatter = NSDateFormatter()
+                    dateFormatter.dateFormat = "MMM d, h:mm a"
+                    let attrsDictionary = [
+                        NSForegroundColorAttributeName : UIColor.darkGrayColor()
+                    ]
+                    
+                    let attributedTitle: NSAttributedString = NSAttributedString(string: "Last update: \(dateFormatter.stringFromDate(NSDate()))", attributes: attrsDictionary)
+
+                    self.refresh.attributedTitle = attributedTitle
                 }
                 else {
                     print("error getting all users")
@@ -174,7 +204,7 @@ class AllUsersVC: UITableViewController {
             }
             else {
                 let names: [String] = indexUser.name.componentsSeparatedByString(" ")
-                if (names.count == 3) {
+                if (names.count >= 3) {
                     cell.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)\(names[2][0].uppercaseString)"
                 }
                 else if (names.count == 2) {
