@@ -30,12 +30,13 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().signInSilently()
         
+        
         self.pageVC = self.storyboard?.instantiateViewControllerWithIdentifier("LoginPageVC") as! UIPageViewController
         self.pageVC.dataSource = self
         self.pageVC.delegate = self
         
-        self.pageTitles = ["Discover your classmates", "Page 2", "Page 3"]
-        self.imageNames = ["shs.png"]
+        self.pageTitles = ["Staples Got Class", "Discover", "Compare", "Explore"]
+        self.imageNames = ["appIcon.png", "globe.png"]
         self.pageVCIndicator.numberOfPages = self.pageTitles.count
         self.pageVCIndicator.currentPage = 0
         

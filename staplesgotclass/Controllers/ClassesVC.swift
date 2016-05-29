@@ -31,9 +31,7 @@ class ClassesVC: UITableViewController {
         
         
         if (UserManager.sharedInstance == nil) {
-            let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
-            let nav = UINavigationController(rootViewController: loginPage)
-            self.tabBarController?.presentViewController(nav, animated: true, completion: nil)
+            self.logout(nil)
         }
         
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
@@ -273,10 +271,9 @@ class ClassesVC: UITableViewController {
             self.performSegueWithIdentifier("periodSegue", sender: nil)
         }
     }
-    @IBAction func logout(sender: AnyObject) {
+    @IBAction func logout(sender: AnyObject?) {
         let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
-        let nav = UINavigationController(rootViewController: loginPage)
-        self.tabBarController?.presentViewController(nav, animated: true, completion: nil)
+        self.tabBarController?.presentViewController(loginPage, animated: true, completion: nil)
         
         GIDSignIn.sharedInstance().signOut()
         

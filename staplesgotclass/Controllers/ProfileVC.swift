@@ -14,6 +14,8 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
     @IBOutlet var profileImageView: UIImageView!
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var emailLabel: UIButton!
+    @IBOutlet var initialLabel: UILabel!
+    @IBOutlet var initialView: UIView!
     var currentUser: User?
     
     override func viewDidLoad() {
@@ -34,13 +36,32 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
             
             if (currentUser?.profilePicURL != nil && currentUser?.profilePic == nil) {
                 profileImageView.downloadedFrom(link: currentUser!.profilePicURL!, contentMode: UIViewContentMode.ScaleAspectFit, userImage: currentUser!)
+                self.initialView.hidden = true
+                self.profileImageView.hidden = false
             }
             else if (currentUser?.profilePic != nil) {
                 profileImageView.image = currentUser!.profilePic!
             }
             else if (currentUser?.profilePicURL == nil) {
                 print("setting default pic")
-                profileImageView.image = UIImage(named: "defaultGooglePic.png")
+                
+                self.initialView.clipsToBounds = true
+                self.initialView.layer.cornerRadius = self.initialView.frame.width / 2
+                
+                let names: [String] = currentUser!.name.componentsSeparatedByString(" ")
+                if (names.count >= 3) {
+                    self.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)\(names[2][0].uppercaseString)"
+                }
+                else if (names.count == 2) {
+                    self.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)"
+                    
+                }
+                else{
+                    self.initialLabel.text = nil
+                }
+                
+                self.profileImageView.hidden = true
+                self.initialView.hidden = false
             }
             if (currentUser?.schedule == nil) {
                 self.loadingSpinner.startAnimating()
@@ -97,6 +118,9 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let classmatesVC = self.storyboard?.instantiateViewControllerWithIdentifier("classmatesVC") as! ClassmatesVC
         classmatesVC.currentClass = self.currentUser!.schedule![indexPath.row]
+        let backButton = UIBarButtonItem(title: " ", style: .Plain, target: nil, action: nil)
+        
+        self.navigationItem.backBarButtonItem = backButton
         self.navigationController?.pushViewController(classmatesVC, animated: true)
     }
     

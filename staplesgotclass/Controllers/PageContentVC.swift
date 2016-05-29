@@ -10,7 +10,7 @@ import UIKit
 
 class PageContentVC: UIViewController {
     @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var backgroundImageView: UIImageView!
+    @IBOutlet var imageView: UIImageView!
     
     var pageIndex: Int?
     var titleText: String?
@@ -22,7 +22,7 @@ class PageContentVC: UIViewController {
         // Do any additional setup after loading the view.
         
         if (self.imageName != nil) {
-        self.backgroundImageView.image = UIImage(named: self.imageName!)
+        self.imageView.image = UIImage(named: self.imageName!)?.imageWithColor(UIColor.whiteColor())
         }
         if (self.titleText != nil) {
         self.titleLabel.text = self.titleText

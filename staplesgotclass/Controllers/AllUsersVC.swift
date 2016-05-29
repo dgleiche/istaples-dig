@@ -57,13 +57,14 @@ class AllUsersVC: UITableViewController {
         self.tableView.backgroundView = UIView()
         self.tableView.backgroundView!.backgroundColor = UIColor.clearColor()
         
-        self.tableView.contentOffset = CGPointMake(0, 0 - self.refresh.frame.size.height);
         
         self.tableView.insertSubview(noResultsView, belowSubview: self.tableView)
         
         self.activitySpinner.startAnimating()
         
         self.userCountLabel.text = nil
+        //self.tableView.contentOffset = CGPointMake(0, 0 - self.refresh.frame.size.height);
+
         
     }
     
