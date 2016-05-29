@@ -11,21 +11,32 @@ import UIKit
 class PageContentVC: UIViewController {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var imageView: UIImageView!
+    @IBOutlet var descriptionLabel: UILabel!
+    
+    //Only viewable on opening page
+    @IBOutlet var creditLabel: UILabel!
     
     var pageIndex: Int?
     var titleText: String?
     var imageName: String?
+    var descriptionText: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        if self.pageIndex != 0 {
+            self.creditLabel.text = ""
+        }
         
         if (self.imageName != nil) {
         self.imageView.image = UIImage(named: self.imageName!)?.imageWithColor(UIColor.whiteColor())
         }
         if (self.titleText != nil) {
         self.titleLabel.text = self.titleText
+        }
+        
+        if self.descriptionText != nil {
+            self.descriptionLabel.text = self.descriptionText
         }
     }
 
