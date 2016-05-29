@@ -11,6 +11,7 @@ import Alamofire
 
 class ClassesVC: UITableViewController {
     var myClasses: [Period]?
+    var swipeMode = false
     
     var curPeriod: Period?
     
@@ -60,12 +61,12 @@ class ClassesVC: UITableViewController {
                 if (success) {
                     print("success in view did appear")
                     self.myClasses = UserManager.sharedInstance?.currentUser.schedule
-//                    if (self.myClasses?.count == 0) {
-//                        let alert = UIAlertController(title: "No Classes!", message: "You have no classes. Please set up your schedule to view your classmates.", preferredStyle: .Alert)
-//                        let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
-//                        alert.addAction(ok)
-//                        self.presentViewController(alert, animated: true, completion: nil)
-//                    }
+                    //                    if (self.myClasses?.count == 0) {
+                    //                        let alert = UIAlertController(title: "No Classes!", message: "You have no classes. Please set up your schedule to view your classmates.", preferredStyle: .Alert)
+                    //                        let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                    //                        alert.addAction(ok)
+                    //                        self.presentViewController(alert, animated: true, completion: nil)
+                    //                    }
                     self.tableView.reloadData()
                 }
             })
@@ -82,15 +83,25 @@ class ClassesVC: UITableViewController {
     override func setEditing(editing: Bool, animated: Bool) {
         print("set editing \(editing)")
         super.setEditing(editing, animated: true)
-        if (editing) {
-            self.tableView.allowsSelectionDuringEditing = true
-            self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.myClasses!.count, inSection: 0)], withRowAnimation: .Automatic)
-        }
-        else {
-            if (self.tableView.numberOfRowsInSection(0) > self.myClasses!.count) {
-                self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: self.myClasses!.count, inSection: 0)], withRowAnimation: .Automatic)
+        if (!self.swipeMode) {
+            if (editing) {
+                self.tableView.allowsSelectionDuringEditing = true
+                self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.myClasses!.count, inSection: 0)], withRowAnimation: .Automatic)
+            }
+            else {
+                if (self.tableView.numberOfRowsInSection(0) > self.myClasses!.count) {
+                    self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: self.myClasses!.count, inSection: 0)], withRowAnimation: .Automatic)
+                }
             }
         }
+    }
+    
+    override func tableView(tableView: UITableView, willBeginEditingRowAtIndexPath indexPath: NSIndexPath) {
+        self.swipeMode = true
+    }
+    
+    override func tableView(tableView: UITableView, didEndEditingRowAtIndexPath indexPath: NSIndexPath) {
+        self.swipeMode = false
     }
     
     
