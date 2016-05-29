@@ -63,7 +63,7 @@ class AllUsersVC: UITableViewController {
         self.activitySpinner.startAnimating()
         
         self.userCountLabel.text = nil
-        //self.tableView.contentOffset = CGPointMake(0, 0 - self.refresh.frame.size.height);
+        self.tableView.contentOffset = CGPointMake(0, CGRectGetHeight(searchController.searchBar.frame));
 
         
     }

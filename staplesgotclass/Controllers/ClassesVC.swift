@@ -31,7 +31,9 @@ class ClassesVC: UITableViewController {
         
         
         if (UserManager.sharedInstance == nil) {
-            self.logout(nil)
+            let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
+            self.tabBarController?.presentViewController(loginPage, animated: true, completion: nil)
+
         }
         
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
@@ -272,10 +274,9 @@ class ClassesVC: UITableViewController {
         }
     }
     @IBAction func logout(sender: AnyObject?) {
+        GIDSignIn.sharedInstance().signOut()
         let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
         self.tabBarController?.presentViewController(loginPage, animated: true, completion: nil)
-        
-        GIDSignIn.sharedInstance().signOut()
         
     }
     
