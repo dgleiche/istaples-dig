@@ -234,7 +234,28 @@ class ClassesVC: UITableViewController {
             return 50
         }
         
-        return 70
+        let defaultCellHeight = 70
+        let minimumCellHeight = 50.0
+        
+        var totalHeight = Int(tableView.bounds.height) - Int(navigationController!.navigationBar.frame.height) - 5
+        
+        if (self.editing) {
+            //Make room for the add button
+            totalHeight -= 50
+        }
+        
+        let heightTaken = defaultCellHeight * self.myClasses!.count
+        
+        if heightTaken > totalHeight {
+            //Scale down the periods to an extent
+            let newHeight = (Double(1) / Double(self.myClasses!.count)) * Double(totalHeight)
+            print(newHeight)
+            
+            //Make sure not to go under the minimum
+            return (newHeight < minimumCellHeight) ? CGFloat(minimumCellHeight) : CGFloat(newHeight)
+        }
+        
+        return CGFloat(defaultCellHeight)
     }
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
