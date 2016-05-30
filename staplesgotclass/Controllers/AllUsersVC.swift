@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AllUsersVC: UITableViewController {
+class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchControllerDelegate {
     var allUsers: [User]?
     let searchController = UISearchController(searchResultsController: nil)
     var filteredUsers: [User]?
@@ -23,13 +23,18 @@ class AllUsersVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.17, green:0.28, blue:0.89, alpha:1.0)
+        self.definesPresentationContext = false
+        
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
+        self.navigationController?.navigationBar.translucent = false
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-UltraLight", size: 15)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         
         
         searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchController.delegate = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
@@ -63,8 +68,6 @@ class AllUsersVC: UITableViewController {
         self.activitySpinner.startAnimating()
         
         self.userCountLabel.text = nil
-        self.tableView.contentOffset = CGPointMake(0, CGRectGetHeight(searchController.searchBar.frame));
-
         
     }
     
@@ -125,6 +128,29 @@ class AllUsersVC: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    //MARK: -Search Bar/Controller Delegate
+    
+    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+        self.refreshControl = nil
+        return true
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        self.refreshControl = refresh
+    }
+    
+    func willPresentSearchController(searchController: UISearchController) {
+        // do something before the search controller is presented
+        self.navigationController!.navigationBar.translucent = true
+    }
+    
+    func willDismissSearchController(searchController: UISearchController) {
+        self.navigationController!.navigationBar.translucent = false
+    }
+    
+    
     
     // MARK: - Table view data source
     

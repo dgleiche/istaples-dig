@@ -42,6 +42,7 @@
 		77D8F2F21CF135C2007A1002 /* ClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D8F2F11CF135C2007A1002 /* ClassCell.swift */; };
 		77DB56201CF25C7C0014B002 /* AllUsersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DB561F1CF25C7C0014B002 /* AllUsersVC.swift */; };
 		77DB56221CF2AD2D0014B002 /* defaultGooglePic.png in Resources */ = {isa = PBXBuildFile; fileRef = 77DB56211CF2AD2D0014B002 /* defaultGooglePic.png */; };
+		77DEF2A21CFBAD7800E94B57 /* blueAppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 77DEF2A11CFBAD7800E94B57 /* blueAppIcon.png */; };
 		FC2078E81CFB7E6400D86F54 /* sync.png in Resources */ = {isa = PBXBuildFile; fileRef = FC2078E71CFB7E6400D86F54 /* sync.png */; };
 		FC2078EA1CFB7E9B00D86F54 /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = FC2078E91CFB7E9B00D86F54 /* profile.png */; };
 		FC53CF851CF3E8690034266F /* EditPeriodVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC53CF841CF3E8690034266F /* EditPeriodVC.swift */; };
@@ -90,6 +91,7 @@
 		77D8F2F11CF135C2007A1002 /* ClassCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassCell.swift; sourceTree = "<group>"; };
 		77DB561F1CF25C7C0014B002 /* AllUsersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllUsersVC.swift; sourceTree = "<group>"; };
 		77DB56211CF2AD2D0014B002 /* defaultGooglePic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultGooglePic.png; sourceTree = "<group>"; };
+		77DEF2A11CFBAD7800E94B57 /* blueAppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueAppIcon.png; sourceTree = "<group>"; };
 		ED17CD0C97B747CA1F5D3B30 /* Pods-staplesgotclass.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-staplesgotclass.debug.xcconfig"; path = "Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass.debug.xcconfig"; sourceTree = "<group>"; };
 		FC2078E71CFB7E6400D86F54 /* sync.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sync.png; sourceTree = "<group>"; };
 		FC2078E91CFB7E9B00D86F54 /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				FC2078E91CFB7E9B00D86F54 /* profile.png */,
 				778946691CFAC09500C41F19 /* globe.png */,
 				778946671CFABFDA00C41F19 /* appIcon.png */,
+				77DEF2A11CFBAD7800E94B57 /* blueAppIcon.png */,
 				7721B8141CF9673A008C1A76 /* school.png */,
 				7721B8151CF9673A008C1A76 /* school@2x.png */,
 				7721B8161CF9673A008C1A76 /* schoolFilled.png */,
@@ -332,6 +335,7 @@
 				7721B8201CF967AF008C1A76 /* users.png in Resources */,
 				7721B8211CF967AF008C1A76 /* users@2x.png in Resources */,
 				773F5DF81CF6145600143C2D /* shs.png in Resources */,
+				77DEF2A21CFBAD7800E94B57 /* blueAppIcon.png in Resources */,
 				77DB56221CF2AD2D0014B002 /* defaultGooglePic.png in Resources */,
 				7721B8221CF967AF008C1A76 /* usersFilled.png in Resources */,
 			);

@@ -19,11 +19,12 @@ class ClassesVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let sweetBlue = UIColor(red:0.17, green:0.28, blue:0.89, alpha:1.0)
+        let sweetBlue = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
         
         //Turn off extra lines in the table view
         
         self.navigationController?.navigationBar.barTintColor = sweetBlue
+        self.navigationController?.navigationBar.translucent = false
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-UltraLight", size: 15)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
         UIApplication.sharedApplication().statusBarStyle = .LightContent
