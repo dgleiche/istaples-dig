@@ -30,6 +30,12 @@ class ClassesVC: UITableViewController {
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         self.navigationItem.title = "CLASSES"
         
+        //Info bar button
+        let infoButton = UIButton(type: .InfoLight)
+        infoButton.addTarget(self, action: #selector(ClassesVC.infoPressed), forControlEvents: .TouchUpInside)
+        let infoBarButtonItem = UIBarButtonItem(customView: infoButton)
+        navigationItem.leftBarButtonItem = infoBarButtonItem
+        
         
         if (UserManager.sharedInstance == nil) {
             let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
@@ -54,6 +60,13 @@ class ClassesVC: UITableViewController {
         
         let builder = GAIDictionaryBuilder.createScreenView()
         tracker.send(builder.build() as [NSObject: AnyObject])
+        
+        //Create the listener for log outs
+        NSNotificationCenter.defaultCenter().addObserverForName("logout", object: nil, queue: nil) { note in
+            GIDSignIn.sharedInstance().signOut()
+            let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
+            self.tabBarController?.presentViewController(loginPage, animated: true, completion: nil)
+        }
         
     }
     
@@ -280,12 +293,6 @@ class ClassesVC: UITableViewController {
             self.performSegueWithIdentifier("periodSegue", sender: nil)
         }
     }
-    @IBAction func logout(sender: AnyObject?) {
-        GIDSignIn.sharedInstance().signOut()
-        let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
-        self.tabBarController?.presentViewController(loginPage, animated: true, completion: nil)
-        
-    }
     
     func addClass() {
         if (self.editing == false) {
@@ -320,7 +327,10 @@ class ClassesVC: UITableViewController {
     
     // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    func infoPressed() {
+        let infoPage = self.storyboard?.instantiateViewControllerWithIdentifier("infoVC") as! UINavigationController
+        self.tabBarController?.presentViewController(infoPage, animated: true, completion: nil)
+    }
     
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
         if (identifier == "showClassmates" && self.editing) {
