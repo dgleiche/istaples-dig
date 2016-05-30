@@ -49,7 +49,7 @@
 		FC2078EE1CFC110900D86F54 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = FC2078ED1CFC110900D86F54 /* lock.png */; };
 		FC2078F01CFC110D00D86F54 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = FC2078EF1CFC110D00D86F54 /* info.png */; };
 		FC2078F21CFC139900D86F54 /* email.png in Resources */ = {isa = PBXBuildFile; fileRef = FC2078F11CFC139900D86F54 /* email.png */; };
-		FC2078F41CFC1C1500D86F54 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2078F31CFC1C1500D86F54 /* AboutVC.swift */; };
+		FC2078F61CFC268800D86F54 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2078F51CFC268800D86F54 /* AboutVC.swift */; };
 		FC53CF851CF3E8690034266F /* EditPeriodVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC53CF841CF3E8690034266F /* EditPeriodVC.swift */; };
 		FC53CF991CF5215A0034266F /* MLPAutoCompleteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = FC53CF931CF5215A0034266F /* MLPAutoCompleteTextField.m */; };
 		FC53CF9A1CF5215A0034266F /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = FC53CF981CF5215A0034266F /* NSString+Levenshtein.m */; };
@@ -104,7 +104,7 @@
 		FC2078ED1CFC110900D86F54 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock.png; sourceTree = "<group>"; };
 		FC2078EF1CFC110D00D86F54 /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
 		FC2078F11CFC139900D86F54 /* email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = email.png; sourceTree = "<group>"; };
-		FC2078F31CFC1C1500D86F54 /* AboutVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AboutVC.swift; path = ../Views/AboutVC.swift; sourceTree = "<group>"; };
+		FC2078F51CFC268800D86F54 /* AboutVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
 		FC53CF841CF3E8690034266F /* EditPeriodVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditPeriodVC.swift; path = ../Views/EditPeriodVC.swift; sourceTree = "<group>"; };
 		FC53CF921CF5215A0034266F /* MLPAutoCompleteTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompleteTextField.h; sourceTree = "<group>"; };
 		FC53CF931CF5215A0034266F /* MLPAutoCompleteTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPAutoCompleteTextField.m; sourceTree = "<group>"; };
@@ -192,7 +192,7 @@
 				772DCA521CEF428500F52AA6 /* PageContentVC.swift */,
 				77D8F2EC1CF0FFB6007A1002 /* ClassesVC.swift */,
 				FC2078EB1CFC0D8C00D86F54 /* InfoVC.swift */,
-				FC2078F31CFC1C1500D86F54 /* AboutVC.swift */,
+				FC2078F51CFC268800D86F54 /* AboutVC.swift */,
 				FC53CF841CF3E8690034266F /* EditPeriodVC.swift */,
 				771D46DB1CF13C9900458369 /* ClassmatesVC.swift */,
 				7746F3891CF16312003E9D6A /* ProfileVC.swift */,
@@ -414,7 +414,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC2078F41CFC1C1500D86F54 /* AboutVC.swift in Sources */,
 				775DC44F1CED583400046768 /* NetworkManager.swift in Sources */,
 				775DC4491CED537F00046768 /* UserManager.swift in Sources */,
 				77D8F2F01CF11470007A1002 /* StringExtension.swift in Sources */,
@@ -435,6 +434,7 @@
 				77D54F741CECBEC600C11FA5 /* AppDelegate.swift in Sources */,
 				77D8F2ED1CF0FFB6007A1002 /* ClassesVC.swift in Sources */,
 				772DCA531CEF428500F52AA6 /* PageContentVC.swift in Sources */,
+				FC2078F61CFC268800D86F54 /* AboutVC.swift in Sources */,
 				77DB56201CF25C7C0014B002 /* AllUsersVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
