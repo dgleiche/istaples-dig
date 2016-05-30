@@ -69,6 +69,11 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
         
         self.userCountLabel.text = nil
         
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker.set(kGAIScreenName, value: "AllUsers")
+        
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker.send(builder.build() as [NSObject: AnyObject])
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -237,6 +242,9 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
                 else if (names.count == 2) {
                     cell.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)"
                     
+                }
+                else if (names.count == 1) {
+                    cell.initialLabel.text = "\(names[0][0].uppercaseString))"
                 }
                 else{
                     cell.initialLabel.text = nil

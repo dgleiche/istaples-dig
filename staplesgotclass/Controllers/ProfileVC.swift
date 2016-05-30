@@ -56,7 +56,10 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
                     self.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)"
                     
                 }
-                else{
+                else if (names.count == 1) {
+                    self.initialLabel.text = "\(names[0][0].uppercaseString))"
+                }
+                else {
                     self.initialLabel.text = nil
                 }
                 
@@ -75,6 +78,11 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
             })
             
         }
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker.set(kGAIScreenName, value: "ProfileView")
+        
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker.send(builder.build() as [NSObject: AnyObject])
     }
     
     override func didReceiveMemoryWarning() {

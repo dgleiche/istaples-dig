@@ -49,6 +49,12 @@ class ClassesVC: UITableViewController {
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: sweetBlue], forState:.Normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: sweetBlue], forState:.Selected)
         
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker.set(kGAIScreenName, value: "Classes")
+        
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker.send(builder.build() as [NSObject: AnyObject])
+        
     }
     
     override func viewWillAppear(animated: Bool) {

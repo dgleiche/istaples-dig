@@ -33,9 +33,9 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
         self.tableView.allowsSelection = false
         
         
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.17, green:0.28, blue:0.89, alpha:1.0)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 16)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-UltraLight", size: 15)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         
         quarterTable.dataSource = quarterTable
@@ -53,17 +53,24 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
         classes = UserManager.sharedInstance!.classNames
         teachers = UserManager.sharedInstance!.teacherNames
         
+        let tracker = GAI.sharedInstance().defaultTracker
+        
         if let curClass = currentClass {
             //Load the default values for this class
             print("Cur Class: \(curClass.name)")
-            self.navigationItem.title = "Edit Period"
+            self.navigationItem.title = "EDIT PERIOD"
+            tracker.set(kGAIScreenName, value: "EditPeriod")
             classTextField.text = curClass.name
             teacherTextField.text = curClass.teacherName
             periodPicker.selectRow(curClass.periodNumber - 1, inComponent: 0, animated: false)
         }
         else {
-            self.navigationItem.title = "New Period"
+            self.navigationItem.title = "NEW PERIOD"
+            tracker.set(kGAIScreenName, value: "NewPeriod")
         }
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker.send(builder.build() as [NSObject: AnyObject])
+        
     }
     
     func createAlert(title: String, alert: String) {

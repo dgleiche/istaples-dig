@@ -23,6 +23,11 @@ class ClassmatesVC: UITableViewController {
             self.quarterLabel.text = "Marking Periods: \(currentClass!.quarters)"
             self.tableView.reloadData()
         }
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker.set(kGAIScreenName, value: "ClassmatesView")
+        
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker.send(builder.build() as [NSObject: AnyObject])
     }
     
     //    override func viewWillDisappear(animated: Bool) {
@@ -73,7 +78,7 @@ class ClassmatesVC: UITableViewController {
             }
             else {
                 let names: [String] = self.currentClass!.users[indexPath.row].name.componentsSeparatedByString(" ")
-                if (names.count == 3) {
+                if (names.count >= 3) {
                     cell.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)\(names[2][0].uppercaseString)"
                 }
                 else if (names.count == 2) {

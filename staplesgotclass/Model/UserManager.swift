@@ -32,6 +32,25 @@ class UserManager: NSObject {
     func verifyUser(completion: ((Bool) -> Void)?) {
         self.currentUser.network.performRequest(withMethod: "POST", endpoint: "validateUser", parameters: ["token": self.token, "name": self.currentUser.name], headers: nil) { (response: Response<AnyObject, NSError>) in
             if (response.response?.statusCode == 200) {
+                if let verifyResponse = response.result.value as? NSDictionary {
+                    print("verify response: \(verifyResponse)")
+                    if let userID = verifyResponse["userID"] as? Int {
+                        self.currentUser.id = userID
+                        
+                        let tracker = GAI.sharedInstance().defaultTracker
+                        
+                        // You only need to set User ID on a tracker once. By setting it on the tracker, the ID will be
+                        // sent with all subsequent hits.
+                        tracker.set(kGAIUserId, value: "\(userID)")
+                        tracker.set(GAIFields.customMetricForIndex(1), value:  "\(userID)")
+                        let builder = GAIDictionaryBuilder.createEventWithCategory("UX", action: "Sign In", label: nil, value: nil)
+                        // This hit will be sent with the User ID value and be visible in User-ID-enabled views (profiles).
+                        
+                        tracker.send(builder.build() as [NSObject: AnyObject])
+                        print("sent user id  \(userID)")
+
+                    }
+                }
                 
                 //success
                 self.currentUser.network.performRequest(withMethod: "GET", endpoint: "getAutofillData", parameters: nil, headers: nil, completion: { (responseData: Response<AnyObject, NSError>) in

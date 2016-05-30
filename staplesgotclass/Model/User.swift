@@ -16,6 +16,8 @@ class User: NSObject {
     var schedule: [Period]?
     let profilePicURL: String?
     var profilePic: UIImage? = nil
+    var id: Int?
+
     
     init(name: String, email: String, profilePicURL: String?) {
         self.name = name
