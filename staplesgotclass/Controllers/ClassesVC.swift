@@ -65,6 +65,7 @@ class ClassesVC: UITableViewController {
         NSNotificationCenter.defaultCenter().addObserverForName("logout", object: nil, queue: nil) { note in
             GIDSignIn.sharedInstance().signOut()
             let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
+            loginPage.modalTransitionStyle = .FlipHorizontal
             self.tabBarController?.presentViewController(loginPage, animated: true, completion: nil)
         }
         
@@ -92,6 +93,13 @@ class ClassesVC: UITableViewController {
                     self.tableView.reloadData()
                     self.tableView.tableFooterView = UIView(frame: CGRectZero)
 
+                }
+                else {
+                    print("error getting classes")
+                    let alert = UIAlertController(title: "Error retrieving classes", message: "Please check your network connection and try again.", preferredStyle: .Alert)
+                    let dismiss = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+                    alert.addAction(dismiss)
+                    self.presentViewController(alert, animated: true, completion: nil)
                 }
                 self.activitySpinner.stopAnimating()
             })
@@ -249,7 +257,6 @@ class ClassesVC: UITableViewController {
         if heightTaken > totalHeight {
             //Scale down the periods to an extent
             let newHeight = (Double(1) / Double(self.myClasses!.count)) * Double(totalHeight)
-            print(newHeight)
             
             //Make sure not to go under the minimum
             return (newHeight < minimumCellHeight) ? CGFloat(minimumCellHeight) : CGFloat(newHeight)

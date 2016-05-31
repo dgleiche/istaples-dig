@@ -122,6 +122,10 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
                 }
                 else {
                     print("error getting all users")
+                    let alert = UIAlertController(title: "Error retrieving all users", message: "Please check your network connection and try again.", preferredStyle: .Alert)
+                    let dismiss = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+                    alert.addAction(dismiss)
+                    self.presentViewController(alert, animated: true, completion: nil)
                 }
                 
             })

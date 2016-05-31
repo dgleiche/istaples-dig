@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		078B0CEA10E638BFC57FE69E /* Pods_staplesgotclass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */; };
+		771C2C8C1CFD21AD002C7A41 /* roundedAppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 771C2C8B1CFD21AD002C7A41 /* roundedAppIcon.png */; };
+		771C2C8E1CFD2DFE002C7A41 /* exit.png in Resources */ = {isa = PBXBuildFile; fileRef = 771C2C8D1CFD2DFE002C7A41 /* exit.png */; };
+		771C2C901CFD3130002C7A41 /* safari.png in Resources */ = {isa = PBXBuildFile; fileRef = 771C2C8F1CFD3130002C7A41 /* safari.png */; };
+		771C2C921CFD3165002C7A41 /* compare.png in Resources */ = {isa = PBXBuildFile; fileRef = 771C2C911CFD3165002C7A41 /* compare.png */; };
 		771D46DC1CF13C9900458369 /* ClassmatesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771D46DB1CF13C9900458369 /* ClassmatesVC.swift */; };
 		7721B8131CF9574B008C1A76 /* coursesPic.png in Resources */ = {isa = PBXBuildFile; fileRef = 7721B8121CF9574B008C1A76 /* coursesPic.png */; };
 		7721B8181CF9673A008C1A76 /* school.png in Resources */ = {isa = PBXBuildFile; fileRef = 7721B8141CF9673A008C1A76 /* school.png */; };
@@ -59,6 +63,10 @@
 /* Begin PBXFileReference section */
 		382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_staplesgotclass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F3617A969EFDF047E0788E2 /* Pods-staplesgotclass.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-staplesgotclass.release.xcconfig"; path = "Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass.release.xcconfig"; sourceTree = "<group>"; };
+		771C2C8B1CFD21AD002C7A41 /* roundedAppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = roundedAppIcon.png; path = "Icons/App Icon [Rounded]/roundedAppIcon.png"; sourceTree = "<group>"; };
+		771C2C8D1CFD2DFE002C7A41 /* exit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exit.png; sourceTree = "<group>"; };
+		771C2C8F1CFD3130002C7A41 /* safari.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = safari.png; sourceTree = "<group>"; };
+		771C2C911CFD3165002C7A41 /* compare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compare.png; sourceTree = "<group>"; };
 		771D46DB1CF13C9900458369 /* ClassmatesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassmatesVC.swift; sourceTree = "<group>"; };
 		7721B8121CF9574B008C1A76 /* coursesPic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coursesPic.png; sourceTree = "<group>"; };
 		7721B8141CF9673A008C1A76 /* school.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = school.png; sourceTree = "<group>"; };
@@ -148,6 +156,10 @@
 		7746F3911CF19318003E9D6A /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				771C2C911CFD3165002C7A41 /* compare.png */,
+				771C2C8F1CFD3130002C7A41 /* safari.png */,
+				771C2C8D1CFD2DFE002C7A41 /* exit.png */,
+				771C2C8B1CFD21AD002C7A41 /* roundedAppIcon.png */,
 				FC2078F11CFC139900D86F54 /* email.png */,
 				FC2078EF1CFC110D00D86F54 /* info.png */,
 				FC2078ED1CFC110900D86F54 /* lock.png */,
@@ -339,6 +351,8 @@
 				7721B8191CF9673A008C1A76 /* school@2x.png in Resources */,
 				FC2078EA1CFB7E9B00D86F54 /* profile.png in Resources */,
 				778946681CFABFDA00C41F19 /* appIcon.png in Resources */,
+				771C2C8C1CFD21AD002C7A41 /* roundedAppIcon.png in Resources */,
+				771C2C901CFD3130002C7A41 /* safari.png in Resources */,
 				77D54F7E1CECBEC600C11FA5 /* LaunchScreen.storyboard in Resources */,
 				FC2078EE1CFC110900D86F54 /* lock.png in Resources */,
 				7721B8131CF9574B008C1A76 /* coursesPic.png in Resources */,
@@ -347,9 +361,11 @@
 				7746F3901CF19314003E9D6A /* shs.jpg in Resources */,
 				FC2078F01CFC110D00D86F54 /* info.png in Resources */,
 				7721B8181CF9673A008C1A76 /* school.png in Resources */,
+				771C2C921CFD3165002C7A41 /* compare.png in Resources */,
 				77D54F791CECBEC600C11FA5 /* Main.storyboard in Resources */,
 				FC2078E81CFB7E6400D86F54 /* sync.png in Resources */,
 				FC2078F21CFC139900D86F54 /* email.png in Resources */,
+				771C2C8E1CFD2DFE002C7A41 /* exit.png in Resources */,
 				7721B8201CF967AF008C1A76 /* users.png in Resources */,
 				7721B8211CF967AF008C1A76 /* users@2x.png in Resources */,
 				773F5DF81CF6145600143C2D /* shs.png in Resources */,
@@ -554,6 +570,7 @@
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = staplesgotclass/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -566,12 +583,15 @@
 			baseConfigurationReference = 6F3617A969EFDF047E0788E2 /* Pods-staplesgotclass.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mica Diamond (9FC732TXJR)";
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = staplesgotclass/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8cd7258c-7159-4194-b015-d87bb1f1430c";
 				SWIFT_OBJC_BRIDGING_HEADER = "staplesgotclass/staplesgotclass-Bridging-Header.h";
 			};
 			name = Release;

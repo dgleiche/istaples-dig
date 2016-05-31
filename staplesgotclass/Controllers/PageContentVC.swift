@@ -11,7 +11,7 @@ import UIKit
 class PageContentVC: UIViewController {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var imageView: UIImageView!
-    @IBOutlet var descriptionLabel: UILabel!
+    @IBOutlet var descriptionTextView: UITextView!
     
     //Only viewable on opening page
     @IBOutlet var creditLabel: UILabel!
@@ -36,7 +36,7 @@ class PageContentVC: UIViewController {
         }
         
         if self.descriptionText != nil {
-            self.descriptionLabel.text = self.descriptionText
+            self.descriptionTextView.text = self.descriptionText
         }
     }
 

@@ -14,7 +14,7 @@ class NetworkManager: NSObject {
         
         override init() {
             let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-            configuration.timeoutIntervalForResource = 5 // seconds
+            configuration.timeoutIntervalForResource = 15 // seconds
             configuration.HTTPMaximumConnectionsPerHost = 4
             self.alamofireManager = Alamofire.Manager(configuration: configuration)
         }

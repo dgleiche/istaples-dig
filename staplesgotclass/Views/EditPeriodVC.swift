@@ -183,6 +183,9 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
                     if (response.response?.statusCode == 200) {
                         self.dismissViewControllerAnimated(true, completion: nil)
                     }
+                    else {
+                        self.createAlert("Error saving period", alert: "Please check your network connection and try again.")
+                    }
                     
                 })
                 

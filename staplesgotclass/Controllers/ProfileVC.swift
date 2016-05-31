@@ -75,6 +75,13 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
                     self.tableView.reloadData()
                     print("schedule count: \(self.currentUser?.schedule?.count)")
                 }
+                else {
+                    print("error getting user's classes")
+                    let alert = UIAlertController(title: "Error retrieving classes", message: "Please check your network connection and try again.", preferredStyle: .Alert)
+                    let dismiss = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+                    alert.addAction(dismiss)
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
             })
             
         }
