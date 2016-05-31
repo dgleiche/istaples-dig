@@ -127,7 +127,7 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
         let classmatesVC = self.storyboard?.instantiateViewControllerWithIdentifier("classmatesVC") as! ClassmatesVC
         classmatesVC.currentClass = self.currentUser!.schedule![indexPath.row]
         let backButton = UIBarButtonItem(title: " ", style: .Plain, target: nil, action: nil)
-        
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         self.navigationItem.backBarButtonItem = backButton
         self.navigationController?.pushViewController(classmatesVC, animated: true)
     }
