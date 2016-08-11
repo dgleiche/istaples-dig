@@ -15,7 +15,7 @@ class DailyScheduleManager: NSObject {
     
     private override init() {}
     
-    static func getDailySchedule {
+    static func getDailySchedule() {
         
     }
 }

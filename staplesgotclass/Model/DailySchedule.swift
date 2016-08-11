@@ -10,13 +10,13 @@ import Foundation
 
 class DailySchedule: NSObject {
     
-    let date: NSDate
-    let isModified: Bool?
+    var date: NSDate!
+    var isModified: Bool?
     
     init(date: NSDate) {
         self.date = date
         
-        
+        super.init()
     }
     
 }
