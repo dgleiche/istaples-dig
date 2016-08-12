@@ -36,6 +36,7 @@ class NetworkManager: NSObject {
             }
         }
     
+    
         func returnMethod(name: String) -> Alamofire.Method {
             switch name {
             case "GET":

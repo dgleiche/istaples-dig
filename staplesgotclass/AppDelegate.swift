@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,7 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var configureError: NSError?
         GGLContext.sharedInstance().configureWithError(&configureError)
         assert(configureError == nil, "Error configuring Google services: \(configureError)")
-                
+        
+        let configuration = ParseClientConfiguration {
+            $0.applicationId = "ZgeDasDpmqNAakqJcK0C"
+            $0.clientKey = "FXPR1dw5x9jbPyFJw53y"
+            $0.server = "https://staplesscheduleserver.herokuapp.com/parse"
+        }
+        Parse.initializeWithConfiguration(configuration)
+        
         return true
     }
     
