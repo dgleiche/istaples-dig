@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>MGSwipeTableCell.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-staplesgotclass.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -23,16 +18,6 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>0893C20E77EC024D7C5A30FFB123BD8E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4E1263BFF45F6446CF3DE29AE234C893</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6FC5EC21E244C4F37AD9081D521CD20A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

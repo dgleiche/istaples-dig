@@ -33,6 +33,8 @@
 		775DC44B1CED558A00046768 /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775DC44A1CED558A00046768 /* Period.swift */; };
 		775DC44D1CED55CD00046768 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775DC44C1CED55CD00046768 /* User.swift */; };
 		775DC44F1CED583400046768 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775DC44E1CED583400046768 /* NetworkManager.swift */; };
+		77703B3C1D5C3D3B0093CF95 /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77703B3B1D5C3D3B0093CF95 /* KDCircularProgress.swift */; };
+		77703B3E1D5C47530093CF95 /* ScheduleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77703B3D1D5C47530093CF95 /* ScheduleVC.swift */; };
 		778946681CFABFDA00C41F19 /* appIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 778946671CFABFDA00C41F19 /* appIcon.png */; };
 		7789466A1CFAC09500C41F19 /* globe.png in Resources */ = {isa = PBXBuildFile; fileRef = 778946691CFAC09500C41F19 /* globe.png */; };
 		77D54F741CECBEC600C11FA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D54F731CECBEC600C11FA5 /* AppDelegate.swift */; };
@@ -88,6 +90,8 @@
 		775DC44A1CED558A00046768 /* Period.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
 		775DC44C1CED55CD00046768 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		775DC44E1CED583400046768 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		77703B3B1D5C3D3B0093CF95 /* KDCircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDCircularProgress.swift; sourceTree = "<group>"; };
+		77703B3D1D5C47530093CF95 /* ScheduleVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleVC.swift; sourceTree = "<group>"; };
 		778946671CFABFDA00C41F19 /* appIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appIcon.png; sourceTree = "<group>"; };
 		778946691CFAC09500C41F19 /* globe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = globe.png; sourceTree = "<group>"; };
 		77AB0F4D1CECC0E900A25110 /* staplesgotclass-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "staplesgotclass-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -192,6 +196,7 @@
 				77D8F2F11CF135C2007A1002 /* ClassCell.swift */,
 				7746F38D1CF19241003E9D6A /* ClassmateCell.swift */,
 				FC99DE291CF5652C0006F62E /* QuarterTable.swift */,
+				77703B3B1D5C3D3B0093CF95 /* KDCircularProgress.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -202,6 +207,7 @@
 				77D54F751CECBEC600C11FA5 /* LoginVC.swift */,
 				772DCA501CEF40D200F52AA6 /* LoginPageViewController.swift */,
 				772DCA521CEF428500F52AA6 /* PageContentVC.swift */,
+				77703B3D1D5C47530093CF95 /* ScheduleVC.swift */,
 				77D8F2EC1CF0FFB6007A1002 /* ClassesVC.swift */,
 				FC2078EB1CFC0D8C00D86F54 /* InfoVC.swift */,
 				FC2078F51CFC268800D86F54 /* AboutVC.swift */,
@@ -290,12 +296,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 77D54F821CECBEC600C11FA5 /* Build configuration list for PBXNativeTarget "staplesgotclass" */;
 			buildPhases = (
+				11F1C482A93233EE76BA42CA /* Check Pods Manifest.lock */,
 				930A1E9B50CE6270BD86F68E /* 📦 Check Pods Manifest.lock */,
 				77D54F6C1CECBEC600C11FA5 /* Sources */,
 				77D54F6D1CECBEC600C11FA5 /* Frameworks */,
 				77D54F6E1CECBEC600C11FA5 /* Resources */,
 				79F08EE74151377351012531 /* 📦 Embed Pods Frameworks */,
 				EDBAE2C2A868474D4447DD8E /* 📦 Copy Pods Resources */,
+				462C378E32C048EE6B769115 /* Embed Pods Frameworks */,
+				C8FDFA8FB1A8B256FD2112CC /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -378,6 +387,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		11F1C482A93233EE76BA42CA /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		462C378E32C048EE6B769115 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		79F08EE74151377351012531 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -408,6 +447,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		C8FDFA8FB1A8B256FD2112CC /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		EDBAE2C2A868474D4447DD8E /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -435,6 +489,7 @@
 				77D8F2F01CF11470007A1002 /* StringExtension.swift in Sources */,
 				77D8F2F21CF135C2007A1002 /* ClassCell.swift in Sources */,
 				FC2078EC1CFC0D8C00D86F54 /* InfoVC.swift in Sources */,
+				77703B3C1D5C3D3B0093CF95 /* KDCircularProgress.swift in Sources */,
 				FC53CF9A1CF5215A0034266F /* NSString+Levenshtein.m in Sources */,
 				FC99DE2A1CF5652C0006F62E /* QuarterTable.swift in Sources */,
 				FC53CF851CF3E8690034266F /* EditPeriodVC.swift in Sources */,
@@ -446,6 +501,7 @@
 				7746F38C1CF1755F003E9D6A /* UIImageViewExtension.swift in Sources */,
 				7746F38E1CF19241003E9D6A /* ClassmateCell.swift in Sources */,
 				7746F38A1CF16312003E9D6A /* ProfileVC.swift in Sources */,
+				77703B3E1D5C47530093CF95 /* ScheduleVC.swift in Sources */,
 				772DCA511CEF40D200F52AA6 /* LoginPageViewController.swift in Sources */,
 				77D54F741CECBEC600C11FA5 /* AppDelegate.swift in Sources */,
 				77D8F2ED1CF0FFB6007A1002 /* ClassesVC.swift in Sources */,

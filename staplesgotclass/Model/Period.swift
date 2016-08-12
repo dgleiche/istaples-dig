@@ -24,5 +24,4 @@ class Period: NSObject {
         self.users = users
         self.id = id
     }
-
 }
