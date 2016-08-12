@@ -56,6 +56,8 @@
 		FC2078F01CFC110D00D86F54 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = FC2078EF1CFC110D00D86F54 /* info.png */; };
 		FC2078F21CFC139900D86F54 /* email.png in Resources */ = {isa = PBXBuildFile; fileRef = FC2078F11CFC139900D86F54 /* email.png */; };
 		FC2078F61CFC268800D86F54 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2078F51CFC268800D86F54 /* AboutVC.swift */; };
+		FC3A411F1D5C31AB000738F2 /* DailyScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3A411E1D5C31AB000738F2 /* DailyScheduleManager.swift */; };
+		FC3A41211D5C3EEA000738F2 /* DailySchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3A41201D5C3EEA000738F2 /* DailySchedule.swift */; };
 		FC53CF851CF3E8690034266F /* EditPeriodVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC53CF841CF3E8690034266F /* EditPeriodVC.swift */; };
 		FC53CF991CF5215A0034266F /* MLPAutoCompleteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = FC53CF931CF5215A0034266F /* MLPAutoCompleteTextField.m */; };
 		FC53CF9A1CF5215A0034266F /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = FC53CF981CF5215A0034266F /* NSString+Levenshtein.m */; };
@@ -117,6 +119,8 @@
 		FC2078EF1CFC110D00D86F54 /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
 		FC2078F11CFC139900D86F54 /* email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = email.png; sourceTree = "<group>"; };
 		FC2078F51CFC268800D86F54 /* AboutVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
+		FC3A411E1D5C31AB000738F2 /* DailyScheduleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyScheduleManager.swift; sourceTree = "<group>"; };
+		FC3A41201D5C3EEA000738F2 /* DailySchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailySchedule.swift; sourceTree = "<group>"; };
 		FC53CF841CF3E8690034266F /* EditPeriodVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditPeriodVC.swift; path = ../Views/EditPeriodVC.swift; sourceTree = "<group>"; };
 		FC53CF921CF5215A0034266F /* MLPAutoCompleteTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompleteTextField.h; sourceTree = "<group>"; };
 		FC53CF931CF5215A0034266F /* MLPAutoCompleteTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPAutoCompleteTextField.m; sourceTree = "<group>"; };
@@ -226,6 +230,8 @@
 				775DC44A1CED558A00046768 /* Period.swift */,
 				775DC44C1CED55CD00046768 /* User.swift */,
 				775DC44E1CED583400046768 /* NetworkManager.swift */,
+				FC3A411E1D5C31AB000738F2 /* DailyScheduleManager.swift */,
+				FC3A41201D5C3EEA000738F2 /* DailySchedule.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -491,6 +497,7 @@
 				FC2078EC1CFC0D8C00D86F54 /* InfoVC.swift in Sources */,
 				77703B3C1D5C3D3B0093CF95 /* KDCircularProgress.swift in Sources */,
 				FC53CF9A1CF5215A0034266F /* NSString+Levenshtein.m in Sources */,
+				FC3A41211D5C3EEA000738F2 /* DailySchedule.swift in Sources */,
 				FC99DE2A1CF5652C0006F62E /* QuarterTable.swift in Sources */,
 				FC53CF851CF3E8690034266F /* EditPeriodVC.swift in Sources */,
 				77D54F761CECBEC600C11FA5 /* LoginVC.swift in Sources */,
@@ -504,6 +511,7 @@
 				77703B3E1D5C47530093CF95 /* ScheduleVC.swift in Sources */,
 				772DCA511CEF40D200F52AA6 /* LoginPageViewController.swift in Sources */,
 				77D54F741CECBEC600C11FA5 /* AppDelegate.swift in Sources */,
+				FC3A411F1D5C31AB000738F2 /* DailyScheduleManager.swift in Sources */,
 				77D8F2ED1CF0FFB6007A1002 /* ClassesVC.swift in Sources */,
 				772DCA531CEF428500F52AA6 /* PageContentVC.swift in Sources */,
 				FC2078F61CFC268800D86F54 /* AboutVC.swift in Sources */,
