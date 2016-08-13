@@ -807,6 +807,7 @@
                     <connections>
                         <outlet property="timeElapsedRing" destination="WTO-iV-b10" id="vcp-Ea-1Bx"/>
                         <outlet property="timeLeftRing" destination="oHl-0m-F2Z" id="5XJ-ZG-hyz"/>
+                        <outlet property="timeRemainingLabel" destination="0dh-nY-gWo" id="28P-Wa-Gzh"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gMS-AI-SVc" userLabel="First Responder" sceneMemberID="firstResponder"/>

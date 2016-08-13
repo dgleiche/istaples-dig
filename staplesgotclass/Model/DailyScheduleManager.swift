@@ -9,15 +9,37 @@
 import Foundation
 import Alamofire
 import Parse
+import RealmSwift
+
+protocol DailyScheduleManagerDelegate: class {
+    func didFetchSchedules(success: Bool)
+}
 
 class DailyScheduleManager: NSObject {
-    static let sharedInstance: DailyScheduleManager = DailyScheduleManager()
+    static var sharedInstance: DailyScheduleManager?
     var currentSchedule: Schedule?
     var modifiedSchedules = [Schedule]()
     var staticSchedules = [Schedule]()
+    var lunchSchedules = [LunchSchedule]()
+    weak var delegate:DailyScheduleManagerDelegate!
     
-    private override init() {
-        //maybe put custom init code, however since it is initialized at launch probably not necesary. If so, make class func to initialize sharedInstance and we can do custom init.
+    private init(delegate: DailyScheduleManagerDelegate) {
+        self.delegate = delegate
+        super.init()
+        self.loadSavedSchedules()
+    }
+    
+    class func setup(delegate: DailyScheduleManagerDelegate) {
+        DailyScheduleManager.sharedInstance = DailyScheduleManager(delegate: delegate)
+    }
+    
+    func loadSavedSchedules() {
+        let realm = try! Realm()
+        self.modifiedSchedules = Array(realm.objects(Schedule.self).filter("isStatic == false"))
+        self.staticSchedules = Array(realm.objects(Schedule.self).filter("isStatic == true"))
+        self.lunchSchedules = Array(realm.objects(LunchSchedule.self))
+        self.delegate.didFetchSchedules(true)
+        self.getDailySchedule()
     }
     
     func getDailySchedule() {
