@@ -8,23 +8,35 @@
 
 import UIKit
 
-class ScheduleVC: UITableViewController {
+class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
     @IBOutlet var timeLeftRing: KDCircularProgress!
     @IBOutlet var timeElapsedRing: KDCircularProgress!
+    @IBOutlet var timeRemainingLabel: UILabel!
+    var currentPeriod: SchedulePeriod?
+    var timer: NSTimer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        DailyScheduleManager.setup(self)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    //MARK: - Daily Schedule Manager Delegate Methods
+    
+    func didFetchSchedules(success: Bool) {
+        DailyScheduleManager.sharedInstance?.currentSchedule = DailyScheduleManager.sharedInstance.getSchedule(withDate: NSDate())
+    }
+    
+    func setupTimer() {
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(1.2, target: self, selector: #selector(ScheduleVC.clock), userInfo: nil, repeats: true)
+    }
+    
+    func clock() {
+        DailyScheduleManager.sharedInstance.getCurrentPeriod()
     }
 
     // MARK: - Table view data source

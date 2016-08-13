@@ -36,6 +36,7 @@ class SchedulePeriod: Object {
 
 class Course: Object {
     dynamic var name: String?
+    dynamic var lunchType: LunchType?
 }
 
 class LunchType: Object {
@@ -43,6 +44,7 @@ class LunchType: Object {
 }
 
 class LunchSchedule: Object {
-    dynamic var courseName: String?
     dynamic var lunchType: LunchType?
+    dynamic var monthNumber = 0
+    dynamic var lunchNumber = 0
 }
