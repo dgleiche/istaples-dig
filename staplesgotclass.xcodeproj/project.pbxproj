@@ -179,6 +179,8 @@
 		6A5B33AA2B3A517AF98D5380 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				77320A931D5D797E00603A38 /* Realm.framework */,
+				77320A941D5D797E00603A38 /* RealmSwift.framework */,
 				382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */,
 			);
 			name = Frameworks;
@@ -262,8 +264,6 @@
 		77D54F671CECBEC500C11FA5 = {
 			isa = PBXGroup;
 			children = (
-				77320A931D5D797E00603A38 /* Realm.framework */,
-				77320A941D5D797E00603A38 /* RealmSwift.framework */,
 				77D54F721CECBEC600C11FA5 /* staplesgotclass */,
 				77D54F711CECBEC600C11FA5 /* Products */,
 				613DFD310385FD328BD251B2 /* Pods */,

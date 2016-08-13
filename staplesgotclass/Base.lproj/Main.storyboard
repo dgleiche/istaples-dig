@@ -635,7 +635,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="bKR-Oq-agc">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="DZG-Sb-9mr">
                             <rect key="frame" x="0.0" y="94" width="600" height="203"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -653,7 +653,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="angle">
-                                            <real key="value" value="300"/>
+                                            <real key="value" value="360"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="startAngle">
                                             <integer key="value" value="-90"/>
@@ -662,13 +662,13 @@
                                             <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="color" keyPath="IBColor1">
-                                            <color key="value" red="0.0" green="0.91582532049999998" blue="0.46818242789999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="value" red="0.094693115090000002" green="0.56646648610000006" blue="0.90031008379999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="color" keyPath="IBColor2">
-                                            <color key="value" red="0.0" green="0.91582532049999998" blue="0.46818242789999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="value" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="color" keyPath="IBColor3">
-                                            <color key="value" red="0.0" green="0.91582532049999998" blue="0.46818242789999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="value" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="boolean" keyPath="roundedCorners" value="NO"/>
                                         <userDefinedRuntimeAttribute type="number" keyPath="glowAmount">
@@ -678,10 +678,14 @@
                                             <real key="value" value="0.29999999999999999"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="trackThickness">
-                                            <real key="value" value="0.40000000000000002"/>
+                                            <real key="value" value="0.20000000000000001"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="color" keyPath="trackColor">
-                                            <color key="value" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="lerpColorMode" value="NO"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="gradientRotateSpeed">
+                                            <real key="value" value="0.29999999999999999"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </view>
