@@ -13,7 +13,10 @@ class Schedule: Object {
     dynamic var name: String?
     dynamic var modifiedDate: NSDate?
     dynamic var isStatic: Bool = false
-    dynamic var weekDay = 0
+    
+    //Weekday: 1 is Sunday, 7 is Saturday
+    dynamic var weekday = 0
+    
     let periods = List<SchedulePeriod>()
     
 }
@@ -23,6 +26,9 @@ class SchedulePeriod: Object {
     dynamic var isCustom: Bool = false
     dynamic var id: Int = 0
     dynamic var isLunch: Bool = false
+    dynamic var isPassingTime: Bool = false
+    
+    //Seconds from midnight
     dynamic var startSeconds: Int = 0
     dynamic var endSeconds: Int = 50*60
     
