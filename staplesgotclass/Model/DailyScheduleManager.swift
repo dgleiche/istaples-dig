@@ -16,8 +16,7 @@ protocol DailyScheduleManagerDelegate: class {
 }
 
 class DailyScheduleManager: NSObject {
-    static let sharedInstance: DailyScheduleManager = DailyScheduleManager()
-    
+    static var sharedInstance: DailyScheduleManager?
     var currentSchedule: Schedule?
     
     var modifiedSchedules = [Schedule]()
