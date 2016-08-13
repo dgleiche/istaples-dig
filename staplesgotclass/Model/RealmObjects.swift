@@ -11,16 +11,32 @@ import RealmSwift
 
 class Schedule: Object {
     dynamic var name: String?
-    dynamic var date: NSDate?
-    dynamic var custom = false
+    dynamic var modifiedDate: NSDate?
+    dynamic var isStatic: Bool = false
+    dynamic var weekDay: Int?
     let periods = List<SchedulePeriod>()
-    
     
 }
 
 class SchedulePeriod: Object {
     dynamic var name: String?
-    dynamic var custom = false
-    dynamic var id = 0
+    dynamic var isCustom: Bool = false
+    dynamic var id: Int = 0
+    dynamic var isLunch: Bool = false
+    dynamic var startSeconds: Int = 0
+    dynamic var endSeconds: Int = 50*60
     
+}
+
+class Course: Object {
+    dynamic var name: String?
+}
+
+class LunchType: Object {
+    dynamic var name: String?
+}
+
+class LunchSchedule: Object {
+    dynamic var className: String?
+    dynamic var lunchType: LunchType?
 }
