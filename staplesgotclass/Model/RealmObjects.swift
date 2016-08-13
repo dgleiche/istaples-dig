@@ -13,7 +13,7 @@ class Schedule: Object {
     dynamic var name: String?
     dynamic var modifiedDate: NSDate?
     dynamic var isStatic: Bool = false
-    dynamic var weekDay: Int?
+    dynamic var weekDay = 0
     let periods = List<SchedulePeriod>()
     
 }
@@ -37,6 +37,6 @@ class LunchType: Object {
 }
 
 class LunchSchedule: Object {
-    dynamic var className: String?
+    dynamic var courseName: String?
     dynamic var lunchType: LunchType?
 }

@@ -20,7 +20,7 @@ class DailyScheduleManager: NSObject {
         //maybe put custom init code, however since it is initialized at launch probably not necesary. If so, make class func to initialize sharedInstance and we can do custom init.
     }
     
-    static func getDailySchedule() {
+    func getDailySchedule() {
         let query = PFQuery(className: "Schedule")
         query.whereKey("Static", equalTo: true)
         //only get permenant schedules
@@ -33,7 +33,7 @@ class DailyScheduleManager: NSObject {
                         newSchedule.name = schedule["Name"] as? String
                     }
                     if let custom = schedule["Static"] as? Bool {
-                        newSchedule.custom = custom
+                        newSchedule.isStatic = custom
                     }
                     let periodRelation = schedule.relationForKey("Periods")
                     let periodRelationQuery = periodRelation.query()
@@ -46,7 +46,6 @@ class DailyScheduleManager: NSObject {
                             }
                         }
                     })
-                    
                 }
             }
         }
