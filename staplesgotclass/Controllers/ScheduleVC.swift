@@ -28,8 +28,11 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
     //MARK: - Daily Schedule Manager Delegate Methods
     
     func didFetchSchedules(success: Bool) {
+        print("delegate called")
         if DailyScheduleManager.sharedInstance != nil {
+            print("schedules: \(DailyScheduleManager.sharedInstance?.staticSchedules)")
             DailyScheduleManager.sharedInstance?.currentSchedule = DailyScheduleManager.sharedInstance!.getSchedule(withDate: NSDate())
+            print("current schedule: \(DailyScheduleManager.sharedInstance?.currentSchedule)")
         }
     }
     

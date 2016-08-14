@@ -29,6 +29,7 @@ class DailyScheduleManager: NSObject {
     private init(delegate: DailyScheduleManagerDelegate) {
         self.delegate = delegate
         super.init()
+        DailyScheduleManager.sharedInstance = self
         self.loadSavedSchedules()
     }
     
@@ -40,22 +41,28 @@ class DailyScheduleManager: NSObject {
         self.modifiedSchedules = Array(realm.objects(Schedule.self).filter("isStatic == false"))
         self.staticSchedules = Array(realm.objects(Schedule.self).filter("isStatic == true"))
         self.lunchSchedules = Array(realm.objects(LunchSchedule.self))
-        self.delegate.didFetchSchedules(true)
+        if (staticSchedules.count > 0 && lunchSchedules.count > 0) {
+            print("realm objects found")
+            self.delegate.didFetchSchedules(true)
+        }
         self.getDailySchedule()
     }
     
     func getDailySchedule() {
         let query = PFQuery(className: "Schedule")
-        query.includeKey("Pointers")
-        
+        query.includeKey("Periods")
         query.findObjectsInBackgroundWithBlock({ (schedules: [PFObject]?, error: NSError?) in
             if (error == nil) {
                 try! self.realm.write {
-                    self.realm.delete(self.realm.objects(Schedule.self))
+                    self.realm.delete(self.modifiedSchedules)
+                    self.realm.delete(self.staticSchedules)
                 }
+                self.modifiedSchedules.removeAll()
+                self.staticSchedules.removeAll()
+                
                 for schedule in schedules! {
                     let newSchedule = Schedule()
-                    if (schedule["name"] != nil) {
+                    if (schedule["Name"] != nil) {
                         newSchedule.name = schedule["Name"] as? String
                     }
                     if let custom = schedule["Static"] as? Bool {
@@ -66,6 +73,7 @@ class DailyScheduleManager: NSObject {
                     }
                     
                     let periods = schedule["Periods"] as! [PFObject]
+                    print("periods: \(periods)")
                     for period in periods {
                         let newPeriod = SchedulePeriod()
                         newPeriod.name = period["Name"] as? String
@@ -87,11 +95,7 @@ class DailyScheduleManager: NSObject {
                         }
                         newSchedule.periods.append(newPeriod)
                     }
-                    
-                    try! self.realm.write {
-                        self.realm.add(newSchedule)
-                    }
-                    
+
                     if (newSchedule.isStatic) {
                         self.staticSchedules.append(newSchedule)
                     }
@@ -107,8 +111,9 @@ class DailyScheduleManager: NSObject {
                 lunchQuery.findObjectsInBackgroundWithBlock({ (lunchSchedules: [PFObject]?, lunchError: NSError?) in
                     if (error == nil) {
                         try! self.realm.write {
-                            self.realm.delete(self.realm.objects(LunchSchedule.self))
+                            self.realm.delete(self.lunchSchedules)
                         }
+                        self.lunchSchedules.removeAll()
                         
                         for lunchSchedule in lunchSchedules! {
                             let newLunchSchedule = LunchSchedule()
@@ -120,13 +125,16 @@ class DailyScheduleManager: NSObject {
                             newLunchSchedule.monthNumber = lunchSchedule["MonthNumber"] as! Int
                             newLunchSchedule.lunchNumber = lunchSchedule["LunchNumber"] as! Int
                             
-                            try! self.realm.write {
-                                self.realm.add(newLunchSchedule)
-                            }
                             self.lunchSchedules.append(newLunchSchedule)
                         }
                         
                         self.delegate.didFetchSchedules(true)
+                        
+                        try! self.realm.write {
+                            self.realm.add(self.staticSchedules)
+                            self.realm.add(self.modifiedSchedules)
+                            self.realm.add(self.lunchSchedules)
+                        }
                     }
                     else {
                         self.delegate.didFetchSchedules(false)
@@ -246,11 +254,30 @@ class DailyScheduleManager: NSObject {
         //Function hasnt returned, thus it is a static schedule
         //Determine if it's a weekday (otherwise there is no schedule)
         let weekday = selDateComponents.weekday
-        if weekday > 1 && weekday < 7 {
+        var schoolWeekday = 0
+        switch weekday {
+        case 1:
+            schoolWeekday = 6
+        case 2:
+            schoolWeekday = 0
+        case 3:
+            schoolWeekday = 1
+        case 4:
+            schoolWeekday = 2
+        case 5:
+            schoolWeekday = 3
+        case 6:
+            schoolWeekday = 4
+        case 7:
+            schoolWeekday = 5
+        default:
+            break
+        }
+        if schoolWeekday >= 0 && schoolWeekday <= 4 {
             //It's a weekday
             //Return the corresponding static schedule
             for staticSchedule in staticSchedules {
-                if staticSchedule.weekday == weekday { return staticSchedule }
+                if staticSchedule.weekday == schoolWeekday { return staticSchedule }
             }
         }
         
