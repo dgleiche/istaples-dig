@@ -27,6 +27,8 @@ class SchedulePeriod: Object {
     dynamic var id: Int = 0
     dynamic var isLunch: Bool = false
     dynamic var isPassingTime: Bool = false
+    dynamic var isBeforeSchool: Bool = false
+    dynamic var isAfterSchool: Bool = false
     
     //Seconds from midnight
     dynamic var startSeconds: Int = 0

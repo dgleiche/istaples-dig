@@ -116,11 +116,35 @@ class DailyScheduleManager: NSObject {
                     
                     passingTimePeriod.isPassingTime = true
                     passingTimePeriod.startSeconds = passingTimeStart
-                    passingTimePeriod.endSeconds = passingTimeStart + 5 * 60 //5 mins
+                    passingTimePeriod.endSeconds = passingTimeStart + 5 * 60 //5 mins after
                     passingTimePeriod.name = "Passing Time"
                     
                     return passingTimePeriod
+                    
+                } else if abs(secondsFromMidnight - period.startSeconds) < 10 * 60 {
+                    //Ten minutes before school
+                    let beforeSchoolPeriod: SchedulePeriod = SchedulePeriod()
+                    
+                    beforeSchoolPeriod.isBeforeSchool = true
+                    beforeSchoolPeriod.startSeconds = period.startSeconds - (10 * 60) //10 mins before
+                    beforeSchoolPeriod.endSeconds = period.startSeconds
+                    beforeSchoolPeriod.name = "Time until school starts"
+                    
+                    return beforeSchoolPeriod
+                    
                 }
+            }
+            
+            //If it's still within ten minutes of the last period, we have the bus passing time thing
+            if abs(secondsFromMidnight - passingTimeStart) < 10 * 60 {
+                let afterSchoolPeriod: SchedulePeriod = SchedulePeriod()
+                
+                afterSchoolPeriod.isAfterSchool = true
+                afterSchoolPeriod.startSeconds = passingTimeStart
+                afterSchoolPeriod.endSeconds = passingTimeStart + 10 * 60 //10 mins after
+                afterSchoolPeriod.name = "Get to the buses!"
+                
+                return afterSchoolPeriod
             }
             
             //Must be before or after the school day
