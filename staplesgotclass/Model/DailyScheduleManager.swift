@@ -22,6 +22,8 @@ class DailyScheduleManager: NSObject {
     var modifiedSchedules = [Schedule]()
     var staticSchedules = [Schedule]()
     var lunchSchedules = [LunchSchedule]()
+    let realm = try! Realm()
+    
     weak var delegate:DailyScheduleManagerDelegate!
     
     private init(delegate: DailyScheduleManagerDelegate) {
@@ -35,7 +37,6 @@ class DailyScheduleManager: NSObject {
     }
     
     func loadSavedSchedules() {
-        let realm = try! Realm()
         self.modifiedSchedules = Array(realm.objects(Schedule.self).filter("isStatic == false"))
         self.staticSchedules = Array(realm.objects(Schedule.self).filter("isStatic == true"))
         self.lunchSchedules = Array(realm.objects(LunchSchedule.self))
@@ -45,11 +46,13 @@ class DailyScheduleManager: NSObject {
     
     func getDailySchedule() {
         let query = PFQuery(className: "Schedule")
-        query.whereKey("Static", equalTo: true)
-        //only get permenant schedules
+        query.includeKey("Pointers")
         
-        query.findObjectsInBackgroundWithBlock { (schedules: [PFObject]?, error: NSError?) in
+        query.findObjectsInBackgroundWithBlock({ (schedules: [PFObject]?, error: NSError?) in
             if (error == nil) {
+                try! self.realm.write {
+                    self.realm.delete(self.realm.objects(Schedule.self))
+                }
                 for schedule in schedules! {
                     let newSchedule = Schedule()
                     if (schedule["name"] != nil) {
@@ -58,20 +61,82 @@ class DailyScheduleManager: NSObject {
                     if let custom = schedule["Static"] as? Bool {
                         newSchedule.isStatic = custom
                     }
-                    let periodRelation = schedule.relationForKey("Periods")
-                    let periodRelationQuery = periodRelation.query()
-                    periodRelationQuery.findObjectsInBackgroundWithBlock({ (periods: [PFObject]?, periodError: NSError?) in
-                        if (periodError == nil) {
-                            for period in periods! {
-                                let newPeriod = SchedulePeriod()
-                                newPeriod.name = period["Name"] as? String
-                                newSchedule.periods.append(newPeriod)
-                            }
+                    if let weekday = schedule["Weekday"] as? Int {
+                        newSchedule.weekday = weekday
+                    }
+                    
+                    let periods = schedule["Periods"] as! [PFObject]
+                    for period in periods {
+                        let newPeriod = SchedulePeriod()
+                        newPeriod.name = period["Name"] as? String
+                        
+                        if let custom = period["Custom"] as? Bool {
+                            newPeriod.isCustom = custom
                         }
-                    })
+                        if let id = period["Id"] as? Int {
+                            newPeriod.id = id
+                        }
+                        if let lunch = period["Lunch"] as? Bool {
+                            newPeriod.isLunch = lunch
+                        }
+                        if let startSeconds = period["StartSeconds"] as? Int {
+                            newPeriod.startSeconds = startSeconds
+                        }
+                        if let endSeconds = period["EndSeconds"] as? Int {
+                            newPeriod.endSeconds = endSeconds
+                        }
+                        newSchedule.periods.append(newPeriod)
+                    }
+                    
+                    try! self.realm.write {
+                        self.realm.add(newSchedule)
+                    }
+                    
+                    if (newSchedule.isStatic) {
+                        self.staticSchedules.append(newSchedule)
+                    }
+                    else {
+                        self.modifiedSchedules.append(newSchedule)
+                    }
+                    
                 }
+                
+                let lunchQuery = PFQuery(className: "LunchSchedule")
+                lunchQuery.includeKey("LunchType")
+                
+                lunchQuery.findObjectsInBackgroundWithBlock({ (lunchSchedules: [PFObject]?, lunchError: NSError?) in
+                    if (error == nil) {
+                        try! self.realm.write {
+                            self.realm.delete(self.realm.objects(LunchSchedule.self))
+                        }
+                        
+                        for lunchSchedule in lunchSchedules! {
+                            let newLunchSchedule = LunchSchedule()
+                            let newLunchType = LunchType()
+                            if let lunchType = lunchSchedule["LunchType"] as? PFObject {
+                                newLunchType.name = lunchType["Name"] as? String
+                            }
+                            newLunchSchedule.lunchType = newLunchType
+                            newLunchSchedule.monthNumber = lunchSchedule["MonthNumber"] as! Int
+                            newLunchSchedule.lunchNumber = lunchSchedule["LunchNumber"] as! Int
+                            
+                            try! self.realm.write {
+                                self.realm.add(newLunchSchedule)
+                            }
+                            self.lunchSchedules.append(newLunchSchedule)
+                        }
+                        
+                        self.delegate.didFetchSchedules(true)
+                    }
+                    else {
+                        self.delegate.didFetchSchedules(false)
+                    }
+                })
             }
-        }
+            else {
+                self.delegate.didFetchSchedules(false)
+            }
+        })
     }
     
     func clock() {
