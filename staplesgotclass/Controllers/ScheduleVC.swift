@@ -23,6 +23,16 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let sweetBlue = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
+        
+        //Turn off extra lines in the table view
+        
+        self.navigationController?.navigationBar.barTintColor = sweetBlue
+        self.navigationController?.navigationBar.translucent = false
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-Medium", size: 17)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        
         let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(ScheduleVC.changeDate(_:)))
         
         self.tableView.addGestureRecognizer(swipeRecognizer)
@@ -46,6 +56,12 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
             
             if (DailyScheduleManager.sharedInstance?.currentSchedule != nil) {
                 //start timer if current schedule not nil
+                if (DailyScheduleManager.sharedInstance?.currentSchedule?.isStatic == false) {
+                    self.navigationItem.prompt = "Modified Schedule"
+                }
+                else {
+                    self.navigationItem.prompt = nil
+                }
                 self.setupTimer()
             }
         }
@@ -86,12 +102,13 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if (section == 0) {
-            return 1
-        }
-        else {
-             return (DailyScheduleManager.sharedInstance?.currentSchedule?.periods.count)!
-        }
+//        if (section == 0) {
+//            return 1
+//        }
+//        else {
+//             return (DailyScheduleManager.sharedInstance?.currentSchedule?.periods.count)!
+//        }
+        return 0
 
     }
     

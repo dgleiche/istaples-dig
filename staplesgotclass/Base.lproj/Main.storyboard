@@ -866,7 +866,7 @@
                             <outlet property="delegate" destination="yPi-Le-xdF" id="LLL-Vv-wH0"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Thursday, August 11, 2016" prompt="Modified Schedule" id="n2c-m7-bgN"/>
+                    <navigationItem key="navigationItem" title="Thursday, August 11, 2016" id="n2c-m7-bgN"/>
                     <connections>
                         <outlet property="currentPeriodNumberLabel" destination="3J2-Bb-Rj3" id="zHl-xj-cta"/>
                         <outlet property="currentPeriodTitleLabel" destination="tfk-At-ucG" id="KAs-LK-KLz"/>
@@ -908,9 +908,9 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
+                        <segue destination="NJv-Nk-3SU" kind="relationship" relationship="viewControllers" id="Qt7-MA-kff"/>
                         <segue destination="eCD-hb-3OC" kind="relationship" relationship="viewControllers" id="f7u-KM-dMl"/>
                         <segue destination="M81-PC-nEs" kind="relationship" relationship="viewControllers" id="LUq-5l-JMM"/>
-                        <segue destination="NJv-Nk-3SU" kind="relationship" relationship="viewControllers" id="Qt7-MA-kff"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Gy-9g-a9x" userLabel="First Responder" sceneMemberID="firstResponder"/>

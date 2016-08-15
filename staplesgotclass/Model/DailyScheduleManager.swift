@@ -95,8 +95,15 @@ class DailyScheduleManager: NSObject {
                         }
                         newSchedule.periods.append(newPeriod)
                     }
+//                    
+//                    let sortedPeriods = newSchedule.periods.sorted("startSeconds")
+//                    newSchedule.periods.removeAll()
+//                    for sortedPeriod in sortedPeriods {
+//                        newSchedule.periods.append(sortedPeriod)
+//                    }
 
                     if (newSchedule.isStatic) {
+
                         self.staticSchedules.append(newSchedule)
                     }
                     else {
