@@ -232,17 +232,49 @@ class DailyScheduleManager: NSObject {
     }
     
     // Gets the next period that hasn't already happened (returns nil if every period has happened)
-    func getNextRealPeriodInSchedule() -> SchedulePeriod? {
+    func getNextRealPeriodEventInSchedule() -> SchedulePeriod? {
         if let schedule = self.currentSchedule {
+            var dayStarted: Bool = false
+            var lastPeriodEndTime: Int = 0
+            
             let secondsFromMidnight = self.secondsFromMidnight()
             
+            //Assumes period array is sorted by startSeconds ascending
             for period in schedule.periods {
                 
                 //Skip periods that have already happened
-                if secondsFromMidnight > period.startSeconds { continue }
+                if secondsFromMidnight > period.startSeconds {
+                    dayStarted = true
+                    lastPeriodEndTime = period.endSeconds
+                    continue
+                }
+                
+                //If the day hasn't started, the first period event is 10 mins before school
+                if !dayStarted {
+                    let beforeSchoolPeriod: SchedulePeriod = SchedulePeriod()
+                    
+                    beforeSchoolPeriod.isBeforeSchool = true
+                    beforeSchoolPeriod.startSeconds = period.startSeconds - (10 * 60) //10 mins before
+                    beforeSchoolPeriod.endSeconds = period.startSeconds
+                    beforeSchoolPeriod.name = "Time until school starts"
+                    
+                    return beforeSchoolPeriod
+                }
                 
                 //Period hasnt happened yet, return it
                 return period
+            }
+            
+            //If it's still the last period account for bus passing time
+            if secondsFromMidnight < lastPeriodEndTime {
+                let afterSchoolPeriod: SchedulePeriod = SchedulePeriod()
+                
+                afterSchoolPeriod.isAfterSchool = true
+                afterSchoolPeriod.startSeconds = lastPeriodEndTime
+                afterSchoolPeriod.endSeconds = lastPeriodEndTime + 10 * 60 //10 mins after
+                afterSchoolPeriod.name = "Get to the buses!"
+                
+                return afterSchoolPeriod
             }
         }
         
