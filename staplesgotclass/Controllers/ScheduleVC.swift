@@ -20,6 +20,9 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
     var currentPeriod: SchedulePeriod?
     var timer: NSTimer?
     
+    var clockTimer: NSTimer?
+    var periodTimer: NSTimer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,7 +68,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
                 else {
                     self.navigationItem.prompt = nil
                 }
-                self.setupTimer()
+                self.setupClockTimer()
+                self.setupPeriodTimer()
             }
         }
     }
