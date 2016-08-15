@@ -33,11 +33,19 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
             print("schedules: \(DailyScheduleManager.sharedInstance?.staticSchedules)")
             DailyScheduleManager.sharedInstance?.currentSchedule = DailyScheduleManager.sharedInstance!.getSchedule(withDate: NSDate())
             print("current schedule: \(DailyScheduleManager.sharedInstance?.currentSchedule)")
+            
+            if (DailyScheduleManager.sharedInstance?.currentSchedule != nil) {
+                //start timer if current schedule not nil
+                self.setupTimer()
+            }
         }
     }
     
     func setupTimer() {
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(1.2, target: self, selector: #selector(ScheduleVC.clock), userInfo: nil, repeats: true)
+        if (self.timer?.valid == true) {
+            self.timer?.invalidate()
+        }
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(ScheduleVC.clock), userInfo: nil, repeats: true)
     }
     
     func clock() {
