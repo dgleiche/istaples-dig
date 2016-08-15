@@ -12,11 +12,21 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
     @IBOutlet var timeLeftRing: KDCircularProgress!
     @IBOutlet var timeElapsedRing: KDCircularProgress!
     @IBOutlet var timeRemainingLabel: UILabel!
+    @IBOutlet var timeElapsedLabel: UILabel!
+    @IBOutlet var percentDoneLabel: UILabel!
+    @IBOutlet var currentPeriodNumberLabel: UILabel!
+    @IBOutlet var currentPeriodTitleLabel: UILabel!
+    
     var currentPeriod: SchedulePeriod?
     var timer: NSTimer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(ScheduleVC.changeDate(_:)))
+        
+        self.tableView.addGestureRecognizer(swipeRecognizer)
+        
         DailyScheduleManager.setup(self)
     }
     
@@ -54,16 +64,35 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
         }
     }
     
+    func changeDate(sender: UISwipeGestureRecognizer) {
+        
+    }
+    
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 2
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if (section == 0) {
+            return "Up Next"
+        }
+        else {
+            return "Schedule"
+        }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        
+        if (section == 0) {
+            return 1
+        }
+        else {
+             return (DailyScheduleManager.sharedInstance?.currentSchedule?.periods.count)!
+        }
+
     }
     
     /*

@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -640,17 +641,76 @@
                             <rect key="frame" x="0.0" y="94" width="600" height="203"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WTO-iV-b10" customClass="KDCircularProgress" customModule="staplesgotclass" customModuleProvider="target">
-                                    <rect key="frame" x="201" y="3" width="198" height="198"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxL-aK-9JY">
+                                    <rect key="frame" x="8" y="129" width="69" height="38"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="69" id="97B-kP-VY0"/>
+                                        <constraint firstAttribute="height" constant="38" id="ZZx-BX-4SO"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="31"/>
+                                    <color key="textColor" red="0.25715144230769216" green="0.25715144230769216" blue="0.25715144230769216" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AP Computer Science" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="tfk-At-ucG">
+                                    <rect key="frame" x="55" y="8" width="537" height="38"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="38" id="rCd-Kw-J3s"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="31"/>
+                                    <color key="textColor" red="0.25715144229999998" green="0.25715144229999998" blue="0.25715144229999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oHl-0m-F2Z" customClass="KDCircularProgress" customModule="staplesgotclass" customModuleProvider="target">
+                                    <rect key="frame" x="216" y="36" width="168" height="168"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="168" id="4CX-mv-BNu"/>
+                                        <constraint firstAttribute="width" constant="168" id="wHd-7c-uWz"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="angle">
+                                            <real key="value" value="300"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="startAngle">
+                                            <integer key="value" value="-90"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="IBColor1">
+                                            <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="IBColor2">
+                                            <color key="value" red="0.50196081400000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="IBColor3">
+                                            <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="roundedCorners" value="NO"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="glowAmount">
+                                            <real key="value" value="2"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="progressThickness">
+                                            <real key="value" value="0.10000000000000001"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="lerpColorMode" value="YES"/>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="trackColor">
+                                            <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WTO-iV-b10" customClass="KDCircularProgress" customModule="staplesgotclass" customModuleProvider="target">
+                                    <rect key="frame" x="224" y="44" width="153" height="153"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0dh-nY-gWo">
-                                            <rect key="frame" x="43" y="82" width="112" height="34"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0dh-nY-gWo">
+                                            <rect key="frame" x="21" y="64" width="112" height="34"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="153" id="bix-OE-9Vc"/>
+                                        <constraint firstAttribute="height" constant="153" id="jHz-bw-NH6"/>
+                                    </constraints>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="angle">
                                             <real key="value" value="360"/>
@@ -689,46 +749,43 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </view>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oHl-0m-F2Z" customClass="KDCircularProgress" customModule="staplesgotclass" customModuleProvider="target">
-                                    <rect key="frame" x="193" y="-6" width="215" height="215"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="angle">
-                                            <real key="value" value="300"/>
-                                        </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="startAngle">
-                                            <integer key="value" value="-90"/>
-                                        </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="color" keyPath="IBColor1">
-                                            <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="color" keyPath="IBColor2">
-                                            <color key="value" red="0.50196081400000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="color" keyPath="IBColor3">
-                                            <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="boolean" keyPath="roundedCorners" value="NO"/>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="glowAmount">
-                                            <real key="value" value="2"/>
-                                        </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="progressThickness">
-                                            <real key="value" value="0.10000000000000001"/>
-                                        </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="boolean" keyPath="lerpColorMode" value="YES"/>
-                                        <userDefinedRuntimeAttribute type="color" keyPath="trackColor">
-                                            <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
-                                </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="IN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxL-aK-9JY">
-                                    <rect key="frame" x="8" y="129" width="69" height="38"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3J2-Bb-Rj3">
+                                    <rect key="frame" x="13" y="0.0" width="34" height="60"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="34" id="NzR-GC-Le5"/>
+                                        <constraint firstAttribute="height" constant="60" id="zBH-du-vav"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="57"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ArR-gb-af5">
+                                    <rect key="frame" x="523" y="130" width="69" height="38"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="38" id="1n1-SW-1SG"/>
+                                        <constraint firstAttribute="width" constant="69" id="XYs-6D-XDx"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="31"/>
-                                    <color key="textColor" red="0.25715144230769216" green="0.25715144230769216" blue="0.25715144230769216" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.25715144229999998" green="0.25715144229999998" blue="0.25715144229999998" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="ArR-gb-af5" secondAttribute="bottom" constant="35" id="1MY-gy-aZC"/>
+                                <constraint firstItem="WTO-iV-b10" firstAttribute="top" secondItem="DZG-Sb-9mr" secondAttribute="top" constant="44" id="2nU-KW-MP6"/>
+                                <constraint firstItem="3J2-Bb-Rj3" firstAttribute="leading" secondItem="DZG-Sb-9mr" secondAttribute="leading" constant="13" id="2pH-xR-ZeH"/>
+                                <constraint firstAttribute="bottom" secondItem="wxL-aK-9JY" secondAttribute="bottom" constant="36" id="9Gj-TW-lof"/>
+                                <constraint firstItem="oHl-0m-F2Z" firstAttribute="top" secondItem="DZG-Sb-9mr" secondAttribute="top" constant="36" id="HAB-Ah-iAv"/>
+                                <constraint firstItem="oHl-0m-F2Z" firstAttribute="centerX" secondItem="DZG-Sb-9mr" secondAttribute="centerX" id="Hyq-JD-jF2"/>
+                                <constraint firstItem="tfk-At-ucG" firstAttribute="leading" secondItem="3J2-Bb-Rj3" secondAttribute="trailing" constant="8" id="I5V-1K-a06"/>
+                                <constraint firstItem="WTO-iV-b10" firstAttribute="centerX" secondItem="DZG-Sb-9mr" secondAttribute="centerX" id="I9C-a8-uyV"/>
+                                <constraint firstItem="wxL-aK-9JY" firstAttribute="leading" secondItem="DZG-Sb-9mr" secondAttribute="leading" constant="8" id="L0y-LY-I1Z"/>
+                                <constraint firstAttribute="trailing" secondItem="ArR-gb-af5" secondAttribute="trailing" constant="8" id="UWt-Eg-mYE"/>
+                                <constraint firstAttribute="trailing" secondItem="tfk-At-ucG" secondAttribute="trailing" constant="8" id="eEz-aO-C0l"/>
+                                <constraint firstItem="3J2-Bb-Rj3" firstAttribute="top" secondItem="DZG-Sb-9mr" secondAttribute="top" id="hao-mi-x44"/>
+                                <constraint firstItem="tfk-At-ucG" firstAttribute="top" secondItem="DZG-Sb-9mr" secondAttribute="top" constant="8" id="okj-ok-kHr"/>
+                            </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="classCell" rowHeight="63" id="GQm-hr-vAR" customClass="ClassCell" customModule="staplesgotclass" customModuleProvider="target">
@@ -741,14 +798,33 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vrU-vn-uig">
                                             <rect key="frame" x="5" y="6" width="31" height="50"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="31" id="n1u-xr-vp8"/>
+                                                <constraint firstAttribute="width" constant="31" id="qSv-Cb-9jI"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="35"/>
                                             <color key="textColor" red="0.0" green="0.38093091509999999" blue="0.75717147439999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="A.P. Computer Science" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W9b-wH-2sQ">
-                                            <rect key="frame" x="47" y="0.0" width="410" height="62"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mary Katherine Hinman" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="orF-q2-Pf4">
+                                            <rect key="frame" x="356" y="3" width="236" height="19"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="19" id="ddh-bh-iac"/>
+                                                <constraint firstAttribute="width" constant="236" id="sQG-Os-caj"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="12"/>
+                                            <color key="textColor" red="0.2939479935" green="0.2939479935" blue="0.2939479935" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8:30 - 9:45" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NZC-4O-1vK">
+                                            <rect key="frame" x="511" y="24" width="81" height="27"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="81" id="jYv-iO-g8Z"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                            <color key="textColor" red="0.0" green="0.43137254899999999" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A.P. Computer Science" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W9b-wH-2sQ">
+                                            <rect key="frame" x="44" y="16" width="459" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="43" id="SWa-rG-Pvl"/>
                                             </constraints>
@@ -761,40 +837,27 @@
                                                 </mask>
                                             </variation>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mary Katherine Hinman" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="orF-q2-Pf4">
-                                            <rect key="frame" x="461" y="6" width="131" height="19"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="19" id="gnO-Ck-Mbt"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="12"/>
-                                            <color key="textColor" red="0.2939479935" green="0.2939479935" blue="0.2939479935" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="8:30 - 9:45" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NZC-4O-1vK">
-                                            <rect key="frame" x="461" y="33" width="131" height="19"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="19" id="ySQ-pD-Omt"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                            <color key="textColor" red="0.0" green="0.43137254899999999" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="vrU-vn-uig" firstAttribute="leading" secondItem="kjS-4z-UrJ" secondAttribute="leadingMargin" constant="-3" id="0Er-ed-35P"/>
-                                        <constraint firstItem="W9b-wH-2sQ" firstAttribute="top" secondItem="kjS-4z-UrJ" secondAttribute="top" id="8hC-Ar-JEv"/>
-                                        <constraint firstAttribute="trailing" secondItem="orF-q2-Pf4" secondAttribute="trailing" constant="8" id="DCb-a3-fPz"/>
-                                        <constraint firstAttribute="bottom" secondItem="W9b-wH-2sQ" secondAttribute="bottom" id="MDc-Ag-PR6"/>
-                                        <constraint firstItem="W9b-wH-2sQ" firstAttribute="leading" secondItem="vrU-vn-uig" secondAttribute="trailing" constant="11" id="Qjw-bO-fYt"/>
-                                        <constraint firstItem="orF-q2-Pf4" firstAttribute="top" secondItem="kjS-4z-UrJ" secondAttribute="top" constant="6" id="bh9-o7-gId"/>
-                                        <constraint firstItem="vrU-vn-uig" firstAttribute="top" secondItem="kjS-4z-UrJ" secondAttribute="topMargin" constant="-2" id="i9h-Lx-E2I"/>
-                                        <constraint firstItem="vrU-vn-uig" firstAttribute="centerY" secondItem="W9b-wH-2sQ" secondAttribute="centerY" id="vZE-vO-vZQ"/>
+                                        <constraint firstItem="vrU-vn-uig" firstAttribute="baseline" secondItem="W9b-wH-2sQ" secondAttribute="baseline" constant="6" id="7FN-D0-r7n"/>
+                                        <constraint firstItem="vrU-vn-uig" firstAttribute="top" secondItem="kjS-4z-UrJ" secondAttribute="topMargin" constant="-2" id="G4o-9c-T90"/>
+                                        <constraint firstItem="NZC-4O-1vK" firstAttribute="top" secondItem="orF-q2-Pf4" secondAttribute="bottom" constant="2" id="L2C-z5-P5o"/>
+                                        <constraint firstItem="W9b-wH-2sQ" firstAttribute="firstBaseline" secondItem="NZC-4O-1vK" secondAttribute="firstBaseline" constant="-6" id="SkY-VL-fBK"/>
+                                        <constraint firstItem="orF-q2-Pf4" firstAttribute="trailing" secondItem="NZC-4O-1vK" secondAttribute="trailing" id="Tu1-0A-eZv"/>
+                                        <constraint firstItem="orF-q2-Pf4" firstAttribute="top" secondItem="kjS-4z-UrJ" secondAttribute="topMargin" constant="-5" id="UMm-AF-z0H"/>
+                                        <constraint firstItem="orF-q2-Pf4" firstAttribute="trailing" secondItem="kjS-4z-UrJ" secondAttribute="trailingMargin" id="VqM-w6-btm"/>
+                                        <constraint firstItem="vrU-vn-uig" firstAttribute="centerY" secondItem="kjS-4z-UrJ" secondAttribute="centerY" id="bNE-NY-EFm"/>
+                                        <constraint firstItem="vrU-vn-uig" firstAttribute="leading" secondItem="kjS-4z-UrJ" secondAttribute="leadingMargin" constant="-3" id="dUd-Te-RPB"/>
+                                        <constraint firstItem="W9b-wH-2sQ" firstAttribute="centerY" secondItem="NZC-4O-1vK" secondAttribute="centerY" constant="-6.5" id="dqC-Dg-d9h"/>
+                                        <constraint firstItem="W9b-wH-2sQ" firstAttribute="leading" secondItem="vrU-vn-uig" secondAttribute="trailing" constant="8" symbolic="YES" id="iBM-PM-Bzi"/>
+                                        <constraint firstItem="NZC-4O-1vK" firstAttribute="leading" secondItem="W9b-wH-2sQ" secondAttribute="trailing" constant="8" symbolic="YES" id="joK-RD-Fh0"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="classTitleLabel" destination="W9b-wH-2sQ" id="c8z-qN-ZNL"/>
                                     <outlet property="periodNumberLabel" destination="vrU-vn-uig" id="m0E-M1-O0w"/>
                                     <outlet property="teacherLabel" destination="orF-q2-Pf4" id="kUp-hy-1Tg"/>
+                                    <outlet property="timeLabel" destination="NZC-4O-1vK" id="duU-v0-4vH"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -805,6 +868,10 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Thursday, August 11, 2016" prompt="Modified Schedule" id="n2c-m7-bgN"/>
                     <connections>
+                        <outlet property="currentPeriodNumberLabel" destination="3J2-Bb-Rj3" id="zHl-xj-cta"/>
+                        <outlet property="currentPeriodTitleLabel" destination="tfk-At-ucG" id="KAs-LK-KLz"/>
+                        <outlet property="percentDoneLabel" destination="ArR-gb-af5" id="Rzw-Sw-kkJ"/>
+                        <outlet property="timeElapsedLabel" destination="wxL-aK-9JY" id="4wT-Vx-Ooe"/>
                         <outlet property="timeElapsedRing" destination="WTO-iV-b10" id="vcp-Ea-1Bx"/>
                         <outlet property="timeLeftRing" destination="oHl-0m-F2Z" id="5XJ-ZG-hyz"/>
                         <outlet property="timeRemainingLabel" destination="0dh-nY-gWo" id="28P-Wa-Gzh"/>

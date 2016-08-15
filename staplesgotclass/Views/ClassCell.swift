@@ -13,6 +13,7 @@ class ClassCell: UITableViewCell {
     @IBOutlet var classTitleLabel: UILabel!
     @IBOutlet var quarterLabel: UILabel!
     @IBOutlet var teacherLabel: UILabel!
+    @IBOutlet var timeLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
