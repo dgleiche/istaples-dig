@@ -12,8 +12,9 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
     @IBOutlet var timeLeftRing: KDCircularProgress!
     @IBOutlet var timeElapsedRing: KDCircularProgress!
     @IBOutlet var timeRemainingLabel: UILabel!
-    var currentPeriod: SchedulePeriod?
-    var timer: NSTimer?
+    
+    var clockTimer: NSTimer?
+    var periodTimer: NSTimer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,23 +35,45 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
             DailyScheduleManager.sharedInstance?.currentSchedule = DailyScheduleManager.sharedInstance!.getSchedule(withDate: NSDate())
             print("current schedule: \(DailyScheduleManager.sharedInstance?.currentSchedule)")
             
+            //Setup the current period
+            DailyScheduleManager.sharedInstance?.currentPeriod = DailyScheduleManager.sharedInstance!.getCurrentPeriod()
+            
             if (DailyScheduleManager.sharedInstance?.currentSchedule != nil) {
                 //start timer if current schedule not nil
-                self.setupTimer()
+                self.setupClockTimer()
+                self.setupPeriodTimer()
             }
         }
     }
     
-    func setupTimer() {
-        if (self.timer?.valid == true) {
-            self.timer?.invalidate()
+    func setupClockTimer() {
+        if self.clockTimer != nil {
+            if self.clockTimer!.valid == true { self.clockTimer!.invalidate() }
         }
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(ScheduleVC.clock), userInfo: nil, repeats: true)
+        
+        self.clockTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(ScheduleVC.clock), userInfo: nil, repeats: true)
+    }
+    
+    func setupPeriodTimer() {
+        DailyScheduleManager.sharedInstance!.currentPeriod = DailyScheduleManager.sharedInstance!.getCurrentPeriod()
+        
+        if self.periodTimer != nil {
+            if self.periodTimer!.valid == true { self.periodTimer!.invalidate() }
+        }
+        
+        //Will only set up the timer if a 'next period' is available
+        //i.e nothing will happen if the day is over
+        if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextRealPeriodInSchedule() {
+            let timeIntervalUntilNextPeriodStart: Double = Double(nextPeriod.startSeconds - DailyScheduleManager.sharedInstance!.secondsFromMidnight())
+    
+            //Add in 1 second to the interval to ensure it's the start of a new period and nothing funky happens
+            self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart + 1.0, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
+        }
     }
     
     func clock() {
         if DailyScheduleManager.sharedInstance != nil {
-            DailyScheduleManager.sharedInstance!.getCurrentPeriod()
+            
         }
     }
     

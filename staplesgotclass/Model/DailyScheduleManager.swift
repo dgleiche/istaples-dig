@@ -19,6 +19,8 @@ class DailyScheduleManager: NSObject {
     static var sharedInstance: DailyScheduleManager?
     var currentSchedule: Schedule?
     
+    var currentPeriod: SchedulePeriod?
+    
     var modifiedSchedules = [Schedule]()
     var staticSchedules = [Schedule]()
     var lunchSchedules = [LunchSchedule]()
@@ -226,6 +228,24 @@ class DailyScheduleManager: NSObject {
         
         //Set yer darn schedules
         print("YOUR SCHEDULE WAS NOT SET! BAD DYLAN! BAD!")
+        return nil
+    }
+    
+    // Gets the next period that hasn't already happened (returns nil if every period has happened)
+    func getNextRealPeriodInSchedule() -> SchedulePeriod? {
+        if let schedule = self.currentSchedule {
+            let secondsFromMidnight = self.secondsFromMidnight()
+            
+            for period in schedule.periods {
+                
+                //Skip periods that have already happened
+                if secondsFromMidnight > period.startSeconds { continue }
+                
+                //Period hasnt happened yet, return it
+                return period
+            }
+        }
+        
         return nil
     }
     
