@@ -371,7 +371,7 @@ class DailyScheduleManager: NSObject {
         let month = NSCalendar.currentCalendar().component(.Month, fromDate: date)
         
         for lunchSchedule in self.lunchSchedules {
-            if (lunchSchedule.monthNumber == month && lunchSchedule.lunchType == lunchtype) {
+            if (lunchSchedule.monthNumber - 1 == month && lunchSchedule.lunchType == lunchtype) {
                 return lunchSchedule.lunchNumber
             }
         }

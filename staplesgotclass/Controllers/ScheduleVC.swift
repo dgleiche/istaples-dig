@@ -17,7 +17,9 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
     @IBOutlet var currentPeriodNumberLabel: UILabel!
     @IBOutlet var currentPeriodTitleLabel: UILabel!
     
-    var currentPeriod: SchedulePeriod?
+    var selectedSchedule: Schedule?
+    var isCurrentSchedule = true
+    
     var timer: NSTimer?
     
     var clockTimer: NSTimer?
@@ -68,6 +70,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
                 else {
                     self.navigationItem.prompt = nil
                 }
+                self.selectedSchedule = DailyScheduleManager.sharedInstance?.currentSchedule
                 self.setupClockTimer()
                 self.setupPeriodTimer()
             }
@@ -141,12 +144,22 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
+        if (self.isCurrentSchedule == true) {
         return 2
+        }
+        else {
+            return 1
+        }
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if (self.isCurrentSchedule == true) {
         if (section == 0) {
             return "Up Next"
+        }
+        else {
+            return "Schedule"
+        }
         }
         else {
             return "Schedule"
@@ -155,25 +168,30 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-//        if (section == 0) {
-//            return 1
-//        }
-//        else {
-//             return (DailyScheduleManager.sharedInstance?.currentSchedule?.periods.count)!
-//        }
-        return 0
+        if (self.isCurrentSchedule == true) {
+        if (section == 0) {
+            return 1
+        }
+        else {
+             return (DailyScheduleManager.sharedInstance?.currentSchedule?.periods.count)!
+        }
+        }
+        else {
+            return (self.selectedSchedule?.periods.count)!
+        }
 
     }
     
-    /*
+    
      override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-     let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+     let cell = tableView.dequeueReusableCellWithIdentifier("scheduleCell", forIndexPath: indexPath) as! ClassCell
      
-     // Configure the cell...
+        
+
      
      return cell
      }
-     */
+ 
     
     /*
      // Override to support conditional editing of the table view.
