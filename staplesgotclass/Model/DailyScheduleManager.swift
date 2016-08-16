@@ -24,6 +24,8 @@ class DailyScheduleManager: NSObject {
     var modifiedSchedules = [Schedule]()
     var staticSchedules = [Schedule]()
     var lunchSchedules = [LunchSchedule]()
+    var courses = [Course]()
+    
     let realm = try! Realm()
     
     weak var delegate:DailyScheduleManagerDelegate!
@@ -43,6 +45,7 @@ class DailyScheduleManager: NSObject {
         self.modifiedSchedules = Array(realm.objects(Schedule.self).filter("isStatic == false"))
         self.staticSchedules = Array(realm.objects(Schedule.self).filter("isStatic == true"))
         self.lunchSchedules = Array(realm.objects(LunchSchedule.self))
+        self.courses = Array(realm.objects(Course.self))
         if (staticSchedules.count > 0 && lunchSchedules.count > 0) {
             print("realm objects found")
             self.delegate.didFetchSchedules(true)
@@ -137,13 +140,33 @@ class DailyScheduleManager: NSObject {
                             self.lunchSchedules.append(newLunchSchedule)
                         }
                         
-                        self.delegate.didFetchSchedules(true)
-                        
-                        try! self.realm.write {
-                            self.realm.add(self.staticSchedules)
-                            self.realm.add(self.modifiedSchedules)
-                            self.realm.add(self.lunchSchedules)
-                        }
+                        let courseQuery = PFQuery(className: "Course")
+                        courseQuery.includeKey("LunchType")
+                        courseQuery.findObjectsInBackgroundWithBlock({ (courses: [PFObject]?, courseError: NSError?) in
+                            if (error == nil) {
+                                for course in courses! {
+                                    let newCourse = Course()
+                                    let newLunchType = LunchType()
+                                    if let lunchType = course["LunchType"] as? PFObject {
+                                        newLunchType.name = lunchType["Name"] as? String
+                                    }
+                                    newCourse.lunchType = newLunchType
+                                    newCourse.name = course["Name"] as? String
+                                    self.courses.append(newCourse)
+                                }
+                                self.delegate.didFetchSchedules(true)
+                                
+                                try! self.realm.write {
+                                    self.realm.add(self.staticSchedules)
+                                    self.realm.add(self.modifiedSchedules)
+                                    self.realm.add(self.lunchSchedules)
+                                    self.realm.add(self.courses)
+                                }
+                            }
+                            else {
+                                self.delegate.didFetchSchedules(false)
+                            }
+                        })
                     }
                     else {
                         self.delegate.didFetchSchedules(false)
