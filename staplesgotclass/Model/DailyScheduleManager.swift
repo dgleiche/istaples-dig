@@ -344,4 +344,16 @@ class DailyScheduleManager: NSObject {
         return nil
     }
     
+    func getLunchNumber(withDate date: NSDate, andLunchType lunchtype: LunchType) -> Int? {
+        let month = NSCalendar.currentCalendar().component(.Month, fromDate: date)
+        
+        for lunchSchedule in self.lunchSchedules {
+            if (lunchSchedule.monthNumber == month && lunchSchedule.lunchType == lunchtype) {
+                return lunchSchedule.lunchNumber
+            }
+        }
+        
+        return nil
+    }
+    
 }
