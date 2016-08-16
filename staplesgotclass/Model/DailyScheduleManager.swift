@@ -367,6 +367,24 @@ class DailyScheduleManager: NSObject {
         return nil
     }
     
+    // Returns a period object based off a schedulePeriod object
+    func getRealPeriod(fromSchedulePeriod schedulePeriod: SchedulePeriod) -> Period? {
+        if UserManager.sharedInstance != nil {
+            if let userSchedule = UserManager.sharedInstance!.currentUser.schedule {
+                
+                //Loop through the periods in the user schedule
+                //Check them against the inputted schedule period
+                for userPeriod in userSchedule {
+                    if userPeriod.name == schedulePeriod.name { return userPeriod }
+                }
+                
+            }
+        }
+        
+        //Period doesn't appear to exist in the user's schedule
+        return nil
+    }
+    
     func getLunchNumber(withDate date: NSDate, andLunchType lunchtype: LunchType) -> Int? {
         let month = NSCalendar.currentCalendar().component(.Month, fromDate: date)
         
