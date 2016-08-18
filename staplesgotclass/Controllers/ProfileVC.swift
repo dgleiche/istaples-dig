@@ -48,7 +48,7 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
                 self.initialView.clipsToBounds = true
                 self.initialView.layer.cornerRadius = self.initialView.frame.width / 2
                 
-                let names: [String] = currentUser!.name.componentsSeparatedByString(" ")
+                let names: [String] = currentUser!.name!.componentsSeparatedByString(" ")
                 if (names.count >= 3) {
                     self.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)\(names[2][0].uppercaseString)"
                 }
@@ -73,7 +73,7 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
                 if (success) {
                     self.loadingSpinner.stopAnimating()
                     self.tableView.reloadData()
-                    print("schedule count: \(self.currentUser?.schedule?.count)")
+                    print("schedule count: \(self.currentUser?.schedule.count)")
                 }
                 else {
                     print("error getting user's classes")
@@ -105,7 +105,7 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (currentUser?.schedule != nil) {
-            return currentUser!.schedule!.count
+            return currentUser!.schedule.count
         }
         return 0
     }
@@ -121,10 +121,10 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("profileClassCell", forIndexPath: indexPath) as! ClassCell
         
-        cell.classTitleLabel.text = currentUser!.schedule![indexPath.row].name
-        cell.periodNumberLabel.text = "\(currentUser!.schedule![indexPath.row].periodNumber)"
-        cell.quarterLabel.text = "\(currentUser!.schedule![indexPath.row].quarters)"
-        cell.teacherLabel.text = currentUser!.schedule![indexPath.row].teacherName
+        cell.classTitleLabel.text = currentUser!.schedule[indexPath.row].name
+        cell.periodNumberLabel.text = "\(currentUser!.schedule[indexPath.row].periodNumber)"
+        cell.quarterLabel.text = "\(currentUser!.schedule[indexPath.row].quarters)"
+        cell.teacherLabel.text = currentUser!.schedule[indexPath.row].teacherName
         
         
         return cell
@@ -132,7 +132,7 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let classmatesVC = self.storyboard?.instantiateViewControllerWithIdentifier("classmatesVC") as! ClassmatesVC
-        classmatesVC.currentClass = self.currentUser!.schedule![indexPath.row]
+        classmatesVC.currentClass = self.currentUser!.schedule[indexPath.row]
         let backButton = UIBarButtonItem(title: " ", style: .Plain, target: nil, action: nil)
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         self.navigationItem.backBarButtonItem = backButton
@@ -143,7 +143,7 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
-            mail.setToRecipients([self.currentUser!.email])
+            mail.setToRecipients([self.currentUser!.email!])
             mail.setSubject("StaplesGotClass Email")
             presentViewController(mail, animated: true, completion: nil)
         } else {

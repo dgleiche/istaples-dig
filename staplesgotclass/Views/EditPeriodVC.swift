@@ -178,7 +178,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
                 if (currentClass != nil) {
                     parameters["id"] = "\(currentClass!.id)"
                 }
-                UserManager.sharedInstance?.currentUser.network.performRequest(withMethod: "POST", endpoint: "edit", parameters: parameters, headers: nil, completion: { (response: Response<AnyObject, NSError>) in
+                UserManager.sharedInstance?.currentUser.network!.performRequest(withMethod: "POST", endpoint: "edit", parameters: parameters, headers: nil, completion: { (response: Response<AnyObject, NSError>) in
                     
                     if (response.response?.statusCode == 200) {
                         self.dismissViewControllerAnimated(true, completion: nil)
