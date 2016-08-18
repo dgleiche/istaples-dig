@@ -98,6 +98,11 @@ class DailyScheduleManager: NSObject {
                         if let endSeconds = period["EndSeconds"] as? Int {
                             newPeriod.endSeconds = endSeconds
                         }
+                        
+                        if let realPeriod = self.getRealPeriod(fromSchedulePeriod: newPeriod) {
+                            newPeriod.realPeriod = realPeriod
+                        }
+                        
                         newSchedule.periods.append(newPeriod)
                     }
                     //
@@ -177,21 +182,6 @@ class DailyScheduleManager: NSObject {
                 self.delegate.didFetchSchedules(false)
             }
         })
-    }
-    
-    func clock() {
-        /* currentSchedule must be a valid schedule from modifiedSchedules or staticSchedules */
-        
-        //if let currentSchedule = self.currentSchedule {
-        //Determine current period
-        //let curPeriod: SchedulePeriod = getCurPeriod(inSchedule: currentSchedule) ?? SchedulePeriod() // TODO: Last thing should be handled
-        
-        //Time in, time out, percent in/out
-        
-        //Determine next period
-        
-        //}
-        
     }
     
     //TODO: Detect 10 mins before, after school;
@@ -375,7 +365,7 @@ class DailyScheduleManager: NSObject {
             //Loop through the periods in the user schedule
             //Check them against the inputted schedule period
             for userPeriod in userSchedule {
-                if userPeriod.name == schedulePeriod.name { return userPeriod }
+                if userPeriod.periodNumber == schedulePeriod.id { return userPeriod }
             }
             
         }

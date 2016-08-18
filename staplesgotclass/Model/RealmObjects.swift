@@ -34,9 +34,11 @@ class SchedulePeriod: Object {
     dynamic var startSeconds: Int = 0
     dynamic var endSeconds: Int = 50*60
     
-    dynamic var realPeriod: Period? //SHOULD BE IGNORED BY REALM
+    dynamic var realPeriod: Period? //IGNORED BY REALM
     
-    
+    override static func ignoredProperties() -> [String] {
+        return ["realPeriod"]
+    }
 }
 
 class Course: Object {
