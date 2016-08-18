@@ -7,21 +7,28 @@
 //
 
 import UIKit
+import Foundation
+import RealmSwift
 
-class Period: NSObject {
-    let name: String
-    let periodNumber: Int
-    let teacherName: String
-    let quarters: String
-    let users: [User]
-    let id: Int
+class Period: Object {
+    dynamic var name: String? = nil
+    dynamic var periodNumber: Int = 0
+    dynamic var teacherName: String? = nil
+    dynamic var quarters: String? = nil
+    let users = List<User>()
+    dynamic var id: Int = 0
     
-    init(name: String, periodNumber: Int, teacherName: String, quarters: String, id: Int, users: [User]) {
-        self.name = String(htmlEncodedString: name)
-        self.periodNumber = periodNumber
-        self.teacherName = String(htmlEncodedString: teacherName)
-        self.quarters = quarters
-        self.users = users
-        self.id = id
+    class func setup(name: String, periodNumber: Int, teacherName: String, quarters: String, id: Int, users: List<User>) -> Period {
+        let period: Period = Period()
+        
+        period.name = String(htmlEncodedString: name)
+        period.periodNumber = periodNumber
+        period.teacherName = String(htmlEncodedString: teacherName)
+        period.quarters = quarters
+        period.users.removeAll()
+        period.users.appendContentsOf(users)
+        period.id = id
+        
+        return period
     }
 }

@@ -93,12 +93,12 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
                     self.allUsers = userList!
                     self.userCountLabel.text = "\(self.allUsers!.count) users"
                     for user in self.allUsers! {
-                        let firstCharacter: String = user.name[0]
+                        let firstCharacter: String = user.name![0]
                         self.userDict[firstCharacter.uppercaseString] = []
                     }
                     
                     for user in self.allUsers! {
-                        let firstCharacter: String = user.name[0]
+                        let firstCharacter: String = user.name![0]
                         self.userDict[firstCharacter.uppercaseString]?.append(user)
                         
                     }
@@ -239,7 +239,7 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
                 cell.initialView.hidden = true
             }
             else {
-                let names: [String] = indexUser.name.componentsSeparatedByString(" ")
+                let names: [String] = indexUser.name!.componentsSeparatedByString(" ")
                 if (names.count >= 3) {
                     cell.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)\(names[2][0].uppercaseString)"
                 }
@@ -279,7 +279,7 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
     
     func filterContentForSearchText(searchText: String, scope: String = "All") {
         filteredUsers = allUsers!.filter { user in
-            return user.name.lowercaseString.containsString(searchText.lowercaseString)
+            return user.name!.lowercaseString.containsString(searchText.lowercaseString)
         }
         
         tableView.reloadData()

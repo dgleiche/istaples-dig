@@ -18,7 +18,7 @@ class ClassmatesVC: UITableViewController {
         super.viewDidLoad()
         
         if (currentClass != nil) {
-            self.navigationItem.title = currentClass!.name.uppercaseString
+            self.navigationItem.title = currentClass!.name!.uppercaseString
             self.teacherNameLabel.text = currentClass!.teacherName
             self.quarterLabel.text = "\(currentClass!.periodNumber) • Marking Periods: \(currentClass!.quarters)"
             self.tableView.reloadData()
@@ -77,7 +77,7 @@ class ClassmatesVC: UITableViewController {
                 cell.initialView.hidden = true
             }
             else {
-                let names: [String] = self.currentClass!.users[indexPath.row].name.componentsSeparatedByString(" ")
+                let names: [String] = self.currentClass!.users[indexPath.row].name!.componentsSeparatedByString(" ")
                 if (names.count >= 3) {
                     cell.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)\(names[2][0].uppercaseString)"
                 }

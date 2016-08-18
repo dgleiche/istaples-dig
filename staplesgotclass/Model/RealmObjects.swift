@@ -17,7 +17,7 @@ class Schedule: Object {
     //Weekday: 1 is Sunday, 7 is Saturday
     dynamic var weekday = 0
     
-    var periods = List<SchedulePeriod>()
+    let periods = List<SchedulePeriod>()
     
 }
 

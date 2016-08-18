@@ -40,7 +40,7 @@ class QuarterTable: UITableView, UITableViewDelegate, UITableViewDataSource {
         
         //Configure check mark
         if let curClass = self.currentClass {
-            if curClass.quarters.rangeOfString("\(indexPath.row + 1)") != nil {
+            if curClass.quarters!.rangeOfString("\(indexPath.row + 1)") != nil {
                 cell.accessoryType = UITableViewCellAccessoryType.Checkmark
             } else {
                 cell.accessoryType = UITableViewCellAccessoryType.None

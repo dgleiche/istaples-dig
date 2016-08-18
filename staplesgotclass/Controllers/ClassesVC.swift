@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import Foundation
+import RealmSwift
 import Alamofire
 
 class ClassesVC: UITableViewController {
-    var myClasses: [Period]?
+    var myClasses: List<Period>?
     var swipeMode = false
     
     var curPeriod: Period?
@@ -286,7 +288,7 @@ class ClassesVC: UITableViewController {
             //Delete the class
             //Send the delete request to the server
             
-            UserManager.sharedInstance?.currentUser.network.performRequest(withMethod: "POST", endpoint: "delete", parameters: ["id": "\(period.id)"], headers: nil, completion: { (response: Response<AnyObject, NSError>) in
+            UserManager.sharedInstance?.currentUser.network!.performRequest(withMethod: "POST", endpoint: "delete", parameters: ["id": "\(period.id)"], headers: nil, completion: { (response: Response<AnyObject, NSError>) in
                 
                 if (response.response?.statusCode == 200) {
                     print("successfully deleted period")

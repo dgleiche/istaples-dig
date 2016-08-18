@@ -100,15 +100,15 @@ class DailyScheduleManager: NSObject {
                         }
                         newSchedule.periods.append(newPeriod)
                     }
-//                    
-//                    let sortedPeriods = newSchedule.periods.sorted("startSeconds")
-//                    newSchedule.periods.removeAll()
-//                    for sortedPeriod in sortedPeriods {
-//                        newSchedule.periods.append(sortedPeriod)
-//                    }
-
+                    //
+                    //                    let sortedPeriods = newSchedule.periods.sorted("startSeconds")
+                    //                    newSchedule.periods.removeAll()
+                    //                    for sortedPeriod in sortedPeriods {
+                    //                        newSchedule.periods.append(sortedPeriod)
+                    //                    }
+                    
                     if (newSchedule.isStatic) {
-
+                        
                         self.staticSchedules.append(newSchedule)
                     }
                     else {
@@ -370,15 +370,14 @@ class DailyScheduleManager: NSObject {
     // Returns a period object based off a schedulePeriod object
     func getRealPeriod(fromSchedulePeriod schedulePeriod: SchedulePeriod) -> Period? {
         if UserManager.sharedInstance != nil {
-            if let userSchedule = UserManager.sharedInstance!.currentUser.schedule {
-                
-                //Loop through the periods in the user schedule
-                //Check them against the inputted schedule period
-                for userPeriod in userSchedule {
-                    if userPeriod.name == schedulePeriod.name { return userPeriod }
-                }
-                
+            let userSchedule = UserManager.sharedInstance!.currentUser.schedule
+            
+            //Loop through the periods in the user schedule
+            //Check them against the inputted schedule period
+            for userPeriod in userSchedule {
+                if userPeriod.name == schedulePeriod.name { return userPeriod }
             }
+            
         }
         
         //Period doesn't appear to exist in the user's schedule
