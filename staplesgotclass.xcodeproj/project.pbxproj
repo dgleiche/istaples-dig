@@ -22,6 +22,7 @@
 		7721B8211CF967AF008C1A76 /* users@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7721B81D1CF967AF008C1A76 /* users@2x.png */; };
 		7721B8221CF967AF008C1A76 /* usersFilled.png in Resources */ = {isa = PBXBuildFile; fileRef = 7721B81E1CF967AF008C1A76 /* usersFilled.png */; };
 		7721B8231CF967AF008C1A76 /* usersFilled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7721B81F1CF967AF008C1A76 /* usersFilled@2x.png */; };
+		772D52F61D6652430032C1E7 /* NSTimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772D52F51D6652430032C1E7 /* NSTimeIntervalExtension.swift */; };
 		772DCA511CEF40D200F52AA6 /* LoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772DCA501CEF40D200F52AA6 /* LoginPageViewController.swift */; };
 		772DCA531CEF428500F52AA6 /* PageContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772DCA521CEF428500F52AA6 /* PageContentVC.swift */; };
 		77320A951D5D797E00603A38 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77320A931D5D797E00603A38 /* Realm.framework */; };
@@ -100,6 +101,7 @@
 		7721B81D1CF967AF008C1A76 /* users@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "users@2x.png"; sourceTree = "<group>"; };
 		7721B81E1CF967AF008C1A76 /* usersFilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = usersFilled.png; sourceTree = "<group>"; };
 		7721B81F1CF967AF008C1A76 /* usersFilled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "usersFilled@2x.png"; sourceTree = "<group>"; };
+		772D52F51D6652430032C1E7 /* NSTimeIntervalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTimeIntervalExtension.swift; sourceTree = "<group>"; };
 		772DCA501CEF40D200F52AA6 /* LoginPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPageViewController.swift; sourceTree = "<group>"; };
 		772DCA521CEF428500F52AA6 /* PageContentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageContentVC.swift; sourceTree = "<group>"; };
 		77320A931D5D797E00603A38 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 			children = (
 				77D8F2EF1CF11470007A1002 /* StringExtension.swift */,
 				7746F38B1CF1755F003E9D6A /* UIImageViewExtension.swift */,
+				772D52F51D6652430032C1E7 /* NSTimeIntervalExtension.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -546,6 +549,7 @@
 				775DC44D1CED55CD00046768 /* User.swift in Sources */,
 				FC53CF991CF5215A0034266F /* MLPAutoCompleteTextField.m in Sources */,
 				7746F38C1CF1755F003E9D6A /* UIImageViewExtension.swift in Sources */,
+				772D52F61D6652430032C1E7 /* NSTimeIntervalExtension.swift in Sources */,
 				7746F38E1CF19241003E9D6A /* ClassmateCell.swift in Sources */,
 				7746F38A1CF16312003E9D6A /* ProfileVC.swift in Sources */,
 				77703B3E1D5C47530093CF95 /* ScheduleVC.swift in Sources */,

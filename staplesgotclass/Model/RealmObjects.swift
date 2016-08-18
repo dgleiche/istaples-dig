@@ -34,6 +34,9 @@ class SchedulePeriod: Object {
     dynamic var startSeconds: Int = 0
     dynamic var endSeconds: Int = 50*60
     
+    dynamic var realPeriod: Period? //SHOULD BE IGNORED BY REALM
+    
+    
 }
 
 class Course: Object {

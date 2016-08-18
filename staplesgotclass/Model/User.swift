@@ -19,7 +19,12 @@ class User: Object {
     dynamic var profilePicURL: String? = nil
     var profilePic: UIImage? = nil
     dynamic var id: Int = 0
+    dynamic var isCurrentUser: Bool = false
+    
 
+    override static func ignoredProperties() -> [String] {
+        return ["network", "profilePic"]
+    }
     
     class func setup(name: String, email: String, profilePicURL: String?) -> User {
         let user: User = User()
@@ -85,8 +90,5 @@ class User: Object {
         }
     }
     
-    override static func ignoredProperties() -> [String] {
-        return ["network", "profilePic"]
-    }
     
 }

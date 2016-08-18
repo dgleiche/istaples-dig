@@ -20,6 +20,7 @@ class UserManager: NSObject {
     
     private init(name: String, email: String, token: String, profilePicURL: String?, completion: ((Bool) -> Void)?) {
         self.currentUser = User.setup(name, email: email, profilePicURL: profilePicURL)
+        self.currentUser.isCurrentUser = true
         self.token = token
         super.init()
         self.verifyUser(completion)

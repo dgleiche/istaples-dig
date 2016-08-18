@@ -115,7 +115,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
                     self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart + 1.0, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
                 }
             }
-        
+            
             //This should be for the morning period
             if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextRealPeriodEventInSchedule() {
                 let timeIntervalUntilNextPeriodStart: Double = Double(nextPeriod.startSeconds - DailyScheduleManager.sharedInstance!.secondsFromMidnight())
@@ -132,6 +132,19 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
                 //Update the countdown label and UI components
                 let timeRemainingInPeriod = currentPeriod.endSeconds - DailyScheduleManager.sharedInstance!.secondsFromMidnight()
                 //TODO: UPDATE THE LABELS AND UI COMPONENTS HERE BASED ON timeRemainingInPeriod
+                let timeElapsedInPeriod = DailyScheduleManager.sharedInstance!.secondsFromMidnight() - currentPeriod.startSeconds
+                
+                let percentDone = (timeElapsedInPeriod)/(currentPeriod.endSeconds - currentPeriod.startSeconds)
+                
+                self.timeRemainingLabel.text = Double(timeRemainingInPeriod).stringFromTimeInterval() as String
+                
+                self.timeElapsedLabel.text = Double(timeElapsedInPeriod).stringFromTimeInterval() as String
+                
+                    self.timeLeftRing.animateToAngle(Double(360*percentDone), duration: 0.1, completion: { (success: Bool) in
+                        if (success) {
+                            //progress ring successfully animated
+                        }
+                    })
             }
         }
     }
@@ -145,7 +158,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         if (self.isCurrentSchedule == true) {
-        return 2
+            return 2
         }
         else {
             return 1
@@ -154,12 +167,12 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if (self.isCurrentSchedule == true) {
-        if (section == 0) {
-            return "Up Next"
-        }
-        else {
-            return "Schedule"
-        }
+            if (section == 0) {
+                return "Up Next"
+            }
+            else {
+                return "Schedule"
+            }
         }
         else {
             return "Schedule"
@@ -169,29 +182,29 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if (self.isCurrentSchedule == true) {
-        if (section == 0) {
-            return 1
-        }
-        else {
-             return (DailyScheduleManager.sharedInstance?.currentSchedule?.periods.count)!
-        }
+            if (section == 0) {
+                return 1
+            }
+            else {
+                return (DailyScheduleManager.sharedInstance?.currentSchedule?.periods.count)!
+            }
         }
         else {
             return (self.selectedSchedule?.periods.count)!
         }
-
+        
     }
     
     
-     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-     let cell = tableView.dequeueReusableCellWithIdentifier("scheduleCell", forIndexPath: indexPath) as! ClassCell
-     
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("scheduleCell", forIndexPath: indexPath) as! ClassCell
         
-
-     
-     return cell
-     }
- 
+        
+        
+        
+        return cell
+    }
+    
     
     /*
      // Override to support conditional editing of the table view.
