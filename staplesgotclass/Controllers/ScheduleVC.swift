@@ -99,7 +99,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
                     //If it's currently passing time the next real period event should come into play
                     //Will only set up the timer if a 'next period' is available
                     //i.e nothing will happen if the day is over
-                    if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextRealPeriodEventInSchedule() {
+                    if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
                         let timeIntervalUntilNextPeriodStart: Double = Double(nextPeriod.startSeconds - DailyScheduleManager.sharedInstance!.secondsFromMidnight())
                         
                         //Add in 1 second to the interval to ensure it's the start of a new period and nothing funky happens
@@ -117,7 +117,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
             }
             
             //This should be for the morning period
-            if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextRealPeriodEventInSchedule() {
+            if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
                 let timeIntervalUntilNextPeriodStart: Double = Double(nextPeriod.startSeconds - DailyScheduleManager.sharedInstance!.secondsFromMidnight())
                 
                 //Add in 1 second to the interval to ensure it's the start of a new period and nothing funky happens

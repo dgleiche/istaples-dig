@@ -99,10 +99,6 @@ class DailyScheduleManager: NSObject {
                             newPeriod.endSeconds = endSeconds
                         }
                         
-                        if let realPeriod = self.getRealPeriod(fromSchedulePeriod: newPeriod) {
-                            newPeriod.realPeriod = realPeriod
-                        }
-                        
                         newSchedule.periods.append(newPeriod)
                     }
                     //
@@ -252,7 +248,7 @@ class DailyScheduleManager: NSObject {
     }
     
     // Gets the next period that hasn't already happened (returns nil if every period has happened)
-    func getNextRealPeriodEventInSchedule() -> SchedulePeriod? {
+    func getNextSchedulePeriodInSchedule() -> SchedulePeriod? {
         if let schedule = self.currentSchedule {
             var dayStarted: Bool = false
             var lastPeriodEndTime: Int = 0
@@ -318,6 +314,7 @@ class DailyScheduleManager: NSObject {
                 
                 if (modDateComponents.month == selDateComponents.month) && (modDateComponents.day == selDateComponents.day) {
                     //Month and day exactly match, thus this date corresponds with a modified schedule
+                    self.syncPeriodsToSchedule(modifiedSchedule)
                     return modifiedSchedule
                 }
             }
@@ -349,12 +346,23 @@ class DailyScheduleManager: NSObject {
             //It's a weekday
             //Return the corresponding static schedule
             for staticSchedule in staticSchedules {
-                if staticSchedule.weekday == schoolWeekday { return staticSchedule }
+                if staticSchedule.weekday == schoolWeekday {
+                    self.syncPeriodsToSchedule(staticSchedule)
+                    return staticSchedule
+                }
+                
             }
         }
         
         //Assume there's no available schedule (most likely it's a weekend)
         return nil
+    }
+    
+    func syncPeriodsToSchedule(schedule: Schedule) {
+        //this separate function is needed b/c we want to assign real periods AFTER everything is setup from Realm/Network
+        for schedulePeriod in schedule.periods {
+            schedulePeriod.realPeriod = self.getRealPeriod(fromSchedulePeriod: schedulePeriod)
+        }
     }
     
     // Returns a period object based off a schedulePeriod object
