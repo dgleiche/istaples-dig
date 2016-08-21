@@ -88,7 +88,7 @@ class ClassesVC: UITableViewController {
                     let realm = try! Realm()
                     
                     try! realm.write {
-                        realm.delete(User.self)
+                        realm.delete(realm.objects(User.self)) //delete all users
                         realm.add(UserManager.sharedInstance!.currentUser)
                     }
                     

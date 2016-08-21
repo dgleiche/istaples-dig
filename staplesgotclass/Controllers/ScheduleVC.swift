@@ -236,11 +236,10 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
             
             if (self.isCurrentSchedule == true) {
                 if (section == 0) {
-                    if (DailyScheduleManager.sharedInstance?.getNextSchedulePeriodInSchedule() != nil) {
-                        return 1
-                    }
-                    else {
-                        return 0
+                    if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
+                        if (nextPeriod.isBeforeSchool != true && nextPeriod.isAfterSchool != true) {
+                            return 1
+                        }
                     }
                 }
                 else {
@@ -251,9 +250,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
                 return (self.selectedSchedule?.periods.count)!
             }
         }
-        else {
-            return 0
-        }
+        return 0
     }
     
     
