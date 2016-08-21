@@ -25,6 +25,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
     var clockTimer: NSTimer?
     var periodTimer: NSTimer?
     
+    var spinnerSetup = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,11 +40,15 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
         self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-Medium", size: 17)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         
+        self.timeLeftRing.angle = 0
+        self.timeElapsedRing.angle = 360
+        
         let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(ScheduleVC.changeDate(_:)))
         
         self.tableView.addGestureRecognizer(swipeRecognizer)
         
         DailyScheduleManager.setup(self)
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -55,7 +61,9 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
     func didFetchSchedules(success: Bool) {
         print("delegate called")
         if DailyScheduleManager.sharedInstance != nil {
-            print("schedules: \(DailyScheduleManager.sharedInstance?.staticSchedules)")
+            print("staticScheduleCount: \(DailyScheduleManager.sharedInstance?.staticSchedules.count)")
+            print("modScheduleCount: \(DailyScheduleManager.sharedInstance?.modifiedSchedules.count)")
+            
             DailyScheduleManager.sharedInstance?.currentSchedule = DailyScheduleManager.sharedInstance!.getSchedule(withDate: NSDate())
             print("current schedule: \(DailyScheduleManager.sharedInstance?.currentSchedule)")
             
@@ -83,11 +91,13 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
         }
         
         self.clockTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(ScheduleVC.clock), userInfo: nil, repeats: true)
+        NSRunLoop.mainRunLoop().addTimer(self.clockTimer!, forMode: NSRunLoopCommonModes)
     }
     
     func setupPeriodTimer() {
         if DailyScheduleManager.sharedInstance != nil {
             DailyScheduleManager.sharedInstance!.currentPeriod = DailyScheduleManager.sharedInstance!.getCurrentPeriod()
+            self.tableView.reloadData()
             
             if self.periodTimer != nil {
                 if self.periodTimer!.valid == true { self.periodTimer!.invalidate() }
@@ -123,6 +133,16 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
                 //Add in 1 second to the interval to ensure it's the start of a new period and nothing funky happens
                 self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart + 1.0, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
             }
+            else if (DailyScheduleManager.sharedInstance?.currentSchedule != nil) {
+                //no current period so make timer call every 5 seconds to keep checking if there is one ONLY IF CURRENT SCHEDULE IS SET
+                
+                self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
+                
+            }
+            if (self.periodTimer != nil) {
+                NSRunLoop.mainRunLoop().addTimer(self.periodTimer!, forMode: NSRunLoopCommonModes)
+            }
+            
         }
     }
     
@@ -134,17 +154,45 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
                 //TODO: UPDATE THE LABELS AND UI COMPONENTS HERE BASED ON timeRemainingInPeriod
                 let timeElapsedInPeriod = DailyScheduleManager.sharedInstance!.secondsFromMidnight() - currentPeriod.startSeconds
                 
-                let percentDone = (timeElapsedInPeriod)/(currentPeriod.endSeconds - currentPeriod.startSeconds)
+                let percentDone = Double(timeElapsedInPeriod)/Double(currentPeriod.endSeconds - currentPeriod.startSeconds)
+                
+                self.percentDoneLabel.text = "\(Int(percentDone * 100))%"
                 
                 self.timeRemainingLabel.text = Double(timeRemainingInPeriod).stringFromTimeInterval() as String
                 
                 self.timeElapsedLabel.text = Double(timeElapsedInPeriod).stringFromTimeInterval() as String
                 
-                    self.timeLeftRing.animateToAngle(Double(360*percentDone), duration: 0.1, completion: { (success: Bool) in
-                        if (success) {
-                            //progress ring successfully animated
-                        }
-                    })
+                //                if (!spinnerSetup) {
+                //                    spinnerSetup = true
+                //
+                //                    self.timeElapsedRing.animateFromAngle(360, toAngle: <#T##Double#>, duration: <#T##NSTimeInterval#>, completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
+                //                }
+                //
+                self.timeElapsedRing.animateToAngle(Double(360*percentDone), duration: 1.0, completion: { (success: Bool) in
+                    if (success) {
+                        //progress ring successfully animated
+                        
+                    }
+                })
+                
+                self.timeLeftRing.animateToAngle(Double(360*(1-percentDone)), duration: 1.0, completion: { (success: Bool) in
+                    if (success) {
+                        //progress ring successfully animated
+                        
+                    }
+                })
+                
+                if (currentPeriod.realPeriod != nil) {
+                    //real period set
+                    self.currentPeriodNumberLabel.text = "\(currentPeriod.realPeriod!.periodNumber)"
+                    self.currentPeriodTitleLabel.text = currentPeriod.realPeriod!.name
+                }
+                else {
+                    //no real period, probs modified
+                    self.currentPeriodNumberLabel.text = String(currentPeriod.name!.characters.first!)
+                    self.currentPeriodTitleLabel.text = currentPeriod.name!
+                }
+                
             }
         }
     }
@@ -165,6 +213,10 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
         }
     }
     
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 63
+    }
+    
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if (self.isCurrentSchedule == true) {
             if (section == 0) {
@@ -180,26 +232,77 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if (self.isCurrentSchedule == true) {
-            if (section == 0) {
-                return 1
+        if (self.selectedSchedule != nil) {
+            
+            if (self.isCurrentSchedule == true) {
+                if (section == 0) {
+                    if (DailyScheduleManager.sharedInstance?.getNextSchedulePeriodInSchedule() != nil) {
+                        return 1
+                    }
+                    else {
+                        return 0
+                    }
+                }
+                else {
+                    return (DailyScheduleManager.sharedInstance?.currentSchedule?.periods.count)!
+                }
             }
             else {
-                return (DailyScheduleManager.sharedInstance?.currentSchedule?.periods.count)!
+                return (self.selectedSchedule?.periods.count)!
             }
         }
         else {
-            return (self.selectedSchedule?.periods.count)!
+            return 0
         }
-        
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("scheduleCell", forIndexPath: indexPath) as! ClassCell
         
+        var indexSchedulePeriod: SchedulePeriod?
         
+        if (self.isCurrentSchedule == true && indexPath.section == 0) {
+            //get up next period
+            if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
+                if (nextPeriod.isBeforeSchool != true && nextPeriod.isAfterSchool != true) {
+                    indexSchedulePeriod = nextPeriod
+                }
+            }
+            
+        }
+        else {
+            //rest of schedule
+            indexSchedulePeriod = self.selectedSchedule?.periods[indexPath.row]
+        }
+        
+        if (indexSchedulePeriod != nil) {
+            if (indexSchedulePeriod?.realPeriod != nil) {
+                //there is a real period assigned so show number and class name
+                print("real period not nil")
+                cell.classTitleLabel.text = indexSchedulePeriod!.realPeriod!.name
+                cell.teacherLabel.text = indexSchedulePeriod!.realPeriod!.teacherName
+                cell.periodNumberLabel.text = "\(indexSchedulePeriod!.realPeriod!.periodNumber)"
+            }
+            else {
+                //no real period assigned, probs a modified period
+                cell.periodNumberLabel.text = String(indexSchedulePeriod!.name!.characters.first!)
+                cell.classTitleLabel.text = indexSchedulePeriod!.name
+                cell.teacherLabel.text = nil
+                
+            }
+            
+            cell.timeLabel!.text = "\(indexSchedulePeriod!.startSeconds.printSecondsToHoursMinutesSeconds())-\(indexSchedulePeriod!.endSeconds.printSecondsToHoursMinutesSeconds())"
+        }
+        
+        if (self.isCurrentSchedule == true) {
+            if (DailyScheduleManager.sharedInstance?.secondsFromMidnight() > indexSchedulePeriod?.endSeconds) {
+                cell.backgroundColor = UIColor.lightGrayColor()
+            }
+            else if (indexSchedulePeriod == DailyScheduleManager.sharedInstance?.currentPeriod) {
+                cell.backgroundColor = UIColor.orangeColor()
+            }
+        }
         
         
         return cell

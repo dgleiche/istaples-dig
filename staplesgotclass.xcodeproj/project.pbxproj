@@ -30,6 +30,7 @@
 		77320A971D5D797E00603A38 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77320A941D5D797E00603A38 /* RealmSwift.framework */; };
 		77320A981D5D797E00603A38 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 77320A941D5D797E00603A38 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		77320A9C1D5D7AAF00603A38 /* RealmObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77320A9B1D5D7AAF00603A38 /* RealmObjects.swift */; };
+		773A35F61D6834B8005BF01A /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773A35F51D6834B8005BF01A /* IntExtension.swift */; };
 		773F5DF81CF6145600143C2D /* shs.png in Resources */ = {isa = PBXBuildFile; fileRef = 773F5DF71CF6145600143C2D /* shs.png */; };
 		7746F38A1CF16312003E9D6A /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7746F3891CF16312003E9D6A /* ProfileVC.swift */; };
 		7746F38C1CF1755F003E9D6A /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7746F38B1CF1755F003E9D6A /* UIImageViewExtension.swift */; };
@@ -107,6 +108,7 @@
 		77320A931D5D797E00603A38 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		77320A941D5D797E00603A38 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		77320A9B1D5D7AAF00603A38 /* RealmObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmObjects.swift; sourceTree = "<group>"; };
+		773A35F51D6834B8005BF01A /* IntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
 		773F5DF71CF6145600143C2D /* shs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shs.png; sourceTree = "<group>"; };
 		7746F3891CF16312003E9D6A /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		7746F38B1CF1755F003E9D6A /* UIImageViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 				77D8F2EF1CF11470007A1002 /* StringExtension.swift */,
 				7746F38B1CF1755F003E9D6A /* UIImageViewExtension.swift */,
 				772D52F51D6652430032C1E7 /* NSTimeIntervalExtension.swift */,
+				773A35F51D6834B8005BF01A /* IntExtension.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -542,6 +545,7 @@
 				77703B3C1D5C3D3B0093CF95 /* KDCircularProgress.swift in Sources */,
 				FC53CF9A1CF5215A0034266F /* NSString+Levenshtein.m in Sources */,
 				FC99DE2A1CF5652C0006F62E /* QuarterTable.swift in Sources */,
+				773A35F61D6834B8005BF01A /* IntExtension.swift in Sources */,
 				FC53CF851CF3E8690034266F /* EditPeriodVC.swift in Sources */,
 				77D54F761CECBEC600C11FA5 /* LoginVC.swift in Sources */,
 				775DC44B1CED558A00046768 /* Period.swift in Sources */,

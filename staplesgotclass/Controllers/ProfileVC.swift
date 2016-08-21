@@ -66,7 +66,7 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
                 self.profileImageView.hidden = true
                 self.initialView.hidden = false
             }
-            if (currentUser?.schedule == nil) {
+            if (currentUser?.schedule.count == 0) {
                 self.loadingSpinner.startAnimating()
             }
             currentUser?.getClassmates({ (success: Bool) in
@@ -121,10 +121,10 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("profileClassCell", forIndexPath: indexPath) as! ClassCell
         
-        cell.classTitleLabel.text = currentUser!.schedule[indexPath.row].name
+        cell.classTitleLabel.text = currentUser!.schedule[indexPath.row].name!
         cell.periodNumberLabel.text = "\(currentUser!.schedule[indexPath.row].periodNumber)"
-        cell.quarterLabel.text = "\(currentUser!.schedule[indexPath.row].quarters)"
-        cell.teacherLabel.text = currentUser!.schedule[indexPath.row].teacherName
+        cell.quarterLabel!.text = "\(currentUser!.schedule[indexPath.row].quarters!)"
+        cell.teacherLabel.text = currentUser!.schedule[indexPath.row].teacherName!
         
         
         return cell

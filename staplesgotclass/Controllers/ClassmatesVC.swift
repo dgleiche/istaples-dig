@@ -20,7 +20,7 @@ class ClassmatesVC: UITableViewController {
         if (currentClass != nil) {
             self.navigationItem.title = currentClass!.name!.uppercaseString
             self.teacherNameLabel.text = currentClass!.teacherName
-            self.quarterLabel.text = "\(currentClass!.periodNumber) • Marking Periods: \(currentClass!.quarters)"
+            self.quarterLabel.text = "\(currentClass!.periodNumber) • Marking Periods: \(currentClass!.quarters!)"
             self.tableView.reloadData()
         }
         let tracker = GAI.sharedInstance().defaultTracker

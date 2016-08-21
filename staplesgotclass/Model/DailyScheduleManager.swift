@@ -76,6 +76,9 @@ class DailyScheduleManager: NSObject {
                     if let weekday = schedule["Weekday"] as? Int {
                         newSchedule.weekday = weekday
                     }
+                    if let modifiedDate = schedule["ModifiedDate"] as? NSDate {
+                        newSchedule.modifiedDate = modifiedDate
+                    }
                     
                     let periods = schedule["Periods"] as! [PFObject]
                     print("periods: \(periods)")
@@ -207,7 +210,7 @@ class DailyScheduleManager: NSObject {
                     
                     passingTimePeriod.isPassingTime = true
                     passingTimePeriod.startSeconds = passingTimeStart
-                    passingTimePeriod.endSeconds = passingTimeStart + 5 * 60 //5 mins after
+                    passingTimePeriod.endSeconds = (getNextSchedulePeriodInSchedule()?.startSeconds)! //keep passing time until next period starts, DYLAN CHECK TO MAKE SURE THIS WORKS
                     passingTimePeriod.name = "Passing Time"
                     
                     return passingTimePeriod
@@ -362,18 +365,23 @@ class DailyScheduleManager: NSObject {
         //this separate function is needed b/c we want to assign real periods AFTER everything is setup from Realm/Network
         for schedulePeriod in schedule.periods {
             schedulePeriod.realPeriod = self.getRealPeriod(fromSchedulePeriod: schedulePeriod)
+            
         }
     }
     
     // Returns a period object based off a schedulePeriod object
     func getRealPeriod(fromSchedulePeriod schedulePeriod: SchedulePeriod) -> Period? {
         if UserManager.sharedInstance != nil {
+            print("user manager not nil")
             let userSchedule = UserManager.sharedInstance!.currentUser.schedule
             
             //Loop through the periods in the user schedule
             //Check them against the inputted schedule period
             for userPeriod in userSchedule {
-                if userPeriod.periodNumber == schedulePeriod.id { return userPeriod }
+                if userPeriod.periodNumber == schedulePeriod.id {
+                    print("found user period")
+                    return userPeriod
+                }
             }
             
         }

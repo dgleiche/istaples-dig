@@ -84,6 +84,14 @@ class ClassesVC: UITableViewController {
             self.activitySpinner.startAnimating()
             UserManager.sharedInstance?.currentUser.getClassmates({ (success: Bool) in
                 if (success) {
+                    //add current user to Realm with all of the data
+                    let realm = try! Realm()
+                    
+                    try! realm.write {
+                        realm.delete(User.self)
+                        realm.add(UserManager.sharedInstance!.currentUser)
+                    }
+                    
                     print("success in view did appear")
                     self.myClasses = UserManager.sharedInstance?.currentUser.schedule
                     //                    if (self.myClasses?.count == 0) {
@@ -219,7 +227,7 @@ class ClassesVC: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("classCell", forIndexPath: indexPath) as! ClassCell
             cell.classTitleLabel.text = self.myClasses![indexPath.row].name
             cell.periodNumberLabel.text = "\(self.myClasses![indexPath.row].periodNumber)"
-            cell.quarterLabel.text = "\(self.myClasses![indexPath.row].quarters)"
+            cell.quarterLabel!.text = "\(self.myClasses![indexPath.row].quarters!)"
             cell.teacherLabel.text = self.myClasses![indexPath.row].teacherName
             return cell
         }

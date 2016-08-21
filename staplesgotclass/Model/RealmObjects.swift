@@ -36,9 +36,9 @@ class SchedulePeriod: Object {
     
     dynamic var realPeriod: Period? //IGNORED BY REALM
     
-    override static func ignoredProperties() -> [String] {
-        return ["realPeriod"]
-    }
+//    override static func ignoredProperties() -> [String] {
+//        return ["realPeriod", "isPassingTime", "isBeforeSchool", "isAfterSchool"]
+//    }
 }
 
 class Course: Object {
