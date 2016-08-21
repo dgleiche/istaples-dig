@@ -423,7 +423,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             }
             
         } else {
-            print("error signing in:( \(error.localizedDescription)")
+            print("error signing in:( \(error)")
         }
     }
     
