@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
+class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignInDelegate {
     @IBOutlet var timeLeftRing: KDCircularProgress!
     @IBOutlet var timeElapsedRing: KDCircularProgress!
     @IBOutlet var timeRemainingLabel: UILabel!
@@ -321,50 +321,72 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
         return cell
     }
     
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-     if editingStyle == .Delete {
-     // Delete the row from the data source
-     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-     } else if editingStyle == .Insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
+                withError error: NSError!) {
+        if (error == nil) {
+            print("email: \(user.profile.email)")
+            // Perform any operations on signed in user here.
+            //            let userId = user.userID                  // For client-side use only!
+            //            let idToken = user.authentication.idToken // Safe to send to the server
+            //            let fullName = user.profile.name
+            //            let givenName = user.profile.givenName
+            //            let familyName = user.profile.familyName
+            //            let email = user.profile.email
+            // ...
+            
+            let emailDomain = user.profile.email.componentsSeparatedByString("@").last
+            if (emailDomain?.containsString("westport.k12.ct.us") == true) {
+                print("confirmed wepo")
+                
+                //                Alamofire.request(.POST, "http://localhost:9292/api/validateUser", parameters: ["token": user.authentication.idToken])
+                //
+                //                    .responseJSON { response in
+                //                        print(response.request)  // original URL request
+                //                        print(response.response) // URL response
+                //                        print(response.data)     // server data
+                //                        print(response.result)   // result of response serialization
+                //                        print(response.result.error)
+                //                        if let JSON = response.result.value {
+                //                            print("JSON: \(JSON)")
+                //                        }
+                //                }
+                
+                
+                var profilePicURL: String?
+                
+                if (user.profile.hasImage) {
+                    profilePicURL = user.profile.imageURLWithDimension(250).absoluteString
+                    print(profilePicURL)
+                }
+                
+                UserManager.createCurrentUser(user.profile.name, email: user.profile.email, token: user.authentication.idToken, profilePicURL: profilePicURL, completion: { (success: Bool) in
+                    if (success) {
+                        print("success!")
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                        
+                    }
+                    else {
+                        print("error signing in")
+                        let alert = UIAlertController(title: "Error signing you in", message: "Please check your network connection and try again.", preferredStyle: .Alert)
+                        let dismiss = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+                        alert.addAction(dismiss)
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    }
+                })
+                //self.performSegueWithIdentifier("logIn", sender: self)
+                
+            }
+            else {
+                GIDSignIn.sharedInstance().signOut()
+                let alert = UIAlertController(title: "Not Westport Account", message: "Please sign in using your Westport Google account and try again.", preferredStyle: .Alert)
+                let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                alert.addAction(ok)
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+            
+        } else {
+            print("\(error.localizedDescription)")
+        }
+    }
     
 }
