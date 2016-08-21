@@ -98,8 +98,8 @@ class ClassesVC: UITableViewController {
                     }
                     
                     try! realm.write {
-                        realm.delete(realm.objects(User.self)) //delete all users
-                        realm.add(UserManager.sharedInstance!.currentUser)
+                        realm.delete(realm.objects(RealmUser.self))
+                        realm.add(realmUser)
                     }
                     
                     print("success in view did appear")

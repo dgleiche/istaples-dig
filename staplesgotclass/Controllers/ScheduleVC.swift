@@ -49,6 +49,12 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
         
         DailyScheduleManager.setup(self)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ScheduleVC.callSetup), name: "loggedIn", object: nil)
+        
+    }
+    
+    func callSetup() {
+        DailyScheduleManager.setup(self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -59,6 +65,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
     //MARK: - Daily Schedule Manager Delegate Methods
     
     func didFetchSchedules(success: Bool) {
+        if (success) {
         print("delegate called")
         if DailyScheduleManager.sharedInstance != nil {
             print("staticScheduleCount: \(DailyScheduleManager.sharedInstance?.staticSchedules.count)")
@@ -83,6 +90,15 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate {
                 self.setupPeriodTimer()
             }
         }
+        }
+        else {
+            //handle error
+        }
+    }
+    
+    func logoutUser() {
+        let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
+        self.tabBarController?.presentViewController(loginPage, animated: true, completion: nil)
     }
     
     func setupClockTimer() {

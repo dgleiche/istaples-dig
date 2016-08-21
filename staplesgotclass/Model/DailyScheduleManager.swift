@@ -13,6 +13,7 @@ import RealmSwift
 
 protocol DailyScheduleManagerDelegate: class {
     func didFetchSchedules(success: Bool)
+    func logoutUser()
 }
 
 class DailyScheduleManager: NSObject {
@@ -25,6 +26,8 @@ class DailyScheduleManager: NSObject {
     var staticSchedules = [Schedule]()
     var lunchSchedules = [LunchSchedule]()
     var courses = [Course]()
+    var realmPeriods = [RealmPeriod]()
+    var currentUser: RealmUser?
     
     let realm = try! Realm()
     
@@ -34,21 +37,26 @@ class DailyScheduleManager: NSObject {
         self.delegate = delegate
         super.init()
         DailyScheduleManager.sharedInstance = self
-        self.loadSavedSchedules()
+        self.loadSavedData()
     }
     
     class func setup(delegate: DailyScheduleManagerDelegate) {
         DailyScheduleManager.sharedInstance = DailyScheduleManager(delegate: delegate)
     }
     
-    func loadSavedSchedules() {
+    func loadSavedData() {
         self.modifiedSchedules = Array(realm.objects(Schedule.self).filter("isStatic == false"))
         self.staticSchedules = Array(realm.objects(Schedule.self).filter("isStatic == true"))
         self.lunchSchedules = Array(realm.objects(LunchSchedule.self))
         self.courses = Array(realm.objects(Course.self))
-        if (staticSchedules.count > 0 && lunchSchedules.count > 0) {
+        self.currentUser = realm.objects(RealmUser.self).first
+        if (staticSchedules.count > 0 && lunchSchedules.count > 0 && currentUser != nil) {
             print("realm objects found")
             self.delegate.didFetchSchedules(true)
+        }
+        else if (currentUser == nil) {
+            self.delegate.logoutUser()
+            return
         }
         self.getDailySchedule()
     }
@@ -382,7 +390,6 @@ class DailyScheduleManager: NSObject {
                     print("found user period")
                     let realmPeriod = RealmPeriod()
                     realmPeriod.setPeriod(period: userPeriod)
-                    
                     return realmPeriod
                 }
             }

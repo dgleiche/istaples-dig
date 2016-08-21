@@ -187,8 +187,8 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
                 UserManager.createCurrentUser(user.profile.name, email: user.profile.email, token: user.authentication.idToken, profilePicURL: profilePicURL, completion: { (success: Bool) in
                     if (success) {
                         print("success!")
+                        NSNotificationCenter.defaultCenter().postNotificationName("loggedIn", object: nil)
                         self.dismissViewControllerAnimated(true, completion: nil)
-                        
                     }
                     else {
                         print("error signing in")
