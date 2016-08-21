@@ -908,8 +908,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="eCD-hb-3OC" kind="relationship" relationship="viewControllers" id="f7u-KM-dMl"/>
                         <segue destination="NJv-Nk-3SU" kind="relationship" relationship="viewControllers" id="Qt7-MA-kff"/>
+                        <segue destination="eCD-hb-3OC" kind="relationship" relationship="viewControllers" id="f7u-KM-dMl"/>
                         <segue destination="M81-PC-nEs" kind="relationship" relationship="viewControllers" id="LUq-5l-JMM"/>
                     </connections>
                 </tabBarController>

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignInDelegate {
     @IBOutlet var timeLeftRing: KDCircularProgress!
@@ -50,6 +51,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         DailyScheduleManager.setup(self)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ScheduleVC.callSetup), name: "loggedIn", object: nil)
+        GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance().signInSilently()
         
     }
     
@@ -66,30 +69,30 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     func didFetchSchedules(success: Bool) {
         if (success) {
-        print("delegate called")
-        if DailyScheduleManager.sharedInstance != nil {
-            print("staticScheduleCount: \(DailyScheduleManager.sharedInstance?.staticSchedules.count)")
-            print("modScheduleCount: \(DailyScheduleManager.sharedInstance?.modifiedSchedules.count)")
-            
-            DailyScheduleManager.sharedInstance?.currentSchedule = DailyScheduleManager.sharedInstance!.getSchedule(withDate: NSDate())
-            print("current schedule: \(DailyScheduleManager.sharedInstance?.currentSchedule)")
-            
-            //Setup the current period
-            DailyScheduleManager.sharedInstance?.currentPeriod = DailyScheduleManager.sharedInstance!.getCurrentPeriod()
-            
-            if (DailyScheduleManager.sharedInstance?.currentSchedule != nil) {
-                //start timer if current schedule not nil
-                if (DailyScheduleManager.sharedInstance?.currentSchedule?.isStatic == false) {
-                    self.navigationItem.prompt = "Modified Schedule"
+            print("delegate called")
+            if DailyScheduleManager.sharedInstance != nil {
+                print("staticScheduleCount: \(DailyScheduleManager.sharedInstance?.staticSchedules.count)")
+                print("modScheduleCount: \(DailyScheduleManager.sharedInstance?.modifiedSchedules.count)")
+                
+                DailyScheduleManager.sharedInstance?.currentSchedule = DailyScheduleManager.sharedInstance!.getSchedule(withDate: NSDate())
+                print("current schedule: \(DailyScheduleManager.sharedInstance?.currentSchedule)")
+                
+                //Setup the current period
+                DailyScheduleManager.sharedInstance?.currentPeriod = DailyScheduleManager.sharedInstance!.getCurrentPeriod()
+                
+                if (DailyScheduleManager.sharedInstance?.currentSchedule != nil) {
+                    //start timer if current schedule not nil
+                    if (DailyScheduleManager.sharedInstance?.currentSchedule?.isStatic == false) {
+                        self.navigationItem.prompt = "Modified Schedule"
+                    }
+                    else {
+                        self.navigationItem.prompt = nil
+                    }
+                    self.selectedSchedule = DailyScheduleManager.sharedInstance?.currentSchedule
+                    self.setupClockTimer()
+                    self.setupPeriodTimer()
                 }
-                else {
-                    self.navigationItem.prompt = nil
-                }
-                self.selectedSchedule = DailyScheduleManager.sharedInstance?.currentSchedule
-                self.setupClockTimer()
-                self.setupPeriodTimer()
             }
-        }
         }
         else {
             //handle error
@@ -325,32 +328,9 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 withError error: NSError!) {
         if (error == nil) {
             print("email: \(user.profile.email)")
-            // Perform any operations on signed in user here.
-            //            let userId = user.userID                  // For client-side use only!
-            //            let idToken = user.authentication.idToken // Safe to send to the server
-            //            let fullName = user.profile.name
-            //            let givenName = user.profile.givenName
-            //            let familyName = user.profile.familyName
-            //            let email = user.profile.email
-            // ...
-            
             let emailDomain = user.profile.email.componentsSeparatedByString("@").last
             if (emailDomain?.containsString("westport.k12.ct.us") == true) {
                 print("confirmed wepo")
-                
-                //                Alamofire.request(.POST, "http://localhost:9292/api/validateUser", parameters: ["token": user.authentication.idToken])
-                //
-                //                    .responseJSON { response in
-                //                        print(response.request)  // original URL request
-                //                        print(response.response) // URL response
-                //                        print(response.data)     // server data
-                //                        print(response.result)   // result of response serialization
-                //                        print(response.result.error)
-                //                        if let JSON = response.result.value {
-                //                            print("JSON: \(JSON)")
-                //                        }
-                //                }
-                
                 
                 var profilePicURL: String?
                 
@@ -362,7 +342,44 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 UserManager.createCurrentUser(user.profile.name, email: user.profile.email, token: user.authentication.idToken, profilePicURL: profilePicURL, completion: { (success: Bool) in
                     if (success) {
                         print("success!")
-                        self.dismissViewControllerAnimated(true, completion: nil)
+                        
+                        if (UserManager.sharedInstance != nil) {
+                            
+                            UserManager.sharedInstance?.currentUser.getClassmates({ (success: Bool) in
+                                if (success) {
+                                    //add current user to Realm with all of the data
+                                    let realm = try! Realm()
+                                    
+                                    let realmUser = RealmUser()
+                                    
+                                    for period in UserManager.sharedInstance!.currentUser.schedule! {
+                                        let realmPeriod = RealmPeriod()
+                                        
+                                        realmPeriod.setPeriod(period: period)
+                                        
+                                        realmUser.schedule.append(realmPeriod)
+                                    }
+                                    
+                                    try! realm.write {
+                                        realm.delete(realm.objects(RealmUser.self))
+                                        realm.add(realmUser)
+                                    }
+                                    
+                                    DailyScheduleManager.sharedInstance?.getDailySchedule()
+                                    
+                                    print("success in view did appear")
+                                    
+                                }
+                                else {
+                                    print("error getting classes")
+                                    let alert = UIAlertController(title: "Error retrieving classes", message: "Please check your network connection and try again.", preferredStyle: .Alert)
+                                    let dismiss = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+                                    alert.addAction(dismiss)
+                                    self.presentViewController(alert, animated: true, completion: nil)
+                                }
+                            })
+                        }
+                        
                         
                     }
                     else {

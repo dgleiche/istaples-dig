@@ -55,10 +55,9 @@ class DailyScheduleManager: NSObject {
             self.delegate.didFetchSchedules(true)
         }
         else if (currentUser == nil) {
-            self.delegate.logoutUser()
+//            self.delegate.logoutUser()
             return
         }
-        self.getDailySchedule()
     }
     
     func getDailySchedule() {
@@ -166,6 +165,7 @@ class DailyScheduleManager: NSObject {
                                     newCourse.name = course["Name"] as? String
                                     self.courses.append(newCourse)
                                 }
+                                
                                 self.delegate.didFetchSchedules(true)
                                 
                                 try! self.realm.write {
