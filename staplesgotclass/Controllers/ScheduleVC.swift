@@ -63,7 +63,10 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         super.viewDidAppear(animated)
         
         if !firstSignInHasBeenAttempted {
-        } else {
+            
+        }
+        
+        else {
             
         }
     }
@@ -139,6 +142,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     }
     
     func setupPeriodTimer() {
+        print("setup period timer called")
         if DailyScheduleManager.sharedInstance != nil {
             DailyScheduleManager.sharedInstance!.currentPeriod = DailyScheduleManager.sharedInstance!.getCurrentPeriod()
             self.tableView.reloadData()
@@ -282,7 +286,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             if (self.isCurrentSchedule == true) {
                 if (section == 0) {
                     if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
-                        if (nextPeriod.isBeforeSchool != true && nextPeriod.isAfterSchool != true) {
+                        if (nextPeriod.isAfterSchool != true && nextPeriod.isBeforeSchool != true) {
                             return 1
                         }
                     }
@@ -307,9 +311,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         if (self.isCurrentSchedule == true && indexPath.section == 0) {
             //get up next period
             if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
-                if (nextPeriod.isBeforeSchool != true && nextPeriod.isAfterSchool != true) {
                     indexSchedulePeriod = nextPeriod
-                }
             }
             
         }
@@ -321,7 +323,6 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         if (indexSchedulePeriod != nil) {
             if (indexSchedulePeriod?.realPeriod != nil) {
                 //there is a real period assigned so show number and class name
-                print("real period not nil")
                 cell.classTitleLabel.text = indexSchedulePeriod!.realPeriod!.name
                 cell.teacherLabel.text = indexSchedulePeriod!.realPeriod!.teacherName
                 cell.periodNumberLabel.text = "\(indexSchedulePeriod!.realPeriod!.periodNumber)"
@@ -343,6 +344,9 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             }
             else if (indexSchedulePeriod == DailyScheduleManager.sharedInstance?.currentPeriod) {
                 cell.backgroundColor = UIColor.orangeColor()
+            }
+            else {
+                cell.backgroundColor = UIColor.whiteColor()
             }
         }
         
