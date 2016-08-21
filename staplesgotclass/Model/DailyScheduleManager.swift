@@ -281,7 +281,7 @@ class DailyScheduleManager: NSObject {
             var lastPeriodEndTime: Int = 0
             
             let secondsFromMidnight = self.secondsFromMidnight()
-            
+
             //Assumes period array is sorted by startSeconds ascending
             for period in schedule.periods {
                 
@@ -290,6 +290,11 @@ class DailyScheduleManager: NSObject {
                     dayStarted = true
                     lastPeriodEndTime = period.endSeconds
                     continue
+                }
+                
+                //If the before school period has already started, return the first period in the day
+                if secondsFromMidnight > period.startSeconds - (10 * 60) {
+                    return period
                 }
                 
                 //If the day hasn't started, the first period event is 10 mins before school

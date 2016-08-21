@@ -165,8 +165,9 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                     //Next period event should be a passing time which occurs immediately after this period is over
                     let timeIntervalUntilNextPeriodStart: Double = Double(currentPeriod.endSeconds - DailyScheduleManager.sharedInstance!.secondsFromMidnight())
                     
-                    //Add in 1 second to the interval to ensure it's the start of a new period and nothing funky happens
                     self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
+                } else if currentPeriod.isAfterSchool {
+                    ///DAY HAS ENDED
                 }
             }
             
