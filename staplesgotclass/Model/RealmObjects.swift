@@ -34,7 +34,7 @@ class SchedulePeriod: Object {
     dynamic var startSeconds: Int = 0
     dynamic var endSeconds: Int = 50*60
     
-    dynamic var realPeriod: Period? //IGNORED BY REALM
+    dynamic var realPeriod: RealmPeriod? 
     
 //    override static func ignoredProperties() -> [String] {
 //        return ["realPeriod", "isPassingTime", "isBeforeSchool", "isAfterSchool"]
@@ -54,4 +54,26 @@ class LunchSchedule: Object {
     dynamic var lunchType: LunchType?
     dynamic var monthNumber = 0
     dynamic var lunchNumber = 0
+}
+
+//MARK: Replacements for period and user to conform to Realm
+
+class RealmUser: Object {
+    let schedule = List<RealmPeriod>()
+}
+
+class RealmPeriod: Object {
+    dynamic var name: String?
+    dynamic var periodNumber: Int = 0
+    dynamic var teacherName: String?
+    dynamic var quarters: String?
+    dynamic var id: Int = 0
+    
+    func setPeriod(period period: Period) {
+        self.name = period.name
+        self.periodNumber = period.periodNumber
+        self.teacherName = period.teacherName
+        self.quarters = period.quarters
+        self.id = period.id
+    }
 }
