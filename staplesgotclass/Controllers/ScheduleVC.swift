@@ -28,6 +28,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     var spinnerSetup = false
     
+    var firstSignInHasBeenAttempted = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,6 +57,15 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         DailyScheduleManager.setup(self)
 
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if !firstSignInHasBeenAttempted {
+        } else {
+            
+        }
     }
     
     func callSetup() {
@@ -146,7 +157,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                         let timeIntervalUntilNextPeriodStart: Double = Double(nextPeriod.startSeconds - DailyScheduleManager.sharedInstance!.secondsFromMidnight())
                         
                         //Add in 1 second to the interval to ensure it's the start of a new period and nothing funky happens
-                        self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart + 1.0, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
+                        self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
                     }
                     
                 } else if !currentPeriod.isAfterSchool {
@@ -155,7 +166,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                     let timeIntervalUntilNextPeriodStart: Double = Double(currentPeriod.endSeconds - DailyScheduleManager.sharedInstance!.secondsFromMidnight())
                     
                     //Add in 1 second to the interval to ensure it's the start of a new period and nothing funky happens
-                    self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart + 1.0, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
+                    self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
                 }
             }
             
@@ -164,7 +175,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 let timeIntervalUntilNextPeriodStart: Double = Double(nextPeriod.startSeconds - DailyScheduleManager.sharedInstance!.secondsFromMidnight())
                 
                 //Add in 1 second to the interval to ensure it's the start of a new period and nothing funky happens
-                self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart + 1.0, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
+                self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
             }
             else if (DailyScheduleManager.sharedInstance?.currentSchedule != nil) {
                 //no current period so make timer call every 5 seconds to keep checking if there is one ONLY IF CURRENT SCHEDULE IS SET
