@@ -48,11 +48,12 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         
         self.tableView.addGestureRecognizer(swipeRecognizer)
         
-        DailyScheduleManager.setup(self)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ScheduleVC.callSetup), name: "loggedIn", object: nil)
         GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().signInSilently()
+        
+        DailyScheduleManager.setup(self)
+
         
     }
     
@@ -67,8 +68,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     //MARK: - Daily Schedule Manager Delegate Methods
     
-    func didFetchSchedules(success: Bool) {
-        if (success) {
+    func didFetchSchedules(offline: Bool) {
             print("delegate called")
             if DailyScheduleManager.sharedInstance != nil {
                 print("staticScheduleCount: \(DailyScheduleManager.sharedInstance?.staticSchedules.count)")
@@ -93,10 +93,24 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                     self.setupPeriodTimer()
                 }
             }
+        if (offline) {
+            GIDSignIn.sharedInstance().signInSilently()
         }
         else {
-            //handle error
+            
         }
+    
+    }
+    
+    func signInUser() {
+        GIDSignIn.sharedInstance().signInSilently()
+    }
+    
+    func showErrorAlert() {
+        let alert = UIAlertController(title: "Error loading schedules", message: "Please try again.", preferredStyle: .Alert)
+        let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        alert.addAction(ok)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func logoutUser() {
@@ -350,6 +364,12 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                                     //add current user to Realm with all of the data
                                     let realm = try! Realm()
                                     
+                                    try! realm.write {
+                                        realm.delete(realm.objects(RealmUser.self))
+                                    }
+                                    
+                                    DailyScheduleManager.sharedInstance?.currentUser = nil
+                                    
                                     let realmUser = RealmUser()
                                     
                                     for period in UserManager.sharedInstance!.currentUser.schedule! {
@@ -361,9 +381,10 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                                     }
                                     
                                     try! realm.write {
-                                        realm.delete(realm.objects(RealmUser.self))
                                         realm.add(realmUser)
                                     }
+                                    
+                                    DailyScheduleManager.sharedInstance?.currentUser = realmUser
                                     
                                     DailyScheduleManager.sharedInstance?.getDailySchedule()
                                     

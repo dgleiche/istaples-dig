@@ -66,7 +66,7 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
                 self.profileImageView.hidden = true
                 self.initialView.hidden = false
             }
-            if (currentUser?.schedule!.count == 0) {
+            if (currentUser?.schedule == nil) {
                 self.loadingSpinner.startAnimating()
             }
             currentUser?.getClassmates({ (success: Bool) in

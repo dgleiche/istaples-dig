@@ -13,7 +13,8 @@ import RealmSwift
 
 protocol DailyScheduleManagerDelegate: class {
     func didFetchSchedules(success: Bool)
-    func logoutUser()
+    func signInUser()
+    func showErrorAlert()
 }
 
 class DailyScheduleManager: NSObject {
@@ -45,19 +46,27 @@ class DailyScheduleManager: NSObject {
     }
     
     func loadSavedData() {
+        print("loading saved data")
         self.modifiedSchedules = Array(realm.objects(Schedule.self).filter("isStatic == false"))
         self.staticSchedules = Array(realm.objects(Schedule.self).filter("isStatic == true"))
         self.lunchSchedules = Array(realm.objects(LunchSchedule.self))
         self.courses = Array(realm.objects(Course.self))
         self.currentUser = realm.objects(RealmUser.self).first
-        if (staticSchedules.count > 0 && lunchSchedules.count > 0 && currentUser != nil) {
+        print("mod schedules count: \(self.modifiedSchedules.count)")
+        print("static schedules count: \(self.staticSchedules.count)")
+        print("lunch schedules count: \(self.lunchSchedules.count)")
+        print("courses  count: \(self.courses.count)")
+        print("current user  count: \(self.currentUser)")
+
+        if (modifiedSchedules.count > 0 && lunchSchedules.count > 0 && currentUser != nil) {
             print("realm objects found")
             self.delegate.didFetchSchedules(true)
-        }
-        else if (currentUser == nil) {
-//            self.delegate.logoutUser()
             return
         }
+        else if (currentUser == nil) {
+            print("current user nil")
+        }
+        self.delegate.signInUser()
     }
     
     func getDailySchedule() {
@@ -166,27 +175,34 @@ class DailyScheduleManager: NSObject {
                                     self.courses.append(newCourse)
                                 }
                                 
-                                self.delegate.didFetchSchedules(true)
                                 
                                 try! self.realm.write {
                                     self.realm.add(self.staticSchedules)
                                     self.realm.add(self.modifiedSchedules)
                                     self.realm.add(self.lunchSchedules)
                                     self.realm.add(self.courses)
+                                    
+                                    print("mod schedules count: \(self.modifiedSchedules.count)")
+                                    print("static schedules count: \(self.staticSchedules.count)")
+                                    print("lunch schedules count: \(self.lunchSchedules.count)")
+                                    print("courses  count: \(self.courses.count)")
+                                    print("current user  count: \(self.currentUser)")
+
                                 }
+                                self.delegate.didFetchSchedules(false)
                             }
                             else {
-                                self.delegate.didFetchSchedules(false)
+                                self.delegate.showErrorAlert()
                             }
                         })
                     }
                     else {
-                        self.delegate.didFetchSchedules(false)
+                        self.delegate.showErrorAlert()
                     }
                 })
             }
             else {
-                self.delegate.didFetchSchedules(false)
+                self.delegate.showErrorAlert()
             }
         })
     }
@@ -372,25 +388,25 @@ class DailyScheduleManager: NSObject {
     func syncPeriodsToSchedule(schedule: Schedule) {
         //this separate function is needed b/c we want to assign real periods AFTER everything is setup from Realm/Network
         for schedulePeriod in schedule.periods {
-            schedulePeriod.realPeriod = self.getRealPeriod(fromSchedulePeriod: schedulePeriod)
-            
+            try! self.realm.write {
+                schedulePeriod.realPeriod = self.getRealPeriod(fromSchedulePeriod: schedulePeriod)
+            }
         }
     }
     
     // Returns a period object based off a schedulePeriod object
     func getRealPeriod(fromSchedulePeriod schedulePeriod: SchedulePeriod) -> RealmPeriod? {
-        if UserManager.sharedInstance != nil {
-            print("user manager not nil")
-            let userSchedule = UserManager.sharedInstance!.currentUser.schedule
-            
+        if self.currentUser != nil {
+            print("realm user not nil")
+            let userSchedule = self.currentUser?.schedule
             //Loop through the periods in the user schedule
             //Check them against the inputted schedule period
-            for userPeriod in userSchedule! {
-                if userPeriod.periodNumber == schedulePeriod.id {
-                    print("found user period")
-                    let realmPeriod = RealmPeriod()
-                    realmPeriod.setPeriod(period: userPeriod)
-                    return realmPeriod
+            if (userSchedule != nil) {
+                for userPeriod in userSchedule! {
+                    if userPeriod.periodNumber == schedulePeriod.id {
+                        print("found user period")
+                        return userPeriod
+                    }
                 }
             }
             
