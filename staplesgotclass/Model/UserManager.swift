@@ -19,8 +19,8 @@ class UserManager: NSObject {
     var classNames = [String]()
     
     private init(name: String, email: String, token: String, profilePicURL: String?, completion: ((Bool) -> Void)?) {
-        self.currentUser = User.setup(name, email: email, profilePicURL: profilePicURL)
-        self.currentUser.isCurrentUser = true
+        self.currentUser = User(name: name, email: email, profilePicURL: profilePicURL)
+
         self.token = token
         super.init()
         self.verifyUser(completion)
@@ -31,7 +31,7 @@ class UserManager: NSObject {
     }
     
     func verifyUser(completion: ((Bool) -> Void)?) {
-        self.currentUser.network!.performRequest(withMethod: "POST", endpoint: "validateUser", parameters: ["token": self.token, "name": self.currentUser.name!], headers: nil) { (response: Response<AnyObject, NSError>) in
+        self.currentUser.network.performRequest(withMethod: "POST", endpoint: "validateUser", parameters: ["token": self.token, "name": self.currentUser.name], headers: nil) { (response: Response<AnyObject, NSError>) in
             if (response.response?.statusCode == 200) {
                 if let verifyResponse = response.result.value as? NSDictionary {
                     print("verify response: \(verifyResponse)")
@@ -54,7 +54,7 @@ class UserManager: NSObject {
                 }
                 
                 //success
-                self.currentUser.network!.performRequest(withMethod: "GET", endpoint: "getAutofillData", parameters: nil, headers: nil, completion: { (responseData: Response<AnyObject, NSError>) in
+                self.currentUser.network.performRequest(withMethod: "GET", endpoint: "getAutofillData", parameters: nil, headers: nil, completion: { (responseData: Response<AnyObject, NSError>) in
                     if (responseData.response?.statusCode == 200) {
                         completion!(true)
                         if let responseJSON = responseData.result.value as? NSDictionary {
@@ -62,7 +62,7 @@ class UserManager: NSObject {
                             self.classNames = responseJSON["classList"] as! [String]
                         }
                         if (self.currentUser.profilePicURL != nil) {
-                            self.currentUser.network!.performRequest(withMethod: "POST", endpoint: "setProfPicURL", parameters: ["url": self.currentUser.profilePicURL!], headers: nil, completion: { (response: Response<AnyObject, NSError>) in
+                            self.currentUser.network.performRequest(withMethod: "POST", endpoint: "setProfPicURL", parameters: ["url": self.currentUser.profilePicURL!], headers: nil, completion: { (response: Response<AnyObject, NSError>) in
                                 if (response.response?.statusCode == 200) {
                                     print("updated profile pic url")
                                 }
@@ -85,7 +85,7 @@ class UserManager: NSObject {
     }
     
     func getAllUsers(completion: ((success: Bool, userList: [User]?) -> Void)?) {
-        self.currentUser.network!.performRequest(withMethod: "GET", endpoint: "getUsers", parameters: nil, headers: nil) { (response: Response<AnyObject, NSError>) in
+        self.currentUser.network.performRequest(withMethod: "GET", endpoint: "getUsers", parameters: nil, headers: nil) { (response: Response<AnyObject, NSError>) in
             if (response.response?.statusCode == 200) {
                 if let userResponse = response.result.value as? [[String : AnyObject]] {
                     var userList = [User]()
@@ -95,7 +95,7 @@ class UserManager: NSObject {
                             userList.append(existingUser)
                         }
                         else {
-                            let newUser = User.setup(selectedUser["name"]! as! String, email: selectedUser["email"]! as! String, profilePicURL: selectedUser["profile_pic_url"] as? String)
+                            let newUser = User(name: selectedUser["name"]! as! String, email: selectedUser["email"]! as! String, profilePicURL: selectedUser["profile_pic_url"] as? String)
                             self.allUsers[selectedUser["email"]! as! String] = newUser
                             userList.append(newUser)
                         }

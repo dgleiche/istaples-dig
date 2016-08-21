@@ -12,7 +12,7 @@ import RealmSwift
 import Alamofire
 
 class ClassesVC: UITableViewController {
-    var myClasses: List<Period>?
+    var myClasses: [Period]?
     var swipeMode = false
     
     var curPeriod: Period?
@@ -42,7 +42,7 @@ class ClassesVC: UITableViewController {
         if (UserManager.sharedInstance == nil) {
             let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
             self.tabBarController?.presentViewController(loginPage, animated: true, completion: nil)
-
+            
         }
         
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
@@ -87,6 +87,16 @@ class ClassesVC: UITableViewController {
                     //add current user to Realm with all of the data
                     let realm = try! Realm()
                     
+                    let realmUser = RealmUser()
+                    
+                    for period in UserManager.sharedInstance!.currentUser.schedule! {
+                        let realmPeriod = RealmPeriod()
+                        
+                        realmPeriod.setPeriod(period: period)
+                        
+                        realmUser.schedule.append(realmPeriod)
+                    }
+                    
                     try! realm.write {
                         realm.delete(realm.objects(User.self)) //delete all users
                         realm.add(UserManager.sharedInstance!.currentUser)
@@ -102,7 +112,7 @@ class ClassesVC: UITableViewController {
                     //                    }
                     self.tableView.reloadData()
                     self.tableView.tableFooterView = UIView(frame: CGRectZero)
-
+                    
                 }
                 else {
                     print("error getting classes")
@@ -227,7 +237,7 @@ class ClassesVC: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("classCell", forIndexPath: indexPath) as! ClassCell
             cell.classTitleLabel.text = self.myClasses![indexPath.row].name
             cell.periodNumberLabel.text = "\(self.myClasses![indexPath.row].periodNumber)"
-            cell.quarterLabel!.text = "\(self.myClasses![indexPath.row].quarters!)"
+            cell.quarterLabel!.text = "\(self.myClasses![indexPath.row].quarters)"
             cell.teacherLabel.text = self.myClasses![indexPath.row].teacherName
             return cell
         }
@@ -296,7 +306,7 @@ class ClassesVC: UITableViewController {
             //Delete the class
             //Send the delete request to the server
             
-            UserManager.sharedInstance?.currentUser.network!.performRequest(withMethod: "POST", endpoint: "delete", parameters: ["id": "\(period.id)"], headers: nil, completion: { (response: Response<AnyObject, NSError>) in
+            UserManager.sharedInstance?.currentUser.network.performRequest(withMethod: "POST", endpoint: "delete", parameters: ["id": "\(period.id)"], headers: nil, completion: { (response: Response<AnyObject, NSError>) in
                 
                 if (response.response?.statusCode == 200) {
                     print("successfully deleted period")

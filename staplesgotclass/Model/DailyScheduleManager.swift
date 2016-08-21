@@ -370,17 +370,20 @@ class DailyScheduleManager: NSObject {
     }
     
     // Returns a period object based off a schedulePeriod object
-    func getRealPeriod(fromSchedulePeriod schedulePeriod: SchedulePeriod) -> Period? {
+    func getRealPeriod(fromSchedulePeriod schedulePeriod: SchedulePeriod) -> RealmPeriod? {
         if UserManager.sharedInstance != nil {
             print("user manager not nil")
             let userSchedule = UserManager.sharedInstance!.currentUser.schedule
             
             //Loop through the periods in the user schedule
             //Check them against the inputted schedule period
-            for userPeriod in userSchedule {
+            for userPeriod in userSchedule! {
                 if userPeriod.periodNumber == schedulePeriod.id {
                     print("found user period")
-                    return userPeriod
+                    let realmPeriod = RealmPeriod()
+                    realmPeriod.setPeriod(period: userPeriod)
+                    
+                    return realmPeriod
                 }
             }
             
