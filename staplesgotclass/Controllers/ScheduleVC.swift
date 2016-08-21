@@ -28,6 +28,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     var spinnerSetup = false
     
+    var firstSignInHasBeenAttempted = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,6 +57,15 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         DailyScheduleManager.setup(self)
 
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if !firstSignInHasBeenAttempted {
+        } else {
+            
+        }
     }
     
     func callSetup() {

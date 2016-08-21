@@ -13,8 +13,8 @@ extension NSTimeInterval {
         
         let ti = NSInteger(self)
         
-        let seconds = ti % 60
-        let minutes = (ti / 60)
+        let seconds = max(ti % 60, 0)
+        let minutes = max((ti / 60), 0)
         
         return NSString(format: "%0.2d:%0.2d",minutes,seconds)
     }
