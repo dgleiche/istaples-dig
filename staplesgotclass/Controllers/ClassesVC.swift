@@ -38,13 +38,6 @@ class ClassesVC: UITableViewController {
         let infoBarButtonItem = UIBarButtonItem(customView: infoButton)
         navigationItem.leftBarButtonItem = infoBarButtonItem
         
-        
-        if (UserManager.sharedInstance == nil) {
-            let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
-            self.tabBarController?.presentViewController(loginPage, animated: true, completion: nil)
-            
-        }
-        
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         for item in (self.tabBarController?.tabBar.items)! as [UITabBarItem] {
