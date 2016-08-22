@@ -29,6 +29,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     var spinnerSetup = false
     
     var firstSignInHasBeenAttempted = false
+    var loadedOnline = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,25 +54,31 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ScheduleVC.callSetup), name: "loggedIn", object: nil)
         GIDSignIn.sharedInstance().delegate = self
-        
+        print("view did load setup")
         DailyScheduleManager.setup(self)
-
+        
         
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
+        if (self.loadedOnline) {
+            //reload schedules in case of change, and go back to current schedule
+            DailyScheduleManager.setup(self)
+        }
+        
         if !firstSignInHasBeenAttempted {
             
         }
-        
+            
         else {
             
         }
     }
     
     func callSetup() {
+        print("calling setup")
         DailyScheduleManager.setup(self)
     }
     
@@ -83,41 +90,48 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     //MARK: - Daily Schedule Manager Delegate Methods
     
     func didFetchSchedules(offline: Bool) {
-            print("delegate called")
-            if DailyScheduleManager.sharedInstance != nil {
-                print("staticScheduleCount: \(DailyScheduleManager.sharedInstance?.staticSchedules.count)")
-                print("modScheduleCount: \(DailyScheduleManager.sharedInstance?.modifiedSchedules.count)")
-                
-                DailyScheduleManager.sharedInstance?.currentSchedule = DailyScheduleManager.sharedInstance!.getSchedule(withDate: NSDate())
-                print("current schedule: \(DailyScheduleManager.sharedInstance?.currentSchedule)")
-                
-                //Setup the current period
-                DailyScheduleManager.sharedInstance?.currentPeriod = DailyScheduleManager.sharedInstance!.getCurrentPeriod()
-                
-                if (DailyScheduleManager.sharedInstance?.currentSchedule != nil) {
-                    //start timer if current schedule not nil
-                    if (DailyScheduleManager.sharedInstance?.currentSchedule?.isStatic == false) {
-                        self.navigationItem.prompt = "Modified Schedule"
-                    }
-                    else {
-                        self.navigationItem.prompt = nil
-                    }
-                    self.selectedSchedule = DailyScheduleManager.sharedInstance?.currentSchedule
-                    self.setupClockTimer()
-                    self.setupPeriodTimer()
+        print("delegate called")
+        if DailyScheduleManager.sharedInstance != nil {
+            print("staticScheduleCount: \(DailyScheduleManager.sharedInstance?.staticSchedules.count)")
+            print("modScheduleCount: \(DailyScheduleManager.sharedInstance?.modifiedSchedules.count)")
+            
+            DailyScheduleManager.sharedInstance?.currentSchedule = DailyScheduleManager.sharedInstance!.getSchedule(withDate: NSDate())
+            print("current schedule: \(DailyScheduleManager.sharedInstance?.currentSchedule)")
+            
+            //Setup the current period
+            DailyScheduleManager.sharedInstance?.currentPeriod = DailyScheduleManager.sharedInstance!.getCurrentPeriod()
+            
+            if (DailyScheduleManager.sharedInstance?.currentSchedule != nil) {
+                //start timer if current schedule not nil
+                if (DailyScheduleManager.sharedInstance?.currentSchedule?.isStatic == false) {
+                    self.navigationItem.prompt = "Modified Schedule"
                 }
+                else {
+                    self.navigationItem.prompt = nil
+                }
+                self.selectedSchedule = DailyScheduleManager.sharedInstance?.currentSchedule
+                self.setupClockTimer()
+                self.setupPeriodTimer()
             }
+        }
         if (offline) {
-            GIDSignIn.sharedInstance().signInSilently()
+            signInUser()
         }
         else {
-            
+            self.loadedOnline = true
         }
-    
+        
     }
     
     func signInUser() {
-        GIDSignIn.sharedInstance().signInSilently()
+        if (GIDSignIn.sharedInstance().currentUser == nil) {
+            GIDSignIn.sharedInstance().delegate = self
+            print("no current user, sign in")
+            GIDSignIn.sharedInstance().signInSilently()
+        }
+        else {
+            self.getRealClassPeriods()
+        }
     }
     
     func showErrorAlert() {
@@ -128,6 +142,9 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     }
     
     func logoutUser() {
+        DailyScheduleManager.destroy()
+        GIDSignIn.sharedInstance().delegate = nil
+        GIDSignIn.sharedInstance().signOut()
         let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
         self.tabBarController?.presentViewController(loginPage, animated: true, completion: nil)
     }
@@ -142,7 +159,6 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     }
     
     func setupPeriodTimer() {
-        print("setup period timer called")
         if DailyScheduleManager.sharedInstance != nil {
             DailyScheduleManager.sharedInstance!.currentPeriod = DailyScheduleManager.sharedInstance!.getCurrentPeriod()
             self.tableView.reloadData()
@@ -161,7 +177,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                         let timeIntervalUntilNextPeriodStart: Double = Double(nextPeriod.startSeconds - DailyScheduleManager.sharedInstance!.secondsFromMidnight())
                         
                         //Add in 1 second to the interval to ensure it's the start of a new period and nothing funky happens
-                        self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
+                        self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart + 1, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
                     }
                     
                 } else if !currentPeriod.isAfterSchool {
@@ -169,25 +185,35 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                     //Next period event should be a passing time which occurs immediately after this period is over
                     let timeIntervalUntilNextPeriodStart: Double = Double(currentPeriod.endSeconds - DailyScheduleManager.sharedInstance!.secondsFromMidnight())
                     
-                    self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
-                } else if currentPeriod.isAfterSchool {
+                    self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart + 1, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
+                }
+                else if currentPeriod.isAfterSchool {
                     ///DAY HAS ENDED
+                    print("day is now over")
                 }
             }
             
             //This should be for the morning period
-            if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
+            else if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
                 let timeIntervalUntilNextPeriodStart: Double = Double(nextPeriod.startSeconds - DailyScheduleManager.sharedInstance!.secondsFromMidnight())
                 
                 //Add in 1 second to the interval to ensure it's the start of a new period and nothing funky happens
-                self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
+                self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart + 1, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
             }
-            else if (DailyScheduleManager.sharedInstance?.currentSchedule != nil) {
-                //no current period so make timer call every 5 seconds to keep checking if there is one ONLY IF CURRENT SCHEDULE IS SET
-                
-                self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
-                
+            
+            else {
+                //no current period, hide top view
+                UIView.animateWithDuration(2, animations: {
+                    self.tableView.tableHeaderView = nil
+                    self.tableView.reloadData()
+                })
             }
+//            else if (DailyScheduleManager.sharedInstance?.currentSchedule != nil) {
+//                //no current period so make timer call every 5 seconds to keep checking if there is one ONLY IF CURRENT SCHEDULE IS SET
+//                
+//                self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
+//                
+//            }
             if (self.periodTimer != nil) {
                 NSRunLoop.mainRunLoop().addTimer(self.periodTimer!, forMode: NSRunLoopCommonModes)
             }
@@ -311,7 +337,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         if (self.isCurrentSchedule == true && indexPath.section == 0) {
             //get up next period
             if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
-                    indexSchedulePeriod = nextPeriod
+                indexSchedulePeriod = nextPeriod
             }
             
         }
@@ -340,18 +366,67 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         
         if (self.isCurrentSchedule == true) {
             if (DailyScheduleManager.sharedInstance?.secondsFromMidnight() > indexSchedulePeriod?.endSeconds) {
-                cell.backgroundColor = UIColor.lightGrayColor()
+                cell.periodNumberLabel.textColor = UIColor.lightGrayColor()
+                cell.classTitleLabel.font = UIFont(name: "HelveticaNeue", size: 17)
             }
             else if (indexSchedulePeriod == DailyScheduleManager.sharedInstance?.currentPeriod) {
-                cell.backgroundColor = UIColor.orangeColor()
+                cell.periodNumberLabel.textColor = UIColor.orangeColor()
+                cell.classTitleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 17)
             }
             else {
-                cell.backgroundColor = UIColor.whiteColor()
+                cell.periodNumberLabel.textColor = UIColor(red:0.0, green:0.38, blue:0.76, alpha:1.0)
+                cell.classTitleLabel.font = UIFont(name: "HelveticaNeue", size: 17)
             }
         }
         
         
         return cell
+    }
+    
+    func getRealClassPeriods() {
+        if (UserManager.sharedInstance != nil) {
+            
+            UserManager.sharedInstance?.currentUser.getClassmates({ (success: Bool) in
+                if (success) {
+                    //add current user to Realm with all of the data
+                    let realm = try! Realm()
+                    
+                    try! realm.write {
+                        realm.delete(realm.objects(RealmUser.self))
+                    }
+                    
+                    DailyScheduleManager.sharedInstance?.currentUser = nil
+                    
+                    let realmUser = RealmUser()
+                    
+                    for period in UserManager.sharedInstance!.currentUser.schedule! {
+                        let realmPeriod = RealmPeriod()
+                        
+                        realmPeriod.setPeriod(period: period)
+                        
+                        realmUser.schedule.append(realmPeriod)
+                    }
+                    
+                    try! realm.write {
+                        realm.add(realmUser)
+                    }
+                    
+                    DailyScheduleManager.sharedInstance?.currentUser = realmUser
+                    
+                    DailyScheduleManager.sharedInstance?.getDailySchedule()
+                    
+                    print("success in view did appear")
+                    
+                }
+                else {
+                    print("error getting classes")
+                    let alert = UIAlertController(title: "Error retrieving classes", message: "Please check your network connection and try again.", preferredStyle: .Alert)
+                    let dismiss = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+                    alert.addAction(dismiss)
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+            })
+        }
     }
     
     func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
@@ -372,52 +447,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 UserManager.createCurrentUser(user.profile.name, email: user.profile.email, token: user.authentication.idToken, profilePicURL: profilePicURL, completion: { (success: Bool) in
                     if (success) {
                         print("success!")
-                        
-                        if (UserManager.sharedInstance != nil) {
-                            
-                            UserManager.sharedInstance?.currentUser.getClassmates({ (success: Bool) in
-                                if (success) {
-                                    //add current user to Realm with all of the data
-                                    let realm = try! Realm()
-                                    
-                                    try! realm.write {
-                                        realm.delete(realm.objects(RealmUser.self))
-                                    }
-                                    
-                                    DailyScheduleManager.sharedInstance?.currentUser = nil
-                                    
-                                    let realmUser = RealmUser()
-                                    
-                                    for period in UserManager.sharedInstance!.currentUser.schedule! {
-                                        let realmPeriod = RealmPeriod()
-                                        
-                                        realmPeriod.setPeriod(period: period)
-                                        
-                                        realmUser.schedule.append(realmPeriod)
-                                    }
-                                    
-                                    try! realm.write {
-                                        realm.add(realmUser)
-                                    }
-                                    
-                                    DailyScheduleManager.sharedInstance?.currentUser = realmUser
-                                    
-                                    DailyScheduleManager.sharedInstance?.getDailySchedule()
-                                    
-                                    print("success in view did appear")
-                                    
-                                }
-                                else {
-                                    print("error getting classes")
-                                    let alert = UIAlertController(title: "Error retrieving classes", message: "Please check your network connection and try again.", preferredStyle: .Alert)
-                                    let dismiss = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
-                                    alert.addAction(dismiss)
-                                    self.presentViewController(alert, animated: true, completion: nil)
-                                }
-                            })
-                        }
-                        
-                        
+                        self.getRealClassPeriods()
                     }
                     else {
                         print("error signing in")
@@ -440,6 +470,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             
         } else {
             print("error signing in:( \(error)")
+            self.logoutUser()//only do this if error is wrong creds, not for offline
         }
     }
     

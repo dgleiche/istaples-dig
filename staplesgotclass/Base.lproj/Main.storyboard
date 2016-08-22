@@ -633,59 +633,59 @@
         <scene sceneID="gJA-36-GXb">
             <objects>
                 <tableViewController id="yPi-Le-xdF" customClass="ScheduleVC" customModule="staplesgotclass" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="bKR-Oq-agc">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="18" id="bKR-Oq-agc">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="DZG-Sb-9mr">
-                            <rect key="frame" x="0.0" y="64" width="600" height="203"/>
+                            <rect key="frame" x="0.0" y="64" width="600" height="188"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="wxL-aK-9JY">
-                                    <rect key="frame" x="8" y="129" width="69" height="38"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:45" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="wxL-aK-9JY">
+                                    <rect key="frame" x="8" y="96" width="78" height="38"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="69" id="97B-kP-VY0"/>
-                                        <constraint firstAttribute="height" constant="38" id="ZZx-BX-4SO"/>
+                                        <constraint firstAttribute="width" constant="78" id="165-M9-n0c"/>
+                                        <constraint firstAttribute="height" constant="38" id="UEQ-Hr-g2M"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="31"/>
                                     <color key="textColor" red="0.25715144230769216" green="0.25715144230769216" blue="0.25715144230769216" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AP Computer Science" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="tfk-At-ucG">
-                                    <rect key="frame" x="55" y="8" width="537" height="38"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AP Computer Science" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="tfk-At-ucG">
+                                    <rect key="frame" x="55" y="9" width="489" height="38"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="38" id="rCd-Kw-J3s"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="31"/>
-                                    <color key="textColor" red="0.25715144229999998" green="0.25715144229999998" blue="0.25715144229999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="31"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oHl-0m-F2Z" customClass="KDCircularProgress" customModule="staplesgotclass" customModuleProvider="target">
-                                    <rect key="frame" x="216" y="36" width="168" height="168"/>
+                                    <rect key="frame" x="216" y="36" width="169" height="169"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="168" id="4CX-mv-BNu"/>
-                                        <constraint firstAttribute="width" constant="168" id="wHd-7c-uWz"/>
+                                        <constraint firstAttribute="height" constant="169" id="4CX-mv-BNu"/>
+                                        <constraint firstAttribute="width" constant="169" id="wHd-7c-uWz"/>
                                     </constraints>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="angle">
-                                            <real key="value" value="300"/>
+                                            <real key="value" value="260"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="startAngle">
-                                            <integer key="value" value="-90"/>
+                                            <real key="value" value="-90"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="color" keyPath="IBColor1">
-                                            <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="value" red="0.50196081400000003" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="color" keyPath="IBColor2">
-                                            <color key="value" red="0.50196081400000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="value" red="0.50196081400000003" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="color" keyPath="IBColor3">
-                                            <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="value" red="0.50196081400000003" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="boolean" keyPath="roundedCorners" value="NO"/>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="roundedCorners" value="YES"/>
                                         <userDefinedRuntimeAttribute type="number" keyPath="glowAmount">
-                                            <real key="value" value="2"/>
+                                            <real key="value" value="0.0"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="progressThickness">
                                             <real key="value" value="0.10000000000000001"/>
@@ -699,10 +699,16 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WTO-iV-b10" customClass="KDCircularProgress" customModule="staplesgotclass" customModuleProvider="target">
                                     <rect key="frame" x="224" y="44" width="153" height="153"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0dh-nY-gWo">
-                                            <rect key="frame" x="21" y="64" width="112" height="34"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="58:17" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0dh-nY-gWo">
+                                            <rect key="frame" x="21" y="49" width="112" height="47"/>
+                                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="37"/>
+                                            <color key="textColor" red="0.23181089743589733" green="0.23181089743589733" blue="0.23181089743589733" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="REMAINING" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="30X-gm-XmT">
+                                            <rect key="frame" x="31" y="93" width="92" height="21"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -713,83 +719,104 @@
                                     </constraints>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="angle">
-                                            <real key="value" value="360"/>
+                                            <real key="value" value="260"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="startAngle">
-                                            <integer key="value" value="-90"/>
-                                        </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="color" keyPath="progressInsideFillColor">
-                                            <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <real key="value" value="-90"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="color" keyPath="IBColor1">
-                                            <color key="value" red="0.094693115090000002" green="0.56646648610000006" blue="0.90031008379999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="value" red="0.12941176469999999" green="0.42352941179999998" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="color" keyPath="IBColor2">
-                                            <color key="value" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="value" red="0.12941176469999999" green="0.42352941179999998" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="color" keyPath="IBColor3">
-                                            <color key="value" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="value" red="0.12941176469999999" green="0.42352941179999998" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
                                         </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="boolean" keyPath="roundedCorners" value="NO"/>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="roundedCorners" value="YES"/>
                                         <userDefinedRuntimeAttribute type="number" keyPath="glowAmount">
-                                            <real key="value" value="0.80000000000000004"/>
+                                            <real key="value" value="0.0"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="progressThickness">
-                                            <real key="value" value="0.29999999999999999"/>
+                                            <real key="value" value="0.22"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="trackThickness">
-                                            <real key="value" value="0.20000000000000001"/>
-                                        </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="color" keyPath="trackColor">
-                                            <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <real key="value" value="0.01"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="boolean" keyPath="lerpColorMode" value="NO"/>
                                         <userDefinedRuntimeAttribute type="number" keyPath="gradientRotateSpeed">
                                             <real key="value" value="0.29999999999999999"/>
                                         </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="trackColor">
+                                            <color key="value" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3J2-Bb-Rj3">
-                                    <rect key="frame" x="13" y="0.0" width="34" height="60"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="29" translatesAutoresizingMaskIntoConstraints="NO" id="3J2-Bb-Rj3">
+                                    <rect key="frame" x="13" y="3" width="34" height="46"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="34" id="NzR-GC-Le5"/>
-                                        <constraint firstAttribute="height" constant="60" id="zBH-du-vav"/>
+                                        <constraint firstAttribute="height" constant="46" id="zBH-du-vav"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="57"/>
-                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="57"/>
+                                    <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="ArR-gb-af5">
-                                    <rect key="frame" x="523" y="130" width="69" height="38"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="ArR-gb-af5">
+                                    <rect key="frame" x="523" y="96" width="69" height="38"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="38" id="1n1-SW-1SG"/>
-                                        <constraint firstAttribute="width" constant="69" id="XYs-6D-XDx"/>
+                                        <constraint firstAttribute="height" constant="38" id="A09-hm-hPH"/>
+                                        <constraint firstAttribute="width" constant="69" id="BcR-cQ-pq5"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="31"/>
                                     <color key="textColor" red="0.25715144229999998" green="0.25715144229999998" blue="0.25715144229999998" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DONE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Gb-ON-0aF">
+                                    <rect key="frame" x="519" y="137" width="73" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="21" id="Ukd-XO-muJ"/>
+                                        <constraint firstAttribute="width" constant="73" id="jTb-UC-evR"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ELAPSED" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9jt-by-iAv">
+                                    <rect key="frame" x="1" y="137" width="92" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="92" id="ZfA-EJ-j3h"/>
+                                        <constraint firstAttribute="height" constant="21" id="ot9-UE-4e6"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="ArR-gb-af5" secondAttribute="bottom" constant="35" id="1MY-gy-aZC"/>
+                                <constraint firstItem="9jt-by-iAv" firstAttribute="top" secondItem="wxL-aK-9JY" secondAttribute="bottom" constant="3" id="1ee-Lz-Oh3"/>
                                 <constraint firstItem="WTO-iV-b10" firstAttribute="top" secondItem="DZG-Sb-9mr" secondAttribute="top" constant="44" id="2nU-KW-MP6"/>
                                 <constraint firstItem="3J2-Bb-Rj3" firstAttribute="leading" secondItem="DZG-Sb-9mr" secondAttribute="leading" constant="13" id="2pH-xR-ZeH"/>
-                                <constraint firstAttribute="bottom" secondItem="wxL-aK-9JY" secondAttribute="bottom" constant="36" id="9Gj-TW-lof"/>
+                                <constraint firstAttribute="trailing" secondItem="ArR-gb-af5" secondAttribute="trailing" constant="8" id="Dix-v7-4Wk"/>
                                 <constraint firstItem="oHl-0m-F2Z" firstAttribute="top" secondItem="DZG-Sb-9mr" secondAttribute="top" constant="36" id="HAB-Ah-iAv"/>
                                 <constraint firstItem="oHl-0m-F2Z" firstAttribute="centerX" secondItem="DZG-Sb-9mr" secondAttribute="centerX" id="Hyq-JD-jF2"/>
                                 <constraint firstItem="tfk-At-ucG" firstAttribute="leading" secondItem="3J2-Bb-Rj3" secondAttribute="trailing" constant="8" id="I5V-1K-a06"/>
                                 <constraint firstItem="WTO-iV-b10" firstAttribute="centerX" secondItem="DZG-Sb-9mr" secondAttribute="centerX" id="I9C-a8-uyV"/>
-                                <constraint firstItem="wxL-aK-9JY" firstAttribute="leading" secondItem="DZG-Sb-9mr" secondAttribute="leading" constant="8" id="L0y-LY-I1Z"/>
-                                <constraint firstAttribute="trailing" secondItem="ArR-gb-af5" secondAttribute="trailing" constant="8" id="UWt-Eg-mYE"/>
-                                <constraint firstAttribute="trailing" secondItem="tfk-At-ucG" secondAttribute="trailing" constant="8" id="eEz-aO-C0l"/>
-                                <constraint firstItem="3J2-Bb-Rj3" firstAttribute="top" secondItem="DZG-Sb-9mr" secondAttribute="top" id="hao-mi-x44"/>
-                                <constraint firstItem="tfk-At-ucG" firstAttribute="top" secondItem="DZG-Sb-9mr" secondAttribute="top" constant="8" id="okj-ok-kHr"/>
+                                <constraint firstItem="ArR-gb-af5" firstAttribute="top" secondItem="tfk-At-ucG" secondAttribute="bottom" constant="49" id="Ick-uy-f1m"/>
+                                <constraint firstItem="9jt-by-iAv" firstAttribute="leading" secondItem="DZG-Sb-9mr" secondAttribute="leading" constant="1" id="Mv2-MT-kfT"/>
+                                <constraint firstItem="wxL-aK-9JY" firstAttribute="leading" secondItem="DZG-Sb-9mr" secondAttribute="leading" constant="8" id="d1i-Cg-D5D"/>
+                                <constraint firstItem="0Gb-ON-0aF" firstAttribute="top" secondItem="ArR-gb-af5" secondAttribute="bottom" constant="3" id="dW8-Pc-5C5"/>
+                                <constraint firstAttribute="trailing" secondItem="tfk-At-ucG" secondAttribute="trailing" constant="56" id="eEz-aO-C0l"/>
+                                <constraint firstAttribute="trailing" secondItem="0Gb-ON-0aF" secondAttribute="trailing" constant="8" id="gcJ-Q0-Dk7"/>
+                                <constraint firstItem="3J2-Bb-Rj3" firstAttribute="top" secondItem="DZG-Sb-9mr" secondAttribute="top" constant="3" id="hao-mi-x44"/>
+                                <constraint firstItem="wxL-aK-9JY" firstAttribute="top" secondItem="3J2-Bb-Rj3" secondAttribute="bottom" constant="47" id="iio-FC-liq"/>
+                                <constraint firstItem="tfk-At-ucG" firstAttribute="top" secondItem="DZG-Sb-9mr" secondAttribute="top" constant="9" id="okj-ok-kHr"/>
                             </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="scheduleCell" rowHeight="63" id="GQm-hr-vAR" customClass="ClassCell" customModule="staplesgotclass" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="317" width="600" height="63"/>
+                                <rect key="frame" x="0.0" y="302" width="600" height="63"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GQm-hr-vAR" id="kjS-4z-UrJ">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="62"/>
@@ -801,7 +828,7 @@
                                                 <constraint firstAttribute="width" constant="31" id="qSv-Cb-9jI"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="35"/>
-                                            <color key="textColor" red="0.0" green="0.38093091509999999" blue="0.75717147439999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.0" green="0.38039215686274508" blue="0.75686274509803919" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mary Katherine Hinman" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="orF-q2-Pf4">

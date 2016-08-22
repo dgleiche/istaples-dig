@@ -29,7 +29,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
 
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().signInSilently()
+//        GIDSignIn.sharedInstance().signInSilently()
         
         
         self.pageVC = self.storyboard?.instantiateViewControllerWithIdentifier("LoginPageVC") as! UIPageViewController
@@ -146,6 +146,20 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
         self.pageVCIndicator.currentPage = pageContentView.pageIndex!
     }
     
+    // Present a view that prompts the user to sign in with Google
+    func signIn(signIn: GIDSignIn!,
+                presentViewController viewController: UIViewController!) {
+        print("sign in ui delegate")
+        self.presentViewController(viewController, animated: true, completion: nil)
+    }
+    
+    // Dismiss the "Sign in with Google" view
+    func signIn(signIn: GIDSignIn!,
+                dismissViewController viewController: UIViewController!) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    
     func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
                 withError error: NSError!) {
         if (error == nil) {
@@ -186,7 +200,8 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
 
                 UserManager.createCurrentUser(user.profile.name, email: user.profile.email, token: user.authentication.idToken, profilePicURL: profilePicURL, completion: { (success: Bool) in
                     if (success) {
-                        print("success!")
+                        print("success in login screen!")
+                        GIDSignIn.sharedInstance().delegate = nil
                         NSNotificationCenter.defaultCenter().postNotificationName("loggedIn", object: nil)
                         self.dismissViewControllerAnimated(true, completion: nil)
                     }

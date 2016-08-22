@@ -41,6 +41,11 @@ class DailyScheduleManager: NSObject {
         self.loadSavedData()
     }
     
+    class func destroy() {
+        self.sharedInstance = nil
+        UserManager.destroy()
+    }
+    
     class func setup(delegate: DailyScheduleManagerDelegate) {
         DailyScheduleManager.sharedInstance = DailyScheduleManager(delegate: delegate)
     }

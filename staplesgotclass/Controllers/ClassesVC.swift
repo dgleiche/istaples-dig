@@ -59,6 +59,8 @@ class ClassesVC: UITableViewController {
         //Create the listener for log outs
         NSNotificationCenter.defaultCenter().addObserverForName("logout", object: nil, queue: nil) { note in
             GIDSignIn.sharedInstance().signOut()
+             self.navigationController?.tabBarController!.selectedIndex = 0
+            DailyScheduleManager.destroy()
             let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
             loginPage.modalTransitionStyle = .FlipHorizontal
             self.tabBarController?.presentViewController(loginPage, animated: true, completion: nil)
