@@ -63,6 +63,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
+        
+        
         if (self.loadedOnline) {
             //reload schedules in case of change, and go back to current schedule
             DailyScheduleManager.setup(self)
