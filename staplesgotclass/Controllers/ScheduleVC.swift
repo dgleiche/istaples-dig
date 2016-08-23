@@ -18,6 +18,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     @IBOutlet var currentPeriodNumberLabel: UILabel!
     @IBOutlet var currentPeriodTitleLabel: UILabel!
     
+    var tableHeaderView: UIView!
+    
     var selectedSchedule: Schedule?
     var isCurrentSchedule = true
     
@@ -32,6 +34,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     var loadedOnline = false
     
     override func viewDidLoad() {
+        tableHeaderView = tableView.tableHeaderView
+        
         super.viewDidLoad()
         
         let sweetBlue = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
@@ -158,7 +162,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         NSRunLoop.mainRunLoop().addTimer(self.clockTimer!, forMode: NSRunLoopCommonModes)
     }
     
-    func setupPeriodTimer() {
+    func setupPeriodTimer() { hidePeriodStatusBar()
         if DailyScheduleManager.sharedInstance != nil {
             DailyScheduleManager.sharedInstance!.currentPeriod = DailyScheduleManager.sharedInstance!.getCurrentPeriod()
             self.tableView.reloadData()
@@ -168,6 +172,10 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             }
             
             if let currentPeriod = DailyScheduleManager.sharedInstance!.currentPeriod {
+                if tableView.tableHeaderView == nil {
+                    //showPeriodStatusBar()
+                }
+                
                 if currentPeriod.isPassingTime || currentPeriod.isBeforeSchool {
                     
                     //If it's currently passing time the next real period event should come into play
@@ -189,25 +197,21 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 }
                 else if currentPeriod.isAfterSchool {
                     ///DAY HAS ENDED
+                    hidePeriodStatusBar()
                     print("day is now over")
                 }
             }
             
             //This should be for the morning period
             else if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
+                //Currently before ten mins before morning
+                hidePeriodStatusBar()
+                
                 let timeIntervalUntilNextPeriodStart: Double = Double(nextPeriod.startSeconds - DailyScheduleManager.sharedInstance!.secondsFromMidnight())
                 
-                //Add in 1 second to the interval to ensure it's the start of a new period and nothing funky happens
-                self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart + 1, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
+                self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
             }
             
-            else {
-                //no current period, hide top view
-                UIView.animateWithDuration(2, animations: {
-                    self.tableView.tableHeaderView = nil
-                    self.tableView.reloadData()
-                })
-            }
 //            else if (DailyScheduleManager.sharedInstance?.currentSchedule != nil) {
 //                //no current period so make timer call every 5 seconds to keep checking if there is one ONLY IF CURRENT SCHEDULE IS SET
 //                
@@ -218,7 +222,37 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 NSRunLoop.mainRunLoop().addTimer(self.periodTimer!, forMode: NSRunLoopCommonModes)
             }
             
+        } else {
+            //No schedule set
+            self.hidePeriodStatusBar()
         }
+    }
+    
+    func hidePeriodStatusBar() {
+        UIView.beginAnimations(nil, context: nil)
+        UIView.setAnimationDuration(2)
+        //UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
+        
+        self.tableView.beginUpdates()
+        for subview in self.tableView.tableHeaderView!.subviews {
+            subview.frame = CGRectZero
+        }
+        tableView.tableHeaderView!.frame = CGRectZero
+        self.tableView.endUpdates()
+        
+        UIView.commitAnimations()
+    }
+    
+    func showPeriodStatusBar() {
+        UIView.beginAnimations(nil, context: nil)
+        UIView.setAnimationDuration(2)
+        UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
+        
+        self.tableView.beginUpdates()
+        self.tableView.tableHeaderView = self.tableHeaderView
+        self.tableView.endUpdates()
+        
+        UIView.commitAnimations()
     }
     
     func clock() {
