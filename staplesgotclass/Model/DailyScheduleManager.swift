@@ -406,48 +406,48 @@ class DailyScheduleManager: NSObject {
                 if (schedulePeriod.isLunch && schedulePeriod.realPeriod != nil) {
                     //get current lunch number
                     if let lunchType = self.getLunchType(forPeriod: self.getRealPeriod(fromSchedulePeriod: schedulePeriod)!) {
+                        schedulePeriod.lunchType = lunchType
                         let realPeriodStartTime = schedulePeriod.startSeconds
                         let realPeriodEndTime = schedulePeriod.endSeconds
-
+                        
                         let lunchLength = (lunchType.isLab) ? 15*60 : 30*60
                         let passingTime = 5*60
-                        
-                        let realPeriod = schedulePeriod.realPeriod
-                        
+                                                
                         if let lunchNumber = getLunchNumber(withDate: date, andLunchType: lunchType) {
-                            switch lunchNumber {
-                            case 1:
-                                //Lunch, long period
-                                let lunchPeriod = createLunchPeriod(withStartTime: realPeriodStartTime, endTime: realPeriodStartTime + lunchLength, realPeriod: realPeriod, lunchType: lunchType, periodName: schedulePeriod.realPeriod!.name!, periodNumber: schedulePeriod.id)
-                                schedule.periods.insert(lunchPeriod, atIndex: schedule.periods.indexOf(schedulePeriod)!)
-                                
-                                schedulePeriod.isLunch = false
-                                schedulePeriod.startSeconds = realPeriodStartTime + lunchLength + passingTime
-                                
-                            case 2:
-                                //Short period, lunch, short period
-                                //Set the original schedule period to be the first period
-                                schedulePeriod.isLunch = false
-                                
-                                let periodLength = (((realPeriodEndTime - realPeriodStartTime) - lunchLength) / 2)
-                                schedulePeriod.endSeconds = realPeriodStartTime + periodLength
-                                
-                                let lunchPeriod = createLunchPeriod(withStartTime: realPeriodStartTime + periodLength + passingTime, endTime: realPeriodStartTime + periodLength + passingTime + lunchLength,realPeriod: realPeriod, lunchType: lunchType, periodName: schedulePeriod.realPeriod!.name!, periodNumber: schedulePeriod.id)
-                                schedule.periods.insert(lunchPeriod, atIndex: schedule.periods.indexOf(schedulePeriod)!+1)
-                                
-                                let secondSchedulePeriod = self.realm.create(SchedulePeriod.self, value: schedulePeriod, update: false)
-                                secondSchedulePeriod.startSeconds = realPeriodStartTime + periodLength + passingTime + lunchLength + passingTime
-                                secondSchedulePeriod.endSeconds = realPeriodEndTime
-                                schedule.periods.insert(secondSchedulePeriod, atIndex: schedule.periods.indexOf(schedulePeriod)!+2)
-                            case 3:
-                                //Long period, lunch
-                                schedulePeriod.isLunch = false
-                                schedulePeriod.endSeconds = realPeriodEndTime - lunchLength - passingTime
-
-                                let lunchPeriod = createLunchPeriod(withStartTime: realPeriodEndTime - lunchLength, endTime: realPeriodEndTime, realPeriod: realPeriod, lunchType: lunchType, periodName: schedulePeriod.realPeriod!.name!, periodNumber: schedulePeriod.id)
-                                schedule.periods.insert(lunchPeriod, atIndex: schedule.periods.indexOf(schedulePeriod)!+1)
-                            default:
-                                print("INVALID LUNCH NUMBER")
+                            if (!schedule.containsLunchPeriods()) {
+                                switch lunchNumber {
+                                case 1:
+                                    //Lunch, long period
+                                    let firstLunchPeriod = self.realm.create(SchedulePeriod.self, value: schedulePeriod, update: false)
+                                    let updatedFirstLunchPeriod = self.createLunchPeriod(withInitialPeriod: firstLunchPeriod, startTime: realPeriodStartTime, endTime: realPeriodStartTime + lunchLength, isLunch: true)
+                                    schedule.periods.insert(updatedFirstLunchPeriod, atIndex: schedule.periods.indexOf(schedulePeriod)!)
+                                    schedulePeriod.startSeconds = realPeriodStartTime + lunchLength + passingTime
+                                    
+                                case 2:
+                                    //Short period, lunch, short period
+                                    //Set the original schedule period to be the first period
+                                    
+                                    let periodLength = (((realPeriodEndTime - realPeriodStartTime) - lunchLength) / 2)
+                                    schedulePeriod.endSeconds = realPeriodStartTime + periodLength
+                                    
+                                    let newFirstSecondLunchPeriod = self.realm.create(SchedulePeriod.self, value: schedulePeriod, update: false)
+                                    let updatedFirstSecondLunchPeriod = self.createLunchPeriod(withInitialPeriod: newFirstSecondLunchPeriod, startTime: realPeriodStartTime + periodLength + passingTime, endTime: realPeriodStartTime + periodLength + passingTime + lunchLength, isLunch: true)
+                                    schedule.periods.insert(updatedFirstSecondLunchPeriod, atIndex: schedule.periods.indexOf(schedulePeriod)!+1)
+                                    
+                                    let newSecondSecondLunchPeriod = self.realm.create(SchedulePeriod.self, value: schedulePeriod, update: false)
+                                    let updatedSecondSecondLunchPeriod = self.createLunchPeriod(withInitialPeriod: newSecondSecondLunchPeriod, startTime: realPeriodStartTime + periodLength + passingTime + lunchLength + passingTime, endTime: realPeriodEndTime, isLunch: false)
+                                    schedule.periods.insert(updatedSecondSecondLunchPeriod, atIndex: schedule.periods.indexOf(schedulePeriod)!+2)
+                                    
+                                case 3:
+                                    //Long period, lunch
+                                    schedulePeriod.endSeconds = realPeriodEndTime - lunchLength - passingTime
+                                    
+                                    let newThirdLunchPeriod = self.realm.create(SchedulePeriod.self, value: schedulePeriod, update: false)
+                                    let updatedThirdLunchPeriod = createLunchPeriod(withInitialPeriod:newThirdLunchPeriod, startTime: realPeriodEndTime - lunchLength, endTime: realPeriodEndTime, isLunch: true)
+                                    schedule.periods.insert(updatedThirdLunchPeriod, atIndex: schedule.periods.indexOf(schedulePeriod)!+1)
+                                default:
+                                    print("INVALID LUNCH NUMBER")
+                                }
                             }
                         }
                         
@@ -458,19 +458,11 @@ class DailyScheduleManager: NSObject {
         }
     }
     
-    func createLunchPeriod(withStartTime startTime: Int, endTime: Int, realPeriod: RealmPeriod?, lunchType: LunchType, periodName: String, periodNumber: Int) -> SchedulePeriod {
-        let lunchPeriod = SchedulePeriod()
-        lunchPeriod.startSeconds = startTime
-        lunchPeriod.endSeconds = endTime
-        
-        lunchPeriod.name = "\(periodName) Lunch"
-        
-        lunchPeriod.isLunch = true
-        lunchPeriod.id = periodNumber
-        //lunchPeriod.realPeriod = realPeriod
-        lunchPeriod.lunchType = lunchType
-        
-        return lunchPeriod
+    func createLunchPeriod(withInitialPeriod initialPeriod: SchedulePeriod, startTime: Int, endTime: Int, isLunch: Bool) -> SchedulePeriod {
+        initialPeriod.startSeconds = startTime
+        initialPeriod.endSeconds = endTime
+        initialPeriod.isLunchPeriod = isLunch
+        return initialPeriod
     }
     
     // Returns a period object based off a schedulePeriod object

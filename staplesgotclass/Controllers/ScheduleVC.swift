@@ -391,13 +391,13 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             else {
                 //no real period assigned, probs a modified period
                 let indexSchedulePeriodName = indexSchedulePeriod!.name ?? "NO NAME"
-                cell.periodNumberLabel.text = (indexSchedulePeriod!.isLunch) ? "\(indexSchedulePeriod!.id)" : String(indexSchedulePeriodName.characters.first!)
+                cell.periodNumberLabel.text = String(indexSchedulePeriodName.characters.first!)
                 cell.classTitleLabel.text = indexSchedulePeriod!.name
                 cell.teacherLabel.text = nil
                 
             }
             
-            if (indexSchedulePeriod!.isLunch) {
+            if (indexSchedulePeriod!.isLunchPeriod) {
                 if let lunchType = indexSchedulePeriod!.lunchType {
                     cell.lunchNumberLabel?.text = "\(DailyScheduleManager.sharedInstance?.getLunchNumber(withDate: selectedDate, andLunchType: lunchType) ?? 0)"
                 }
@@ -515,7 +515,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             
         } else {
             print("error signing in:( \(error)")
-            self.logoutUser()//only do this if error is wrong creds, not for offline
+            self.loadedOnline = true
+           // self.logoutUser()//only do this if error is wrong creds, not for offline
         }
     }
     

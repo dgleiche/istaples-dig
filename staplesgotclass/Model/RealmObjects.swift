@@ -19,6 +19,15 @@ class Schedule: Object {
     
     let periods = List<SchedulePeriod>()
     
+    func containsLunchPeriods() -> Bool {
+        for period in periods {
+            if (period.isLunchPeriod == true) {
+                return true
+            }
+        }
+        return false
+    }
+    
 }
 
 class SchedulePeriod: Object {
@@ -36,6 +45,8 @@ class SchedulePeriod: Object {
     
     dynamic var realPeriod: RealmPeriod?
     dynamic var lunchType: LunchType?
+    
+    dynamic var isLunchPeriod: Bool = false
     
 //    override static func ignoredProperties() -> [String] {
 //        return ["realPeriod", "isPassingTime", "isBeforeSchool", "isAfterSchool"]
