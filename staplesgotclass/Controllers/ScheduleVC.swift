@@ -397,6 +397,13 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                     
                 }
                 
+                if (indexSchedulePeriod!.isLunch) {
+                    cell.lunchNumberLabel?.text = "\(DailyScheduleManager.sharedInstance?.getLunchNumber(withDate: selectedDate, andLunchType: indexSchedulePeriod!.lunchType!))"
+                }
+                else {
+                    cell.lunchNumberLabel?.text = nil
+                }
+                
                 cell.timeLabel!.text = "\(indexSchedulePeriod!.startSeconds.printSecondsToHoursMinutesSeconds())-\(indexSchedulePeriod!.endSeconds.printSecondsToHoursMinutesSeconds())"
             }
             

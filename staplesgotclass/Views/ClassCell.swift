@@ -14,6 +14,7 @@ class ClassCell: UITableViewCell {
     @IBOutlet var quarterLabel: UILabel?
     @IBOutlet var teacherLabel: UILabel!
     @IBOutlet var timeLabel: UILabel?
+    @IBOutlet var lunchNumberLabel: UILabel?
 
     override func awakeFromNib() {
         super.awakeFromNib()
