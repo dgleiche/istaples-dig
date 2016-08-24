@@ -26,6 +26,7 @@ extension UIImageView {
             }
         }).resume()
     }
+    
 }
 
 // Add anywhere in your app

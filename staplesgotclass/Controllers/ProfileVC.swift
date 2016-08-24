@@ -8,6 +8,7 @@
 
 import UIKit
 import MessageUI
+import SDWebImage
 
 class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
     @IBOutlet var loadingSpinner: UIActivityIndicatorView!
@@ -35,7 +36,13 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
             self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
             
             if (currentUser?.profilePicURL != nil && currentUser?.profilePic == nil) {
-                profileImageView.downloadedFrom(link: currentUser!.profilePicURL!, contentMode: UIViewContentMode.ScaleAspectFit, userImage: currentUser!)
+                
+                profileImageView.sd_setImageWithURL(NSURL(string:currentUser!.profilePicURL!), completed: { (image: UIImage!, error: NSError!, cacheType: SDImageCacheType, url: NSURL!) in
+                    //now that image is downloaded, set current user prof pic
+                    self.currentUser?.profilePic = image
+                })
+
+                
                 self.initialView.hidden = true
                 self.profileImageView.hidden = false
             }
