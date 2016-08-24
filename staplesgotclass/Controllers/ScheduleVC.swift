@@ -390,7 +390,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 }
                 else {
                     //no real period assigned, probs a modified period
-                    cell.periodNumberLabel.text = String(indexSchedulePeriod!.name!.characters.first!)
+                    let indexSchedulePeriodName = indexSchedulePeriod!.name ?? "NO NAME"
+                    cell.periodNumberLabel.text = String(indexSchedulePeriodName.characters.first!)
                     cell.classTitleLabel.text = indexSchedulePeriod!.name
                     cell.teacherLabel.text = nil
                     
