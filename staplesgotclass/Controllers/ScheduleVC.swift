@@ -212,30 +212,30 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 //            }
                 
             }
-                else {
-                    //no current period, hide status bar
-                    hidePeriodStatusBar()
+            else {
+                //no current period, hide status bar
+                hidePeriodStatusBar()
+                
+                //This should be for the morning period
+                if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
+                    //Currently before ten mins before morning
                     
-                    //This should be for the morning period
-                    if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
-                        //Currently before ten mins before morning
-                        
-                        let timeIntervalUntilNextPeriodStart: Double = Double(nextPeriod.startSeconds - DailyScheduleManager.sharedInstance!.secondsFromMidnight())
-                        
-                        self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
-                    }
+                    let timeIntervalUntilNextPeriodStart: Double = Double(nextPeriod.startSeconds - DailyScheduleManager.sharedInstance!.secondsFromMidnight())
+                    
+                    self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
                 }
-                
-                if (self.periodTimer != nil) {
-                    NSRunLoop.mainRunLoop().addTimer(self.periodTimer!, forMode: NSRunLoopCommonModes)
-                }
-                
-            } else {
-                //No schedule set
-                self.hidePeriodStatusBar()
             }
+            
+            if (self.periodTimer != nil) {
+                NSRunLoop.mainRunLoop().addTimer(self.periodTimer!, forMode: NSRunLoopCommonModes)
+            }
+            
+        } else {
+            //No schedule set
+            self.hidePeriodStatusBar()
         }
-        
+    }
+    
     func hidePeriodStatusBar() {
         var smallFrame = self.tableView.tableHeaderView?.frame
         smallFrame?.size.height = 0
@@ -246,275 +246,277 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         }
     }
     
-        func showPeriodStatusBar() {
-            var smallFrame = self.tableView.tableHeaderView?.frame
-            smallFrame?.size.height = self.tableHeaderViewHeight
-            self.tableHeaderView.layer.masksToBounds = true
-            UIView.animateWithDuration(0.3) {
-                self.tableHeaderView.frame = smallFrame!
-                self.tableView.tableHeaderView = self.tableHeaderView
-            }
+    func showPeriodStatusBar() {
+        var smallFrame = self.tableView.tableHeaderView?.frame
+        smallFrame?.size.height = self.tableHeaderViewHeight
+        self.tableHeaderView.layer.masksToBounds = true
+        UIView.animateWithDuration(0.3) {
+            self.tableHeaderView.frame = smallFrame!
+            self.tableView.tableHeaderView = self.tableHeaderView
         }
-        
-        func clock() {
-            if DailyScheduleManager.sharedInstance != nil {
-                if let currentPeriod = DailyScheduleManager.sharedInstance!.currentPeriod {
-                    //Update the countdown label and UI components
-                    let timeRemainingInPeriod = currentPeriod.endSeconds - DailyScheduleManager.sharedInstance!.secondsFromMidnight()
-                    //TODO: UPDATE THE LABELS AND UI COMPONENTS HERE BASED ON timeRemainingInPeriod
-                    let timeElapsedInPeriod = DailyScheduleManager.sharedInstance!.secondsFromMidnight() - currentPeriod.startSeconds
-                    
-                    let percentDone = Double(timeElapsedInPeriod)/Double(currentPeriod.endSeconds - currentPeriod.startSeconds)
-                    
-                    self.percentDoneLabel.text = "\(Int(percentDone * 100))%"
-                    
-                    self.timeRemainingLabel.text = Double(timeRemainingInPeriod).stringFromTimeInterval() as String
-                    
-                    self.timeElapsedLabel.text = Double(timeElapsedInPeriod).stringFromTimeInterval() as String
-                    
-                    //                if (!spinnerSetup) {
-                    //                    spinnerSetup = true
-                    //
-                    //                    self.timeElapsedRing.animateFromAngle(360, toAngle: <#T##Double#>, duration: <#T##NSTimeInterval#>, completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
-                    //                }
-                    //
-                    self.timeElapsedRing.animateToAngle(Double(360*percentDone), duration: 1.0, completion: { (success: Bool) in
-                        if (success) {
-                            //progress ring successfully animated
-                            
-                        }
-                    })
-                    
-                    self.timeLeftRing.animateToAngle(Double(360*(1-percentDone)), duration: 1.0, completion: { (success: Bool) in
-                        if (success) {
-                            //progress ring successfully animated
-                            
-                        }
-                    })
-                    
-                    if (currentPeriod.realPeriod != nil) {
-                        //real period set
-                        self.currentPeriodNumberLabel.text = "\(currentPeriod.realPeriod!.periodNumber)"
-                        self.currentPeriodTitleLabel.text = currentPeriod.realPeriod!.name
+    }
+    
+    func clock() {
+        if DailyScheduleManager.sharedInstance != nil {
+            if let currentPeriod = DailyScheduleManager.sharedInstance!.currentPeriod {
+                //Update the countdown label and UI components
+                let timeRemainingInPeriod = currentPeriod.endSeconds - DailyScheduleManager.sharedInstance!.secondsFromMidnight()
+                //TODO: UPDATE THE LABELS AND UI COMPONENTS HERE BASED ON timeRemainingInPeriod
+                let timeElapsedInPeriod = DailyScheduleManager.sharedInstance!.secondsFromMidnight() - currentPeriod.startSeconds
+                
+                let percentDone = Double(timeElapsedInPeriod)/Double(currentPeriod.endSeconds - currentPeriod.startSeconds)
+                
+                self.percentDoneLabel.text = "\(Int(percentDone * 100))%"
+                
+                self.timeRemainingLabel.text = Double(timeRemainingInPeriod).stringFromTimeInterval() as String
+                
+                self.timeElapsedLabel.text = Double(timeElapsedInPeriod).stringFromTimeInterval() as String
+                
+                //                if (!spinnerSetup) {
+                //                    spinnerSetup = true
+                //
+                //                    self.timeElapsedRing.animateFromAngle(360, toAngle: <#T##Double#>, duration: <#T##NSTimeInterval#>, completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
+                //                }
+                //
+                self.timeElapsedRing.animateToAngle(Double(360*percentDone), duration: 1.0, completion: { (success: Bool) in
+                    if (success) {
+                        //progress ring successfully animated
+                        
                     }
-                    else {
-                        //no real period, probs modified
-                        self.currentPeriodNumberLabel.text = String(currentPeriod.name!.characters.first!)
-                        self.currentPeriodTitleLabel.text = currentPeriod.name!
+                })
+                
+                self.timeLeftRing.animateToAngle(Double(360*(1-percentDone)), duration: 1.0, completion: { (success: Bool) in
+                    if (success) {
+                        //progress ring successfully animated
+                        
                     }
-                    
-                }
-            }
-        }
-        
-        func changeDate(sender: UISwipeGestureRecognizer) {
-            
-        }
-        
-        // MARK: - Table view data source
-        
-        override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-            // #warning Incomplete implementation, return the number of sections
-            if (self.isCurrentSchedule == true) {
-                return 2
-            }
-            else {
-                return 1
-            }
-        }
-        
-        override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-            return 63
-        }
-        
-        override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-            if (self.isCurrentSchedule == true) {
-                if (section == 0) {
-                    return "Up Next"
+                })
+                
+                if (currentPeriod.realPeriod != nil) {
+                    //real period set
+                    self.currentPeriodNumberLabel.text = "\(currentPeriod.realPeriod!.periodNumber)"
+                    self.currentPeriodTitleLabel.text = currentPeriod.realPeriod!.name
                 }
                 else {
-                    return "Schedule"
+                    //no real period, probs modified
+                    self.currentPeriodNumberLabel.text = String(currentPeriod.name!.characters.first!)
+                    self.currentPeriodTitleLabel.text = currentPeriod.name!
                 }
+                
+            }
+        }
+    }
+    
+    func changeDate(sender: UISwipeGestureRecognizer) {
+        
+    }
+    
+    // MARK: - Table view data source
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        if (self.isCurrentSchedule == true) {
+            return 2
+        }
+        else {
+            return 1
+        }
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 63
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if (self.isCurrentSchedule == true) {
+            if (section == 0) {
+                return "Up Next"
             }
             else {
                 return "Schedule"
             }
         }
-        
-        override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            if (self.selectedSchedule != nil) {
-                
-                if (self.isCurrentSchedule == true) {
-                    if (section == 0) {
-                        if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
-                            if (nextPeriod.isAfterSchool != true && nextPeriod.isBeforeSchool != true) {
-                                return 1
-                            }
-                        }
-                    }
-                    else {
-                        return (DailyScheduleManager.sharedInstance?.currentSchedule?.periods.count)!
-                    }
-                }
-                else {
-                    return (self.selectedSchedule?.periods.count)!
-                }
-            }
-            return 0
+        else {
+            return "Schedule"
         }
-        
-        
-        override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCellWithIdentifier("scheduleCell", forIndexPath: indexPath) as! ClassCell
-            
-            var indexSchedulePeriod: SchedulePeriod?
-            
-            if (self.isCurrentSchedule == true && indexPath.section == 0) {
-                //get up next period
-                if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
-                    indexSchedulePeriod = nextPeriod
-                }
-                
-            }
-            else {
-                //rest of schedule
-                indexSchedulePeriod = self.selectedSchedule?.periods[indexPath.row]
-            }
-            
-            if (indexSchedulePeriod != nil) {
-                if (indexSchedulePeriod?.realPeriod != nil) {
-                    //there is a real period assigned so show number and class name
-                    cell.classTitleLabel.text = indexSchedulePeriod!.realPeriod!.name
-                    cell.teacherLabel.text = indexSchedulePeriod!.realPeriod!.teacherName
-                    cell.periodNumberLabel.text = "\(indexSchedulePeriod!.realPeriod!.periodNumber)"
-                }
-                else {
-                    //no real period assigned, probs a modified period
-                    let indexSchedulePeriodName = indexSchedulePeriod!.name ?? "NO NAME"
-                    cell.periodNumberLabel.text = String(indexSchedulePeriodName.characters.first!)
-                    cell.classTitleLabel.text = indexSchedulePeriod!.name
-                    cell.teacherLabel.text = nil
-                    
-                }
-                
-                if (indexSchedulePeriod!.isLunch) {
-                    cell.lunchNumberLabel?.text = "\(DailyScheduleManager.sharedInstance?.getLunchNumber(withDate: selectedDate, andLunchType: indexSchedulePeriod!.lunchType!))"
-                }
-                else {
-                    cell.lunchNumberLabel?.text = nil
-                }
-                
-                cell.timeLabel!.text = "\(indexSchedulePeriod!.startSeconds.printSecondsToHoursMinutesSeconds())-\(indexSchedulePeriod!.endSeconds.printSecondsToHoursMinutesSeconds())"
-            }
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (self.selectedSchedule != nil) {
             
             if (self.isCurrentSchedule == true) {
-                if (DailyScheduleManager.sharedInstance?.secondsFromMidnight() > indexSchedulePeriod?.endSeconds) {
-                    cell.periodNumberLabel.textColor = UIColor.lightGrayColor()
-                    cell.classTitleLabel.font = UIFont(name: "HelveticaNeue", size: 17)
-                }
-                else if (indexSchedulePeriod == DailyScheduleManager.sharedInstance?.currentPeriod) {
-                    cell.periodNumberLabel.textColor = UIColor.orangeColor()
-                    cell.classTitleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 17)
+                if (section == 0) {
+                    if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
+                        if (nextPeriod.isAfterSchool != true && nextPeriod.isBeforeSchool != true) {
+                            return 1
+                        }
+                    }
                 }
                 else {
-                    cell.periodNumberLabel.textColor = UIColor(red:0.0, green:0.38, blue:0.76, alpha:1.0)
-                    cell.classTitleLabel.font = UIFont(name: "HelveticaNeue", size: 17)
+                    return (DailyScheduleManager.sharedInstance?.currentSchedule?.periods.count)!
                 }
             }
+            else {
+                return (self.selectedSchedule?.periods.count)!
+            }
+        }
+        return 0
+    }
+    
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("scheduleCell", forIndexPath: indexPath) as! ClassCell
+        
+        var indexSchedulePeriod: SchedulePeriod?
+        
+        if (self.isCurrentSchedule == true && indexPath.section == 0) {
+            //get up next period
+            if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
+                indexSchedulePeriod = nextPeriod
+            }
             
-            
-            return cell
+        }
+        else {
+            //rest of schedule
+            indexSchedulePeriod = self.selectedSchedule?.periods[indexPath.row]
         }
         
-        func getRealClassPeriods() {
-            if (UserManager.sharedInstance != nil) {
+        if (indexSchedulePeriod != nil) {
+            if (indexSchedulePeriod?.realPeriod != nil) {
+                //there is a real period assigned so show number and class name
+                cell.classTitleLabel.text = indexSchedulePeriod!.realPeriod!.name
+                cell.teacherLabel.text = indexSchedulePeriod!.realPeriod!.teacherName
+                cell.periodNumberLabel.text = "\(indexSchedulePeriod!.realPeriod!.periodNumber)"
+            }
+            else {
+                //no real period assigned, probs a modified period
+                let indexSchedulePeriodName = indexSchedulePeriod!.name ?? "NO NAME"
+                cell.periodNumberLabel.text = (indexSchedulePeriod!.isLunch) ? "\(indexSchedulePeriod!.id)" : String(indexSchedulePeriodName.characters.first!)
+                cell.classTitleLabel.text = indexSchedulePeriod!.name
+                cell.teacherLabel.text = nil
                 
-                UserManager.sharedInstance?.currentUser.getClassmates({ (success: Bool) in
+            }
+            
+            if (indexSchedulePeriod!.isLunch) {
+                if let lunchType = indexSchedulePeriod!.lunchType {
+                    cell.lunchNumberLabel?.text = "\(DailyScheduleManager.sharedInstance?.getLunchNumber(withDate: selectedDate, andLunchType: lunchType) ?? 0)"
+                }
+            }
+            else {
+                cell.lunchNumberLabel?.text = nil
+            }
+            
+            cell.timeLabel!.text = "\(indexSchedulePeriod!.startSeconds.printSecondsToHoursMinutesSeconds())-\(indexSchedulePeriod!.endSeconds.printSecondsToHoursMinutesSeconds())"
+        }
+        
+        if (self.isCurrentSchedule == true) {
+            if (DailyScheduleManager.sharedInstance?.secondsFromMidnight() > indexSchedulePeriod?.endSeconds) {
+                cell.periodNumberLabel.textColor = UIColor.lightGrayColor()
+                cell.classTitleLabel.font = UIFont(name: "HelveticaNeue", size: 17)
+            }
+            else if (indexSchedulePeriod == DailyScheduleManager.sharedInstance?.currentPeriod) {
+                cell.periodNumberLabel.textColor = UIColor.orangeColor()
+                cell.classTitleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 17)
+            }
+            else {
+                cell.periodNumberLabel.textColor = UIColor(red:0.0, green:0.38, blue:0.76, alpha:1.0)
+                cell.classTitleLabel.font = UIFont(name: "HelveticaNeue", size: 17)
+            }
+        }
+        
+        
+        return cell
+    }
+    
+    func getRealClassPeriods() {
+        if (UserManager.sharedInstance != nil) {
+            
+            UserManager.sharedInstance?.currentUser.getClassmates({ (success: Bool) in
+                if (success) {
+                    //add current user to Realm with all of the data
+                    let realm = try! Realm()
+                    
+                    try! realm.write {
+                        realm.delete(realm.objects(RealmUser.self))
+                    }
+                    
+                    DailyScheduleManager.sharedInstance?.currentUser = nil
+                    
+                    let realmUser = RealmUser()
+                    
+                    for period in UserManager.sharedInstance!.currentUser.schedule! {
+                        let realmPeriod = RealmPeriod()
+                        
+                        realmPeriod.setPeriod(period: period)
+                        
+                        realmUser.schedule.append(realmPeriod)
+                    }
+                    
+                    try! realm.write {
+                        realm.add(realmUser)
+                    }
+                    
+                    DailyScheduleManager.sharedInstance?.currentUser = realmUser
+                    
+                    DailyScheduleManager.sharedInstance?.getDailySchedule()
+                    
+                    print("success in view did appear")
+                    
+                }
+                else {
+                    print("error getting classes")
+                    let alert = UIAlertController(title: "Error retrieving classes", message: "Please check your network connection and try again.", preferredStyle: .Alert)
+                    let dismiss = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+                    alert.addAction(dismiss)
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+            })
+        }
+    }
+    
+    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
+                withError error: NSError!) {
+        if (error == nil) {
+            print("email: \(user.profile.email)")
+            let emailDomain = user.profile.email.componentsSeparatedByString("@").last
+            if (emailDomain?.containsString("westport.k12.ct.us") == true) {
+                print("confirmed wepo")
+                
+                var profilePicURL: String?
+                
+                if (user.profile.hasImage) {
+                    profilePicURL = user.profile.imageURLWithDimension(250).absoluteString
+                    print(profilePicURL)
+                }
+                
+                UserManager.createCurrentUser(user.profile.name, email: user.profile.email, token: user.authentication.idToken, profilePicURL: profilePicURL, completion: { (success: Bool) in
                     if (success) {
-                        //add current user to Realm with all of the data
-                        let realm = try! Realm()
-                        
-                        try! realm.write {
-                            realm.delete(realm.objects(RealmUser.self))
-                        }
-                        
-                        DailyScheduleManager.sharedInstance?.currentUser = nil
-                        
-                        let realmUser = RealmUser()
-                        
-                        for period in UserManager.sharedInstance!.currentUser.schedule! {
-                            let realmPeriod = RealmPeriod()
-                            
-                            realmPeriod.setPeriod(period: period)
-                            
-                            realmUser.schedule.append(realmPeriod)
-                        }
-                        
-                        try! realm.write {
-                            realm.add(realmUser)
-                        }
-                        
-                        DailyScheduleManager.sharedInstance?.currentUser = realmUser
-                        
-                        DailyScheduleManager.sharedInstance?.getDailySchedule()
-                        
-                        print("success in view did appear")
-                        
+                        print("success!")
+                        self.getRealClassPeriods()
                     }
                     else {
-                        print("error getting classes")
-                        let alert = UIAlertController(title: "Error retrieving classes", message: "Please check your network connection and try again.", preferredStyle: .Alert)
+                        print("error signing in")
+                        let alert = UIAlertController(title: "Error signing you in", message: "Please check your network connection and try again.", preferredStyle: .Alert)
                         let dismiss = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
                         alert.addAction(dismiss)
                         self.presentViewController(alert, animated: true, completion: nil)
                     }
                 })
-            }
-        }
-        
-        func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
-                    withError error: NSError!) {
-            if (error == nil) {
-                print("email: \(user.profile.email)")
-                let emailDomain = user.profile.email.componentsSeparatedByString("@").last
-                if (emailDomain?.containsString("westport.k12.ct.us") == true) {
-                    print("confirmed wepo")
-                    
-                    var profilePicURL: String?
-                    
-                    if (user.profile.hasImage) {
-                        profilePicURL = user.profile.imageURLWithDimension(250).absoluteString
-                        print(profilePicURL)
-                    }
-                    
-                    UserManager.createCurrentUser(user.profile.name, email: user.profile.email, token: user.authentication.idToken, profilePicURL: profilePicURL, completion: { (success: Bool) in
-                        if (success) {
-                            print("success!")
-                            self.getRealClassPeriods()
-                        }
-                        else {
-                            print("error signing in")
-                            let alert = UIAlertController(title: "Error signing you in", message: "Please check your network connection and try again.", preferredStyle: .Alert)
-                            let dismiss = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
-                            alert.addAction(dismiss)
-                            self.presentViewController(alert, animated: true, completion: nil)
-                        }
-                    })
-                    //self.performSegueWithIdentifier("logIn", sender: self)
-                    
-                }
-                else {
-                    GIDSignIn.sharedInstance().signOut()
-                    let alert = UIAlertController(title: "Not Westport Account", message: "Please sign in using your Westport Google account and try again.", preferredStyle: .Alert)
-                    let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
-                    alert.addAction(ok)
-                    self.presentViewController(alert, animated: true, completion: nil)
-                }
+                //self.performSegueWithIdentifier("logIn", sender: self)
                 
-            } else {
-                print("error signing in:( \(error)")
-                self.logoutUser()//only do this if error is wrong creds, not for offline
             }
+            else {
+                GIDSignIn.sharedInstance().signOut()
+                let alert = UIAlertController(title: "Not Westport Account", message: "Please sign in using your Westport Google account and try again.", preferredStyle: .Alert)
+                let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                alert.addAction(ok)
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+            
+        } else {
+            print("error signing in:( \(error)")
+            self.logoutUser()//only do this if error is wrong creds, not for offline
         }
-        
+    }
+    
 }
