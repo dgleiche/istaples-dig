@@ -8,5 +8,6 @@ target 'staplesgotclass' do
 	pod 'Google/SignIn'
 	pod 'Alamofire', '~> 3.4'
        pod 'Parse'
+       pod 'SDWebImage'
 end
 

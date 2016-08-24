@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SDWebImage
+
 
 class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchControllerDelegate {
     var allUsers: [User]?
@@ -232,9 +234,16 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
         cell.initialView.clipsToBounds = true
         cell.initialView.layer.cornerRadius = cell.initialView.frame.width / 2
         
-        if (indexUser.profilePic == nil) {
             if (indexUser.profilePicURL != nil) {
-                cell.classmateImageView.downloadedFrom(link: indexUser.profilePicURL!, contentMode: UIViewContentMode.ScaleAspectFit, userImage: indexUser)
+                cell.classmateImageView.sd_setImageWithURL(NSURL(string:indexUser.profilePicURL!), completed: { (image: UIImage!, error: NSError!, cacheType: SDImageCacheType, url: NSURL!) in
+                    
+                    //now that image is downloaded, set current user prof pic
+                    if (image.images?.count > 1) {
+                    cell.classmateImageView.image = image.images?.first
+                    }
+                    
+                })
+                
                 cell.classmateImageView.hidden = false
                 cell.initialView.hidden = true
             }
@@ -256,15 +265,13 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
                 cell.classmateImageView.hidden = true
                 cell.initialView.hidden = false
             }
-        }
-        else if (indexUser.profilePic != nil) {
-            cell.classmateImageView.image = indexUser.profilePic
-            cell.classmateImageView.hidden = false
-            cell.initialView.hidden = true
-        }
-        
         
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        let displayedCell = cell as! ClassmateCell
+        displayedCell.classmateImageView.image = nil
     }
     
     override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {

@@ -87,9 +87,11 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-staplesgotclass/Alamofire.framework"
   install_framework "Pods-staplesgotclass/Bolts.framework"
   install_framework "Pods-staplesgotclass/Parse.framework"
+  install_framework "Pods-staplesgotclass/SDWebImage.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-staplesgotclass/Alamofire.framework"
   install_framework "Pods-staplesgotclass/Bolts.framework"
   install_framework "Pods-staplesgotclass/Parse.framework"
+  install_framework "Pods-staplesgotclass/SDWebImage.framework"
 fi

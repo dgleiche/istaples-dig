@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ClassmatesVC: UITableViewController {
     @IBOutlet var teacherNameLabel: UILabel!
@@ -70,35 +71,35 @@ class ClassmatesVC: UITableViewController {
         cell.initialView.clipsToBounds = true
         cell.initialView.layer.cornerRadius = cell.initialView.frame.width / 2
         
-        if (self.currentClass?.users[indexPath.row].profilePic == nil) {
-            if (self.currentClass!.users[indexPath.row].profilePicURL != nil) {
-                cell.classmateImageView.downloadedFrom(link: self.currentClass!.users[indexPath.row].profilePicURL!, contentMode: UIViewContentMode.ScaleAspectFit, userImage: self.currentClass!.users[indexPath.row])
-                cell.classmateImageView.hidden = false
-                cell.initialView.hidden = true
-            }
-            else {
-                let names: [String] = self.currentClass!.users[indexPath.row].name.componentsSeparatedByString(" ")
-                if (names.count >= 3) {
-                    cell.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)\(names[2][0].uppercaseString)"
+        if (self.currentClass!.users[indexPath.row].profilePicURL != nil) {
+            cell.classmateImageView.sd_setImageWithURL(NSURL(string:self.currentClass!.users[indexPath.row].profilePicURL!), completed: { (image: UIImage!, error: NSError!, cacheType: SDImageCacheType, url: NSURL!) in
+                //now that image is downloaded, set current user prof pic
+                self.currentClass!.users[indexPath.row].profilePic = image
+                if (image.images?.count > 1) {
+                    cell.classmateImageView.image = image.images?.first
                 }
-                else if (names.count == 2) {
-                    cell.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)"
-
-                }
-                else if (names.count == 1) {
-                    cell.initialLabel.text = "\(names[0][0].uppercaseString)"
-                }
-                else{
-                    cell.initialLabel.text = nil
-                }
-                cell.classmateImageView.hidden = true
-                cell.initialView.hidden = false
-            }
-        }
-        else if (self.currentClass?.users[indexPath.row].profilePic != nil) {
-            cell.classmateImageView.image = self.currentClass?.users[indexPath.row].profilePic
+            })
+            
             cell.classmateImageView.hidden = false
             cell.initialView.hidden = true
+        }
+        else {
+            let names: [String] = self.currentClass!.users[indexPath.row].name.componentsSeparatedByString(" ")
+            if (names.count >= 3) {
+                cell.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)\(names[2][0].uppercaseString)"
+            }
+            else if (names.count == 2) {
+                cell.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)"
+                
+            }
+            else if (names.count == 1) {
+                cell.initialLabel.text = "\(names[0][0].uppercaseString)"
+            }
+            else{
+                cell.initialLabel.text = nil
+            }
+            cell.classmateImageView.hidden = true
+            cell.initialView.hidden = false
         }
         
         
