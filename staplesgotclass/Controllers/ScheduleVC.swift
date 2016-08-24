@@ -23,6 +23,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     var selectedSchedule: Schedule?
     var isCurrentSchedule = true
+    var selectedDate = NSDate()
     
     var timer: NSTimer?
     

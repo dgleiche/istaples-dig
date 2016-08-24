@@ -62,7 +62,7 @@ class DailyScheduleManager: NSObject {
         print("lunch schedules count: \(self.lunchSchedules.count)")
         print("courses  count: \(self.courses.count)")
         print("current user  count: \(self.currentUser)")
-
+        
         if (modifiedSchedules.count > 0 && lunchSchedules.count > 0 && currentUser != nil) {
             print("realm objects found")
             self.delegate.didFetchSchedules(true)
@@ -174,6 +174,9 @@ class DailyScheduleManager: NSObject {
                                     let newLunchType = LunchType()
                                     if let lunchType = course["LunchType"] as? PFObject {
                                         newLunchType.name = lunchType["Name"] as? String
+                                        if let isLab = lunchType["Lab"] as? Bool {
+                                            newLunchType.isLab = isLab
+                                        }
                                     }
                                     newCourse.lunchType = newLunchType
                                     newCourse.name = course["Name"] as? String
@@ -192,7 +195,7 @@ class DailyScheduleManager: NSObject {
                                     print("lunch schedules count: \(self.lunchSchedules.count)")
                                     print("courses  count: \(self.courses.count)")
                                     print("current user  count: \(self.currentUser)")
-
+                                    
                                 }
                                 self.delegate.didFetchSchedules(false)
                             }
@@ -286,7 +289,7 @@ class DailyScheduleManager: NSObject {
             var lastPeriodEndTime: Int = 0
             
             let secondsFromMidnight = self.secondsFromMidnight()
-
+            
             //Assumes period array is sorted by startSeconds ascending
             for period in schedule.periods {
                 
@@ -351,7 +354,7 @@ class DailyScheduleManager: NSObject {
                 
                 if (modDateComponents.month == selDateComponents.month) && (modDateComponents.day == selDateComponents.day) {
                     //Month and day exactly match, thus this date corresponds with a modified schedule
-                    self.syncPeriodsToSchedule(modifiedSchedule)
+                    self.syncPeriodsToSchedule(modifiedSchedule, withDate: date)
                     return modifiedSchedule
                 }
             }
@@ -384,7 +387,7 @@ class DailyScheduleManager: NSObject {
             //Return the corresponding static schedule
             for staticSchedule in staticSchedules {
                 if staticSchedule.weekday == schoolWeekday {
-                    self.syncPeriodsToSchedule(staticSchedule)
+                    self.syncPeriodsToSchedule(staticSchedule, withDate: date)
                     return staticSchedule
                 }
                 
@@ -395,11 +398,15 @@ class DailyScheduleManager: NSObject {
         return nil
     }
     
-    func syncPeriodsToSchedule(schedule: Schedule) {
+    func syncPeriodsToSchedule(schedule: Schedule, withDate date: NSDate) {
         //this separate function is needed b/c we want to assign real periods AFTER everything is setup from Realm/Network
         for schedulePeriod in schedule.periods {
             try! self.realm.write {
                 schedulePeriod.realPeriod = self.getRealPeriod(fromSchedulePeriod: schedulePeriod)
+                if (schedulePeriod.isLunch) {
+                    //get current lunch number
+                    schedulePeriod.lunchType = self.getLunchType(forPeriod: self.getRealPeriod(fromSchedulePeriod: schedulePeriod)!)!
+                }
             }
         }
     }
@@ -423,6 +430,15 @@ class DailyScheduleManager: NSObject {
         }
         
         //Period doesn't appear to exist in the user's schedule
+        return nil
+    }
+    
+    func getLunchType(forPeriod period: RealmPeriod) -> LunchType? {
+        for course in self.courses {
+            if (course.name == period.name) {
+                return course.lunchType
+            }
+        }
         return nil
     }
     

@@ -34,7 +34,8 @@ class SchedulePeriod: Object {
     dynamic var startSeconds: Int = 0
     dynamic var endSeconds: Int = 50*60
     
-    dynamic var realPeriod: RealmPeriod? 
+    dynamic var realPeriod: RealmPeriod?
+    dynamic var lunchType: LunchType?
     
 //    override static func ignoredProperties() -> [String] {
 //        return ["realPeriod", "isPassingTime", "isBeforeSchool", "isAfterSchool"]
@@ -48,6 +49,7 @@ class Course: Object {
 
 class LunchType: Object {
     dynamic var name: String?
+    dynamic var isLab: Bool = false
 }
 
 class LunchSchedule: Object {
