@@ -403,9 +403,9 @@ class DailyScheduleManager: NSObject {
         for schedulePeriod in schedule.periods {
             try! self.realm.write {
                 schedulePeriod.realPeriod = self.getRealPeriod(fromSchedulePeriod: schedulePeriod)
-                if (schedulePeriod.isLunch) {
+                if (schedulePeriod.isLunch && schedulePeriod.realPeriod != nil) {
                     //get current lunch number
-                    schedulePeriod.lunchType = self.getLunchType(forPeriod: self.getRealPeriod(fromSchedulePeriod: schedulePeriod)!)!
+                    schedulePeriod.lunchType = self.getLunchType(forPeriod: self.getRealPeriod(fromSchedulePeriod: schedulePeriod)!)
                 }
             }
         }
