@@ -34,7 +34,6 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     var firstSignInHasBeenAttempted = false
     var loadedOnline = false
-    var fetchInProgress = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,9 +80,9 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         
         
         
-        if (self.loadedOnline && self.fetchInProgress == false) {
+        if (self.loadedOnline && DailyScheduleManager.sharedInstance?.fetchInProgress == false) {
             //reload schedules in case of change, and go back to current schedule
-            self.fetchInProgress = true
+            DailyScheduleManager.sharedInstance?.fetchInProgress = true
             DailyScheduleManager.setup(self)
         }
         
@@ -142,7 +141,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         else {
             self.loadedOnline = true
         }
-        self.fetchInProgress = false
+        DailyScheduleManager.sharedInstance?.fetchInProgress = false
     }
     
     func signInUser() {
@@ -369,7 +368,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
 //        }
         
         let transition = CATransition()
-        transition.duration = 0.5
+        transition.duration = 0.4
         transition.type = kCATransitionPush
         transition.subtype = animation
         transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
@@ -537,7 +536,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                     }
                     
                     DailyScheduleManager.sharedInstance?.currentUser = realmUser
-                    self.fetchInProgress = true
+                    DailyScheduleManager.sharedInstance?.fetchInProgress = true
                     DailyScheduleManager.sharedInstance?.getDailySchedule()
                     
                     print("success in view did appear")

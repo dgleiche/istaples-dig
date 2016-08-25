@@ -23,6 +23,8 @@ class DailyScheduleManager: NSObject {
     
     var currentPeriod: SchedulePeriod?
     
+    var fetchInProgress = false
+    
     var modifiedSchedules = [Schedule]()
     var staticSchedules = [Schedule]()
     var lunchSchedules = [LunchSchedule]()

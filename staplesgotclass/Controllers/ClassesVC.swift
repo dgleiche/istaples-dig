@@ -59,7 +59,7 @@ class ClassesVC: UITableViewController {
         //Create the listener for log outs
         NSNotificationCenter.defaultCenter().addObserverForName("logout", object: nil, queue: nil) { note in
             GIDSignIn.sharedInstance().signOut()
-             self.navigationController?.tabBarController!.selectedIndex = 0
+            self.navigationController?.tabBarController!.selectedIndex = 0
             DailyScheduleManager.destroy()
             let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
             loginPage.modalTransitionStyle = .FlipHorizontal
@@ -79,22 +79,25 @@ class ClassesVC: UITableViewController {
             self.activitySpinner.startAnimating()
             UserManager.sharedInstance?.currentUser.getClassmates({ (success: Bool) in
                 if (success) {
-                    //add current user to Realm with all of the data
-                    let realm = try! Realm()
                     
-                    let realmUser = RealmUser()
-                    
-                    for period in UserManager.sharedInstance!.currentUser.schedule! {
-                        let realmPeriod = RealmPeriod()
+                    if (DailyScheduleManager.sharedInstance?.fetchInProgress != true) {
+                        //add current user to Realm with all of the data
+                        let realm = try! Realm()
                         
-                        realmPeriod.setPeriod(period: period)
+                        let realmUser = RealmUser()
                         
-                        realmUser.schedule.append(realmPeriod)
-                    }
-                    
-                    try! realm.write {
-                        realm.delete(realm.objects(RealmUser.self))
-                        realm.add(realmUser)
+                        for period in UserManager.sharedInstance!.currentUser.schedule! {
+                            let realmPeriod = RealmPeriod()
+                            
+                            realmPeriod.setPeriod(period: period)
+                            
+                            realmUser.schedule.append(realmPeriod)
+                        }
+                        
+                        try! realm.write {
+                            realm.delete(realm.objects(RealmUser.self))
+                            realm.add(realmUser)
+                        }
                     }
                     
                     print("success in view did appear")
