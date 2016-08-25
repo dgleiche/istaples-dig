@@ -71,6 +71,7 @@ class DailyScheduleManager: NSObject {
         else if (currentUser == nil) {
             print("current user nil")
         }
+        print("calling sign in user")
         self.delegate.signInUser()
     }
     
@@ -403,16 +404,19 @@ class DailyScheduleManager: NSObject {
         for schedulePeriod in schedule.periods {
             try! self.realm.write {
                 schedulePeriod.realPeriod = self.getRealPeriod(fromSchedulePeriod: schedulePeriod)
+                
+                let realPeriodStartTime = schedulePeriod.startSeconds
+                let realPeriodEndTime = schedulePeriod.endSeconds
+                let passingTime = 5*60
+                
                 if (schedulePeriod.isLunch && schedulePeriod.realPeriod != nil) {
+                    print("real not nil")
                     //get current lunch number
                     if let lunchType = self.getLunchType(forPeriod: self.getRealPeriod(fromSchedulePeriod: schedulePeriod)!) {
                         schedulePeriod.lunchType = lunchType
-                        let realPeriodStartTime = schedulePeriod.startSeconds
-                        let realPeriodEndTime = schedulePeriod.endSeconds
                         
                         let lunchLength = (lunchType.isLab) ? 15*60 : 30*60
-                        let passingTime = 5*60
-                                                
+                        
                         if let lunchNumber = getLunchNumber(withDate: date, andLunchType: lunchType) {
                             if (!schedule.containsLunchPeriods()) {
                                 switch lunchNumber {
@@ -452,7 +456,50 @@ class DailyScheduleManager: NSObject {
                         }
                         
                     }
+                    else {
+                        //NO LUNCH TYPE, FREE LUNCH
+                        print("no lunch type")
+                        if (!schedule.containsLunchPeriods()) {
+                            let lunchLength = 30*60
+                            let periodLength = (((realPeriodEndTime - realPeriodStartTime) - lunchLength) / 2)
+                            schedulePeriod.endSeconds = realPeriodStartTime + periodLength
+                            schedulePeriod.isLunchPeriod = true
+                            schedulePeriod.lunchNumber = 1
+                            
+                            let newSecondLunchPeriod = self.realm.create(SchedulePeriod.self, value: schedulePeriod, update: false)
+                            let updatedSecondLunchPeriod = self.createLunchPeriod(withInitialPeriod: newSecondLunchPeriod, startTime: realPeriodStartTime + periodLength + passingTime, endTime: realPeriodStartTime + periodLength + passingTime + lunchLength, isLunch: true)
+                            updatedSecondLunchPeriod.lunchNumber = 2
+                            schedule.periods.insert(updatedSecondLunchPeriod, atIndex: schedule.periods.indexOf(schedulePeriod)!+1)
+                            
+                            let newThirdLunchPeriod = self.realm.create(SchedulePeriod.self, value: schedulePeriod, update: false)
+                            let updatedThirdLunchPeriod = self.createLunchPeriod(withInitialPeriod: newThirdLunchPeriod, startTime: realPeriodStartTime + periodLength + passingTime + lunchLength + passingTime, endTime: realPeriodEndTime, isLunch: true)
+                            updatedThirdLunchPeriod.lunchNumber = 3
+                            
+                            schedule.periods.insert(updatedThirdLunchPeriod, atIndex: schedule.periods.indexOf(schedulePeriod)!+2)
+                        }
+                    }
                     
+                }
+                else if (schedulePeriod.isLunch) {
+                    //no real period but still show lunch
+                    if (!schedule.containsLunchPeriods()) {
+                        let lunchLength = 30*60
+                        let periodLength = (((realPeriodEndTime - realPeriodStartTime) - lunchLength) / 2)
+                        schedulePeriod.endSeconds = realPeriodStartTime + periodLength
+                        schedulePeriod.isLunchPeriod = true
+                        schedulePeriod.lunchNumber = 1
+                        
+                        let newSecondLunchPeriod = self.realm.create(SchedulePeriod.self, value: schedulePeriod, update: false)
+                        let updatedSecondLunchPeriod = self.createLunchPeriod(withInitialPeriod: newSecondLunchPeriod, startTime: realPeriodStartTime + periodLength + passingTime, endTime: realPeriodStartTime + periodLength + passingTime + lunchLength, isLunch: true)
+                        updatedSecondLunchPeriod.lunchNumber = 2
+                        schedule.periods.insert(updatedSecondLunchPeriod, atIndex: schedule.periods.indexOf(schedulePeriod)!+1)
+                        
+                        let newThirdLunchPeriod = self.realm.create(SchedulePeriod.self, value: schedulePeriod, update: false)
+                        let updatedThirdLunchPeriod = self.createLunchPeriod(withInitialPeriod: newThirdLunchPeriod, startTime: realPeriodStartTime + periodLength + passingTime + lunchLength + passingTime, endTime: realPeriodEndTime, isLunch: true)
+                        updatedThirdLunchPeriod.lunchNumber = 3
+                        
+                        schedule.periods.insert(updatedThirdLunchPeriod, atIndex: schedule.periods.indexOf(schedulePeriod)!+2)
+                    }
                 }
             }
         }
@@ -468,14 +515,12 @@ class DailyScheduleManager: NSObject {
     // Returns a period object based off a schedulePeriod object
     func getRealPeriod(fromSchedulePeriod schedulePeriod: SchedulePeriod) -> RealmPeriod? {
         if self.currentUser != nil {
-            print("realm user not nil")
             let userSchedule = self.currentUser?.schedule
             //Loop through the periods in the user schedule
             //Check them against the inputted schedule period
             if (userSchedule != nil) {
                 for userPeriod in userSchedule! {
                     if userPeriod.periodNumber == schedulePeriod.id {
-                        print("found user period")
                         return userPeriod
                     }
                 }
@@ -489,7 +534,7 @@ class DailyScheduleManager: NSObject {
     
     func getLunchType(forPeriod period: RealmPeriod) -> LunchType? {
         for course in self.courses {
-            if (course.name == period.name) {
+            if (course.name == period.name && course.lunchType?.name != nil) {
                 return course.lunchType
             }
         }

@@ -850,8 +850,8 @@
                                             <color key="textColor" red="0.0" green="0.43137254899999999" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A.P. Computer Science" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W9b-wH-2sQ">
-                                            <rect key="frame" x="55" y="16" width="421" height="30"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A.P. Computer Science" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W9b-wH-2sQ">
+                                            <rect key="frame" x="55" y="8" width="421" height="46"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="43" id="SWa-rG-Pvl"/>
                                             </constraints>
@@ -876,12 +876,12 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="vrU-vn-uig" firstAttribute="baseline" secondItem="W9b-wH-2sQ" secondAttribute="baseline" constant="6" id="7FN-D0-r7n"/>
+                                        <constraint firstItem="vrU-vn-uig" firstAttribute="baseline" secondItem="W9b-wH-2sQ" secondAttribute="baseline" constant="-2" id="7FN-D0-r7n"/>
                                         <constraint firstItem="vrU-vn-uig" firstAttribute="top" secondItem="kjS-4z-UrJ" secondAttribute="topMargin" constant="-2" id="G4o-9c-T90"/>
                                         <constraint firstItem="NZC-4O-1vK" firstAttribute="top" secondItem="orF-q2-Pf4" secondAttribute="bottom" constant="2" id="L2C-z5-P5o"/>
                                         <constraint firstAttribute="bottom" secondItem="xQM-KQ-ZJ8" secondAttribute="bottom" constant="3" id="LaI-dg-pDr"/>
                                         <constraint firstItem="xQM-KQ-ZJ8" firstAttribute="leading" secondItem="kjS-4z-UrJ" secondAttribute="leading" constant="23" id="PM3-dj-tWp"/>
-                                        <constraint firstItem="W9b-wH-2sQ" firstAttribute="firstBaseline" secondItem="NZC-4O-1vK" secondAttribute="firstBaseline" constant="-6" id="SkY-VL-fBK"/>
+                                        <constraint firstItem="W9b-wH-2sQ" firstAttribute="firstBaseline" secondItem="NZC-4O-1vK" secondAttribute="firstBaseline" constant="-14" id="SkY-VL-fBK"/>
                                         <constraint firstItem="orF-q2-Pf4" firstAttribute="trailing" secondItem="NZC-4O-1vK" secondAttribute="trailing" id="Tu1-0A-eZv"/>
                                         <constraint firstItem="orF-q2-Pf4" firstAttribute="top" secondItem="kjS-4z-UrJ" secondAttribute="topMargin" constant="-5" id="UMm-AF-z0H"/>
                                         <constraint firstItem="orF-q2-Pf4" firstAttribute="trailing" secondItem="kjS-4z-UrJ" secondAttribute="trailingMargin" id="VqM-w6-btm"/>
