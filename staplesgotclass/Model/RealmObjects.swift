@@ -47,6 +47,7 @@ class SchedulePeriod: Object {
     dynamic var lunchType: LunchType?
     
     dynamic var isLunchPeriod: Bool = false
+    dynamic var lunchNumber: Int = 0
     
 //    override static func ignoredProperties() -> [String] {
 //        return ["realPeriod", "isPassingTime", "isBeforeSchool", "isAfterSchool"]
