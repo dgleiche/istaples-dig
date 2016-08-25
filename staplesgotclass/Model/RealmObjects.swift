@@ -91,3 +91,9 @@ class RealmPeriod: Object {
         self.id = period.id
     }
 }
+
+class Homework: Object {
+    dynamic var course: Course?
+    dynamic var assignment: String?
+    dynamic var dueDate: NSDate?
+}

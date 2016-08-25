@@ -69,6 +69,7 @@
 		FC53CF991CF5215A0034266F /* MLPAutoCompleteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = FC53CF931CF5215A0034266F /* MLPAutoCompleteTextField.m */; };
 		FC53CF9A1CF5215A0034266F /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = FC53CF981CF5215A0034266F /* NSString+Levenshtein.m */; };
 		FC99DE2A1CF5652C0006F62E /* QuarterTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC99DE291CF5652C0006F62E /* QuarterTable.swift */; };
+		FC9A2D3B1D6E9F9A00436546 /* HomeworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9A2D3A1D6E9F9A00436546 /* HomeworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -157,6 +158,7 @@
 		FC53CF971CF5215A0034266F /* NSString+Levenshtein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Levenshtein.h"; sourceTree = "<group>"; };
 		FC53CF981CF5215A0034266F /* NSString+Levenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Levenshtein.m"; sourceTree = "<group>"; };
 		FC99DE291CF5652C0006F62E /* QuarterTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuarterTable.swift; path = ../Controllers/QuarterTable.swift; sourceTree = "<group>"; };
+		FC9A2D3A1D6E9F9A00436546 /* HomeworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +264,7 @@
 				775DC44C1CED55CD00046768 /* User.swift */,
 				775DC44E1CED583400046768 /* NetworkManager.swift */,
 				FC3A411E1D5C31AB000738F2 /* DailyScheduleManager.swift */,
+				FC9A2D3A1D6E9F9A00436546 /* HomeworkManager.swift */,
 				77320A9B1D5D7AAF00603A38 /* RealmObjects.swift */,
 			);
 			path = Model;
@@ -541,6 +544,7 @@
 			files = (
 				77320A9C1D5D7AAF00603A38 /* RealmObjects.swift in Sources */,
 				775DC44F1CED583400046768 /* NetworkManager.swift in Sources */,
+				FC9A2D3B1D6E9F9A00436546 /* HomeworkManager.swift in Sources */,
 				775DC4491CED537F00046768 /* UserManager.swift in Sources */,
 				77D8F2F01CF11470007A1002 /* StringExtension.swift in Sources */,
 				77D8F2F21CF135C2007A1002 /* ClassCell.swift in Sources */,
