@@ -92,7 +92,7 @@ class RealmPeriod: Object {
 }
 
 class Homework: Object {
-    dynamic var course: Course?
+    dynamic var periodID = 0
     dynamic var assignment: String?
     dynamic var dueDate: NSDate?
 }
