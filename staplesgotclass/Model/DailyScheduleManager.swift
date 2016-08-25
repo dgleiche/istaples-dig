@@ -74,7 +74,7 @@ class DailyScheduleManager: NSObject {
         self.delegate.signInUser()
     }
     
-    func getDailySchedule() {
+    func getDailySchedule() { 
         let query = PFQuery(className: "Schedule")
         query.includeKey("Periods")
         query.findObjectsInBackgroundWithBlock({ (schedules: [PFObject]?, error: NSError?) in
