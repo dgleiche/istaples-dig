@@ -69,6 +69,7 @@
 		FC53CF9A1CF5215A0034266F /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = FC53CF981CF5215A0034266F /* NSString+Levenshtein.m */; };
 		FC99DE2A1CF5652C0006F62E /* QuarterTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC99DE291CF5652C0006F62E /* QuarterTable.swift */; };
 		FC9A2D3B1D6E9F9A00436546 /* HomeworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9A2D3A1D6E9F9A00436546 /* HomeworkManager.swift */; };
+		FC9A2D3D1D6EB23E00436546 /* SetHomeworkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9A2D3C1D6EB23E00436546 /* SetHomeworkVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -157,6 +158,7 @@
 		FC53CF981CF5215A0034266F /* NSString+Levenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Levenshtein.m"; sourceTree = "<group>"; };
 		FC99DE291CF5652C0006F62E /* QuarterTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuarterTable.swift; path = ../Controllers/QuarterTable.swift; sourceTree = "<group>"; };
 		FC9A2D3A1D6E9F9A00436546 /* HomeworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeworkManager.swift; sourceTree = "<group>"; };
+		FC9A2D3C1D6EB23E00436546 /* SetHomeworkVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetHomeworkVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +252,7 @@
 				771D46DB1CF13C9900458369 /* ClassmatesVC.swift */,
 				7746F3891CF16312003E9D6A /* ProfileVC.swift */,
 				77DB561F1CF25C7C0014B002 /* AllUsersVC.swift */,
+				FC9A2D3C1D6EB23E00436546 /* SetHomeworkVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -546,6 +549,7 @@
 				77D8F2F01CF11470007A1002 /* StringExtension.swift in Sources */,
 				77D8F2F21CF135C2007A1002 /* ClassCell.swift in Sources */,
 				FC2078EC1CFC0D8C00D86F54 /* InfoVC.swift in Sources */,
+				FC9A2D3D1D6EB23E00436546 /* SetHomeworkVC.swift in Sources */,
 				77703B3C1D5C3D3B0093CF95 /* KDCircularProgress.swift in Sources */,
 				FC53CF9A1CF5215A0034266F /* NSString+Levenshtein.m in Sources */,
 				FC99DE2A1CF5652C0006F62E /* QuarterTable.swift in Sources */,
