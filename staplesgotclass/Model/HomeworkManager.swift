@@ -16,7 +16,7 @@ protocol HomeworkManagerDelegate: class {
 class HomeworkManager: NSObject {
     static var sharedInstance: HomeworkManager?
     
-    let realm = try! Realm()
+    static let realm = try! Realm()
     
     //Keyed by periodID
     var homework = [Int: [Homework]]()
@@ -37,7 +37,7 @@ class HomeworkManager: NSObject {
         sharedInstance = nil
     }
     
-    func setHomework(forPeriod periodID: Int, assignment: String, dueDate: NSDate) {
+    class func setHomework(forPeriod periodID: Int, assignment: String, dueDate: NSDate) {
         let homeworkObject = Homework()
         homeworkObject.assignment = assignment
         homeworkObject.periodID = periodID
@@ -48,19 +48,19 @@ class HomeworkManager: NSObject {
         }
     }
     
-    func deleteHomework(forPeriod periodID: Int, assignment: String, dueDate: NSDate) {
+    class func deleteHomework(forPeriod periodID: Int, assignment: String, dueDate: NSDate) {
         let homeworkObject = Homework()
         homeworkObject.assignment = assignment
         homeworkObject.periodID = periodID
         homeworkObject.dueDate = dueDate
         
-        try! realm.write {
-            self.realm.delete(homeworkObject)
+        try! HomeworkManager.realm.write {
+            HomeworkManager.realm.delete(homeworkObject)
         }
     }
     
-    func loadSavedData(completion: (Void -> Void)?) {
-        let homeworkObjects = Array(realm.objects(Homework.self))
+    func loadSavedData() {
+        let homeworkObjects = Array(HomeworkManager.realm.objects(Homework.self))
         
         homework = [Int: [Homework]]()
         //Associate each homework object with a course in the class dictionary

@@ -71,6 +71,7 @@
 		FC99DE2A1CF5652C0006F62E /* QuarterTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC99DE291CF5652C0006F62E /* QuarterTable.swift */; };
 		FC9A2D3B1D6E9F9A00436546 /* HomeworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9A2D3A1D6E9F9A00436546 /* HomeworkManager.swift */; };
 		FC9A2D3D1D6EB23E00436546 /* SetHomeworkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9A2D3C1D6EB23E00436546 /* SetHomeworkVC.swift */; };
+		FC9A2D3F1D70015C00436546 /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9A2D3E1D70015C00436546 /* DatePickerDialog.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -161,6 +162,7 @@
 		FC99DE291CF5652C0006F62E /* QuarterTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuarterTable.swift; path = ../Controllers/QuarterTable.swift; sourceTree = "<group>"; };
 		FC9A2D3A1D6E9F9A00436546 /* HomeworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeworkManager.swift; sourceTree = "<group>"; };
 		FC9A2D3C1D6EB23E00436546 /* SetHomeworkVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetHomeworkVC.swift; sourceTree = "<group>"; };
+		FC9A2D3E1D70015C00436546 /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -317,6 +319,7 @@
 				772D52F51D6652430032C1E7 /* NSTimeIntervalExtension.swift */,
 				773A35F51D6834B8005BF01A /* IntExtension.swift */,
 				77D983C91D6EA2B6002CE65F /* NSDateExtension.swift */,
+				FC9A2D3E1D70015C00436546 /* DatePickerDialog.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -574,6 +577,7 @@
 				77D8F2ED1CF0FFB6007A1002 /* ClassesVC.swift in Sources */,
 				77D983CA1D6EA2B6002CE65F /* NSDateExtension.swift in Sources */,
 				772DCA531CEF428500F52AA6 /* PageContentVC.swift in Sources */,
+				FC9A2D3F1D70015C00436546 /* DatePickerDialog.swift in Sources */,
 				FC2078F61CFC268800D86F54 /* AboutVC.swift in Sources */,
 				77DB56201CF25C7C0014B002 /* AllUsersVC.swift in Sources */,
 			);

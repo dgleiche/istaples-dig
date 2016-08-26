@@ -693,8 +693,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="f0g-BF-GkN">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="tKo-AC-EL8"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Cuo-Ek-ZuI"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="tKo-AC-EL8">
+                            <connections>
+                                <action selector="cancel:" destination="nXd-ly-5Sk" id="mQ3-og-czs"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Cuo-Ek-ZuI">
+                            <connections>
+                                <action selector="save:" destination="nXd-ly-5Sk" id="se4-8d-MPj"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="assignmentTextField" destination="ytT-K8-50R" id="vlL-BQ-IhR"/>
