@@ -16,7 +16,7 @@ class SetHomeworkVC: UITableViewController, UITextFieldDelegate {
     var dueDate: NSDate?
     
     //Course has to be set in the segue in
-    var periodID: Int?
+    var periodNumber: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +29,7 @@ class SetHomeworkVC: UITableViewController, UITextFieldDelegate {
     @IBAction func save(sender: AnyObject) {
         if let date = dueDate {
             if assignmentTextField.text != nil && assignmentTextField.text != "" {
-                if let currentPeriod = self.periodID {
+                if let currentPeriod = self.periodNumber {
                     HomeworkManager.setHomework(forPeriod: currentPeriod, assignment: assignmentTextField.text!, dueDate: date)
                     
                     self.dismissViewControllerAnimated(true, completion: nil)

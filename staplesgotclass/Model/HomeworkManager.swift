@@ -18,7 +18,7 @@ class HomeworkManager: NSObject {
     
     static let realm = try! Realm()
     
-    //Keyed by periodID
+    //Keyed by periodNumber
     var homework = [Int: [Homework]]()
     
     weak var delegate: HomeworkManagerDelegate!
@@ -38,10 +38,10 @@ class HomeworkManager: NSObject {
         sharedInstance = nil
     }
     
-    class func setHomework(forPeriod periodID: Int, assignment: String, dueDate: NSDate) {
+    class func setHomework(forPeriod periodNumber: Int, assignment: String, dueDate: NSDate) {
         let homeworkObject = Homework()
         homeworkObject.assignment = assignment
-        homeworkObject.periodID = periodID
+        homeworkObject.periodNumber = periodNumber
         homeworkObject.dueDate = dueDate
         
         try! realm.write {
@@ -49,10 +49,10 @@ class HomeworkManager: NSObject {
         }
     }
     
-    class func deleteHomework(forPeriod periodID: Int, assignment: String, dueDate: NSDate) {
+    class func deleteHomework(forPeriod periodNumber: Int, assignment: String, dueDate: NSDate) {
         let homeworkObject = Homework()
         homeworkObject.assignment = assignment
-        homeworkObject.periodID = periodID
+        homeworkObject.periodNumber = periodNumber
         homeworkObject.dueDate = dueDate
         
         try! HomeworkManager.realm.write {
@@ -61,22 +61,22 @@ class HomeworkManager: NSObject {
     }
     
     func loadSavedData() {
-        let homeworkObjects = Array(realm.objects(Homework.self))
+        let homeworkObjects = Array(HomeworkManager.realm.objects(Homework.self))
         
         homework = [Int: [Homework]]()
         //Associate each homework object with a course in the class dictionary
         for homeworkObject in homeworkObjects {
-            if homework[homeworkObject.periodID] == nil {
-                homework[homeworkObject.periodID] = [Homework]()
+            if homework[homeworkObject.periodNumber] == nil {
+                homework[homeworkObject.periodNumber] = [Homework]()
             }
             
-            homework[homeworkObject.periodID]!.append(homeworkObject)
+            homework[homeworkObject.periodNumber]!.append(homeworkObject)
         }
         
         delegate.homeworkDidLoad()
     }
     
-    func getHomework(forPeriod periodID: Int) -> [Homework]? {
-        return homework[periodID]
+    func getHomework(forPeriod periodNumber: Int) -> [Homework]? {
+        return homework[periodNumber]
     }
 }

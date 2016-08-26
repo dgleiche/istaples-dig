@@ -11,16 +11,16 @@ import UIKit
 class PeriodHomeworkVC: UITableViewController, HomeworkManagerDelegate {
     
     //Has to be set in the segue in
-    var periodID: Int?
+    var periodNumber: Int?
     
     var homework = [Homework]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //If the current periodID is not set, alert then dismiss the controller cuz everythings gonna be fubar'd
-        if periodID == nil {
-            let alert = UIAlertController(title: "ERROR", message: "Failed to set periodID", preferredStyle: UIAlertControllerStyle.Alert)
+        //If the current periodNumber is not set, alert then dismiss the controller cuz everythings gonna be fubar'd
+        if periodNumber == nil {
+            let alert = UIAlertController(title: "ERROR", message: "Failed to set periodNumber", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { Void in
                 self.dismissViewControllerAnimated(true, completion: nil)
             }))
@@ -46,7 +46,7 @@ class PeriodHomeworkVC: UITableViewController, HomeworkManagerDelegate {
     
     //MARK: Homework Manager Delegate Functions
     func homeworkDidLoad() {
-        if let period = periodID {
+        if let period = periodNumber {
             self.homework = HomeworkManager.sharedInstance?.getHomework(forPeriod: period) ?? [Homework]()
             self.tableView.reloadData()
         }
@@ -111,7 +111,7 @@ class PeriodHomeworkVC: UITableViewController, HomeworkManagerDelegate {
         if segue.identifier == "addHomeworkSegue" {
             let setHomeworkView = (segue.destinationViewController as! UINavigationController).topViewController as! SetHomeworkVC
             
-            setHomeworkView.periodID = self.periodID
+            setHomeworkView.periodNumber = self.periodNumber
         }
     }
     

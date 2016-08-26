@@ -58,10 +58,17 @@ class ScheduleDetailVC: UITableViewController, HomeworkManagerDelegate {
             self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForSelectedRow!, animated: true)
             
         }
+        else if (segue.identifier == "assignmentsSegue") {
+            let newView = segue.destinationViewController as! PeriodHomeworkVC
+            newView.periodNumber = self.realmPeriod.periodNumber
+        }
     }
     
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
         if (identifier == "scheduleDetailClassmatesSegue" && self.realmPeriod.exchangeForRealPeriod() != nil) {
+            return true
+        }
+        else if (identifier == "assignmentsSegue") {
             return true
         }
         else {
