@@ -77,10 +77,7 @@ class SetHomeworkVC: UITableViewController, UITextFieldDelegate {
     
     func presentAlert(withTitle title: String, text: String) {
         let alert = UIAlertController(title: title, message: text, preferredStyle: UIAlertControllerStyle.Alert)
-        
         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
         
         presentViewController(alert, animated: true, completion: nil)
     }
