@@ -66,6 +66,12 @@ class ClassesVC: UITableViewController {
             self.tabBarController?.presentViewController(loginPage, animated: true, completion: nil)
         }
         
+        if (UserManager.sharedInstance?.currentUser.schedule != nil) {
+            self.myClasses = UserManager.sharedInstance?.currentUser.schedule
+            self.tableView.reloadData()
+        }
+        
+        
     }
     
     override func viewWillAppear(animated: Bool) {

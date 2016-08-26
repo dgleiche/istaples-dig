@@ -89,7 +89,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
     }
     
     //MARK: Text Field
-
+    
     func autoCompleteTextField(textField: MLPAutoCompleteTextField!, possibleCompletionsForString string: String!) -> [AnyObject]! {
         var returnStrings = Array<String>()
         
@@ -128,8 +128,8 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
     
     //MARK: Navigation
     
-
-    @IBAction func savePeriod(sender: AnyObject) {
+    
+    @IBAction func savePeriod(sender: UIButton) {
         
         //Verify the class is set
         if let selectedClass = classTextField.text {
@@ -178,8 +178,9 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
                 if (currentClass != nil) {
                     parameters["id"] = "\(currentClass!.id)"
                 }
+                sender.enabled = false
                 UserManager.sharedInstance?.currentUser.network.performRequest(withMethod: "POST", endpoint: "edit", parameters: parameters, headers: nil, completion: { (response: Response<AnyObject, NSError>) in
-                    
+                    sender.enabled = true
                     if (response.response?.statusCode == 200) {
                         self.dismissViewControllerAnimated(true, completion: nil)
                     }
@@ -199,7 +200,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
             createAlert("Error", alert: "Please select a class")
             return
         }
-
+        
     }
     
 }

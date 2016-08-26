@@ -65,6 +65,11 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         self.tableView.addGestureRecognizer(rightSwipeGestureRecognizer)
         self.tableView.addGestureRecognizer(leftSwipeGestureRecognizer)
         
+        let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(setDateToday))
+        doubleTapRecognizer.numberOfTapsRequired = 2
+        
+        self.navigationController?.navigationBar.addGestureRecognizer(doubleTapRecognizer)
+        
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ScheduleVC.callSetup), name: "loggedIn", object: nil)
         GIDSignIn.sharedInstance().delegate = self
@@ -320,6 +325,22 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     //MARK: - Date change handling
     
+    func setDateToday() {
+        self.selectedDate = NSDate()
+        self.changeSchedule(withAnimation: kCATransitionFromTop)
+    }
+    
+    @IBAction func dateChosen(sender: AnyObject) {
+        let minDate = NSDate(timeIntervalSince1970: 1472688000)
+        DatePickerDialog().show(title: "Select Date", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: self.selectedDate, minimumDate: minDate, maximumDate: nil, datePickerMode: UIDatePickerMode.Date) { (date) in
+            if (date != nil) {
+                self.selectedDate = date!
+                self.changeSchedule(withAnimation: kCATransitionFromBottom)
+            }
+        }
+    }
+    
+    
     func swipeDate(sender: UISwipeGestureRecognizer) {
         if (!(DailyScheduleManager.sharedInstance?.fetchInProgress)!) {
             print("swipe activated!")
@@ -375,6 +396,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         //        self.tableView.reloadData()
         //        }
         
+        
         let transition = CATransition()
         transition.duration = 0.4
         transition.type = kCATransitionPush
@@ -390,6 +412,13 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "EEEE, MMMM d, Y"
         self.navigationItem.title = dateFormatter.stringFromDate(date)
+        
+        if (NSCalendar.currentCalendar().compareDate(self.selectedDate, toDate: NSDate(), toUnitGranularity: .Day) == .OrderedSame) {
+            self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-Bold", size: 17)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        }
+        else {
+            self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-Medium", size: 17)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        }
     }
     
     // MARK: - Table view data source
@@ -521,6 +550,10 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         return cell
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
     //MARK: - Segue Handling
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -543,6 +576,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             }
             
             scheduleDetailVC.realmPeriod = indexSchedulePeriod?.realPeriod
+            self.navigationItem.prompt = nil
+
         }
     }
     
@@ -580,6 +615,11 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                     DailyScheduleManager.sharedInstance?.fetchInProgress = true
                     DailyScheduleManager.sharedInstance?.getDailySchedule()
                     
+                    if (UserManager.sharedInstance?.currentUser.schedule == nil || UserManager.sharedInstance?.currentUser.schedule?.count == 0) {
+                        //if there are no classes, go to classes tab to add one
+                        self.navigationController?.tabBarController?.selectedIndex = 1
+                    }
+
                     print("success in view did appear")
                     
                 }
