@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		078B0CEA10E638BFC57FE69E /* Pods_staplesgotclass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */; };
+		7700379B1D700168001641F8 /* ScheduleDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7700379A1D700168001641F8 /* ScheduleDetailVC.swift */; };
 		771C2C8C1CFD21AD002C7A41 /* roundedAppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 771C2C8B1CFD21AD002C7A41 /* roundedAppIcon.png */; };
 		771C2C8E1CFD2DFE002C7A41 /* exit.png in Resources */ = {isa = PBXBuildFile; fileRef = 771C2C8D1CFD2DFE002C7A41 /* exit.png */; };
 		771C2C901CFD3130002C7A41 /* safari.png in Resources */ = {isa = PBXBuildFile; fileRef = 771C2C8F1CFD3130002C7A41 /* safari.png */; };
@@ -36,6 +37,8 @@
 		7746F38C1CF1755F003E9D6A /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7746F38B1CF1755F003E9D6A /* UIImageViewExtension.swift */; };
 		7746F38E1CF19241003E9D6A /* ClassmateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7746F38D1CF19241003E9D6A /* ClassmateCell.swift */; };
 		7746F3901CF19314003E9D6A /* shs.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7746F38F1CF19314003E9D6A /* shs.jpg */; };
+		775A18EC1D700FB800D1AA9C /* hwIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 775A18EB1D700FB800D1AA9C /* hwIcon.png */; };
+		775A18EE1D70105000D1AA9C /* usersIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 775A18ED1D70105000D1AA9C /* usersIcon.png */; };
 		775DC4491CED537F00046768 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775DC4481CED537F00046768 /* UserManager.swift */; };
 		775DC44B1CED558A00046768 /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775DC44A1CED558A00046768 /* Period.swift */; };
 		775DC44D1CED55CD00046768 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775DC44C1CED55CD00046768 /* User.swift */; };
@@ -90,6 +93,7 @@
 /* Begin PBXFileReference section */
 		382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_staplesgotclass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F3617A969EFDF047E0788E2 /* Pods-staplesgotclass.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-staplesgotclass.release.xcconfig"; path = "Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass.release.xcconfig"; sourceTree = "<group>"; };
+		7700379A1D700168001641F8 /* ScheduleDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleDetailVC.swift; sourceTree = "<group>"; };
 		771C2C8B1CFD21AD002C7A41 /* roundedAppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = roundedAppIcon.png; path = "Icons/App Icon [Rounded]/roundedAppIcon.png"; sourceTree = "<group>"; };
 		771C2C8D1CFD2DFE002C7A41 /* exit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exit.png; sourceTree = "<group>"; };
 		771C2C8F1CFD3130002C7A41 /* safari.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = safari.png; sourceTree = "<group>"; };
@@ -116,6 +120,8 @@
 		7746F38B1CF1755F003E9D6A /* UIImageViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		7746F38D1CF19241003E9D6A /* ClassmateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassmateCell.swift; sourceTree = "<group>"; };
 		7746F38F1CF19314003E9D6A /* shs.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = shs.jpg; sourceTree = "<group>"; };
+		775A18EB1D700FB800D1AA9C /* hwIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hwIcon.png; sourceTree = "<group>"; };
+		775A18ED1D70105000D1AA9C /* usersIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = usersIcon.png; sourceTree = "<group>"; };
 		775DC4481CED537F00046768 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		775DC44A1CED558A00046768 /* Period.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
 		775DC44C1CED55CD00046768 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -219,8 +225,10 @@
 				773F5DF71CF6145600143C2D /* shs.png */,
 				7721B81C1CF967AF008C1A76 /* users.png */,
 				7721B81D1CF967AF008C1A76 /* users@2x.png */,
+				775A18ED1D70105000D1AA9C /* usersIcon.png */,
 				7721B81E1CF967AF008C1A76 /* usersFilled.png */,
 				7721B81F1CF967AF008C1A76 /* usersFilled@2x.png */,
+				775A18EB1D700FB800D1AA9C /* hwIcon.png */,
 			);
 			path = Graphics;
 			sourceTree = "<group>";
@@ -252,6 +260,7 @@
 				771D46DB1CF13C9900458369 /* ClassmatesVC.swift */,
 				7746F3891CF16312003E9D6A /* ProfileVC.swift */,
 				77DB561F1CF25C7C0014B002 /* AllUsersVC.swift */,
+				7700379A1D700168001641F8 /* ScheduleDetailVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -412,10 +421,12 @@
 				7721B8131CF9574B008C1A76 /* coursesPic.png in Resources */,
 				77D54F861CECBEE600C11FA5 /* GoogleService-Info.plist in Resources */,
 				77D54F7B1CECBEC600C11FA5 /* Assets.xcassets in Resources */,
+				775A18EC1D700FB800D1AA9C /* hwIcon.png in Resources */,
 				7746F3901CF19314003E9D6A /* shs.jpg in Resources */,
 				FC2078F01CFC110D00D86F54 /* info.png in Resources */,
 				7721B8181CF9673A008C1A76 /* school.png in Resources */,
 				771C2C921CFD3165002C7A41 /* compare.png in Resources */,
+				775A18EE1D70105000D1AA9C /* usersIcon.png in Resources */,
 				77D54F791CECBEC600C11FA5 /* Main.storyboard in Resources */,
 				FC2078E81CFB7E6400D86F54 /* sync.png in Resources */,
 				FC2078F21CFC139900D86F54 /* email.png in Resources */,
@@ -558,6 +569,7 @@
 				775DC44B1CED558A00046768 /* Period.swift in Sources */,
 				771D46DC1CF13C9900458369 /* ClassmatesVC.swift in Sources */,
 				775DC44D1CED55CD00046768 /* User.swift in Sources */,
+				7700379B1D700168001641F8 /* ScheduleDetailVC.swift in Sources */,
 				FC53CF991CF5215A0034266F /* MLPAutoCompleteTextField.m in Sources */,
 				7746F38C1CF1755F003E9D6A /* UIImageViewExtension.swift in Sources */,
 				772D52F61D6652430032C1E7 /* NSTimeIntervalExtension.swift in Sources */,

@@ -32,7 +32,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     var spinnerSetup = false
     
-    var firstSignInHasBeenAttempted = false
+    var inDetailVC = false
     var loadedOnline = false
     
     override func viewDidLoad() {
@@ -80,19 +80,16 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         
         
         
-        if (self.loadedOnline && DailyScheduleManager.sharedInstance?.fetchInProgress == false) {
+        if (self.loadedOnline && DailyScheduleManager.sharedInstance?.fetchInProgress == false && self.inDetailVC == false) {
             //reload schedules in case of change, and go back to current schedule
             DailyScheduleManager.sharedInstance?.fetchInProgress = true
+            self.inDetailVC = false
             DailyScheduleManager.setup(self)
         }
+        else if (self.inDetailVC == true) {
+            self.inDetailVC = false
+        }
         
-        if !firstSignInHasBeenAttempted {
-            
-        }
-            
-        else {
-            
-        }
     }
     
     func callSetup() {
@@ -119,6 +116,10 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             //Setup the current period
             DailyScheduleManager.sharedInstance?.currentPeriod = DailyScheduleManager.sharedInstance!.getCurrentPeriod()
             
+            self.isCurrentSchedule = true
+            self.selectedDate = NSDate()
+            self.setNavTitleForDate(self.selectedDate)
+            
             if (DailyScheduleManager.sharedInstance?.currentSchedule != nil) {
                 //start timer if current schedule not nil
                 if (DailyScheduleManager.sharedInstance?.currentSchedule?.isStatic == false) {
@@ -128,12 +129,16 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                     self.navigationItem.prompt = nil
                 }
                 self.selectedSchedule = DailyScheduleManager.sharedInstance?.currentSchedule
-                self.isCurrentSchedule = true
-                self.selectedDate = NSDate()
-                self.setNavTitleForDate(self.selectedDate)
+                
                 self.setupClockTimer()
                 self.setupPeriodTimer()
             }
+            else {
+                self.navigationItem.prompt = nil
+                self.selectedSchedule = nil
+                self.tableView.reloadData()
+            }
+            
         }
         if (offline) {
             signInUser()
@@ -316,20 +321,21 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     //MARK: - Date change handling
     
     func swipeDate(sender: UISwipeGestureRecognizer) {
-        print("swipe activated!")
-        switch (sender.direction) {
-        case UISwipeGestureRecognizerDirection.Left:
-            //advance schedule 1 day forward
-            self.selectedDate = self.selectedDate.addDay(1)
-            self.changeSchedule(withAnimation: kCATransitionFromRight)
-        case UISwipeGestureRecognizerDirection.Right:
-            //advance schedule 1 day backwards
-            self.selectedDate = self.selectedDate.addDay(-1)
-            self.changeSchedule(withAnimation: kCATransitionFromLeft)
-        default:
-            break
+        if (!(DailyScheduleManager.sharedInstance?.fetchInProgress)!) {
+            print("swipe activated!")
+            switch (sender.direction) {
+            case UISwipeGestureRecognizerDirection.Left:
+                //advance schedule 1 day forward
+                self.selectedDate = self.selectedDate.addDay(1)
+                self.changeSchedule(withAnimation: kCATransitionFromRight)
+            case UISwipeGestureRecognizerDirection.Right:
+                //advance schedule 1 day backwards
+                self.selectedDate = self.selectedDate.addDay(-1)
+                self.changeSchedule(withAnimation: kCATransitionFromLeft)
+            default:
+                break
+            }
         }
-        
         
     }
     
@@ -337,7 +343,9 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         self.selectedSchedule = DailyScheduleManager.sharedInstance?.getSchedule(withDate: self.selectedDate)
         if (self.selectedSchedule == DailyScheduleManager.sharedInstance?.currentSchedule && self.selectedSchedule != nil) {
             self.isCurrentSchedule = true
-            self.showPeriodStatusBar()
+            if (DailyScheduleManager.sharedInstance?.getCurrentPeriod() != nil) {
+                self.showPeriodStatusBar()
+            }
         }
         else {
             self.isCurrentSchedule = false
@@ -350,22 +358,22 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         else {
             self.navigationItem.prompt = "Modified Schedule"
         }
-//        if (animation != nil) {
-//            let range: NSRange!
-//            if (self.isCurrentSchedule) {
-//             range = NSMakeRange(0, 1)
-//            }
-//            else {
-//                range = NSMakeRange(0, 0)
-//            }
-//            let sections = NSIndexSet(indexesInRange: range)
-//            self.tableView.beginUpdates()
-//            self.tableView.reloadSections(sections, withRowAnimation: animation!)
-//            self.tableView.endUpdates()
-//        }
-//        else {
-//        self.tableView.reloadData()
-//        }
+        //        if (animation != nil) {
+        //            let range: NSRange!
+        //            if (self.isCurrentSchedule) {
+        //             range = NSMakeRange(0, 1)
+        //            }
+        //            else {
+        //                range = NSMakeRange(0, 0)
+        //            }
+        //            let sections = NSIndexSet(indexesInRange: range)
+        //            self.tableView.beginUpdates()
+        //            self.tableView.reloadSections(sections, withRowAnimation: animation!)
+        //            self.tableView.endUpdates()
+        //        }
+        //        else {
+        //        self.tableView.reloadData()
+        //        }
         
         let transition = CATransition()
         transition.duration = 0.4
@@ -388,11 +396,16 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        if (self.isCurrentSchedule == true) {
-            return 2
+        if (self.selectedSchedule != nil) {
+            if (self.isCurrentSchedule == true) {
+                return 2
+            }
+            else {
+                return 1
+            }
         }
         else {
-            return 1
+            return 0
         }
     }
     
@@ -460,6 +473,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 cell.classTitleLabel.text = indexSchedulePeriod!.realPeriod!.name
                 cell.teacherLabel.text = indexSchedulePeriod!.realPeriod!.teacherName
                 cell.periodNumberLabel.text = "\(indexSchedulePeriod!.realPeriod!.periodNumber)"
+                cell.userInteractionEnabled = true //allow selection bc of real period
             }
             else {
                 //no real period assigned, probs a modified period
@@ -467,7 +481,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 cell.periodNumberLabel.text = String(indexSchedulePeriodName.characters.first!)
                 cell.classTitleLabel.text = indexSchedulePeriod!.name
                 cell.teacherLabel.text = nil
-                
+                cell.userInteractionEnabled = false //disable selection because no real period
             }
             
             if (indexSchedulePeriod!.isLunchPeriod) {
@@ -506,6 +520,33 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         
         return cell
     }
+    
+    //MARK: - Segue Handling
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "ScheduleDetailSegue") {
+            self.inDetailVC = true
+            let scheduleDetailVC = segue.destinationViewController as! ScheduleDetailVC
+            let selectedIndexPath = self.tableView.indexPathForSelectedRow
+            var indexSchedulePeriod: SchedulePeriod?
+            
+            if (self.isCurrentSchedule == true && selectedIndexPath!.section == 0) {
+                //get up next period
+                if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
+                    indexSchedulePeriod = nextPeriod
+                }
+                
+            }
+            else {
+                //rest of schedule
+                indexSchedulePeriod = self.selectedSchedule?.periods[selectedIndexPath!.row]
+            }
+            
+            scheduleDetailVC.realmPeriod = indexSchedulePeriod?.realPeriod
+        }
+    }
+    
+    //MARK: - Period Management
     
     func getRealClassPeriods() {
         if (UserManager.sharedInstance != nil) {

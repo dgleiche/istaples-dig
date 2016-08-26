@@ -898,6 +898,7 @@
                                     <outlet property="periodNumberLabel" destination="vrU-vn-uig" id="m0E-M1-O0w"/>
                                     <outlet property="teacherLabel" destination="orF-q2-Pf4" id="kUp-hy-1Tg"/>
                                     <outlet property="timeLabel" destination="NZC-4O-1vK" id="duU-v0-4vH"/>
+                                    <segue destination="34T-SB-AUZ" kind="show" identifier="ScheduleDetailSegue" id="6vK-9D-4QP"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -919,7 +920,153 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gMS-AI-SVc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2407" y="737"/>
+            <point key="canvasLocation" x="1835" y="93"/>
+        </scene>
+        <!--Schedule DetailVC-->
+        <scene sceneID="Bic-Bc-LD4">
+            <objects>
+                <tableViewController extendedLayoutIncludesOpaqueBars="YES" id="34T-SB-AUZ" customClass="ScheduleDetailVC" customModule="staplesgotclass" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="v0e-R7-lu9">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="mqy-Es-ELy">
+                            <rect key="frame" x="0.0" y="64" width="600" height="69"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Marking Periods: 1, 2, 3, 4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EAr-1g-ywv">
+                                    <rect key="frame" x="9" y="33" width="584" height="21"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Last" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwO-td-fcw">
+                                    <rect key="frame" x="9" y="0.0" width="584" height="34"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                    <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="bwO-td-fcw" firstAttribute="leading" secondItem="EAr-1g-ywv" secondAttribute="leading" id="Duo-AP-qo0"/>
+                                <constraint firstAttribute="trailing" secondItem="bwO-td-fcw" secondAttribute="trailing" constant="7" id="E1z-Vv-bel"/>
+                                <constraint firstAttribute="bottom" secondItem="bwO-td-fcw" secondAttribute="bottom" constant="35" id="Glq-Wk-mou"/>
+                                <constraint firstItem="bwO-td-fcw" firstAttribute="leading" secondItem="mqy-Es-ELy" secondAttribute="leading" constant="9" id="N2U-bf-2cA"/>
+                                <constraint firstItem="EAr-1g-ywv" firstAttribute="top" secondItem="mqy-Es-ELy" secondAttribute="top" constant="33" id="fs5-gL-tep"/>
+                                <constraint firstItem="bwO-td-fcw" firstAttribute="trailing" secondItem="EAr-1g-ywv" secondAttribute="trailing" id="igX-zE-DDf"/>
+                                <constraint firstItem="bwO-td-fcw" firstAttribute="top" secondItem="mqy-Es-ELy" secondAttribute="top" id="kGt-HU-jMb"/>
+                                <constraint firstAttribute="bottom" secondItem="EAr-1g-ywv" secondAttribute="bottom" constant="15" id="xFG-IA-Kxg"/>
+                            </constraints>
+                        </view>
+                        <sections>
+                            <tableViewSection id="tne-u7-v6X">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="eiz-fi-dwX">
+                                        <rect key="frame" x="0.0" y="133" width="600" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eiz-fi-dwX" id="AwF-cj-qEZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="49"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coursesPic.png" translatesAutoresizingMaskIntoConstraints="NO" id="Tj3-8q-DGM">
+                                                    <rect key="frame" x="11" y="7" width="35" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="35" id="2pF-2o-klq"/>
+                                                        <constraint firstAttribute="height" constant="35" id="eyB-e6-H44"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Assignments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DFH-ON-s96">
+                                                    <rect key="frame" x="59" y="2" width="502" height="45"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="45" id="A5W-8V-82a"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZUC-WP-keA">
+                                                    <rect key="frame" x="562" y="7" width="35" height="35"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="i3Q-Re-L3x">
+                                                            <rect key="frame" x="2" y="2" width="30" height="30"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="1" green="0.43441106797142925" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="KGn-g2-1ch"/>
+                                                        <constraint firstAttribute="width" constant="35" id="hih-qz-7lQ"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Tj3-8q-DGM" firstAttribute="top" secondItem="AwF-cj-qEZ" secondAttribute="top" constant="7" id="7Tw-8P-OxY"/>
+                                                <constraint firstItem="DFH-ON-s96" firstAttribute="top" secondItem="AwF-cj-qEZ" secondAttribute="top" constant="2" id="BtJ-V8-6ue"/>
+                                                <constraint firstItem="ZUC-WP-keA" firstAttribute="leading" secondItem="DFH-ON-s96" secondAttribute="trailing" constant="1" id="c97-q4-Fvv"/>
+                                                <constraint firstItem="Tj3-8q-DGM" firstAttribute="leading" secondItem="AwF-cj-qEZ" secondAttribute="leading" constant="11" id="oW8-FY-p2j"/>
+                                                <constraint firstItem="DFH-ON-s96" firstAttribute="leading" secondItem="Tj3-8q-DGM" secondAttribute="trailing" constant="13" id="tyH-Za-hF9"/>
+                                                <constraint firstAttribute="trailing" secondItem="ZUC-WP-keA" secondAttribute="trailing" constant="3" id="ulm-1S-I4E"/>
+                                                <constraint firstItem="ZUC-WP-keA" firstAttribute="top" secondItem="AwF-cj-qEZ" secondAttribute="top" constant="7" id="z4c-5m-elv"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="aoJ-b4-0lj">
+                                        <rect key="frame" x="0.0" y="183" width="600" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aoJ-b4-0lj" id="DB3-E7-OEz">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="49"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="usersIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="bcA-9V-SSQ">
+                                                    <rect key="frame" x="11" y="7" width="35" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="35" id="WII-dB-y0k"/>
+                                                        <constraint firstAttribute="height" constant="35" id="rUy-Mk-w4g"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Classmates" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iYF-NA-Ora">
+                                                    <rect key="frame" x="59" y="2" width="502" height="45"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="45" id="5GI-lz-RpG"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="iYF-NA-Ora" firstAttribute="top" secondItem="DB3-E7-OEz" secondAttribute="top" constant="2" id="7Dh-h9-x2M"/>
+                                                <constraint firstItem="iYF-NA-Ora" firstAttribute="leading" secondItem="bcA-9V-SSQ" secondAttribute="trailing" constant="13" id="M3o-L6-gSf"/>
+                                                <constraint firstItem="bcA-9V-SSQ" firstAttribute="top" secondItem="DB3-E7-OEz" secondAttribute="top" constant="7" id="OtO-6i-bP4"/>
+                                                <constraint firstItem="bcA-9V-SSQ" firstAttribute="leading" secondItem="DB3-E7-OEz" secondAttribute="leading" constant="11" id="RHH-F2-lDS"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="iYF-NA-Ora" secondAttribute="trailing" constant="31" id="tV2-Q5-WwN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="e5O-kn-KTK" kind="show" identifier="scheduleDetailClassmatesSegue" id="u1Y-OQ-oo7"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="34T-SB-AUZ" id="GJj-JA-KPu"/>
+                            <outlet property="delegate" destination="34T-SB-AUZ" id="hAV-SJ-ubF"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="assignmentsBadgeView" destination="ZUC-WP-keA" id="DPa-gN-2r1"/>
+                        <outlet property="assignmentsCountBadgeLabel" destination="i3Q-Re-L3x" id="E8y-8B-XIo"/>
+                        <outlet property="markingPeriodsLabel" destination="EAr-1g-ywv" id="Nx2-K7-tbX"/>
+                        <outlet property="teacherNameLabel" destination="bwO-td-fcw" id="wb0-7t-Unc"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jMs-Xz-hSA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2513" y="93"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2Ce-xa-pBJ">
@@ -936,7 +1083,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nP0-aR-Sjg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1606" y="737"/>
+            <point key="canvasLocation" x="1034" y="93"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="vg2-NI-9XR">
@@ -1808,6 +1955,7 @@
     </scenes>
     <resources>
         <image name="compare.png" width="64" height="64"/>
+        <image name="coursesPic.png" width="100" height="100"/>
         <image name="email.png" width="42" height="42"/>
         <image name="exit.png" width="44" height="44"/>
         <image name="info.png" width="42" height="42"/>
@@ -1818,10 +1966,12 @@
         <image name="schoolFilled.png" width="25" height="25"/>
         <image name="users.png" width="25" height="25"/>
         <image name="usersFilled.png" width="25" height="25"/>
+        <image name="usersIcon.png" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kf9-fy-F3n"/>
-        <segue reference="ub8-Te-EcC"/>
         <segue reference="1TA-fX-g7D"/>
+        <segue reference="u1Y-OQ-oo7"/>
+        <segue reference="Mpo-zk-SGw"/>
+        <segue reference="kf9-fy-F3n"/>
     </inferredMetricsTieBreakers>
 </document>

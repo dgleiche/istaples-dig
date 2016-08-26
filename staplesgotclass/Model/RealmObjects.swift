@@ -90,6 +90,19 @@ class RealmPeriod: Object {
         self.quarters = period.quarters
         self.id = period.id
     }
+    
+    func exchangeForRealPeriod() -> Period? {
+        if (UserManager.sharedInstance != nil) {
+            if (UserManager.sharedInstance?.currentUser.schedule != nil) {
+                for period in (UserManager.sharedInstance?.currentUser.schedule)! {
+                    if (period.id == self.id) {
+                        return period
+                    }
+                }
+            }
+        }
+        return nil
+    }
 }
 
 class Homework: Object {

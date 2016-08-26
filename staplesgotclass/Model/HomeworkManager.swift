@@ -24,8 +24,9 @@ class HomeworkManager: NSObject {
     
     private init(delegate: HomeworkManagerDelegate) {
         self.delegate = delegate
-        
         super.init()
+        HomeworkManager.sharedInstance = self
+        self.loadSavedData()
     }
     
     class func setup(delegate: HomeworkManagerDelegate) {
@@ -58,7 +59,7 @@ class HomeworkManager: NSObject {
         }
     }
     
-    func loadSavedData(completion: (Void -> Void)?) {
+    func loadSavedData() {
         let homeworkObjects = Array(realm.objects(Homework.self))
         
         homework = [Course: [Homework]]()
