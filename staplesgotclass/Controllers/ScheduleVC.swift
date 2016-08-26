@@ -35,6 +35,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     var inDetailVC = false
     var loadedOnline = false
     
+    var attemptedToPresentLoginVC = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -678,7 +680,13 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         } else {
             print("error signing in:( \(error)")
             self.loadedOnline = true
-            // self.logoutUser()//only do this if error is wrong creds, not for offline
+            if error.code == -4 {
+                //only do this if error is wrong creds, not for offline
+                if !attemptedToPresentLoginVC {
+                    attemptedToPresentLoginVC = true
+                    logoutUser()
+                }
+            }
         }
     }
     
@@ -687,7 +695,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         GIDSignIn.sharedInstance().delegate = nil
         GIDSignIn.sharedInstance().signOut()
         let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
-        self.tabBarController?.presentViewController(loginPage, animated: true, completion: nil)
+        UIApplication.topViewController()?.presentViewController(loginPage, animated: true, completion: nil)
     }
     
     
