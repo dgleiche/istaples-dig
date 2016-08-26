@@ -24,11 +24,12 @@ class ScheduleDetailVC: UITableViewController, HomeworkManagerDelegate {
         self.markingPeriodsLabel.text = "Marking Periods: \(self.realmPeriod.quarters!)"
         self.assignmentsBadgeView.layer.cornerRadius = 10
         
-//        HomeworkManager.setup(self)
         self.view.setNeedsLayout()
     }
     
     override func viewDidAppear(animated: Bool) {
+        HomeworkManager.setup(delegate: self)
+        HomeworkManager.sharedInstance?.loadSavedData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,13 +38,8 @@ class ScheduleDetailVC: UITableViewController, HomeworkManagerDelegate {
     }
     
     func homeworkDidLoad() {
-        //homework has loaded
-        
-        
+        self.assignmentsCountBadgeLabel.text = "\(HomeworkManager.sharedInstance?.getHomework(forPeriod: realmPeriod.periodNumber)?.count ?? 0)"
     }
-
-
-
     
     // MARK: - Navigation
 

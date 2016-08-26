@@ -34,14 +34,8 @@ class PeriodHomeworkVC: UITableViewController, HomeworkManagerDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        HomeworkManager.setup(self)
+        HomeworkManager.setup(delegate: self)
         HomeworkManager.sharedInstance?.loadSavedData()
-    }
-    
-    //MARK: IBActions
-    
-    @IBAction func done(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     //MARK: Homework Manager Delegate Functions
@@ -96,15 +90,35 @@ class PeriodHomeworkVC: UITableViewController, HomeworkManagerDelegate {
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (editingStyle == .Insert) {
+        
+        if editingStyle == .Insert {
+            addHomework()
+        } else if editingStyle == .Delete {
+            deleteHomework(homework[indexPath.row])
+        }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if (editing && indexPath.row < homework.count) || !editing {
+            editHomework()
+        } else {
             addHomework()
         }
     }
     
     //MARK: Misc Functions
     
+    func editHomework() {
+        self.performSegueWithIdentifier("editHomeworkSegue", sender: nil)
+    }
+    
     func addHomework() {
         self.performSegueWithIdentifier("addHomeworkSegue", sender: nil)
+    }
+    
+    func deleteHomework(homework: Homework) {
+        HomeworkManager.deleteHomework(homework)
+        HomeworkManager.sharedInstance?.loadSavedData()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -112,6 +126,15 @@ class PeriodHomeworkVC: UITableViewController, HomeworkManagerDelegate {
             let setHomeworkView = (segue.destinationViewController as! UINavigationController).topViewController as! SetHomeworkVC
             
             setHomeworkView.periodNumber = self.periodNumber
+        } else if segue.identifier == "editHomeworkSegue" {
+            if let selectedRow = tableView.indexPathForSelectedRow?.row {
+                if selectedRow < homework.count {
+                    let setHomeworkView = (segue.destinationViewController as! UINavigationController).topViewController as! SetHomeworkVC
+                    
+                    setHomeworkView.periodNumber = self.periodNumber
+                    setHomeworkView.curHomework = homework[selectedRow]
+                }
+            }
         }
     }
     

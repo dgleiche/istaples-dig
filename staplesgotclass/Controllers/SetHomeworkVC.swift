@@ -18,10 +18,20 @@ class SetHomeworkVC: UITableViewController, UITextFieldDelegate {
     //Course has to be set in the segue in
     var periodNumber: Int?
     
+    //Set if it's in edit mode
+    var curHomework: Homework?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         assignmentTextField.delegate = self
+        
+        if let homework = curHomework {
+            assignmentTextField.text = homework.assignment
+            dueDate = homework.dueDate
+            
+            updateDueDateLabel()
+        }
     }
     
     //MARK: IBActions
@@ -30,7 +40,12 @@ class SetHomeworkVC: UITableViewController, UITextFieldDelegate {
         if let date = dueDate {
             if assignmentTextField.text != nil && assignmentTextField.text != "" {
                 if let currentPeriod = self.periodNumber {
-                    HomeworkManager.setHomework(forPeriod: currentPeriod, assignment: assignmentTextField.text!, dueDate: date)
+                    
+                    if self.curHomework != nil {
+                        HomeworkManager.update(homework: curHomework!, assignment: assignmentTextField.text!, dueDate: date)
+                    } else {
+                        HomeworkManager.setHomework(forPeriod: currentPeriod, assignment: assignmentTextField.text!, dueDate: date)
+                    }
                     
                     self.dismissViewControllerAnimated(true, completion: nil)
                     
@@ -69,9 +84,21 @@ class SetHomeworkVC: UITableViewController, UITextFieldDelegate {
     
     func datePickerPressed() {
         DatePickerDialog().show(title: "Due Date", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", datePickerMode: .Date) {
-            (date) -> Void in
-            self.dueDate = date
-            self.dueDateLabel.text = "\(date)"
+            (pickedDate) -> Void in
+            if let date = pickedDate {
+                self.dueDate = date
+                
+                self.updateDueDateLabel()
+            }
+        }
+    }
+    
+    func updateDueDateLabel() {
+        if let date = dueDate {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "E MMM dd, yyyy"
+            
+            dueDateLabel.text = dateFormatter.stringFromDate(date)
         }
     }
     
