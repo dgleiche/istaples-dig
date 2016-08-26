@@ -510,7 +510,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 //no real period assigned, probs a modified period
                 let indexSchedulePeriodName = indexSchedulePeriod!.name ?? "NO NAME"
                 cell.periodNumberLabel.text = String(indexSchedulePeriodName.characters.first!)
-                cell.classTitleLabel.text = indexSchedulePeriod!.name
+                cell.classTitleLabel.text = (indexSchedulePeriod!.isCustom) ? indexSchedulePeriod!.name : nil
                 cell.teacherLabel.text = nil
                 cell.userInteractionEnabled = false //disable selection because no real period
             }
@@ -564,6 +564,9 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             let scheduleDetailVC = segue.destinationViewController as! ScheduleDetailVC
             let selectedIndexPath = self.tableView.indexPathForSelectedRow
             var indexSchedulePeriod: SchedulePeriod?
+            
+            let backButton = UIBarButtonItem(title: " ", style: .Plain, target: nil, action: nil)
+            self.navigationItem.backBarButtonItem = backButton
             
             if (self.isCurrentSchedule == true && selectedIndexPath!.section == 0) {
                 //get up next period
