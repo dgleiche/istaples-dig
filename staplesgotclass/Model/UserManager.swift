@@ -18,6 +18,8 @@ class UserManager: NSObject {
     var teacherNames = [String]()
     var classNames = [String]()
     
+    var refreshNeeded = false
+    
     private init(name: String, email: String, token: String, profilePicURL: String?, completion: ((Bool) -> Void)?) {
         self.currentUser = User(name: name, email: email, profilePicURL: profilePicURL)
 

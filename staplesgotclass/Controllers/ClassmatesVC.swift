@@ -73,10 +73,15 @@ class ClassmatesVC: UITableViewController {
         
         if (self.currentClass!.users[indexPath.row].profilePicURL != nil) {
             cell.classmateImageView.sd_setImageWithURL(NSURL(string:self.currentClass!.users[indexPath.row].profilePicURL!), completed: { (image: UIImage!, error: NSError!, cacheType: SDImageCacheType, url: NSURL!) in
-                //now that image is downloaded, set current user prof pic
-                self.currentClass!.users[indexPath.row].profilePic = image
-                if (image.images?.count > 1) {
-                    cell.classmateImageView.image = image.images?.first
+                if (error == nil && image != nil) {
+                    //now that image is downloaded, set current user prof pic
+                    self.currentClass!.users[indexPath.row].profilePic = image
+                    if (image.images?.count > 1) {
+                        cell.classmateImageView.image = image.images?.first
+                    }
+                }
+                else {
+                    print("sd web image error: \(error)")
                 }
             })
             

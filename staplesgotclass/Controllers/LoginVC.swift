@@ -226,6 +226,10 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
             
         } else {
             print("\(error.localizedDescription)")
+            let alert = UIAlertController(title: "Error signing in", message: "Please try again.", preferredStyle: .Alert)
+            let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            alert.addAction(ok)
+            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
     

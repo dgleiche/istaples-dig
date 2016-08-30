@@ -32,6 +32,8 @@ class DailyScheduleManager: NSObject {
     var realmPeriods = [RealmPeriod]()
     var currentUser: RealmUser?
     
+    var currentQuarter = 1
+    
     let realm = try! Realm()
     
     weak var delegate:DailyScheduleManagerDelegate!
@@ -40,6 +42,7 @@ class DailyScheduleManager: NSObject {
         self.delegate = delegate
         super.init()
         DailyScheduleManager.sharedInstance = self
+        
         self.loadSavedData()
     }
     
@@ -63,7 +66,12 @@ class DailyScheduleManager: NSObject {
         print("static schedules count: \(self.staticSchedules.count)")
         print("lunch schedules count: \(self.lunchSchedules.count)")
         print("courses  count: \(self.courses.count)")
-        print("current user  count: \(self.currentUser)")
+        //        print("current user  count: \(self.currentUser)")
+        
+        print("getting current config")
+        if let currentQ = PFConfig.currentConfig().objectForKey("currentQuarter") as? Int {
+            self.currentQuarter = currentQ
+        }
         
         if (modifiedSchedules.count > 0 && lunchSchedules.count > 0 && currentUser != nil) {
             print("realm objects found")
@@ -77,7 +85,7 @@ class DailyScheduleManager: NSObject {
         self.delegate.signInUser()
     }
     
-    func getDailySchedule() { 
+    func getDailySchedule() {
         let query = PFQuery(className: "Schedule")
         query.includeKey("Periods")
         query.findObjectsInBackgroundWithBlock({ (schedules: [PFObject]?, error: NSError?) in
@@ -85,6 +93,7 @@ class DailyScheduleManager: NSObject {
                 try! self.realm.write {
                     self.realm.delete(self.modifiedSchedules)
                     self.realm.delete(self.staticSchedules)
+                    self.realm.delete(self.realm.objects(SchedulePeriod.self))
                 }
                 self.modifiedSchedules.removeAll()
                 self.staticSchedules.removeAll()
@@ -149,11 +158,14 @@ class DailyScheduleManager: NSObject {
                 lunchQuery.includeKey("LunchType")
                 
                 lunchQuery.findObjectsInBackgroundWithBlock({ (lunchSchedules: [PFObject]?, lunchError: NSError?) in
-                    if (error == nil) {
+                    if (lunchError == nil) {
                         try! self.realm.write {
                             self.realm.delete(self.lunchSchedules)
+                            self.realm.delete(self.realm.objects(LunchType.self))
+                            self.realm.delete(self.realm.objects(Course.self))
                         }
                         self.lunchSchedules.removeAll()
+                        self.courses.removeAll()
                         
                         for lunchSchedule in lunchSchedules! {
                             let newLunchSchedule = LunchSchedule()
@@ -171,7 +183,7 @@ class DailyScheduleManager: NSObject {
                         let courseQuery = PFQuery(className: "Course")
                         courseQuery.includeKey("LunchType")
                         courseQuery.findObjectsInBackgroundWithBlock({ (courses: [PFObject]?, courseError: NSError?) in
-                            if (error == nil) {
+                            if (courseError == nil) {
                                 for course in courses! {
                                     let newCourse = Course()
                                     let newLunchType = LunchType()
@@ -186,21 +198,39 @@ class DailyScheduleManager: NSObject {
                                     self.courses.append(newCourse)
                                 }
                                 
+                                PFConfig.getConfigInBackgroundWithBlock({ (fetchedConfig: PFConfig?, error: NSError?) in
+                                    var config: PFConfig?
+                                    if (error == nil) {
+                                        config = fetchedConfig
+                                    }
+                                    else {
+                                        config = PFConfig.currentConfig()
+                                    }
+                                    
+                                    if (config != nil) {
+                                        if let currentQ = config!["currentQuarter"] as? Int {
+                                            self.currentQuarter = currentQ
+                                        }
+                                    }
+                                    
+                                    try! self.realm.write {
+                                        self.realm.add(self.staticSchedules)
+                                        self.realm.add(self.modifiedSchedules)
+                                        self.realm.add(self.lunchSchedules)
+                                        self.realm.add(self.courses)
+                                        
+                                        print("mod schedules count: \(self.modifiedSchedules.count)")
+                                        print("static schedules count: \(self.staticSchedules.count)")
+                                        print("lunch schedules count: \(self.lunchSchedules.count)")
+                                        print("courses  count: \(self.courses.count)")
+                                        //                                    print("current user  count: \(self.currentUser)")
+                                        
+                                    }
+                                    self.delegate.didFetchSchedules(false)
+                                })
                                 
-                                try! self.realm.write {
-                                    self.realm.add(self.staticSchedules)
-                                    self.realm.add(self.modifiedSchedules)
-                                    self.realm.add(self.lunchSchedules)
-                                    self.realm.add(self.courses)
-                                    
-                                    print("mod schedules count: \(self.modifiedSchedules.count)")
-                                    print("static schedules count: \(self.staticSchedules.count)")
-                                    print("lunch schedules count: \(self.lunchSchedules.count)")
-                                    print("courses  count: \(self.courses.count)")
-                                    print("current user  count: \(self.currentUser)")
-                                    
-                                }
-                                self.delegate.didFetchSchedules(false)
+                                
+                                
                             }
                             else {
                                 self.delegate.showErrorAlert()
@@ -412,7 +442,7 @@ class DailyScheduleManager: NSObject {
                 let passingTime = 5*60
                 
                 if (schedulePeriod.isLunch && schedulePeriod.realPeriod != nil) {
-                    print("real not nil")
+                    //                    print("real not nil")
                     //get current lunch number
                     if let lunchType = self.getLunchType(forPeriod: self.getRealPeriod(fromSchedulePeriod: schedulePeriod)!) {
                         schedulePeriod.lunchType = lunchType
@@ -460,7 +490,7 @@ class DailyScheduleManager: NSObject {
                     }
                     else {
                         //NO LUNCH TYPE, FREE LUNCH
-                        print("no lunch type")
+                        //                        print("no lunch type")
                         if (!schedule.containsLunchPeriods()) {
                             let lunchLength = 30*60
                             let periodLength = (((realPeriodEndTime - realPeriodStartTime) - lunchLength) / 2)
@@ -522,7 +552,7 @@ class DailyScheduleManager: NSObject {
             //Check them against the inputted schedule period
             if (userSchedule != nil) {
                 for userPeriod in userSchedule! {
-                    if userPeriod.periodNumber == schedulePeriod.id {
+                    if ((userPeriod.periodNumber == schedulePeriod.id) && (userPeriod.quarters?.containsString("\(self.currentQuarter)"))!) {
                         return userPeriod
                     }
                 }

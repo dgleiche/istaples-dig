@@ -86,7 +86,7 @@ class ClassesVC: UITableViewController {
             UserManager.sharedInstance?.currentUser.getClassmates({ (success: Bool) in
                 if (success) {
                     
-                    if (DailyScheduleManager.sharedInstance?.fetchInProgress != true) {
+                    if (DailyScheduleManager.sharedInstance?.fetchInProgress != true && UserManager.sharedInstance?.refreshNeeded == true) {
                         //add current user to Realm with all of the data
                         let realm = try! Realm()
                         
@@ -314,7 +314,7 @@ class ClassesVC: UITableViewController {
                 
                 if (response.response?.statusCode == 200) {
                     print("successfully deleted period")
-                    
+                    UserManager.sharedInstance?.refreshNeeded = true
                     self.myClasses?.removeAtIndex(indexPath.row)
                     if (self.myClasses?.count > 0) {
                         self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)

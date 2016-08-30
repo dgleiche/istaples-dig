@@ -119,7 +119,7 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
                     ]
                     
                     let attributedTitle: NSAttributedString = NSAttributedString(string: "Last update: \(dateFormatter.stringFromDate(NSDate()))", attributes: attrsDictionary)
-
+                    
                     self.refresh.attributedTitle = attributedTitle
                 }
                 else {
@@ -234,37 +234,38 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
         cell.initialView.clipsToBounds = true
         cell.initialView.layer.cornerRadius = cell.initialView.frame.width / 2
         
-            if (indexUser.profilePicURL != nil) {
-                cell.classmateImageView.sd_setImageWithURL(NSURL(string:indexUser.profilePicURL!), completed: { (image: UIImage!, error: NSError!, cacheType: SDImageCacheType, url: NSURL!) in
-                    
+        if (indexUser.profilePicURL != nil) {
+            cell.classmateImageView.sd_setImageWithURL(NSURL(string:indexUser.profilePicURL!), completed: { (image: UIImage!, error: NSError!, cacheType: SDImageCacheType, url: NSURL!) in
+                if (image != nil && error == nil) {
                     //now that image is downloaded, set current user prof pic
                     if (image.images?.count > 1) {
-                    cell.classmateImageView.image = image.images?.first
+                        cell.classmateImageView.image = image.images?.first
                     }
-                    
-                })
+                }
                 
-                cell.classmateImageView.hidden = false
-                cell.initialView.hidden = true
+            })
+            
+            cell.classmateImageView.hidden = false
+            cell.initialView.hidden = true
+        }
+        else {
+            let names: [String] = indexUser.name.componentsSeparatedByString(" ")
+            if (names.count >= 3) {
+                cell.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)\(names[2][0].uppercaseString)"
             }
-            else {
-                let names: [String] = indexUser.name.componentsSeparatedByString(" ")
-                if (names.count >= 3) {
-                    cell.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)\(names[2][0].uppercaseString)"
-                }
-                else if (names.count == 2) {
-                    cell.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)"
-                    
-                }
-                else if (names.count == 1) {
-                    cell.initialLabel.text = "\(names[0][0].uppercaseString))"
-                }
-                else{
-                    cell.initialLabel.text = nil
-                }
-                cell.classmateImageView.hidden = true
-                cell.initialView.hidden = false
+            else if (names.count == 2) {
+                cell.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)"
+                
             }
+            else if (names.count == 1) {
+                cell.initialLabel.text = "\(names[0][0].uppercaseString))"
+            }
+            else{
+                cell.initialLabel.text = nil
+            }
+            cell.classmateImageView.hidden = true
+            cell.initialView.hidden = false
+        }
         
         return cell
     }

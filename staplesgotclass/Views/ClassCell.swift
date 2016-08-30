@@ -15,9 +15,11 @@ class ClassCell: UITableViewCell {
     @IBOutlet var teacherLabel: UILabel!
     @IBOutlet var timeLabel: UILabel?
     @IBOutlet var lunchNumberLabel: UILabel?
+    @IBOutlet var labView: UIView?
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.labView?.layer.cornerRadius = 6
         // Initialization code
     }
 
