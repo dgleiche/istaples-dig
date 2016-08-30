@@ -769,7 +769,7 @@
         <scene sceneID="gJA-36-GXb">
             <objects>
                 <tableViewController id="yPi-Le-xdF" customClass="ScheduleVC" customModule="staplesgotclass" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="18" id="bKR-Oq-agc">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="18" id="bKR-Oq-agc">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -955,7 +955,7 @@
                                 <rect key="frame" x="0.0" y="302" width="600" height="63"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GQm-hr-vAR" id="kjS-4z-UrJ">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="62"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="63"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vrU-vn-uig">
@@ -1000,7 +1000,7 @@
                                                 </mask>
                                             </variation>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="xQM-KQ-ZJ8">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="xQM-KQ-ZJ8">
                                             <rect key="frame" x="23" y="26" width="24" height="33"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="33" id="Cq9-df-0aX"/>
@@ -1232,11 +1232,11 @@
             </objects>
             <point key="canvasLocation" x="2513" y="93"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Schedule-->
         <scene sceneID="2Ce-xa-pBJ">
             <objects>
                 <navigationController id="NJv-Nk-3SU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="recents" id="5CM-io-coI"/>
+                    <tabBarItem key="tabBarItem" title="Schedule" image="clock.png" selectedImage="clockFilled.png" id="5CM-io-coI"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hYt-mc-Z5h">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1935,7 +1935,7 @@
         <scene sceneID="8GD-0Z-Ui9">
             <objects>
                 <tableViewController id="cPI-Rx-XH2" customClass="AllUsersVC" customModule="staplesgotclass" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="76" sectionHeaderHeight="28" sectionFooterHeight="28" id="Kcn-7f-0vx">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="76" sectionHeaderHeight="28" sectionFooterHeight="28" id="Kcn-7f-0vx">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1969,7 +1969,7 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JmH-cL-yTs" id="QXt-Qh-JL9">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="59"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="60"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="43c-DV-daa">
@@ -2136,6 +2136,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="clock.png" width="25" height="25"/>
+        <image name="clockFilled.png" width="25" height="25"/>
         <image name="compare.png" width="64" height="64"/>
         <image name="coursesPic.png" width="100" height="100"/>
         <image name="dateSearch.png" width="25" height="25"/>
@@ -2152,10 +2154,10 @@
         <image name="usersIcon.png" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Fa7-BJ-f92"/>
-        <segue reference="1TA-fX-g7D"/>
+        <segue reference="ub8-Te-EcC"/>
         <segue reference="xTU-HF-hhu"/>
-        <segue reference="Mpo-zk-SGw"/>
+        <segue reference="1TA-fX-g7D"/>
         <segue reference="kf9-fy-F3n"/>
+        <segue reference="Fa7-BJ-f92"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -31,6 +31,10 @@
 		77320A971D5D797E00603A38 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77320A941D5D797E00603A38 /* RealmSwift.framework */; };
 		77320A981D5D797E00603A38 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 77320A941D5D797E00603A38 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		77320A9C1D5D7AAF00603A38 /* RealmObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77320A9B1D5D7AAF00603A38 /* RealmObjects.swift */; };
+		77390BE61D7564E40095FD9E /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 77390BE21D7564E40095FD9E /* clock.png */; };
+		77390BE71D7564E40095FD9E /* clock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77390BE31D7564E40095FD9E /* clock@2x.png */; };
+		77390BE81D7564E40095FD9E /* clockFilled.png in Resources */ = {isa = PBXBuildFile; fileRef = 77390BE41D7564E40095FD9E /* clockFilled.png */; };
+		77390BE91D7564E40095FD9E /* clockFilled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77390BE51D7564E40095FD9E /* clockFilled@2x.png */; };
 		773A35F61D6834B8005BF01A /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773A35F51D6834B8005BF01A /* IntExtension.swift */; };
 		773F5DF81CF6145600143C2D /* shs.png in Resources */ = {isa = PBXBuildFile; fileRef = 773F5DF71CF6145600143C2D /* shs.png */; };
 		7746F38A1CF16312003E9D6A /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7746F3891CF16312003E9D6A /* ProfileVC.swift */; };
@@ -119,6 +123,10 @@
 		77320A931D5D797E00603A38 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		77320A941D5D797E00603A38 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		77320A9B1D5D7AAF00603A38 /* RealmObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmObjects.swift; sourceTree = "<group>"; };
+		77390BE21D7564E40095FD9E /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
+		77390BE31D7564E40095FD9E /* clock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock@2x.png"; sourceTree = "<group>"; };
+		77390BE41D7564E40095FD9E /* clockFilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clockFilled.png; sourceTree = "<group>"; };
+		77390BE51D7564E40095FD9E /* clockFilled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clockFilled@2x.png"; sourceTree = "<group>"; };
 		773A35F51D6834B8005BF01A /* IntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
 		773F5DF71CF6145600143C2D /* shs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shs.png; sourceTree = "<group>"; };
 		7746F3891CF16312003E9D6A /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
@@ -229,6 +237,10 @@
 				7721B8151CF9673A008C1A76 /* school@2x.png */,
 				7721B8161CF9673A008C1A76 /* schoolFilled.png */,
 				7721B8171CF9673A008C1A76 /* schoolFilled@2x.png */,
+				77390BE21D7564E40095FD9E /* clock.png */,
+				77390BE31D7564E40095FD9E /* clock@2x.png */,
+				77390BE41D7564E40095FD9E /* clockFilled.png */,
+				77390BE51D7564E40095FD9E /* clockFilled@2x.png */,
 				7721B8121CF9574B008C1A76 /* coursesPic.png */,
 				77DB56211CF2AD2D0014B002 /* defaultGooglePic.png */,
 				7746F38F1CF19314003E9D6A /* shs.jpg */,
@@ -437,13 +449,17 @@
 				7721B8131CF9574B008C1A76 /* coursesPic.png in Resources */,
 				77D54F861CECBEE600C11FA5 /* GoogleService-Info.plist in Resources */,
 				77D54F7B1CECBEC600C11FA5 /* Assets.xcassets in Resources */,
+				77390BE71D7564E40095FD9E /* clock@2x.png in Resources */,
 				775A18EC1D700FB800D1AA9C /* hwIcon.png in Resources */,
 				7746F3901CF19314003E9D6A /* shs.jpg in Resources */,
 				FC2078F01CFC110D00D86F54 /* info.png in Resources */,
+				77390BE61D7564E40095FD9E /* clock.png in Resources */,
 				7721B8181CF9673A008C1A76 /* school.png in Resources */,
 				771C2C921CFD3165002C7A41 /* compare.png in Resources */,
 				775A18EE1D70105000D1AA9C /* usersIcon.png in Resources */,
+				77390BE91D7564E40095FD9E /* clockFilled@2x.png in Resources */,
 				77D54F791CECBEC600C11FA5 /* Main.storyboard in Resources */,
+				77390BE81D7564E40095FD9E /* clockFilled.png in Resources */,
 				FC2078E81CFB7E6400D86F54 /* sync.png in Resources */,
 				FC2078F21CFC139900D86F54 /* email.png in Resources */,
 				771C2C8E1CFD2DFE002C7A41 /* exit.png in Resources */,
