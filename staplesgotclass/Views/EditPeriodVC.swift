@@ -182,6 +182,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
                 UserManager.sharedInstance?.currentUser.network.performRequest(withMethod: "POST", endpoint: "edit", parameters: parameters, headers: nil, completion: { (response: Response<AnyObject, NSError>) in
                     sender.enabled = true
                     if (response.response?.statusCode == 200) {
+                        UserManager.sharedInstance?.refreshNeeded = true
                         self.dismissViewControllerAnimated(true, completion: nil)
                     }
                     else {
