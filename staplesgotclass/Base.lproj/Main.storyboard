@@ -723,7 +723,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="homeworkCell" id="8zc-UP-aqx">
-                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8zc-UP-aqx" id="p99-bW-wmK">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -734,7 +734,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="newRowCell" textLabel="fjh-dJ-4BT" style="IBUITableViewCellStyleDefault" id="AYT-A9-tIo">
-                                <rect key="frame" x="0.0" y="136" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="72" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AYT-A9-tIo" id="nH0-Qc-udT">
                                     <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
@@ -1053,7 +1053,7 @@
                                     <outlet property="periodNumberLabel" destination="vrU-vn-uig" id="m0E-M1-O0w"/>
                                     <outlet property="teacherLabel" destination="orF-q2-Pf4" id="kUp-hy-1Tg"/>
                                     <outlet property="timeLabel" destination="NZC-4O-1vK" id="duU-v0-4vH"/>
-                                    <segue destination="34T-SB-AUZ" kind="show" identifier="ScheduleDetailSegue" id="6vK-9D-4QP"/>
+                                    <segue destination="e5O-kn-KTK" kind="show" identifier="scheduleClassmatesSegue" id="xTU-HF-hhu"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1092,7 +1092,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="mqy-Es-ELy">
-                            <rect key="frame" x="0.0" y="64" width="600" height="69"/>
+                            <rect key="frame" x="0.0" y="20" width="600" height="69"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Marking Periods: 1, 2, 3, 4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EAr-1g-ywv">
@@ -1124,7 +1124,7 @@
                             <tableViewSection id="tne-u7-v6X">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="eiz-fi-dwX">
-                                        <rect key="frame" x="0.0" y="133" width="600" height="50"/>
+                                        <rect key="frame" x="0.0" y="89" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eiz-fi-dwX" id="AwF-cj-qEZ">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="49"/>
@@ -1178,7 +1178,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="aoJ-b4-0lj">
-                                        <rect key="frame" x="0.0" y="183" width="600" height="50"/>
+                                        <rect key="frame" x="0.0" y="139" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aoJ-b4-0lj" id="DB3-E7-OEz">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="49"/>
@@ -2152,9 +2152,9 @@
         <image name="usersIcon.png" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1TA-fX-g7D"/>
-        <segue reference="u1Y-OQ-oo7"/>
         <segue reference="Fa7-BJ-f92"/>
+        <segue reference="1TA-fX-g7D"/>
+        <segue reference="xTU-HF-hhu"/>
         <segue reference="Mpo-zk-SGw"/>
         <segue reference="kf9-fy-F3n"/>
     </inferredMetricsTieBreakers>

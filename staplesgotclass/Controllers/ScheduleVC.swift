@@ -69,7 +69,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         
         let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(setDateToday))
         doubleTapRecognizer.numberOfTapsRequired = 2
-        
+        doubleTapRecognizer.delaysTouchesEnded = false
         self.navigationController?.navigationBar.addGestureRecognizer(doubleTapRecognizer)
         
         
@@ -120,7 +120,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             print("modScheduleCount: \(DailyScheduleManager.sharedInstance?.modifiedSchedules.count)")
             
             DailyScheduleManager.sharedInstance?.currentSchedule = DailyScheduleManager.sharedInstance!.getSchedule(withDate: NSDate())
-//            print("current schedule: \(DailyScheduleManager.sharedInstance?.currentSchedule)")
+            //            print("current schedule: \(DailyScheduleManager.sharedInstance?.currentSchedule)")
             
             //Setup the current period
             DailyScheduleManager.sharedInstance?.currentPeriod = DailyScheduleManager.sharedInstance!.getCurrentPeriod()
@@ -450,14 +450,24 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if (self.isCurrentSchedule == true) {
             if (section == 0) {
-                return "Up Next"
+                if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
+                    if (nextPeriod.isAfterSchool != true && nextPeriod.isBeforeSchool != true) {
+                        return "Up Next"
+                    }
+                    else {
+                        return nil
+                    }
+                }
+                else {
+                    return nil
+                }
             }
             else {
                 return "Schedule"
             }
         }
         else {
-            return "Schedule"
+            return nil
         }
     }
     
@@ -570,9 +580,10 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     //MARK: - Segue Handling
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "ScheduleDetailSegue") {
+        
+        if (segue.identifier == "scheduleClassmatesSegue") {
             self.inDetailVC = true
-            let scheduleDetailVC = segue.destinationViewController as! ScheduleDetailVC
+            let classmatesVC = segue.destinationViewController as! ClassmatesVC
             let selectedIndexPath = self.tableView.indexPathForSelectedRow
             var indexSchedulePeriod: SchedulePeriod?
             
@@ -591,9 +602,11 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 indexSchedulePeriod = self.selectedSchedule?.periods[selectedIndexPath!.row]
             }
             
-            scheduleDetailVC.realmPeriod = indexSchedulePeriod?.realPeriod
+            let realmPeriod = indexSchedulePeriod?.realPeriod
+            classmatesVC.currentClass = realmPeriod?.exchangeForRealPeriod()
+            
             self.navigationItem.prompt = nil
-
+            
         }
     }
     
@@ -635,7 +648,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                         //if there are no classes, go to classes tab to add one
                         self.navigationController?.tabBarController?.selectedIndex = 1
                     }
-
+                    
                     print("success in view did appear")
                     
                 }
