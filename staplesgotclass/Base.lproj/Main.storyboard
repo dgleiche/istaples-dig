@@ -1000,8 +1000,8 @@
                                                 </mask>
                                             </variation>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="xQM-KQ-ZJ8">
-                                            <rect key="frame" x="23" y="26" width="24" height="33"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="xQM-KQ-ZJ8">
+                                            <rect key="frame" x="23" y="27" width="24" height="33"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="33" id="Cq9-df-0aX"/>
                                                 <constraint firstAttribute="width" constant="24" id="sMZ-CK-gcn"/>
@@ -1041,10 +1041,16 @@
                                         <constraint firstItem="vrU-vn-uig" firstAttribute="centerY" secondItem="kjS-4z-UrJ" secondAttribute="centerY" id="bNE-NY-EFm"/>
                                         <constraint firstItem="vrU-vn-uig" firstAttribute="leading" secondItem="kjS-4z-UrJ" secondAttribute="leadingMargin" constant="-3" id="dUd-Te-RPB"/>
                                         <constraint firstItem="W9b-wH-2sQ" firstAttribute="centerY" secondItem="NZC-4O-1vK" secondAttribute="centerY" constant="-6.5" id="dqC-Dg-d9h"/>
+                                        <constraint firstItem="xQM-KQ-ZJ8" firstAttribute="top" secondItem="vrU-vn-uig" secondAttribute="bottom" constant="-29" id="hDi-dB-Mik"/>
                                         <constraint firstItem="W9b-wH-2sQ" firstAttribute="leading" secondItem="vrU-vn-uig" secondAttribute="trailing" constant="19" id="iBM-PM-Bzi"/>
                                         <constraint firstItem="NZC-4O-1vK" firstAttribute="leading" secondItem="W9b-wH-2sQ" secondAttribute="trailing" constant="14" id="joK-RD-Fh0"/>
                                         <constraint firstItem="Ngw-yT-kMD" firstAttribute="top" secondItem="kjS-4z-UrJ" secondAttribute="top" constant="3" id="oj5-KG-zNT"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="LaI-dg-pDr"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="classTitleLabel" destination="W9b-wH-2sQ" id="c8z-qN-ZNL"/>
