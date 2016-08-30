@@ -1213,6 +1213,35 @@
             </objects>
             <point key="canvasLocation" x="2513" y="93"/>
         </scene>
+        <!--HomeworkVC-->
+        <scene sceneID="bhb-EL-M5w">
+            <objects>
+                <tableViewController id="aZ8-pb-zDh" customClass="HomeworkVC" customModule="staplesgotclass" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="rZ0-kw-Tmd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="homeworkCell" id="UkN-dq-8V6">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UkN-dq-8V6" id="ZLr-73-M35">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="aZ8-pb-zDh" id="3QV-Io-uCB"/>
+                            <outlet property="delegate" destination="aZ8-pb-zDh" id="BwB-Zb-hXm"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Oal-GA-Nys"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ncR-Ao-CqG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1846" y="-644"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="2Ce-xa-pBJ">
             <objects>
@@ -2115,6 +2144,25 @@
             </objects>
             <point key="canvasLocation" x="3879" y="93"/>
         </scene>
+        <!--Homework-->
+        <scene sceneID="YG2-9g-Cqq">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Wr4-QY-hHO" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Homework" id="kli-ob-aYe"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="avd-C2-3je">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="aZ8-pb-zDh" kind="relationship" relationship="rootViewController" id="xIh-Ph-bW5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GUJ-v2-959" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1034" y="-644"/>
+        </scene>
     </scenes>
     <resources>
         <image name="compare.png" width="64" height="64"/>
@@ -2133,10 +2181,10 @@
         <image name="usersIcon.png" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="kf9-fy-F3n"/>
         <segue reference="1TA-fX-g7D"/>
+        <segue reference="ub8-Te-EcC"/>
         <segue reference="u1Y-OQ-oo7"/>
         <segue reference="Fa7-BJ-f92"/>
-        <segue reference="Mpo-zk-SGw"/>
-        <segue reference="kf9-fy-F3n"/>
     </inferredMetricsTieBreakers>
 </document>

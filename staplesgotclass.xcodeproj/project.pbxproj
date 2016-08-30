@@ -78,6 +78,7 @@
 		FC9A2D3D1D6EB23E00436546 /* SetHomeworkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9A2D3C1D6EB23E00436546 /* SetHomeworkVC.swift */; };
 		FC9A2D3F1D70015C00436546 /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9A2D3E1D70015C00436546 /* DatePickerDialog.swift */; };
 		FC9A2D411D7009FF00436546 /* PeriodHomeworkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9A2D401D7009FF00436546 /* PeriodHomeworkVC.swift */; };
+		FC9A2D431D74F62800436546 /* HomeworkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9A2D421D74F62800436546 /* HomeworkVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -175,6 +176,7 @@
 		FC9A2D3C1D6EB23E00436546 /* SetHomeworkVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetHomeworkVC.swift; sourceTree = "<group>"; };
 		FC9A2D3E1D70015C00436546 /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
 		FC9A2D401D7009FF00436546 /* PeriodHomeworkVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodHomeworkVC.swift; sourceTree = "<group>"; };
+		FC9A2D421D74F62800436546 /* HomeworkVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeworkVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,6 +277,7 @@
 				7700379A1D700168001641F8 /* ScheduleDetailVC.swift */,
 				FC9A2D401D7009FF00436546 /* PeriodHomeworkVC.swift */,
 				FC9A2D3C1D6EB23E00436546 /* SetHomeworkVC.swift */,
+				FC9A2D421D74F62800436546 /* HomeworkVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -587,6 +590,7 @@
 				77D54F761CECBEC600C11FA5 /* LoginVC.swift in Sources */,
 				775DC44B1CED558A00046768 /* Period.swift in Sources */,
 				771D46DC1CF13C9900458369 /* ClassmatesVC.swift in Sources */,
+				FC9A2D431D74F62800436546 /* HomeworkVC.swift in Sources */,
 				775DC44D1CED55CD00046768 /* User.swift in Sources */,
 				7700379B1D700168001641F8 /* ScheduleDetailVC.swift in Sources */,
 				FC53CF991CF5215A0034266F /* MLPAutoCompleteTextField.m in Sources */,
