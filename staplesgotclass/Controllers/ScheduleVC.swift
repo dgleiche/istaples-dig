@@ -444,7 +444,22 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 63
+        let defaultCellHeight = 63
+        let minimumCellHeight = 50.0
+        
+        //Only modify the height for non-current days
+        if !isCurrentSchedule {
+            let totalHeight = Int(tableView.bounds.height) - Int(navigationController!.navigationBar.frame.height) - 60
+            
+            if let curSchedule = self.selectedSchedule {
+                let newHeight = (Double(1) / Double(curSchedule.periods.count)) * Double(totalHeight)
+                
+                //Make sure not to go under the minimum
+                return (newHeight < minimumCellHeight) ? CGFloat(minimumCellHeight) : CGFloat(newHeight)
+            }
+        }
+        
+        return CGFloat(defaultCellHeight)
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -467,7 +482,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             }
         }
         else {
-            return nil
+            return "Schedule"
         }
     }
     
