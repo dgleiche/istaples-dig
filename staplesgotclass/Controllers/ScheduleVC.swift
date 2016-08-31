@@ -132,9 +132,6 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         else if (GIDSignIn.sharedInstance().currentUser == nil && self.attemptedToSignIn == true) {
             GIDSignIn.sharedInstance().signInSilently()
         }
-        
-        setupClockTimer()
-        setupPeriodTimer()
     }
     
     func callSetup() {
