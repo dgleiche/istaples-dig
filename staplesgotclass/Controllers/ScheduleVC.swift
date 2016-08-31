@@ -112,6 +112,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         self.hidePeriodStatusBar(withDuration: 0)
         DailyScheduleManager.setup(self)
         
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -131,6 +132,9 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         else if (GIDSignIn.sharedInstance().currentUser == nil && self.attemptedToSignIn == true) {
             GIDSignIn.sharedInstance().signInSilently()
         }
+        
+        setupClockTimer()
+        setupPeriodTimer()
     }
     
     func callSetup() {
@@ -475,6 +479,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
+        self.tableView.backgroundView = nil
         if (self.selectedSchedule != nil) {
             if (self.isCurrentSchedule == true) {
                 if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
@@ -486,6 +491,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             return 1
         }
         else {
+            TableViewHelper.EmptyMessage("Enjoy the weekend!", viewController: self)
             return 0
         }
     }

@@ -53,6 +53,7 @@
 		77703B3E1D5C47530093CF95 /* ScheduleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77703B3D1D5C47530093CF95 /* ScheduleVC.swift */; };
 		778946681CFABFDA00C41F19 /* appIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 778946671CFABFDA00C41F19 /* appIcon.png */; };
 		7789466A1CFAC09500C41F19 /* globe.png in Resources */ = {isa = PBXBuildFile; fileRef = 778946691CFAC09500C41F19 /* globe.png */; };
+		77B11E2B1D77029300177D5D /* TableViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B11E2A1D77029300177D5D /* TableViewHelper.swift */; };
 		77D54F741CECBEC600C11FA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D54F731CECBEC600C11FA5 /* AppDelegate.swift */; };
 		77D54F761CECBEC600C11FA5 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D54F751CECBEC600C11FA5 /* LoginVC.swift */; };
 		77D54F791CECBEC600C11FA5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77D54F771CECBEC600C11FA5 /* Main.storyboard */; };
@@ -147,6 +148,7 @@
 		778946671CFABFDA00C41F19 /* appIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appIcon.png; sourceTree = "<group>"; };
 		778946691CFAC09500C41F19 /* globe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = globe.png; sourceTree = "<group>"; };
 		77AB0F4D1CECC0E900A25110 /* staplesgotclass-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "staplesgotclass-Bridging-Header.h"; sourceTree = "<group>"; };
+		77B11E2A1D77029300177D5D /* TableViewHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewHelper.swift; sourceTree = "<group>"; };
 		77D54F701CECBEC600C11FA5 /* staplesgotclass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = staplesgotclass.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D54F731CECBEC600C11FA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		77D54F751CECBEC600C11FA5 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 				773A35F51D6834B8005BF01A /* IntExtension.swift */,
 				77D983C91D6EA2B6002CE65F /* NSDateExtension.swift */,
 				FC9A2D3E1D70015C00436546 /* DatePickerDialog.swift */,
+				77B11E2A1D77029300177D5D /* TableViewHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -620,6 +623,7 @@
 				FC3A411F1D5C31AB000738F2 /* DailyScheduleManager.swift in Sources */,
 				77D8F2ED1CF0FFB6007A1002 /* ClassesVC.swift in Sources */,
 				77D983CA1D6EA2B6002CE65F /* NSDateExtension.swift in Sources */,
+				77B11E2B1D77029300177D5D /* TableViewHelper.swift in Sources */,
 				772DCA531CEF428500F52AA6 /* PageContentVC.swift in Sources */,
 				FC9A2D3F1D70015C00436546 /* DatePickerDialog.swift in Sources */,
 				FC2078F61CFC268800D86F54 /* AboutVC.swift in Sources */,
