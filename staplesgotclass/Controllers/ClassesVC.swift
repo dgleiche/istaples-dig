@@ -32,39 +32,19 @@ class ClassesVC: UITableViewController {
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         self.navigationItem.title = "CLASSES"
         
-        //Info bar button
-        let infoButton = UIButton(type: .InfoLight)
-        infoButton.addTarget(self, action: #selector(ClassesVC.infoPressed), forControlEvents: .TouchUpInside)
-        let infoBarButtonItem = UIBarButtonItem(customView: infoButton)
-        navigationItem.leftBarButtonItem = infoBarButtonItem
+//        //Info bar button
+//        let infoButton = UIButton(type: .InfoLight)
+//        infoButton.addTarget(self, action: #selector(ClassesVC.infoPressed), forControlEvents: .TouchUpInside)
+//        let infoBarButtonItem = UIBarButtonItem(customView: infoButton)
+//        navigationItem.leftBarButtonItem = infoBarButtonItem
         
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
-        for item in (self.tabBarController?.tabBar.items)! as [UITabBarItem] {
-            if let image = item.image {
-                item.image = image.imageWithColor(sweetBlue).imageWithRenderingMode(.AlwaysOriginal)
-                item.selectedImage = item.selectedImage!.imageWithColor(sweetBlue).imageWithRenderingMode(.AlwaysOriginal)
-                
-            }
-        }
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: sweetBlue], forState:.Normal)
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: sweetBlue], forState:.Selected)
         
         let tracker = GAI.sharedInstance().defaultTracker
         tracker.set(kGAIScreenName, value: "Classes")
         
         let builder = GAIDictionaryBuilder.createScreenView()
         tracker.send(builder.build() as [NSObject: AnyObject])
-        
-        //Create the listener for log outs
-        NSNotificationCenter.defaultCenter().addObserverForName("logout", object: nil, queue: nil) { note in
-            GIDSignIn.sharedInstance().signOut()
-            self.navigationController?.tabBarController!.selectedIndex = 0
-            DailyScheduleManager.destroy()
-            let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
-            loginPage.modalTransitionStyle = .FlipHorizontal
-            self.tabBarController?.presentViewController(loginPage, animated: true, completion: nil)
-        }
         
         if (UserManager.sharedInstance?.currentUser.schedule != nil) {
             self.myClasses = UserManager.sharedInstance?.currentUser.schedule

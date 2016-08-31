@@ -771,7 +771,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8cd7258c-7159-4194-b015-d87bb1f1430c";
+				PROVISIONING_PROFILE = "378a7f08-e000-49d1-9caf-9ac761d719c0";
 				SWIFT_OBJC_BRIDGING_HEADER = "staplesgotclass/staplesgotclass-Bridging-Header.h";
 			};
 			name = Release;

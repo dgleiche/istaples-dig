@@ -287,7 +287,7 @@ class DailyScheduleManager: NSObject {
                     beforeSchoolPeriod.isBeforeSchool = true
                     beforeSchoolPeriod.startSeconds = period.startSeconds - (10 * 60) //10 mins before
                     beforeSchoolPeriod.endSeconds = period.startSeconds
-                    beforeSchoolPeriod.name = "Time until school starts"
+                    beforeSchoolPeriod.name = "Passing Time"
                     
                     return beforeSchoolPeriod
                     
@@ -301,7 +301,7 @@ class DailyScheduleManager: NSObject {
                 afterSchoolPeriod.isAfterSchool = true
                 afterSchoolPeriod.startSeconds = passingTimeStart
                 afterSchoolPeriod.endSeconds = passingTimeStart + 10 * 60 //10 mins after
-                afterSchoolPeriod.name = "Get to the buses!"
+                afterSchoolPeriod.name = "Buses Leaving"
                 
                 return afterSchoolPeriod
             }

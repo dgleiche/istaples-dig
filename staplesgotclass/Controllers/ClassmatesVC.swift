@@ -49,7 +49,10 @@ class ClassmatesVC: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "\(self.currentClass!.users.count) Classmates"
+        if (self.currentClass != nil) {
+            return "\(self.currentClass!.users.count) Classmates"
+        }
+        return nil
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
