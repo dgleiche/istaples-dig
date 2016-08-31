@@ -97,6 +97,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         //Create the listener for log outs
         NSNotificationCenter.defaultCenter().addObserverForName("logout", object: nil, queue: nil) { note in
             GIDSignIn.sharedInstance().signOut()
+            GIDSignIn.sharedInstance().delegate = nil
             self.navigationController?.tabBarController!.selectedIndex = 0
             DailyScheduleManager.destroy()
             UserManager.destroy()
@@ -106,7 +107,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ScheduleVC.callSetup), name: "loggedIn", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ScheduleVC.applicationDidBecomeActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ScheduleVC.applicationDidBecomeActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
         GIDSignIn.sharedInstance().delegate = self
         print("view did load setup")
         self.hidePeriodStatusBar(withDuration: 0)
@@ -133,8 +134,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             GIDSignIn.sharedInstance().signInSilently()
         }
         
-        setupClockTimer()
-        setupPeriodTimer()
+//        setupClockTimer()
+//        setupPeriodTimer()
     }
     
     func callSetup() {
@@ -143,7 +144,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     }
     
     func applicationDidBecomeActive() {
-        if (DailyScheduleManager.sharedInstance != nil) {
+        if (DailyScheduleManager.sharedInstance != nil && GIDSignIn.sharedInstance().currentUser != nil && self.inDetailVC == false && DailyScheduleManager.sharedInstance?.fetchInProgress == false) {
             print("CALLING ACTIVE")
             DailyScheduleManager.setup(self)
         }

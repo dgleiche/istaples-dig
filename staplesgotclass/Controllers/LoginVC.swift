@@ -26,7 +26,8 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 16)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
         UIApplication.sharedApplication().statusBarStyle = .LightContent
-
+        
+        GIDSignIn.sharedInstance().delegate = nil
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = self
 //        GIDSignIn.sharedInstance().signInSilently()
