@@ -131,6 +131,9 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             GIDSignIn.sharedInstance().signInSilently()
         }
         
+        setupClockTimer()
+        setupPeriodTimer()
+        
     }
     
     func callSetup() {
@@ -293,6 +296,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     }
     
     func hidePeriodStatusBar(withDuration duration: NSTimeInterval = 0.4) {
+        self.tableView.reloadData()
         var smallFrame = self.tableView.tableHeaderView?.frame
         smallFrame?.size.height = 0
         self.tableHeaderView.layer.masksToBounds = true
