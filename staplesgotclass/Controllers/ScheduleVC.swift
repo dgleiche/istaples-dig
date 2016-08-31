@@ -311,12 +311,14 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     }
     
     func showPeriodStatusBar() {
-        var smallFrame = self.tableView.tableHeaderView?.frame
-        smallFrame?.size.height = self.tableHeaderViewHeight
-        self.tableHeaderView.layer.masksToBounds = true
-        UIView.animateWithDuration(0.3) {
-            self.tableHeaderView.frame = smallFrame!
-            self.tableView.tableHeaderView = self.tableHeaderView
+        if isCurrentSchedule {
+            var smallFrame = self.tableView.tableHeaderView?.frame
+            smallFrame?.size.height = self.tableHeaderViewHeight
+            self.tableHeaderView.layer.masksToBounds = true
+            UIView.animateWithDuration(0.3) {
+                self.tableHeaderView.frame = smallFrame!
+                self.tableView.tableHeaderView = self.tableHeaderView
+            }
         }
     }
     
