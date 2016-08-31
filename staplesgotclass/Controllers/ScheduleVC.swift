@@ -107,7 +107,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ScheduleVC.callSetup), name: "loggedIn", object: nil)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ScheduleVC.applicationDidBecomeActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ScheduleVC.applicationDidBecomeActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
         GIDSignIn.sharedInstance().delegate = self
         print("view did load setup")
         self.hidePeriodStatusBar(withDuration: 0)
