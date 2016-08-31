@@ -36,7 +36,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
         self.pageVC.dataSource = self
         self.pageVC.delegate = self
         
-        self.pageTitles = ["Staples Got Class", "Discover", "Compare", "Explore"]
+        self.pageTitles = ["iStaples", "Discover", "Compare", "Explore"]
         self.pageDescriptions = ["", "Discover new people and find your future classmates.", "After setting up your account, visit the Classmates page to compare your classes with the classes of your friends.", "To start, add your class schedule information to your profile after signing in with your school Google account."]
         self.imageNames = ["appIcon.png", "globe.png", "sync.png", "profile.png"]
         self.pageVCIndicator.numberOfPages = self.pageTitles.count

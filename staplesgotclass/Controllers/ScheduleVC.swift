@@ -106,6 +106,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ScheduleVC.callSetup), name: "loggedIn", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ScheduleVC.applicationDidBecomeActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
         GIDSignIn.sharedInstance().delegate = self
         print("view did load setup")
         self.hidePeriodStatusBar(withDuration: 0)
@@ -130,15 +131,18 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         else if (GIDSignIn.sharedInstance().currentUser == nil && self.attemptedToSignIn == true) {
             GIDSignIn.sharedInstance().signInSilently()
         }
-        
-        setupClockTimer()
-        setupPeriodTimer()
-        
     }
     
     func callSetup() {
         print("calling setup")
         DailyScheduleManager.setup(self)
+    }
+    
+    func applicationDidBecomeActive() {
+        if (DailyScheduleManager.sharedInstance != nil) {
+            print("CALLING ACTIVE")
+            DailyScheduleManager.setup(self)
+        }
     }
     
     override func didReceiveMemoryWarning() {
