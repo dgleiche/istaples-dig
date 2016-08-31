@@ -382,7 +382,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     
     func swipeDate(sender: UISwipeGestureRecognizer) {
-        if (!(DailyScheduleManager.sharedInstance?.fetchInProgress)!) {
+        if (DailyScheduleManager.sharedInstance?.fetchInProgress == false) {
             print("swipe activated!")
             switch (sender.direction) {
             case UISwipeGestureRecognizerDirection.Left:
@@ -699,7 +699,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     func getRealClassPeriods() {
         if (UserManager.sharedInstance != nil) {
-            
+            DailyScheduleManager.sharedInstance?.fetchInProgress = true
             UserManager.sharedInstance?.currentUser.getClassmates({ (success: Bool) in
                 if (success) {
                     //add current user to Realm with all of the data
@@ -726,7 +726,6 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                     }
                     
                     DailyScheduleManager.sharedInstance?.currentUser = realmUser
-                    DailyScheduleManager.sharedInstance?.fetchInProgress = true
                     DailyScheduleManager.sharedInstance?.getDailySchedule()
                     
                     if (UserManager.sharedInstance?.currentUser.schedule == nil || UserManager.sharedInstance?.currentUser.schedule?.count == 0) {
@@ -739,6 +738,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 }
                 else {
                     print("error getting classes")
+                    DailyScheduleManager.sharedInstance?.fetchInProgress = false
+                    
                     let alert = UIAlertController(title: "Error retrieving classes", message: "Please check your network connection and try again.", preferredStyle: .Alert)
                     let dismiss = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
                     alert.addAction(dismiss)
