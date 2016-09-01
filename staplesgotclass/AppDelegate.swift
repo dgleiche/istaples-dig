@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             $0.applicationId = "ZgeDasDpmqNAakqJcK0C"
             $0.clientKey = "FXPR1dw5x9jbPyFJw53y"
             $0.server = "https://staplesscheduleserver.herokuapp.com/parse"
+            $0.networkRetryAttempts = 2
         }
         Parse.initializeWithConfiguration(configuration)
         

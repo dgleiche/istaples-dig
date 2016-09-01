@@ -37,6 +37,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     var attemptedToPresentLoginVC = false
     var attemptedToSignIn = false
     
+    var lastUpdateAttempt = NSDate()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -134,8 +136,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             GIDSignIn.sharedInstance().signInSilently()
         }
         
-//        setupClockTimer()
-//        setupPeriodTimer()
+        setupClockTimer()
+        setupPeriodTimer()
     }
     
     func callSetup() {
@@ -144,7 +146,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     }
     
     func applicationDidBecomeActive() {
-        if (DailyScheduleManager.sharedInstance != nil && GIDSignIn.sharedInstance().currentUser != nil && self.inDetailVC == false && DailyScheduleManager.sharedInstance?.fetchInProgress == false) {
+        if (DailyScheduleManager.sharedInstance != nil && GIDSignIn.sharedInstance().currentUser != nil && self.inDetailVC == false && DailyScheduleManager.sharedInstance?.fetchInProgress == false && NSCalendar.currentCalendar().compareDate(self.lastUpdateAttempt, toDate: NSDate(), toUnitGranularity: .Day) != .OrderedSame) {
             print("CALLING ACTIVE")
             DailyScheduleManager.setup(self)
         }
@@ -328,7 +330,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     }
     
     func clock() {
-        if (DailyScheduleManager.sharedInstance != nil && DailyScheduleManager.sharedInstance?.fetchInProgress == false) {
+        if (DailyScheduleManager.sharedInstance != nil) {
             if let currentPeriod = DailyScheduleManager.sharedInstance!.currentPeriod {
                 //Update the countdown label and UI components
                 let timeRemainingInPeriod = currentPeriod.endSeconds - DailyScheduleManager.sharedInstance!.secondsFromMidnight()
@@ -481,7 +483,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         self.tableView.backgroundView = nil
-        if (self.selectedSchedule != nil) {
+        if (self.selectedSchedule != nil && DailyScheduleManager.sharedInstance != nil) {
             if (self.isCurrentSchedule == true) {
                 if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
                     if (nextPeriod.isAfterSchool != true && nextPeriod.isBeforeSchool != true) {
@@ -725,6 +727,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                     try! realm.write {
                         realm.delete(realm.objects(RealmUser.self))
                     }
+                    
+                    DailyScheduleManager.sharedInstance?.realmPeriodsToDelete = Array(realm.objects(RealmPeriod.self))
                     
                     DailyScheduleManager.sharedInstance?.currentUser = nil
                     

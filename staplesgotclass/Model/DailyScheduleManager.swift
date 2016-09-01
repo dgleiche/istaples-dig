@@ -32,6 +32,8 @@ class DailyScheduleManager: NSObject {
     var realmPeriods = [RealmPeriod]()
     var currentUser: RealmUser?
     
+    var realmPeriodsToDelete: [RealmPeriod]?
+    
     var currentQuarter = 1
     
     let realm = try! Realm()
@@ -87,14 +89,14 @@ class DailyScheduleManager: NSObject {
     
     func getDailySchedule() {
         let query = PFQuery(className: "Schedule")
+        query.limit = 500
         query.includeKey("Periods")
         query.findObjectsInBackgroundWithBlock({ (schedules: [PFObject]?, error: NSError?) in
             if (error == nil) {
-                try! self.realm.write {
-                    self.realm.delete(self.modifiedSchedules)
-                    self.realm.delete(self.staticSchedules)
-                    self.realm.delete(self.realm.objects(SchedulePeriod.self))
-                }
+                
+                let schedulesToDelete = self.realm.objects(Schedule.self)
+                let schedulePeriodsToDelete = self.realm.objects(SchedulePeriod.self)
+                
                 self.modifiedSchedules.removeAll()
                 self.staticSchedules.removeAll()
                 
@@ -155,15 +157,16 @@ class DailyScheduleManager: NSObject {
                 }
                 
                 let lunchQuery = PFQuery(className: "LunchSchedule")
+                lunchQuery.limit = 500
                 lunchQuery.includeKey("LunchType")
                 
                 lunchQuery.findObjectsInBackgroundWithBlock({ (lunchSchedules: [PFObject]?, lunchError: NSError?) in
                     if (lunchError == nil) {
-                        try! self.realm.write {
-                            self.realm.delete(self.lunchSchedules)
-                            self.realm.delete(self.realm.objects(LunchType.self))
-                            self.realm.delete(self.realm.objects(Course.self))
-                        }
+                        
+                        let lunchSchedulesToDelete = self.realm.objects(LunchSchedule.self)
+                        let lunchTypesToDelete = self.realm.objects(LunchType.self)
+                        let coursesToDelete = self.realm.objects(Course.self)
+
                         self.lunchSchedules.removeAll()
                         self.courses.removeAll()
                         
@@ -181,6 +184,7 @@ class DailyScheduleManager: NSObject {
                         }
                         
                         let courseQuery = PFQuery(className: "Course")
+                        courseQuery.limit = 500
                         courseQuery.includeKey("LunchType")
                         courseQuery.findObjectsInBackgroundWithBlock({ (courses: [PFObject]?, courseError: NSError?) in
                             if (courseError == nil) {
@@ -214,6 +218,17 @@ class DailyScheduleManager: NSObject {
                                     }
                                     
                                     try! self.realm.write {
+                                        if (self.realmPeriodsToDelete != nil) {
+                                        self.realm.delete(self.realmPeriodsToDelete!)
+                                        }
+
+                                        self.realm.delete(schedulesToDelete)
+                                        self.realm.delete(schedulePeriodsToDelete)
+                                        
+                                        self.realm.delete(lunchSchedulesToDelete)
+                                        self.realm.delete(lunchTypesToDelete)
+                                        self.realm.delete(coursesToDelete)
+                                        
                                         self.realm.add(self.staticSchedules)
                                         self.realm.add(self.modifiedSchedules)
                                         self.realm.add(self.lunchSchedules)
@@ -490,7 +505,7 @@ class DailyScheduleManager: NSObject {
                     }
                     else {
                         //NO LUNCH TYPE, FREE LUNCH
-                        //                        print("no lunch type")
+                                                print("no lunch type for \(schedulePeriod.name)")
                         if (!schedule.containsLunchPeriods()) {
                             let lunchLength = 30*60
                             let periodLength = (((realPeriodEndTime - realPeriodStartTime) - lunchLength) / 2)

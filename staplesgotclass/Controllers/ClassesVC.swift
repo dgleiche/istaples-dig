@@ -72,6 +72,8 @@ class ClassesVC: UITableViewController {
                         
                         let realmUser = RealmUser()
                         
+                        DailyScheduleManager.sharedInstance?.realmPeriodsToDelete = Array(realm.objects(RealmPeriod.self))
+                        
                         for period in UserManager.sharedInstance!.currentUser.schedule! {
                             let realmPeriod = RealmPeriod()
                             
@@ -80,10 +82,12 @@ class ClassesVC: UITableViewController {
                             realmUser.schedule.append(realmPeriod)
                         }
                         
+                        
                         try! realm.write {
                             realm.delete(realm.objects(RealmUser.self))
                             realm.add(realmUser)
                         }
+                        
                     }
                     
                     print("success in view did appear")
