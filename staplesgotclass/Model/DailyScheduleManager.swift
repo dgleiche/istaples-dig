@@ -310,7 +310,7 @@ class DailyScheduleManager: NSObject {
             }
             
             //If it's still within ten minutes of the last period, we have the bus passing time thing
-            if abs(secondsFromMidnight - passingTimeStart) < 10 * 60 {
+            if abs(secondsFromMidnight - passingTimeStart) < 10 * 60 && passingTimeStart != 0 {
                 let afterSchoolPeriod: SchedulePeriod = SchedulePeriod()
                 
                 afterSchoolPeriod.isAfterSchool = true
