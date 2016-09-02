@@ -52,7 +52,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="An app by Dylan Diamond '17 and Dylan Gleicher '17" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zPk-jI-ZAu">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="An app by Dylan Diamond '17 and Dylan Gleicher '17" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="zPk-jI-ZAu">
                                 <rect key="frame" x="20" y="359" width="560" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="kG4-Z8-9nH"/>
@@ -649,7 +649,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="COG-1r-1cQ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
                             <tableViewSection id="PyY-eP-9JK">
                                 <cells>
@@ -941,6 +941,16 @@
                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="OId-rE-rPz">
+                                    <rect key="frame" x="37" y="31" width="24" height="33"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="33" id="XPF-bh-8oG"/>
+                                        <constraint firstAttribute="width" constant="24" id="zJo-ml-NNN"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="27"/>
+                                    <color key="textColor" red="0.50196081400000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -954,6 +964,7 @@
                                 <constraint firstItem="WTO-iV-b10" firstAttribute="centerX" secondItem="DZG-Sb-9mr" secondAttribute="centerX" id="I9C-a8-uyV"/>
                                 <constraint firstItem="ArR-gb-af5" firstAttribute="top" secondItem="tfk-At-ucG" secondAttribute="bottom" constant="43" id="Ick-uy-f1m"/>
                                 <constraint firstItem="9jt-by-iAv" firstAttribute="leading" secondItem="DZG-Sb-9mr" secondAttribute="leading" constant="1" id="Mv2-MT-kfT"/>
+                                <constraint firstItem="OId-rE-rPz" firstAttribute="leading" secondItem="3J2-Bb-Rj3" secondAttribute="trailing" constant="-10" id="W5I-r1-bIb"/>
                                 <constraint firstItem="wxL-aK-9JY" firstAttribute="leading" secondItem="DZG-Sb-9mr" secondAttribute="leading" constant="8" id="d1i-Cg-D5D"/>
                                 <constraint firstItem="0Gb-ON-0aF" firstAttribute="top" secondItem="ArR-gb-af5" secondAttribute="bottom" constant="3" id="dW8-Pc-5C5"/>
                                 <constraint firstAttribute="trailing" secondItem="tfk-At-ucG" secondAttribute="trailing" constant="56" id="eEz-aO-C0l"/>
@@ -961,6 +972,7 @@
                                 <constraint firstItem="3J2-Bb-Rj3" firstAttribute="top" secondItem="DZG-Sb-9mr" secondAttribute="top" constant="3" id="hao-mi-x44"/>
                                 <constraint firstItem="wxL-aK-9JY" firstAttribute="top" secondItem="3J2-Bb-Rj3" secondAttribute="bottom" constant="47" id="iio-FC-liq"/>
                                 <constraint firstItem="tfk-At-ucG" firstAttribute="top" secondItem="DZG-Sb-9mr" secondAttribute="top" id="okj-ok-kHr"/>
+                                <constraint firstItem="OId-rE-rPz" firstAttribute="top" secondItem="3J2-Bb-Rj3" secondAttribute="bottom" constant="-18" id="p9z-cb-2gv"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -1089,6 +1101,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="currentLunchLabel" destination="OId-rE-rPz" id="eC1-1P-9uh"/>
                         <outlet property="currentPeriodNumberLabel" destination="3J2-Bb-Rj3" id="zHl-xj-cta"/>
                         <outlet property="currentPeriodTitleLabel" destination="tfk-At-ucG" id="KAs-LK-KLz"/>
                         <outlet property="percentDoneLabel" destination="ArR-gb-af5" id="Rzw-Sw-kkJ"/>
@@ -1109,7 +1122,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="v0e-R7-lu9">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="mqy-Es-ELy">
                             <rect key="frame" x="0.0" y="20" width="600" height="69"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1127,7 +1140,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="bwO-td-fcw" firstAttribute="leading" secondItem="EAr-1g-ywv" secondAttribute="leading" id="Duo-AP-qo0"/>
                                 <constraint firstAttribute="trailing" secondItem="bwO-td-fcw" secondAttribute="trailing" constant="7" id="E1z-Vv-bel"/>
@@ -1162,7 +1175,7 @@
                                                         <constraint firstAttribute="height" constant="45" id="A5W-8V-82a"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZUC-WP-keA">
@@ -1216,7 +1229,7 @@
                                                         <constraint firstAttribute="height" constant="45" id="5GI-lz-RpG"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>

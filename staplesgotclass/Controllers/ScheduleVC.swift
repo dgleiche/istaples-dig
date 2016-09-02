@@ -17,6 +17,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     @IBOutlet var percentDoneLabel: UILabel!
     @IBOutlet var currentPeriodNumberLabel: UILabel!
     @IBOutlet var currentPeriodTitleLabel: UILabel!
+    @IBOutlet var currentLunchLabel: UILabel!
     
     var tableHeaderView: UIView!
     var tableHeaderViewHeight: CGFloat!
@@ -153,6 +154,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         if (DailyScheduleManager.sharedInstance != nil && GIDSignIn.sharedInstance().currentUser != nil && self.inDetailVC == false && DailyScheduleManager.sharedInstance?.fetchInProgress == false && NSCalendar.currentCalendar().compareDate(self.lastUpdateAttempt, toDate: NSDate(), toUnitGranularity: .Day) != .OrderedSame) {
             print("CALLING ACTIVE")
             DailyScheduleManager.setup(self)
+            self.lastUpdateAttempt = NSDate()
         }
     }
     
@@ -374,11 +376,33 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                     //real period set
                     self.currentPeriodNumberLabel.text = "\(currentPeriod.realPeriod!.periodNumber)"
                     self.currentPeriodTitleLabel.text = currentPeriod.realPeriod!.name
+                    if (currentPeriod.isLunch) {
+                        if (currentPeriod.lunchNumber != 0) {
+                            self.currentLunchLabel.text = "\(currentPeriod.lunchNumber)"
+                        }
+                        else {
+                            self.currentLunchLabel.text = nil
+                        }
+                        if (currentPeriod.isLunchPeriod) {
+                            if let lunchType = currentPeriod.lunchType {
+                                if (lunchType.isLab) {
+                                    self.currentPeriodTitleLabel.text = "Lab Lunch"
+                                }
+                                else {
+                                    self.currentPeriodTitleLabel.text = "Lunch"
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        self.currentLunchLabel.text = nil
+                    }
                 }
                 else {
                     //no real period, probs modified
                     self.currentPeriodNumberLabel.text = String(currentPeriod.name!.characters.first!)
                     self.currentPeriodTitleLabel.text = currentPeriod.name!
+                    self.currentLunchLabel.text = nil
                 }
                 
             }
@@ -607,13 +631,13 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             if (indexSchedulePeriod!.isLunchPeriod) {
                 if let lunchType = indexSchedulePeriod!.lunchType {
                     cell.lunchNumberLabel?.text = "\(DailyScheduleManager.sharedInstance?.getLunchNumber(withDate: selectedDate, andLunchType: lunchType) ?? 0)"
+                    cell.classTitleLabel.text = "Lunch"
+                    cell.teacherLabel.hidden = true
                     if (lunchType.isLab == true) {
                         cell.labView!.hidden = false
-                        cell.teacherLabel.hidden = true
                     }
                     else {
                         cell.labView!.hidden = true
-                        cell.teacherLabel.hidden = false
                     }
                 }
                 else {
@@ -621,6 +645,16 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                     cell.labView!.hidden = true
                     cell.teacherLabel.hidden = false
                 }
+            }
+            else if (indexSchedulePeriod!.isLunch) {
+                if (indexSchedulePeriod!.lunchNumber != 0) {
+                    cell.lunchNumberLabel?.text = "\(indexSchedulePeriod!.lunchNumber)"
+                }
+                else {
+                    cell.lunchNumberLabel?.text = nil
+                }
+                cell.labView!.hidden = true
+                cell.teacherLabel.hidden = false
             }
             else {
                 cell.lunchNumberLabel?.text = nil
@@ -709,6 +743,9 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             
             let realmPeriod = indexSchedulePeriod?.realPeriod
             if (realmPeriod?.exchangeForRealPeriod() != nil) {
+                if (indexSchedulePeriod?.isLunchPeriod == true) {
+                    return false
+                }
                 return true
             }
             else {
