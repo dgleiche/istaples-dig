@@ -478,7 +478,7 @@ class DailyScheduleManager: NSObject {
                                     //Short period, lunch, short period
                                     //Set the original schedule period to be the first period
                                     
-                                    let periodLength = (((realPeriodEndTime - realPeriodStartTime) - lunchLength) / 2)
+                                    let periodLength = (((realPeriodEndTime - realPeriodStartTime) - lunchLength - passingTime*2) / 2)
                                     schedulePeriod.endSeconds = realPeriodStartTime + periodLength
                                     
                                     let newFirstSecondLunchPeriod = self.realm.create(SchedulePeriod.self, value: schedulePeriod, update: false)
@@ -508,7 +508,7 @@ class DailyScheduleManager: NSObject {
                                                 print("no lunch type for \(schedulePeriod.name)")
                         if (!schedule.containsLunchPeriods()) {
                             let lunchLength = 30*60
-                            let periodLength = (((realPeriodEndTime - realPeriodStartTime) - lunchLength) / 2)
+                            let periodLength = (((realPeriodEndTime - realPeriodStartTime) - lunchLength - passingTime*2) / 2)
                             schedulePeriod.endSeconds = realPeriodStartTime + periodLength
                             schedulePeriod.isLunchPeriod = true
                             schedulePeriod.lunchNumber = 1
