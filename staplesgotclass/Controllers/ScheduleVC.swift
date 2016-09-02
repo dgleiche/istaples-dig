@@ -138,6 +138,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         
         setupClockTimer()
         setupPeriodTimer()
+        print("setup timers in view did appear")
     }
     
     func callSetup() {
@@ -146,6 +147,9 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     }
     
     func applicationDidBecomeActive() {
+        setupClockTimer()
+        setupPeriodTimer()
+        print("setup timers in didbecomeactive")
         if (DailyScheduleManager.sharedInstance != nil && GIDSignIn.sharedInstance().currentUser != nil && self.inDetailVC == false && DailyScheduleManager.sharedInstance?.fetchInProgress == false && NSCalendar.currentCalendar().compareDate(self.lastUpdateAttempt, toDate: NSDate(), toUnitGranularity: .Day) != .OrderedSame) {
             print("CALLING ACTIVE")
             DailyScheduleManager.setup(self)
@@ -239,6 +243,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     }
     
     func setupPeriodTimer() {
+        print("setup period timer called")
         if (DailyScheduleManager.sharedInstance != nil && DailyScheduleManager.sharedInstance?.fetchInProgress == false) {
             DailyScheduleManager.sharedInstance!.currentPeriod = DailyScheduleManager.sharedInstance!.getCurrentPeriod()
             self.tableView.reloadData()
