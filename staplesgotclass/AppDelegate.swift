@@ -9,13 +9,23 @@
 import UIKit
 import Parse
 import RealmSwift
+import WatchConnectivity
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
-
-
+    
+    var session: WCSession? {
+        didSet {
+            if let session = session {
+                session.delegate = self
+                session.activateSession()
+            }
+        }
+    }
+    
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         var configureError: NSError?
@@ -55,6 +65,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // will automatically perform the migration
         _ = try! Realm()
         
+        
+        if WCSession.isSupported() {
+            session = WCSession.defaultSession()
+        }
+        
         return true
     }
     
@@ -66,7 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                         annotation: options[UIApplicationOpenURLOptionsAnnotationKey])
         }
         
-    return false
+        return false
     }
     
     func application(application: UIApplication,
@@ -75,34 +90,82 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                     sourceApplication: sourceApplication,
                                                     annotation: annotation)
     }
-        
     
-
-
+    
+    
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     }
-
+    
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
-
+    
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
-
+    
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
-
+    
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
+    
 }
+
+extension AppDelegate: WCSessionDelegate {
+    
+    func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
+        dispatch_async(dispatch_get_main_queue()) {
+            if (message["purpose"] as? String == "getSchedule") {
+                //get the current schedule and associated periods
+                if (DailyScheduleManager.sharedInstance != nil) {
+                    if let currentSchedule = DailyScheduleManager.sharedInstance?.currentSchedule {
+                        var replyDictionary = [String : AnyObject]()
+                        replyDictionary["name"] = currentSchedule.name
+                        var periodsArray = [AnyObject]()
+                        for period in currentSchedule.periods {
+                            var newPeriodDict = [String : AnyObject]()
+                            newPeriodDict["name"] = period.name
+                            newPeriodDict["isCustom"] = period.isCustom
+                            newPeriodDict["id"] = period.id
+                            newPeriodDict["isLunch"] = period.isLunch
+                            newPeriodDict["isPassingTime"] = period.isPassingTime
+                            newPeriodDict["isBeforeSchool"] = period.isBeforeSchool
+                            newPeriodDict["isAfterSchool"] = period.isAfterSchool
+                            newPeriodDict["startSeconds"] = period.startSeconds
+                            newPeriodDict["endSeconds"] = period.endSeconds
+                            newPeriodDict["isLunchPeriod"] = period.isLunchPeriod
+                            newPeriodDict["lunchNumber"] = period.lunchNumber
+                            if let realPeriod = period.realPeriod {
+                                var realPeriodDict = [String : AnyObject]()
+                                realPeriodDict["name"] = realPeriod.name
+                                realPeriodDict["periodNumber"] = realPeriod.periodNumber
+                                realPeriodDict["teacherName"] = realPeriod.teacherName
+                                realPeriodDict["quarters"] = realPeriod.quarters
+                                realPeriodDict["id"] = realPeriod.id
+                                newPeriodDict["realPeriod"] = realPeriodDict
+                            }
+                            periodsArray.append(newPeriodDict)
+                        }
+                        replyDictionary["periods"] = periodsArray
+                        print("sending reply: \(replyDictionary)")
+                        replyHandler(replyDictionary)
+                    }
+                    
+                }
+            }
+        }
+    }
+    
+}
+
 
 extension UIApplication {
     class func topViewController(base: UIViewController? = UIApplication.sharedApplication().keyWindow?.rootViewController) -> UIViewController? {
