@@ -10,6 +10,7 @@ import UIKit
 import MessageUI
 
 class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
+    @IBOutlet var versionNumberLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,8 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
         self.navigationItem.backBarButtonItem = backButton
 
         self.navigationItem.title = "INFO"
+        
+        self.versionNumberLabel.text = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String
     }
     
     func logout() {
