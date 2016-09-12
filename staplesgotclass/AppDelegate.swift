@@ -129,6 +129,7 @@ extension AppDelegate: WCSessionDelegate {
                     if let currentSchedule = DailyScheduleManager.sharedInstance?.currentSchedule {
                         var replyDictionary = [String : AnyObject]()
                         replyDictionary["name"] = currentSchedule.name
+                        replyDictionary["noSchedule"] = false
                         var periodsArray = [AnyObject]()
                         for period in currentSchedule.periods {
                             var newPeriodDict = [String : AnyObject]()
@@ -158,7 +159,13 @@ extension AppDelegate: WCSessionDelegate {
                         print("sending reply: \(replyDictionary)")
                         replyHandler(replyDictionary)
                     }
+                    else {
+                        replyHandler(["noSchedule" : true])
+                    }
                     
+                }
+                else {
+                    replyHandler(["noSchedule" : true])
                 }
             }
         }

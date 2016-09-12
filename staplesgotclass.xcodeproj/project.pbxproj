@@ -1090,6 +1090,7 @@
 				777771E11D7D3D7C006F47EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		777771E41D7D3D7C006F47EE /* Build configuration list for PBXNativeTarget "staplesWatchApp" */ = {
 			isa = XCConfigurationList;
@@ -1098,6 +1099,7 @@
 				777771DF1D7D3D7C006F47EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		77D54F6B1CECBEC500C11FA5 /* Build configuration list for PBXProject "staplesgotclass" */ = {
 			isa = XCConfigurationList;

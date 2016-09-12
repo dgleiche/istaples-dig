@@ -122,6 +122,7 @@ class InterfaceController: WKInterfaceController {
             
         } else {
             //No schedule set
+            self.setup()
         }
     }
     

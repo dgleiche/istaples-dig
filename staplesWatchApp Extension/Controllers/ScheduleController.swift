@@ -48,7 +48,7 @@ class ScheduleController: WKInterfaceController {
                 }
                 else {
                     row.classTitleLabel.setText(period.name)
-                    row.periodNumberLabel.setText("\(period.name!.characters.first)")
+                    row.periodNumberLabel.setText("\(period.name!.characters.first!)")
                 }
                 row.timeLabel.setText("\(period.startSeconds.printSecondsToHoursMinutesSeconds())-\(period.endSeconds.printSecondsToHoursMinutesSeconds())")
                 if (period.isLunch) {
@@ -71,6 +71,27 @@ class ScheduleController: WKInterfaceController {
             }
         }
     }
+    
+    override func contextForSegueWithIdentifier(segueIdentifier: String, inTable table: WKInterfaceTable, rowIndex: Int) -> AnyObject? {
+        print("context segue called")
+        if (segueIdentifier == "scheduleDetailSegue") {
+            print("current segue")
+        if let selectedPeriod = WatchAppDailyScheduleManager.sharedInstance.currentSchedule?.periods[rowIndex] {
+            if (selectedPeriod.realPeriod != nil) {
+                let context: AnyObject = selectedPeriod as AnyObject
+                print("presenting vc")
+                self.presentControllerWithName("scheduleDetailVC", context: context)
+                return context
+            }
+        }
+        }
+        return nil
+    }
+    
+    override func table(table: WKInterfaceTable, didSelectRowAtIndex rowIndex: Int) {
+        print("selected row")
+    }
+    
     
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible

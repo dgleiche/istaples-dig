@@ -28,6 +28,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
         //Write code to get current schedule using watch connectivity
         session = WCSession.defaultSession()
         session?.sendMessage(["purpose" : "getSchedule"], replyHandler: { (schedule: [String : AnyObject]) in
+            if (schedule["noSchedule"]?.boolValue != true) {
             let newSchedule = WatchSchedule()
             newSchedule.name = schedule["name"] as? String
             
@@ -56,6 +57,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
              newSchedule.periods.append(newPeriod)
             }
             WatchAppDailyScheduleManager.sharedInstance.currentSchedule = newSchedule
+            }
             NSNotificationCenter.defaultCenter().postNotificationName("scheduleReceived", object: nil)
             }, errorHandler: { (error: NSError) in
                 print("error getting current schedule \(error)")

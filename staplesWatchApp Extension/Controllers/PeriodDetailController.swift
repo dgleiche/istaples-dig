@@ -12,10 +12,25 @@ import Foundation
 
 class PeriodDetailController: WKInterfaceController {
 
+    @IBOutlet var periodNumberLabel: WKInterfaceLabel!
+    @IBOutlet var periodTitleLabel: WKInterfaceLabel!
+    @IBOutlet var teacherLabel: WKInterfaceLabel!
+    @IBOutlet var quartersLabel: WKInterfaceLabel!
+    
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
-        
-        // Configure interface objects here.
+        self.setTitle("Close")
+        let selectedPeriod = context as! WatchSchedulePeriod
+        if let realPeriod = selectedPeriod.realPeriod {
+            periodTitleLabel.setText(realPeriod.name)
+            periodNumberLabel.setText("\(realPeriod.periodNumber)")
+            teacherLabel.setText(realPeriod.teacherName!)
+            quartersLabel.setText("Quarters: \(realPeriod.quarters!)")
+        }
+        else {
+            periodTitleLabel.setText(selectedPeriod.name)
+            periodNumberLabel.setText("\(selectedPeriod.name!.characters.first)")
+        }
     }
 
     override func willActivate() {
