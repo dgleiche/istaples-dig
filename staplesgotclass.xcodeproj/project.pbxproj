@@ -26,10 +26,6 @@
 		772D52F61D6652430032C1E7 /* NSTimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772D52F51D6652430032C1E7 /* NSTimeIntervalExtension.swift */; };
 		772DCA511CEF40D200F52AA6 /* LoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772DCA501CEF40D200F52AA6 /* LoginPageViewController.swift */; };
 		772DCA531CEF428500F52AA6 /* PageContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772DCA521CEF428500F52AA6 /* PageContentVC.swift */; };
-		77320A951D5D797E00603A38 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77320A931D5D797E00603A38 /* Realm.framework */; };
-		77320A961D5D797E00603A38 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 77320A931D5D797E00603A38 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		77320A971D5D797E00603A38 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77320A941D5D797E00603A38 /* RealmSwift.framework */; };
-		77320A981D5D797E00603A38 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 77320A941D5D797E00603A38 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		77320A9C1D5D7AAF00603A38 /* RealmObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77320A9B1D5D7AAF00603A38 /* RealmObjects.swift */; };
 		77390BE61D7564E40095FD9E /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 77390BE21D7564E40095FD9E /* clock.png */; };
 		77390BE71D7564E40095FD9E /* clock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77390BE31D7564E40095FD9E /* clock@2x.png */; };
@@ -125,8 +121,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				77320A981D5D797E00603A38 /* RealmSwift.framework in Embed Frameworks */,
-				77320A961D5D797E00603A38 /* Realm.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -176,8 +170,6 @@
 		772D52F51D6652430032C1E7 /* NSTimeIntervalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTimeIntervalExtension.swift; sourceTree = "<group>"; };
 		772DCA501CEF40D200F52AA6 /* LoginPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPageViewController.swift; sourceTree = "<group>"; };
 		772DCA521CEF428500F52AA6 /* PageContentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageContentVC.swift; sourceTree = "<group>"; };
-		77320A931D5D797E00603A38 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
-		77320A941D5D797E00603A38 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		77320A9B1D5D7AAF00603A38 /* RealmObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmObjects.swift; sourceTree = "<group>"; };
 		77390BE21D7564E40095FD9E /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
 		77390BE31D7564E40095FD9E /* clock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock@2x.png"; sourceTree = "<group>"; };
@@ -260,6 +252,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		43D48A4D0C4ABDA3CAA139E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		777771CC1D7D3D7C006F47EE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -271,9 +270,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77320A951D5D797E00603A38 /* Realm.framework in Frameworks */,
 				078B0CEA10E638BFC57FE69E /* Pods_staplesgotclass.framework in Frameworks */,
-				77320A971D5D797E00603A38 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,8 +289,6 @@
 		6A5B33AA2B3A517AF98D5380 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				77320A931D5D797E00603A38 /* Realm.framework */,
-				77320A941D5D797E00603A38 /* RealmSwift.framework */,
 				382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */,
 			);
 			name = Frameworks;
@@ -516,6 +511,7 @@
 			buildPhases = (
 				777771C11D7D3D7C006F47EE /* Resources */,
 				777771E31D7D3D7C006F47EE /* Embed App Extensions */,
+				43D48A4D0C4ABDA3CAA139E1 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -548,17 +544,16 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 77D54F821CECBEC600C11FA5 /* Build configuration list for PBXNativeTarget "staplesgotclass" */;
 			buildPhases = (
-				11F1C482A93233EE76BA42CA /* Check Pods Manifest.lock */,
+				11F1C482A93233EE76BA42CA /* [CP] Check Pods Manifest.lock */,
 				930A1E9B50CE6270BD86F68E /* 📦 Check Pods Manifest.lock */,
 				77D54F6C1CECBEC600C11FA5 /* Sources */,
 				77D54F6D1CECBEC600C11FA5 /* Frameworks */,
 				77D54F6E1CECBEC600C11FA5 /* Resources */,
-				79F08EE74151377351012531 /* 📦 Embed Pods Frameworks */,
-				EDBAE2C2A868474D4447DD8E /* 📦 Copy Pods Resources */,
+				79F08EE74151377351012531 /* [CP] Embed Pods Frameworks */,
+				EDBAE2C2A868474D4447DD8E /* [CP] Copy Pods Resources */,
 				462C378E32C048EE6B769115 /* Embed Pods Frameworks */,
 				C8FDFA8FB1A8B256FD2112CC /* Copy Pods Resources */,
 				77320A991D5D797F00603A38 /* Embed Frameworks */,
-				77320A9A1D5D79D200603A38 /* ShellScript */,
 				777771E51D7D3D7C006F47EE /* Embed Watch Content */,
 			);
 			buildRules = (
@@ -578,17 +573,24 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Dylan Diamond";
 				TargetAttributes = {
 					777771C21D7D3D7C006F47EE = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 9FC732TXJR;
+						LastSwiftMigration = 0800;
 					};
 					777771CE1D7D3D7C006F47EE = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 9FC732TXJR;
+						LastSwiftMigration = 0800;
 					};
 					77D54F6F1CECBEC600C11FA5 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 9FC732TXJR;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -676,14 +678,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		11F1C482A93233EE76BA42CA /* Check Pods Manifest.lock */ = {
+		11F1C482A93233EE76BA42CA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -706,27 +708,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		77320A9A1D5D79D200603A38 /* ShellScript */ = {
+		79F08EE74151377351012531 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"\n";
-		};
-		79F08EE74151377351012531 /* 📦 Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -764,14 +753,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EDBAE2C2A868474D4447DD8E /* 📦 Copy Pods Resources */ = {
+		EDBAE2C2A868474D4447DD8E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -890,14 +879,16 @@
 		777771DE1D7D3D7C006F47EE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				DEVELOPMENT_TEAM = 9FC732TXJR;
 				IBSC_MODULE = staplesWatchApp_Extension;
 				INFOPLIST_FILE = staplesWatchApp/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};
@@ -906,14 +897,16 @@
 		777771DF1D7D3D7C006F47EE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				DEVELOPMENT_TEAM = 9FC732TXJR;
 				IBSC_MODULE = staplesWatchApp_Extension;
 				INFOPLIST_FILE = staplesWatchApp/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};
@@ -922,6 +915,7 @@
 		777771E01D7D3D7C006F47EE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 9FC732TXJR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -932,6 +926,7 @@
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};
@@ -940,6 +935,7 @@
 		777771E11D7D3D7C006F47EE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 9FC732TXJR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -950,6 +946,7 @@
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};
@@ -969,8 +966,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1014,8 +1013,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1034,6 +1035,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1042,7 +1044,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = ED17CD0C97B747CA1F5D3B30 /* Pods-staplesgotclass.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = 9FC732TXJR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1054,7 +1059,10 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "96309b24-19ca-4ee7-b00b-f615cb9fb198";
+				PROVISIONING_PROFILE_SPECIFIER = "XC Ad Hoc: *";
 				SWIFT_OBJC_BRIDGING_HEADER = "staplesgotclass/staplesgotclass-Bridging-Header.h";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -1062,8 +1070,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6F3617A969EFDF047E0788E2 /* Pods-staplesgotclass.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mica Diamond (9FC732TXJR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = 9FC732TXJR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1076,7 +1086,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "378a7f08-e000-49d1-9caf-9ac761d719c0";
+				PROVISIONING_PROFILE_SPECIFIER = "SHSGotClass App Store";
 				SWIFT_OBJC_BRIDGING_HEADER = "staplesgotclass/staplesgotclass-Bridging-Header.h";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};

@@ -779,7 +779,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                     for period in UserManager.sharedInstance!.currentUser.schedule! {
                         let realmPeriod = RealmPeriod()
                         
-                        realmPeriod.setPeriod(period: period)
+                        realmPeriod.setPeriod(period)
                         
                         realmUser.schedule.append(realmPeriod)
                     }

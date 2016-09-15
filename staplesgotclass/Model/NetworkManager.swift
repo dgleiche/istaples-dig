@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+
 class NetworkManager: NSObject {
         let baseURL = "http://www.staplesgotclass.com/api"
         var alamofireManager : Alamofire.Manager?

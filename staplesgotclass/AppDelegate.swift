@@ -75,13 +75,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication,
                      openURL url: NSURL, options: [String: AnyObject]) -> Bool {
-        if #available(iOS 9.0, *) {
             return GIDSignIn.sharedInstance().handleURL(url,
                                                         sourceApplication: options[UIApplicationOpenURLOptionsSourceApplicationKey] as? String,
                                                         annotation: options[UIApplicationOpenURLOptionsAnnotationKey])
-        }
         
-        return false
     }
     
     func application(application: UIApplication,
@@ -120,6 +117,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: WCSessionDelegate {
+    
+    func sessionDidDeactivate(session: WCSession) {
+        
+    }
+    
+    func sessionDidBecomeInactive(session: WCSession) {
+        
+    }
+    
+    @available(iOS 9.3, *)
+    func session(session: WCSession, activationDidCompleteWithState activationState: WCSessionActivationState, error: NSError?) {
+        
+    }
+    
     
     func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
         dispatch_async(dispatch_get_main_queue()) {
@@ -185,7 +196,7 @@ extension UIApplication {
             let moreNavigationController = tab.moreNavigationController
             
             if let top = moreNavigationController.topViewController
-                where top.view.window != nil {
+                 where top.view.window != nil {
                 return topViewController(top)
             } else if let selected = tab.selectedViewController {
                 return topViewController(selected)

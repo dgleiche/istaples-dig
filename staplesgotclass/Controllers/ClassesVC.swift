@@ -77,7 +77,7 @@ class ClassesVC: UITableViewController {
                         for period in UserManager.sharedInstance!.currentUser.schedule! {
                             let realmPeriod = RealmPeriod()
                             
-                            realmPeriod.setPeriod(period: period)
+                            realmPeriod.setPeriod(period)
                             
                             realmUser.schedule.append(realmPeriod)
                         }
@@ -143,7 +143,7 @@ class ClassesVC: UITableViewController {
         self.swipeMode = true
     }
     
-    override func tableView(tableView: UITableView, didEndEditingRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didEndEditingRowAtIndexPath indexPath: NSIndexPath?) {
         self.swipeMode = false
     }
     
