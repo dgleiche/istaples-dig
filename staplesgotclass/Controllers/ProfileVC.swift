@@ -32,9 +32,9 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
             self.nameLabel.text = currentUser!.name
             self.emailLabel.setTitle(currentUser!.email, forState: .Normal)
             
+            self.view.layoutIfNeeded()
             self.profileImageView.clipsToBounds = true
             self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
-            
             if (currentUser?.profilePicURL != nil && currentUser?.profilePic == nil) {
                 
                 profileImageView.sd_setImageWithURL(NSURL(string:currentUser!.profilePicURL!), completed: { (image: UIImage!, error: NSError!, cacheType: SDImageCacheType, url: NSURL!) in

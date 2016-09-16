@@ -68,6 +68,9 @@ class ClassmatesVC: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("classmatesCell", forIndexPath: indexPath) as! ClassmateCell
         
         cell.nameLabel.text = self.currentClass?.users[indexPath.row].name
+        
+        cell.contentView.layoutIfNeeded()
+
         cell.classmateImageView.clipsToBounds = true
         cell.classmateImageView.layer.cornerRadius = cell.classmateImageView.frame.width / 2
         

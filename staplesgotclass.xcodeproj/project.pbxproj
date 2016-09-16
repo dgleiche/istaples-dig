@@ -226,6 +226,8 @@
 		77DB561F1CF25C7C0014B002 /* AllUsersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllUsersVC.swift; sourceTree = "<group>"; };
 		77DB56211CF2AD2D0014B002 /* defaultGooglePic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultGooglePic.png; sourceTree = "<group>"; };
 		77DEF2A11CFBAD7800E94B57 /* blueAppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueAppIcon.png; sourceTree = "<group>"; };
+		77EDB1771D8B6BD400611AA1 /* staplesWatchApp Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "staplesWatchApp Extension.entitlements"; sourceTree = "<group>"; };
+		77EDB1781D8B6C5600611AA1 /* staplesgotclass.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = staplesgotclass.entitlements; sourceTree = "<group>"; };
 		ED17CD0C97B747CA1F5D3B30 /* Pods-staplesgotclass.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-staplesgotclass.debug.xcconfig"; path = "Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass.debug.xcconfig"; sourceTree = "<group>"; };
 		FC2078E71CFB7E6400D86F54 /* sync.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sync.png; sourceTree = "<group>"; };
 		FC2078E91CFB7E9B00D86F54 /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 		777771D31D7D3D7C006F47EE /* staplesWatchApp Extension */ = {
 			isa = PBXGroup;
 			children = (
+				77EDB1771D8B6BD400611AA1 /* staplesWatchApp Extension.entitlements */,
 				777771E71D7D3FC1006F47EE /* Model */,
 				777771F81D7DE5FC006F47EE /* Views */,
 				777771E61D7D3FA2006F47EE /* Controllers */,
@@ -459,6 +462,7 @@
 		77D54F721CECBEC600C11FA5 /* staplesgotclass */ = {
 			isa = PBXGroup;
 			children = (
+				77EDB1781D8B6C5600611AA1 /* staplesgotclass.entitlements */,
 				FC53CF911CF5214A0034266F /* MLPAutoCompleteTextField */,
 				77D54F731CECBEC600C11FA5 /* AppDelegate.swift */,
 				77AB0F4D1CECC0E900A25110 /* staplesgotclass-Bridging-Header.h */,
@@ -580,17 +584,29 @@
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 9FC732TXJR;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 					};
 					777771CE1D7D3D7C006F47EE = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 9FC732TXJR;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					77D54F6F1CECBEC600C11FA5 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 9FC732TXJR;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -881,11 +897,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 9FC732TXJR;
 				IBSC_MODULE = staplesWatchApp_Extension;
 				INFOPLIST_FILE = staplesWatchApp/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
@@ -899,11 +918,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 9FC732TXJR;
 				IBSC_MODULE = staplesWatchApp_Extension;
 				INFOPLIST_FILE = staplesWatchApp/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
@@ -915,6 +937,8 @@
 		777771E01D7D3D7C006F47EE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "staplesWatchApp Extension/staplesWatchApp Extension.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 9FC732TXJR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -924,6 +948,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
@@ -935,6 +961,8 @@
 		777771E11D7D3D7C006F47EE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "staplesWatchApp Extension/staplesWatchApp Extension.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 9FC732TXJR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -944,6 +972,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 2.3;
@@ -1046,8 +1076,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = 9FC732TXJR;
+				CODE_SIGN_ENTITLEMENTS = staplesgotclass/staplesgotclass.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1059,8 +1090,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "96309b24-19ca-4ee7-b00b-f615cb9fb198";
-				PROVISIONING_PROFILE_SPECIFIER = "XC Ad Hoc: *";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "staplesgotclass/staplesgotclass-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
 			};
@@ -1072,8 +1103,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = 9FC732TXJR;
+				CODE_SIGN_ENTITLEMENTS = staplesgotclass/staplesgotclass.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1085,8 +1117,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "378a7f08-e000-49d1-9caf-9ac761d719c0";
-				PROVISIONING_PROFILE_SPECIFIER = "SHSGotClass App Store";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "staplesgotclass/staplesgotclass-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
 			};
