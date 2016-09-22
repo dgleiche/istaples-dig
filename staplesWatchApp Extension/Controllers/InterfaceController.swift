@@ -79,7 +79,12 @@ class InterfaceController: WKInterfaceController {
         }
         else {
             //weekend
-            self.headerLabel.setText("enjoy the weekend!")
+            if (WatchAppDailyScheduleManager.sharedInstance.scheduleSet) {
+                self.headerLabel.setText("enjoy the weekend!")
+            }
+            else {
+                self.headerLabel.setText("loading schedule")
+            }
             self.timerGroup.setHidden(true)
             self.group.setBackgroundImage(nil)
             self.headerLabel.setHidden(false)

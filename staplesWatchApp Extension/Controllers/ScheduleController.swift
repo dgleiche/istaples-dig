@@ -70,6 +70,9 @@ class ScheduleController: WKInterfaceController {
                 }
             }
         }
+        else {
+            scheduleTable.removeRowsAtIndexes(NSIndexSet(indexesInRange: NSRange(location: 0, length: scheduleTable.numberOfRows)))
+        }
     }
     
     override func contextForSegueWithIdentifier(segueIdentifier: String, inTable table: WKInterfaceTable, rowIndex: Int) -> AnyObject? {

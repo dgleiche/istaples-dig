@@ -11,7 +11,7 @@ import UIKit
 class WatchAppDailyScheduleManager: NSObject {
     static var sharedInstance = WatchAppDailyScheduleManager()
     var currentSchedule: WatchSchedule?
-    
+    var scheduleSet = false
     var currentPeriod: WatchSchedulePeriod?
     
     var fetchInProgress = false

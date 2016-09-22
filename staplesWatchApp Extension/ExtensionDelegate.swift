@@ -19,46 +19,56 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
         }
     }
     
-
+    
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
     }
     
     func session(session: WCSession, activationDidCompleteWithState activationState: WCSessionActivationState, error: NSError?) {
-        
+        self.updateData(nil)
+    }
+    
+    func sessionReachabilityDidChange(session: WCSession) {
+        if (session.reachable) {
+        self.updateData(nil)
+        }
     }
     
     @available(watchOSApplicationExtension 3.0, *)
     func handleBackgroundTasks(backgroundTasks: Set<WKRefreshBackgroundTask>) {
-            for task in backgroundTasks {
-                print("received background task: ", task)
-                // only handle these while running in the background
-                if (WKExtension.sharedExtension().applicationState == .Background) {
-                    if task is WKApplicationRefreshBackgroundTask {
-                        self.updateData(task)
-                    }
-                    else if task is WKSnapshotRefreshBackgroundTask {
-                        NSNotificationCenter.defaultCenter().postNotificationName("scheduleReceived", object: nil)
-                        task.setTaskCompleted()
-                    }
+        for task in backgroundTasks {
+            print("received background task: ", task)
+            // only handle these while running in the background
+            if (WKExtension.sharedExtension().applicationState == .Background) {
+                if task is WKApplicationRefreshBackgroundTask {
+                    self.updateData(task)
                 }
-                
-                // make sure to complete all tasks, even ones you don't handle
-                task.setTaskCompleted()
+                else if task is WKSnapshotRefreshBackgroundTask {
+                    NSNotificationCenter.defaultCenter().postNotificationName("scheduleReceived", object: nil)
+                    task.setTaskCompleted()
+                }
             }
+            
+            // make sure to complete all tasks, even ones you don't handle
+            task.setTaskCompleted()
         }
+    }
     
-
+    
     func applicationDidBecomeActive() {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         //Write code to get current schedule using watch connectivity
         print("application becoming active")
-        self.updateData(nil)
+        if session == nil || session?.activationState != WCSessionActivationState.Activated {
+            session = WCSession.defaultSession()
+        }
+        else if (session != nil && session!.reachable) {
+            self.updateData(nil)
+        }
         self.scheduleBackgroundUpdate()
     }
     
     func updateData(task: AnyObject?) {
-        session = WCSession.defaultSession()
         session?.sendMessage(["purpose" : "getSchedule"], replyHandler: { (schedule: [String : AnyObject]) in
             print("schedule received")
             if (schedule["noSchedule"]?.boolValue != true) {
@@ -94,6 +104,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
             else {
                 WatchAppDailyScheduleManager.sharedInstance.currentSchedule = nil
             }
+            WatchAppDailyScheduleManager.sharedInstance.scheduleSet = true
             NSNotificationCenter.defaultCenter().postNotificationName("scheduleReceived", object: nil)
             if #available(watchOSApplicationExtension 3.0, *) {
                 if task is WKApplicationRefreshBackgroundTask {
@@ -121,12 +132,12 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
         } else {
             // Fallback on earlier versions
         }
-
+        
     }
-
+    
     func applicationWillResignActive() {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, etc.
     }
-
+    
 }
