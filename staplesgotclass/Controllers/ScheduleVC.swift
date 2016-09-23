@@ -523,7 +523,13 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             return 1
         }
         else {
+            if (DailyScheduleManager.sharedInstance?.staticSchedules.count > 0) {
             TableViewHelper.EmptyMessage("Enjoy the weekend!", viewController: self)
+            }
+            else {
+                TableViewHelper.EmptyMessage("Loading schedules...", viewController: self)
+
+            }
             return 0
         }
     }
@@ -779,7 +785,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                     for period in UserManager.sharedInstance!.currentUser.schedule! {
                         let realmPeriod = RealmPeriod()
                         
-                        realmPeriod.setPeriod(period: period)
+                        realmPeriod.setPeriod(period)
                         
                         realmUser.schedule.append(realmPeriod)
                     }

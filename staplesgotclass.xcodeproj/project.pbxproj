@@ -26,10 +26,6 @@
 		772D52F61D6652430032C1E7 /* NSTimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772D52F51D6652430032C1E7 /* NSTimeIntervalExtension.swift */; };
 		772DCA511CEF40D200F52AA6 /* LoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772DCA501CEF40D200F52AA6 /* LoginPageViewController.swift */; };
 		772DCA531CEF428500F52AA6 /* PageContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772DCA521CEF428500F52AA6 /* PageContentVC.swift */; };
-		77320A951D5D797E00603A38 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77320A931D5D797E00603A38 /* Realm.framework */; };
-		77320A961D5D797E00603A38 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 77320A931D5D797E00603A38 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		77320A971D5D797E00603A38 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77320A941D5D797E00603A38 /* RealmSwift.framework */; };
-		77320A981D5D797E00603A38 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 77320A941D5D797E00603A38 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		77320A9C1D5D7AAF00603A38 /* RealmObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77320A9B1D5D7AAF00603A38 /* RealmObjects.swift */; };
 		77390BE61D7564E40095FD9E /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 77390BE21D7564E40095FD9E /* clock.png */; };
 		77390BE71D7564E40095FD9E /* clock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77390BE31D7564E40095FD9E /* clock@2x.png */; };
@@ -51,6 +47,21 @@
 		775DC44F1CED583400046768 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775DC44E1CED583400046768 /* NetworkManager.swift */; };
 		77703B3C1D5C3D3B0093CF95 /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77703B3B1D5C3D3B0093CF95 /* KDCircularProgress.swift */; };
 		77703B3E1D5C47530093CF95 /* ScheduleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77703B3D1D5C47530093CF95 /* ScheduleVC.swift */; };
+		777771C71D7D3D7C006F47EE /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 777771C51D7D3D7C006F47EE /* Interface.storyboard */; };
+		777771C91D7D3D7C006F47EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 777771C81D7D3D7C006F47EE /* Assets.xcassets */; };
+		777771D01D7D3D7C006F47EE /* staplesWatchApp Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 777771CF1D7D3D7C006F47EE /* staplesWatchApp Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		777771D51D7D3D7C006F47EE /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777771D41D7D3D7C006F47EE /* InterfaceController.swift */; };
+		777771D71D7D3D7C006F47EE /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777771D61D7D3D7C006F47EE /* ExtensionDelegate.swift */; };
+		777771D91D7D3D7C006F47EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 777771D81D7D3D7C006F47EE /* Assets.xcassets */; };
+		777771DD1D7D3D7C006F47EE /* staplesWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 777771C31D7D3D7C006F47EE /* staplesWatchApp.app */; };
+		777771E91D7D3FE2006F47EE /* WatchAppDailyScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777771E81D7D3FE2006F47EE /* WatchAppDailyScheduleManager.swift */; };
+		777771EB1D7D4007006F47EE /* WatchPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777771EA1D7D4007006F47EE /* WatchPeriod.swift */; };
+		777771ED1D7D4016006F47EE /* WatchSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777771EC1D7D4016006F47EE /* WatchSchedule.swift */; };
+		777771EF1D7D4023006F47EE /* WatchSchedulePeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777771EE1D7D4023006F47EE /* WatchSchedulePeriod.swift */; };
+		777771F71D7DE540006F47EE /* ScheduleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777771F61D7DE540006F47EE /* ScheduleController.swift */; };
+		777771FA1D7DE615006F47EE /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777771F91D7DE615006F47EE /* ScheduleCell.swift */; };
+		777771FB1D7DED00006F47EE /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773A35F51D6834B8005BF01A /* IntExtension.swift */; };
+		777771FD1D7DED00006F47EE /* PeriodDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777771FC1D7DED00006F47EE /* PeriodDetailController.swift */; };
 		778946681CFABFDA00C41F19 /* appIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 778946671CFABFDA00C41F19 /* appIcon.png */; };
 		7789466A1CFAC09500C41F19 /* globe.png in Resources */ = {isa = PBXBuildFile; fileRef = 778946691CFAC09500C41F19 /* globe.png */; };
 		77B11E2B1D77029300177D5D /* TableViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B11E2A1D77029300177D5D /* TableViewHelper.swift */; };
@@ -86,6 +97,23 @@
 		FC9A2D431D74F62800436546 /* HomeworkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9A2D421D74F62800436546 /* HomeworkVC.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		777771D11D7D3D7C006F47EE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77D54F681CECBEC500C11FA5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 777771CE1D7D3D7C006F47EE;
+			remoteInfo = "staplesWatchApp Extension";
+		};
+		777771DB1D7D3D7C006F47EE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77D54F681CECBEC500C11FA5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 777771C21D7D3D7C006F47EE;
+			remoteInfo = staplesWatchApp;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		77320A991D5D797F00603A38 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -93,10 +121,30 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				77320A981D5D797E00603A38 /* RealmSwift.framework in Embed Frameworks */,
-				77320A961D5D797E00603A38 /* Realm.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		777771E31D7D3D7C006F47EE /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				777771D01D7D3D7C006F47EE /* staplesWatchApp Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		777771E51D7D3D7C006F47EE /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				777771DD1D7D3D7C006F47EE /* staplesWatchApp.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -122,8 +170,6 @@
 		772D52F51D6652430032C1E7 /* NSTimeIntervalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTimeIntervalExtension.swift; sourceTree = "<group>"; };
 		772DCA501CEF40D200F52AA6 /* LoginPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPageViewController.swift; sourceTree = "<group>"; };
 		772DCA521CEF428500F52AA6 /* PageContentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageContentVC.swift; sourceTree = "<group>"; };
-		77320A931D5D797E00603A38 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
-		77320A941D5D797E00603A38 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		77320A9B1D5D7AAF00603A38 /* RealmObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmObjects.swift; sourceTree = "<group>"; };
 		77390BE21D7564E40095FD9E /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
 		77390BE31D7564E40095FD9E /* clock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock@2x.png"; sourceTree = "<group>"; };
@@ -145,6 +191,22 @@
 		775DC44E1CED583400046768 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		77703B3B1D5C3D3B0093CF95 /* KDCircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDCircularProgress.swift; sourceTree = "<group>"; };
 		77703B3D1D5C47530093CF95 /* ScheduleVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleVC.swift; sourceTree = "<group>"; };
+		777771C31D7D3D7C006F47EE /* staplesWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = staplesWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		777771C61D7D3D7C006F47EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		777771C81D7D3D7C006F47EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		777771CA1D7D3D7C006F47EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		777771CF1D7D3D7C006F47EE /* staplesWatchApp Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "staplesWatchApp Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		777771D41D7D3D7C006F47EE /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		777771D61D7D3D7C006F47EE /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		777771D81D7D3D7C006F47EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		777771DA1D7D3D7C006F47EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		777771E81D7D3FE2006F47EE /* WatchAppDailyScheduleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchAppDailyScheduleManager.swift; sourceTree = "<group>"; };
+		777771EA1D7D4007006F47EE /* WatchPeriod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchPeriod.swift; sourceTree = "<group>"; };
+		777771EC1D7D4016006F47EE /* WatchSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchSchedule.swift; sourceTree = "<group>"; };
+		777771EE1D7D4023006F47EE /* WatchSchedulePeriod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchSchedulePeriod.swift; sourceTree = "<group>"; };
+		777771F61D7DE540006F47EE /* ScheduleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleController.swift; sourceTree = "<group>"; };
+		777771F91D7DE615006F47EE /* ScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
+		777771FC1D7DED00006F47EE /* PeriodDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodDetailController.swift; sourceTree = "<group>"; };
 		778946671CFABFDA00C41F19 /* appIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appIcon.png; sourceTree = "<group>"; };
 		778946691CFAC09500C41F19 /* globe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = globe.png; sourceTree = "<group>"; };
 		77AB0F4D1CECC0E900A25110 /* staplesgotclass-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "staplesgotclass-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -164,6 +226,8 @@
 		77DB561F1CF25C7C0014B002 /* AllUsersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllUsersVC.swift; sourceTree = "<group>"; };
 		77DB56211CF2AD2D0014B002 /* defaultGooglePic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultGooglePic.png; sourceTree = "<group>"; };
 		77DEF2A11CFBAD7800E94B57 /* blueAppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueAppIcon.png; sourceTree = "<group>"; };
+		77EDB1771D8B6BD400611AA1 /* staplesWatchApp Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "staplesWatchApp Extension.entitlements"; sourceTree = "<group>"; };
+		77EDB1781D8B6C5600611AA1 /* staplesgotclass.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = staplesgotclass.entitlements; sourceTree = "<group>"; };
 		ED17CD0C97B747CA1F5D3B30 /* Pods-staplesgotclass.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-staplesgotclass.debug.xcconfig"; path = "Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass.debug.xcconfig"; sourceTree = "<group>"; };
 		FC2078E71CFB7E6400D86F54 /* sync.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sync.png; sourceTree = "<group>"; };
 		FC2078E91CFB7E9B00D86F54 /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
@@ -190,13 +254,25 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		43D48A4D0C4ABDA3CAA139E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		777771CC1D7D3D7C006F47EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		77D54F6D1CECBEC600C11FA5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77320A951D5D797E00603A38 /* Realm.framework in Frameworks */,
 				078B0CEA10E638BFC57FE69E /* Pods_staplesgotclass.framework in Frameworks */,
-				77320A971D5D797E00603A38 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,8 +291,6 @@
 		6A5B33AA2B3A517AF98D5380 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				77320A931D5D797E00603A38 /* Realm.framework */,
-				77320A941D5D797E00603A38 /* RealmSwift.framework */,
 				382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */,
 			);
 			name = Frameworks;
@@ -259,6 +333,59 @@
 				775A18F11D701D8200D1AA9C /* dateSearch@2x.png */,
 			);
 			path = Graphics;
+			sourceTree = "<group>";
+		};
+		777771C41D7D3D7C006F47EE /* staplesWatchApp */ = {
+			isa = PBXGroup;
+			children = (
+				777771C51D7D3D7C006F47EE /* Interface.storyboard */,
+				777771C81D7D3D7C006F47EE /* Assets.xcassets */,
+				777771CA1D7D3D7C006F47EE /* Info.plist */,
+			);
+			path = staplesWatchApp;
+			sourceTree = "<group>";
+		};
+		777771D31D7D3D7C006F47EE /* staplesWatchApp Extension */ = {
+			isa = PBXGroup;
+			children = (
+				77EDB1771D8B6BD400611AA1 /* staplesWatchApp Extension.entitlements */,
+				777771E71D7D3FC1006F47EE /* Model */,
+				777771F81D7DE5FC006F47EE /* Views */,
+				777771E61D7D3FA2006F47EE /* Controllers */,
+				777771D61D7D3D7C006F47EE /* ExtensionDelegate.swift */,
+				777771D81D7D3D7C006F47EE /* Assets.xcassets */,
+				777771DA1D7D3D7C006F47EE /* Info.plist */,
+			);
+			path = "staplesWatchApp Extension";
+			sourceTree = "<group>";
+		};
+		777771E61D7D3FA2006F47EE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				777771D41D7D3D7C006F47EE /* InterfaceController.swift */,
+				777771F61D7DE540006F47EE /* ScheduleController.swift */,
+				777771FC1D7DED00006F47EE /* PeriodDetailController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		777771E71D7D3FC1006F47EE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				777771E81D7D3FE2006F47EE /* WatchAppDailyScheduleManager.swift */,
+				777771EA1D7D4007006F47EE /* WatchPeriod.swift */,
+				777771EC1D7D4016006F47EE /* WatchSchedule.swift */,
+				777771EE1D7D4023006F47EE /* WatchSchedulePeriod.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		777771F81D7DE5FC006F47EE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				777771F91D7DE615006F47EE /* ScheduleCell.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		77AB0F4E1CECC35700A25110 /* Views */ = {
@@ -314,6 +441,8 @@
 			isa = PBXGroup;
 			children = (
 				77D54F721CECBEC600C11FA5 /* staplesgotclass */,
+				777771C41D7D3D7C006F47EE /* staplesWatchApp */,
+				777771D31D7D3D7C006F47EE /* staplesWatchApp Extension */,
 				77D54F711CECBEC600C11FA5 /* Products */,
 				613DFD310385FD328BD251B2 /* Pods */,
 				6A5B33AA2B3A517AF98D5380 /* Frameworks */,
@@ -324,6 +453,8 @@
 			isa = PBXGroup;
 			children = (
 				77D54F701CECBEC600C11FA5 /* staplesgotclass.app */,
+				777771C31D7D3D7C006F47EE /* staplesWatchApp.app */,
+				777771CF1D7D3D7C006F47EE /* staplesWatchApp Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -331,6 +462,7 @@
 		77D54F721CECBEC600C11FA5 /* staplesgotclass */ = {
 			isa = PBXGroup;
 			children = (
+				77EDB1781D8B6C5600611AA1 /* staplesgotclass.entitlements */,
 				FC53CF911CF5214A0034266F /* MLPAutoCompleteTextField */,
 				77D54F731CECBEC600C11FA5 /* AppDelegate.swift */,
 				77AB0F4D1CECC0E900A25110 /* staplesgotclass-Bridging-Header.h */,
@@ -377,25 +509,61 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		77D54F6F1CECBEC600C11FA5 /* staplesgotclass */ = {
+		777771C21D7D3D7C006F47EE /* staplesWatchApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 77D54F821CECBEC600C11FA5 /* Build configuration list for PBXNativeTarget "staplesgotclass" */;
+			buildConfigurationList = 777771E41D7D3D7C006F47EE /* Build configuration list for PBXNativeTarget "staplesWatchApp" */;
 			buildPhases = (
-				11F1C482A93233EE76BA42CA /* Check Pods Manifest.lock */,
-				930A1E9B50CE6270BD86F68E /* 📦 Check Pods Manifest.lock */,
-				77D54F6C1CECBEC600C11FA5 /* Sources */,
-				77D54F6D1CECBEC600C11FA5 /* Frameworks */,
-				77D54F6E1CECBEC600C11FA5 /* Resources */,
-				79F08EE74151377351012531 /* 📦 Embed Pods Frameworks */,
-				EDBAE2C2A868474D4447DD8E /* 📦 Copy Pods Resources */,
-				462C378E32C048EE6B769115 /* Embed Pods Frameworks */,
-				C8FDFA8FB1A8B256FD2112CC /* Copy Pods Resources */,
-				77320A991D5D797F00603A38 /* Embed Frameworks */,
-				77320A9A1D5D79D200603A38 /* ShellScript */,
+				777771C11D7D3D7C006F47EE /* Resources */,
+				777771E31D7D3D7C006F47EE /* Embed App Extensions */,
+				43D48A4D0C4ABDA3CAA139E1 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				777771D21D7D3D7C006F47EE /* PBXTargetDependency */,
+			);
+			name = staplesWatchApp;
+			productName = staplesWatchApp;
+			productReference = 777771C31D7D3D7C006F47EE /* staplesWatchApp.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		777771CE1D7D3D7C006F47EE /* staplesWatchApp Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 777771E21D7D3D7C006F47EE /* Build configuration list for PBXNativeTarget "staplesWatchApp Extension" */;
+			buildPhases = (
+				777771CB1D7D3D7C006F47EE /* Sources */,
+				777771CC1D7D3D7C006F47EE /* Frameworks */,
+				777771CD1D7D3D7C006F47EE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "staplesWatchApp Extension";
+			productName = "staplesWatchApp Extension";
+			productReference = 777771CF1D7D3D7C006F47EE /* staplesWatchApp Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
+		77D54F6F1CECBEC600C11FA5 /* staplesgotclass */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 77D54F821CECBEC600C11FA5 /* Build configuration list for PBXNativeTarget "staplesgotclass" */;
+			buildPhases = (
+				11F1C482A93233EE76BA42CA /* [CP] Check Pods Manifest.lock */,
+				930A1E9B50CE6270BD86F68E /* 📦 Check Pods Manifest.lock */,
+				77D54F6C1CECBEC600C11FA5 /* Sources */,
+				77D54F6D1CECBEC600C11FA5 /* Frameworks */,
+				77D54F6E1CECBEC600C11FA5 /* Resources */,
+				79F08EE74151377351012531 /* [CP] Embed Pods Frameworks */,
+				EDBAE2C2A868474D4447DD8E /* [CP] Copy Pods Resources */,
+				462C378E32C048EE6B769115 /* Embed Pods Frameworks */,
+				C8FDFA8FB1A8B256FD2112CC /* Copy Pods Resources */,
+				77320A991D5D797F00603A38 /* Embed Frameworks */,
+				777771E51D7D3D7C006F47EE /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				777771DC1D7D3D7C006F47EE /* PBXTargetDependency */,
 			);
 			name = staplesgotclass;
 			productName = staplesgotclass;
@@ -409,11 +577,36 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Dylan Diamond";
 				TargetAttributes = {
+					777771C21D7D3D7C006F47EE = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 9FC732TXJR;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
+					};
+					777771CE1D7D3D7C006F47EE = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 9FC732TXJR;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
+					};
 					77D54F6F1CECBEC600C11FA5 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 9FC732TXJR;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -431,11 +624,30 @@
 			projectRoot = "";
 			targets = (
 				77D54F6F1CECBEC600C11FA5 /* staplesgotclass */,
+				777771C21D7D3D7C006F47EE /* staplesWatchApp */,
+				777771CE1D7D3D7C006F47EE /* staplesWatchApp Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		777771C11D7D3D7C006F47EE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				777771C91D7D3D7C006F47EE /* Assets.xcassets in Resources */,
+				777771C71D7D3D7C006F47EE /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		777771CD1D7D3D7C006F47EE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				777771D91D7D3D7C006F47EE /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		77D54F6E1CECBEC600C11FA5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -482,14 +694,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		11F1C482A93233EE76BA42CA /* Check Pods Manifest.lock */ = {
+		11F1C482A93233EE76BA42CA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,27 +724,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		77320A9A1D5D79D200603A38 /* ShellScript */ = {
+		79F08EE74151377351012531 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"\n";
-		};
-		79F08EE74151377351012531 /* 📦 Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -570,14 +769,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EDBAE2C2A868474D4447DD8E /* 📦 Copy Pods Resources */ = {
+		EDBAE2C2A868474D4447DD8E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -588,6 +787,23 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		777771CB1D7D3D7C006F47EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				777771ED1D7D4016006F47EE /* WatchSchedule.swift in Sources */,
+				777771EF1D7D4023006F47EE /* WatchSchedulePeriod.swift in Sources */,
+				777771FA1D7DE615006F47EE /* ScheduleCell.swift in Sources */,
+				777771E91D7D3FE2006F47EE /* WatchAppDailyScheduleManager.swift in Sources */,
+				777771D71D7D3D7C006F47EE /* ExtensionDelegate.swift in Sources */,
+				777771FB1D7DED00006F47EE /* IntExtension.swift in Sources */,
+				777771F71D7DE540006F47EE /* ScheduleController.swift in Sources */,
+				777771EB1D7D4007006F47EE /* WatchPeriod.swift in Sources */,
+				777771D51D7D3D7C006F47EE /* InterfaceController.swift in Sources */,
+				777771FD1D7DED00006F47EE /* PeriodDetailController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		77D54F6C1CECBEC600C11FA5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -633,7 +849,28 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		777771D21D7D3D7C006F47EE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 777771CE1D7D3D7C006F47EE /* staplesWatchApp Extension */;
+			targetProxy = 777771D11D7D3D7C006F47EE /* PBXContainerItemProxy */;
+		};
+		777771DC1D7D3D7C006F47EE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 777771C21D7D3D7C006F47EE /* staplesWatchApp */;
+			targetProxy = 777771DB1D7D3D7C006F47EE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		777771C51D7D3D7C006F47EE /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				777771C61D7D3D7C006F47EE /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
 		77D54F771CECBEC600C11FA5 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -655,6 +892,96 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		777771DE1D7D3D7C006F47EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 9FC732TXJR;
+				IBSC_MODULE = staplesWatchApp_Extension;
+				INFOPLIST_FILE = staplesWatchApp/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		777771DF1D7D3D7C006F47EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 9FC732TXJR;
+				IBSC_MODULE = staplesWatchApp_Extension;
+				INFOPLIST_FILE = staplesWatchApp/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
+		777771E01D7D3D7C006F47EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "staplesWatchApp Extension/staplesWatchApp Extension.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 9FC732TXJR;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "staplesWatchApp Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		777771E11D7D3D7C006F47EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "staplesWatchApp Extension/staplesWatchApp Extension.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 9FC732TXJR;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "staplesWatchApp Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
 		77D54F801CECBEC600C11FA5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -669,8 +996,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -714,8 +1043,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -734,6 +1065,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -742,7 +1074,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = ED17CD0C97B747CA1F5D3B30 /* Pods-staplesgotclass.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = staplesgotclass/staplesgotclass.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -750,11 +1086,14 @@
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = staplesgotclass/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "staplesgotclass/staplesgotclass-Bridging-Header.h";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -762,8 +1101,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6F3617A969EFDF047E0788E2 /* Pods-staplesgotclass.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mica Diamond (9FC732TXJR)";
+				CODE_SIGN_ENTITLEMENTS = staplesgotclass/staplesgotclass.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -771,18 +1113,38 @@
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = staplesgotclass/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "378a7f08-e000-49d1-9caf-9ac761d719c0";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "staplesgotclass/staplesgotclass-Bridging-Header.h";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		777771E21D7D3D7C006F47EE /* Build configuration list for PBXNativeTarget "staplesWatchApp Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				777771E01D7D3D7C006F47EE /* Debug */,
+				777771E11D7D3D7C006F47EE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		777771E41D7D3D7C006F47EE /* Build configuration list for PBXNativeTarget "staplesWatchApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				777771DE1D7D3D7C006F47EE /* Debug */,
+				777771DF1D7D3D7C006F47EE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		77D54F6B1CECBEC500C11FA5 /* Build configuration list for PBXProject "staplesgotclass" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

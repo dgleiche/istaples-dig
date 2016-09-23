@@ -32,6 +32,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
         
         self.tableView.allowsSelection = false
         
+        self.view.layoutIfNeeded()
         
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
         self.navigationController?.navigationBar.translucent = false

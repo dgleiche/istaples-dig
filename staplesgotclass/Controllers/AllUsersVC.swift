@@ -228,6 +228,8 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
             indexUser = userWithLetterArray[indexPath.row]
         }
         cell.nameLabel.text = indexUser.name
+        
+        cell.contentView.layoutIfNeeded()
         cell.classmateImageView.clipsToBounds = true
         cell.classmateImageView.layer.cornerRadius = cell.classmateImageView.frame.width / 2
         

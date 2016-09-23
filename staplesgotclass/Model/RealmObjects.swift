@@ -83,7 +83,7 @@ class RealmPeriod: Object {
     dynamic var quarters: String?
     dynamic var id: Int = 0
     
-    func setPeriod(period period: Period) {
+    func setPeriod(period: Period) {
         self.name = period.name
         self.periodNumber = period.periodNumber
         self.teacherName = period.teacherName

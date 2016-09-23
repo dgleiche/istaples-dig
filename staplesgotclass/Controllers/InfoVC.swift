@@ -46,13 +46,13 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
     
     func mailComposeController(controller:MFMailComposeViewController, didFinishWithResult result:MFMailComposeResult, error:NSError?) {
         switch result {
-        case MFMailComposeResultCancelled:
+        case MFMailComposeResult.Cancelled:
             print("Mail cancelled")
-        case MFMailComposeResultSaved:
+        case .Saved:
             print("Mail saved")
-        case MFMailComposeResultSent:
+        case .Sent:
             print("Mail sent")
-        case MFMailComposeResultFailed:
+        case .Failed:
             print("Mail sent failure: \(error?.localizedDescription)")
         default:
             break
