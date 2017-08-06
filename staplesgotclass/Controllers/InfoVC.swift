@@ -53,7 +53,7 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
         case .sent:
             print("Mail sent")
         case .failed:
-            print("Mail sent failure: \(error?.localizedDescription)")
+            print("Mail sent failure: \(String(describing: error?.localizedDescription))")
         default:
             break
         }

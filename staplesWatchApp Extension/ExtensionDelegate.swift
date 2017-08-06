@@ -69,9 +69,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     }
     
     func updateData(_ task: AnyObject?) {
-        session?.sendMessage(["purpose" : "getSchedule"], replyHandler: { (schedule: [String : AnyObject]) in
+        session?.sendMessage(["purpose" : "getSchedule"], replyHandler: { (schedule: [String : Any]) in
             print("schedule received")
-            if (schedule["noSchedule"]?.boolValue != true) {
+            if ((schedule["noSchedule"] as AnyObject).boolValue != true) {
                 let newSchedule = WatchSchedule()
                 newSchedule.name = schedule["name"] as? String
                 
@@ -108,7 +108,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
             NotificationCenter.default.post(name: Notification.Name(rawValue: "scheduleReceived"), object: nil)
             if #available(watchOSApplicationExtension 3.0, *) {
                 if task is WKApplicationRefreshBackgroundTask {
-                    WKExtension.shared().scheduleSnapshotRefresh(withPreferredDate: Date(), userInfo: nil, scheduledCompletion: { (error: NSError?) in
+                    WKExtension.shared().scheduleSnapshotRefresh(withPreferredDate: Date(), userInfo: nil, scheduledCompletion: { (error: Error?) in
                         if (error == nil) {
                             print("successfully scheduled snapshot update")
                         }
@@ -117,7 +117,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
                     task?.setTaskCompleted()
                 }
             }
-            }, errorHandler: { (error: NSError) in
+            }, errorHandler: { (error: Error?) in
                 print("error getting current schedule \(error)")
         })
     }

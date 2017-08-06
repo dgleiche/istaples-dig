@@ -34,6 +34,10 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 
 class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignInDelegate {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        //code
+    }
+
     @IBOutlet var timeLeftRing: KDCircularProgress!
     @IBOutlet var timeElapsedRing: KDCircularProgress!
     @IBOutlet var timeRemainingLabel: UILabel!
@@ -193,7 +197,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         print("delegate called")
         if DailyScheduleManager.sharedInstance != nil {
             print("staticScheduleCount: \(DailyScheduleManager.sharedInstance?.staticSchedules.count)")
-            print("modScheduleCount: \(DailyScheduleManager.sharedInstance?.modifiedSchedules.count)")
+            print("modScheduleCount: \(String(describing: DailyScheduleManager.sharedInstance?.modifiedSchedules.count))")
             
             DailyScheduleManager.sharedInstance?.fetchInProgress = false
             
@@ -472,7 +476,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     func changeSchedule(withAnimation animation: String?) {
         self.selectedSchedule = DailyScheduleManager.sharedInstance?.getSchedule(withDate: self.selectedDate)
-        if (self.selectedSchedule == DailyScheduleManager.sharedInstance?.currentSchedule && self.selectedSchedule != nil && Calendar.currentCalendar().compareDate(self.selectedDate, toDate: Date(), toUnitGranularity: .Day) == .OrderedSame) {
+        if (self.selectedSchedule == DailyScheduleManager.sharedInstance?.currentSchedule && self.selectedSchedule != nil && (Calendar.current as NSCalendar).compare(self.selectedDate, to: Date(), toUnitGranularity: .day) == .orderedSame) {
             self.isCurrentSchedule = true
             if (DailyScheduleManager.sharedInstance?.getCurrentPeriod() != nil) {
                 self.showPeriodStatusBar()
@@ -856,7 +860,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 
                 if (user.profile.hasImage) {
                     profilePicURL = user.profile.imageURL(withDimension: 250).absoluteString
-                    print(profilePicURL)
+                    print(profilePicURL as Any)
                 }
                 
                 UserManager.createCurrentUser(user.profile.name, email: user.profile.email, token: user.authentication.idToken, profilePicURL: profilePicURL, completion: { (success: Bool) in

@@ -26,14 +26,14 @@ class User: NSObject {
     }
     
     func getSchedule(_ completion: ((Bool) -> Void)?) {
-        self.network.performRequest(withMethod: "GET", endpoint: "mySchedule", parameters: nil, headers: nil) { (response: Response<AnyObject, NSError>) in
+        self.network.performRequest(withMethod: "GET", endpoint: "mySchedule", parameters: nil, headers: nil) { (response: DataResponse<Any>) in
             print("statusCode: \(response.response!.statusCode)")
             
         }
     }
     
     func getClassmates(_ completion: ((Bool) -> Void)?) {
-        self.network.performRequest(withMethod: "GET", endpoint: "classmates", parameters: ["email": email], headers: nil) { (response: Response<AnyObject, NSError>) in
+        self.network.performRequest(withMethod: "GET", endpoint: "classmates", parameters: ["email": email], headers: nil) { (response: DataResponse<Any>) in
             if (response.response?.statusCode == 200) {
                 self.schedule = [Period]()
                 

@@ -128,9 +128,23 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
                         self.userDict[firstCharacter.uppercased()]?.append(user)
                         
                     }
-                    self.sectionTitleArray1 = self.userDict.keys.sorted { $0.localizedCaseInsensitiveCompare($1) == ComparisonResult.orderedAscending }
+                    
+                    
+                    var sortedArray = self.userDict.keys.sorted { $0.localizedCaseInsensitiveCompare($1) == ComparisonResult.orderedAscending }
+                    
+
+                    self.sectionTitleArray1 = self.userDict.keys.sorted { $0.localizedCaseInsensitiveCompare($1) == ComparisonResult.orderedAscending } as NSArray
+                    
+                    
                     self.sectionTitleArray = self.sectionTitleArray1.mutableCopy() as! NSMutableArray
+                    
+                    
                     self.activitySpinner.stopAnimating()
+                    
+                    
+                    
+                    
+                    
                     
                     if (self.refresh.isRefreshing) {
                         self.refresh.endRefreshing()
@@ -269,7 +283,7 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
                     }
                 }
                 
-            } as! SDWebImageCompletionBlock)
+            } as? SDExternalCompletionBlock)
             
             cell.classmateImageView.isHidden = false
             cell.initialView.isHidden = true

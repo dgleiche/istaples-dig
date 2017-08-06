@@ -1,11 +1,3 @@
-//
-//  UserManager.swift
-//  staplesgotclass
-//
-//  Created by Dylan Diamond on 5/18/16.
-//  Copyright © 2016 Dylan Diamond. All rights reserved.
-//
-
 import Foundation
 import Alamofire
 
@@ -22,7 +14,7 @@ class UserManager: NSObject {
     
     fileprivate init(name: String, email: String, token: String, profilePicURL: String?, completion: ((Bool) -> Void)?) {
         self.currentUser = User(name: name, email: email, profilePicURL: profilePicURL)
-
+        
         self.token = token
         super.init()
         self.verifyUser(completion)
@@ -33,7 +25,7 @@ class UserManager: NSObject {
     }
     
     func verifyUser(_ completion: ((Bool) -> Void)?) {
-        self.currentUser.network.performRequest(withMethod: "POST", endpoint: "validateUser", parameters: ["token": self.token, "name": self.currentUser.name], headers: nil) { (response: Response<AnyObject, NSError>) in
+        self.currentUser.network.performRequest(withMethod: "POST", endpoint: "validateUser", parameters: ["token": self.token, "name": self.currentUser.name], headers: nil) { (response: DataResponse<Any>) in
             if (response.response?.statusCode == 200) {
                 if let verifyResponse = response.result.value as? NSDictionary {
                     print("verify response: \(verifyResponse)")
@@ -44,19 +36,20 @@ class UserManager: NSObject {
                         
                         // You only need to set User ID on a tracker once. By setting it on the tracker, the ID will be
                         // sent with all subsequent hits.
-                        tracker.set(kGAIUserId, value: "\(userID)")
-                        tracker.set(GAIFields.customMetricForIndex(1), value:  "\(userID)")
-                        let builder = GAIDictionaryBuilder.createEventWithCategory("UX", action: "Sign In", label: nil, value: nil)
+                        //ADDED ? TO TRACKERs
+                        tracker?.set(kGAIUserId, value: "\(userID)")
+                        tracker?.set(GAIFields.customMetric(for: 1), value:  "\(userID)")
+                        let builder = GAIDictionaryBuilder.createEvent(withCategory: "UX", action: "Sign In", label: nil, value: nil)
                         // This hit will be sent with the User ID value and be visible in User-ID-enabled views (profiles).
                         
-                        tracker.send(builder.build() as [AnyHashable: Any])
+                        tracker?.send(builder?.build() as! [AnyHashable: Any])
                         print("sent user id  \(userID)")
-
+                        
                     }
                 }
                 
                 //success
-                self.currentUser.network.performRequest(withMethod: "GET", endpoint: "getAutofillData", parameters: nil, headers: nil, completion: { (responseData: Response<AnyObject, NSError>) in
+                self.currentUser.network.performRequest(withMethod: "GET", endpoint: "getAutofillData", parameters: nil, headers: nil, completion: { (responseData: DataResponse<Any>) in
                     if (responseData.response?.statusCode == 200) {
                         completion!(true)
                         if let responseJSON = responseData.result.value as? NSDictionary {
@@ -64,12 +57,12 @@ class UserManager: NSObject {
                             self.classNames = responseJSON["classList"] as! [String]
                         }
                         if (self.currentUser.profilePicURL != nil) {
-                            self.currentUser.network.performRequest(withMethod: "POST", endpoint: "setProfPicURL", parameters: ["url": self.currentUser.profilePicURL!], headers: nil, completion: { (response: Response<AnyObject, NSError>) in
+                            self.currentUser.network.performRequest(withMethod: "POST", endpoint: "setProfPicURL", parameters: ["url": self.currentUser.profilePicURL!], headers: nil, completion: { (response: DataResponse<Any>) in
                                 if (response.response?.statusCode == 200) {
                                     print("updated profile pic url")
                                 }
                                 else {
-                                    print("error updating profile pic url: \(response.result.error)")
+                                    print("error updating profile pic url: \(String(describing: response.result.error))")
                                 }
                             })
                         }
@@ -87,7 +80,7 @@ class UserManager: NSObject {
     }
     
     func getAllUsers(_ completion: ((_ success: Bool, _ userList: [User]?) -> Void)?) {
-        self.currentUser.network.performRequest(withMethod: "GET", endpoint: "getUsers", parameters: nil, headers: nil) { (response: Response<AnyObject, NSError>) in
+        self.currentUser.network.performRequest(withMethod: "GET", endpoint: "getUsers", parameters: nil, headers: nil) { (response: DataResponse<Any>) in
             if (response.response?.statusCode == 200) {
                 if let userResponse = response.result.value as? [[String : AnyObject]] {
                     var userList = [User]()
@@ -101,17 +94,17 @@ class UserManager: NSObject {
                             self.allUsers[selectedUser["email"]! as! String] = newUser
                             userList.append(newUser)
                         }
-
+                        
                     }
-                    completion!(success: true, userList: userList)
+                    completion!(true, userList)
                 }
                 else {
-                    completion!(success: false, userList: nil)
+                    completion!(false, nil)
                 }
             }
             else {
-                completion!(success: false, userList: nil)
-
+                completion!(false, nil)
+                
             }
         }
     }

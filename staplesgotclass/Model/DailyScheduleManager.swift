@@ -202,7 +202,7 @@ class DailyScheduleManager: NSObject {
                                     self.courses.append(newCourse)
                                 }
                                 
-                                PFConfig.getInBackground(block: { (fetchedConfig: PFConfig?, error: NSError?) in
+                                PFConfig.getInBackground{(fetchedConfig: PFConfig?, error: Error?) -> Void in
                                     var config: PFConfig?
                                     if (error == nil) {
                                         config = fetchedConfig
@@ -242,7 +242,7 @@ class DailyScheduleManager: NSObject {
                                         
                                     }
                                     self.delegate.didFetchSchedules(false)
-                                })
+                                }
                                 
                                 
                                 
@@ -250,19 +250,18 @@ class DailyScheduleManager: NSObject {
                             else {
                                 self.delegate.showErrorAlert()
                             }
-                        } as! ([PFObject]?, Error?) -> Void)
+                            } as? ([PFObject]?, Error?) -> Void)
                     }
                     else {
                         self.delegate.showErrorAlert()
                     }
-                } as! ([PFObject]?, Error?) -> Void)
+                    } as? ([PFObject]?, Error?) -> Void)
             }
             else {
                 self.delegate.showErrorAlert()
             }
-        } as! ([PFObject]?, Error?) -> Void)
+            } as? ([PFObject]?, Error?) -> Void)
     }
-    
     //TODO: Detect 10 mins before, after school;
     func getCurrentPeriod() -> SchedulePeriod? {
         if let schedule = self.currentSchedule {
@@ -384,10 +383,10 @@ class DailyScheduleManager: NSObject {
         
         return nil
     }
-    
     func secondsFromMidnight() -> Int {
-        let units : NSCalendar.Unit = [.hour, .minute, .second]
-        let components = (Calendar.current as NSCalendar).components(units, from: Date())
+        let calendar = Calendar.current
+        let units = Set<Calendar.Component>([.hour, .minute, .second])
+        let components = calendar.dateComponents([.hour,.minute,.second], from: Date())
         return (60 * 60 * components.hour!) + (60 * components.minute!) + components.second!
     }
     
@@ -410,26 +409,27 @@ class DailyScheduleManager: NSObject {
         
         //Function hasnt returned, thus it is a static schedule
         //Determine if it's a weekday (otherwise there is no schedule)
-        let weekday = selDateComponents.weekday
-        let schoolWeekday = 0
+        let weekday = Calendar.current.component(.weekday, from: Date())
+        var schoolWeekday = 0
         switch weekday {
-        case ?1:
+        case 1:
             schoolWeekday = 6
-        case ?2:
+        case 2:
             schoolWeekday = 0
-        case ?3:
+        case 3:
             schoolWeekday = 1
-        case ?4:
+        case 4:
             schoolWeekday = 2
-        case ?5:
+        case 5:
             schoolWeekday = 3
-        case ?6:
+        case 6:
             schoolWeekday = 4
-        case ?7:
+        case 7:
             schoolWeekday = 5
         default:
             break
         }
+        
         if schoolWeekday >= 0 && schoolWeekday <= 4 {
             //It's a weekday
             //Return the corresponding static schedule
@@ -472,7 +472,7 @@ class DailyScheduleManager: NSObject {
                                     let firstLunchPeriod = self.realm.create(SchedulePeriod.self, value: schedulePeriod, update: false)
                                     let updatedFirstLunchPeriod = self.createLunchPeriod(withInitialPeriod: firstLunchPeriod, startTime: realPeriodStartTime, endTime: realPeriodStartTime + lunchLength, isLunch: true)
                                     updatedFirstLunchPeriod.lunchNumber = 1
-                                    schedule.periods.insert(updatedFirstLunchPeriod, atIndex: schedule.periods.indexOf(schedulePeriod)!)
+                                    schedule.periods.insert(updatedFirstLunchPeriod, at: schedule.periods.index(of: schedulePeriod)!)
                                     schedulePeriod.startSeconds = realPeriodStartTime + lunchLength + passingTime
                                     
                                 case 2:
@@ -485,12 +485,12 @@ class DailyScheduleManager: NSObject {
                                     let newFirstSecondLunchPeriod = self.realm.create(SchedulePeriod.self, value: schedulePeriod, update: false)
                                     let updatedFirstSecondLunchPeriod = self.createLunchPeriod(withInitialPeriod: newFirstSecondLunchPeriod, startTime: realPeriodStartTime + periodLength + passingTime, endTime: realPeriodStartTime + periodLength + passingTime + lunchLength, isLunch: true)
                                     updatedFirstSecondLunchPeriod.lunchNumber = 2
-                                    schedule.periods.insert(updatedFirstSecondLunchPeriod, atIndex: schedule.periods.indexOf(schedulePeriod)!+1)
+                                    schedule.periods.insert(updatedFirstSecondLunchPeriod, at: schedule.periods.index(of: schedulePeriod)!+1)
                                     
                                     let newSecondSecondLunchPeriod = self.realm.create(SchedulePeriod.self, value: schedulePeriod, update: false)
                                     let updatedSecondSecondLunchPeriod = self.createLunchPeriod(withInitialPeriod: newSecondSecondLunchPeriod, startTime: realPeriodStartTime + periodLength + passingTime + lunchLength + passingTime, endTime: realPeriodEndTime, isLunch: false)
                                     updatedSecondSecondLunchPeriod.lunchNumber = 3
-                                    schedule.periods.insert(updatedSecondSecondLunchPeriod, atIndex: schedule.periods.indexOf(schedulePeriod)!+2)
+                                    schedule.periods.insert(updatedSecondSecondLunchPeriod, at: schedule.periods.index(of: schedulePeriod)!+2)
                                     
                                 case 3:
                                     //Long period, lunch
@@ -499,7 +499,7 @@ class DailyScheduleManager: NSObject {
                                     let newThirdLunchPeriod = self.realm.create(SchedulePeriod.self, value: schedulePeriod, update: false)
                                     let updatedThirdLunchPeriod = createLunchPeriod(withInitialPeriod:newThirdLunchPeriod, startTime: realPeriodEndTime - lunchLength, endTime: realPeriodEndTime, isLunch: true)
                                     updatedThirdLunchPeriod.lunchNumber = 3
-                                    schedule.periods.insert(updatedThirdLunchPeriod, atIndex: schedule.periods.indexOf(schedulePeriod)!+1)
+                                    schedule.periods.insert(updatedThirdLunchPeriod, at: schedule.periods.index(of: schedulePeriod)!+1)
                                 default:
                                     print("INVALID LUNCH NUMBER")
                                 }
@@ -509,7 +509,7 @@ class DailyScheduleManager: NSObject {
                     }
                     else {
                         //NO LUNCH TYPE, FREE LUNCH
-                                                print("no lunch type for \(schedulePeriod.name)")
+                                                print("no lunch type for \(String(describing: schedulePeriod.name))")
                         if (!schedule.containsLunchPeriods()) {
                             let lunchLength = 30*60
                             let periodLength = (((realPeriodEndTime - realPeriodStartTime) - lunchLength - passingTime*2) / 2)
@@ -520,13 +520,13 @@ class DailyScheduleManager: NSObject {
                             let newSecondLunchPeriod = self.realm.create(SchedulePeriod.self, value: schedulePeriod, update: false)
                             let updatedSecondLunchPeriod = self.createLunchPeriod(withInitialPeriod: newSecondLunchPeriod, startTime: realPeriodStartTime + periodLength + passingTime, endTime: realPeriodStartTime + periodLength + passingTime + lunchLength, isLunch: true)
                             updatedSecondLunchPeriod.lunchNumber = 2
-                            schedule.periods.insert(updatedSecondLunchPeriod, atIndex: schedule.periods.indexOf(schedulePeriod)!+1)
+                            schedule.periods.insert(updatedSecondLunchPeriod, at: schedule.periods.index(of: schedulePeriod)!+1)
                             
                             let newThirdLunchPeriod = self.realm.create(SchedulePeriod.self, value: schedulePeriod, update: false)
                             let updatedThirdLunchPeriod = self.createLunchPeriod(withInitialPeriod: newThirdLunchPeriod, startTime: realPeriodStartTime + periodLength + passingTime + lunchLength + passingTime, endTime: realPeriodEndTime, isLunch: true)
                             updatedThirdLunchPeriod.lunchNumber = 3
                             
-                            schedule.periods.insert(updatedThirdLunchPeriod, atIndex: schedule.periods.indexOf(schedulePeriod)!+2)
+                            schedule.periods.insert(updatedThirdLunchPeriod, at: schedule.periods.index(of: schedulePeriod)!+2)
                         }
                     }
                     
@@ -543,13 +543,13 @@ class DailyScheduleManager: NSObject {
                         let newSecondLunchPeriod = self.realm.create(SchedulePeriod.self, value: schedulePeriod, update: false)
                         let updatedSecondLunchPeriod = self.createLunchPeriod(withInitialPeriod: newSecondLunchPeriod, startTime: realPeriodStartTime + periodLength + passingTime, endTime: realPeriodStartTime + periodLength + passingTime + lunchLength, isLunch: true)
                         updatedSecondLunchPeriod.lunchNumber = 2
-                        schedule.periods.insert(updatedSecondLunchPeriod, atIndex: schedule.periods.indexOf(schedulePeriod)!+1)
+                        schedule.periods.insert(updatedSecondLunchPeriod, at: schedule.periods.index(of: schedulePeriod)!+1)
                         
                         let newThirdLunchPeriod = self.realm.create(SchedulePeriod.self, value: schedulePeriod, update: false)
                         let updatedThirdLunchPeriod = self.createLunchPeriod(withInitialPeriod: newThirdLunchPeriod, startTime: realPeriodStartTime + periodLength + passingTime + lunchLength + passingTime, endTime: realPeriodEndTime, isLunch: true)
                         updatedThirdLunchPeriod.lunchNumber = 3
                         
-                        schedule.periods.insert(updatedThirdLunchPeriod, atIndex: schedule.periods.indexOf(schedulePeriod)!+2)
+                        schedule.periods.insert(updatedThirdLunchPeriod, at: schedule.periods.index(of: schedulePeriod)!+2)
                     }
                 }
             }
@@ -571,7 +571,7 @@ class DailyScheduleManager: NSObject {
             //Check them against the inputted schedule period
             if (userSchedule != nil) {
                 for userPeriod in userSchedule! {
-                    if ((userPeriod.periodNumber == schedulePeriod.id) && (userPeriod.quarters?.containsString("\(self.currentQuarter)"))!) {
+                    if ((userPeriod.periodNumber == schedulePeriod.id) && (userPeriod.quarters?.contains("\(self.currentQuarter)"))!) {
                         return userPeriod
                     }
                 }

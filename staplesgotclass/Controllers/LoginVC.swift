@@ -10,6 +10,10 @@ import UIKit
 import Alamofire
 
 class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        //<#code#>
+    }
+
     @IBOutlet var signInButton: GIDSignInButton!
     @IBOutlet var pageVCHolder: UIView!
     @IBOutlet var pageVCIndicator: UIPageControl!
@@ -196,7 +200,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
                 
                 if (user.profile.hasImage) {
                     profilePicURL = user.profile.imageURL(withDimension: 250).absoluteString
-                    print(profilePicURL)
+                    print(profilePicURL as Any)
                 }
 
                 UserManager.createCurrentUser(user.profile.name, email: user.profile.email, token: user.authentication.idToken, profilePicURL: profilePicURL, completion: { (success: Bool) in
@@ -236,7 +240,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
     
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user:GIDGoogleUser!,
-                withError error: NSError!) {
+                withError error: Error!) {
         // Perform any operations when the user disconnects from app here.
         // ...
     }

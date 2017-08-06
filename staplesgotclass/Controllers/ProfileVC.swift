@@ -40,7 +40,7 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
                 profileImageView.sd_setImage(with: URL(string:currentUser!.profilePicURL!), completed: { (image: UIImage!, error: NSError!, cacheType: SDImageCacheType, url: URL!) in
                     //now that image is downloaded, set current user prof pic
                     self.currentUser?.profilePic = image
-                } as! SDWebImageCompletionBlock)
+                } as? SDExternalCompletionBlock)
 
                 
                 self.initialView.isHidden = true
@@ -80,7 +80,7 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
                 if (success) {
                     self.loadingSpinner.stopAnimating()
                     self.tableView.reloadData()
-                    print("schedule count: \(self.currentUser?.schedule!.count)")
+                    print("schedule count: \(String(describing: self.currentUser?.schedule!.count))")
                 }
                 else {
                     print("error getting user's classes")

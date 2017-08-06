@@ -17,18 +17,19 @@ extension String {
             
             do{
                 if let attributedString:NSAttributedString = try NSAttributedString(data: encodedData, options: attributedOptions, documentAttributes: nil){
-                    self.init(attributedString.string)
+                    self.init(attributedString.string)!
                 }else{
                     print("error")
-                    self.init(htmlEncodedString)     //Returning actual string if there is an error
+                    self.init(htmlEncodedString)!     //Returning actual string if there is an error
                 }
+                
             }catch{
                 print("error: \(error)")
-                self.init(htmlEncodedString)     //Returning actual string if there is an error
+                self.init(htmlEncodedString)!     //Returning actual string if there is an error
             }
             
         }else{
-            self.init(htmlEncodedString)     //Returning actual string if there is an error
+            self.init(htmlEncodedString)!     //Returning actual string if there is an error
         }
     }
     

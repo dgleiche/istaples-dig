@@ -144,27 +144,27 @@ extension AppDelegate: WCSessionDelegate {
                         var periodsArray = [AnyObject]()
                         for period in currentSchedule.periods {
                             var newPeriodDict = [String : AnyObject]()
-                            newPeriodDict["name"] = period.name
-                            newPeriodDict["isCustom"] = period.isCustom
-                            newPeriodDict["id"] = period.id
-                            newPeriodDict["isLunch"] = period.isLunch
-                            newPeriodDict["isPassingTime"] = period.isPassingTime
-                            newPeriodDict["isBeforeSchool"] = period.isBeforeSchool
-                            newPeriodDict["isAfterSchool"] = period.isAfterSchool
-                            newPeriodDict["startSeconds"] = period.startSeconds
-                            newPeriodDict["endSeconds"] = period.endSeconds
-                            newPeriodDict["isLunchPeriod"] = period.isLunchPeriod
-                            newPeriodDict["lunchNumber"] = period.lunchNumber
+                            newPeriodDict["name"] = period.name as AnyObject
+                            newPeriodDict["isCustom"] = period.isCustom as AnyObject
+                            newPeriodDict["id"] = period.id as AnyObject
+                            newPeriodDict["isLunch"] = period.isLunch as AnyObject
+                            newPeriodDict["isPassingTime"] = period.isPassingTime as AnyObject
+                            newPeriodDict["isBeforeSchool"] = period.isBeforeSchool as AnyObject
+                            newPeriodDict["isAfterSchool"] = period.isAfterSchool as AnyObject
+                            newPeriodDict["startSeconds"] = period.startSeconds as AnyObject
+                            newPeriodDict["endSeconds"] = period.endSeconds as AnyObject
+                            newPeriodDict["isLunchPeriod"] = period.isLunchPeriod as AnyObject
+                            newPeriodDict["lunchNumber"] = period.lunchNumber as AnyObject
                             if let realPeriod = period.realPeriod {
                                 var realPeriodDict = [String : AnyObject]()
-                                realPeriodDict["name"] = realPeriod.name
-                                realPeriodDict["periodNumber"] = realPeriod.periodNumber
-                                realPeriodDict["teacherName"] = realPeriod.teacherName
-                                realPeriodDict["quarters"] = realPeriod.quarters
-                                realPeriodDict["id"] = realPeriod.id
-                                newPeriodDict["realPeriod"] = realPeriodDict
+                                realPeriodDict["name"] = realPeriod.name as AnyObject
+                                realPeriodDict["periodNumber"] = realPeriod.periodNumber as AnyObject
+                                realPeriodDict["teacherName"] = realPeriod.teacherName as AnyObject
+                                realPeriodDict["quarters"] = realPeriod.quarters as AnyObject
+                                realPeriodDict["id"] = realPeriod.id as AnyObject
+                                newPeriodDict["realPeriod"] = realPeriodDict as AnyObject
                             }
-                            periodsArray.append(newPeriodDict)
+                            periodsArray.append(newPeriodDict as AnyObject)
                         }
                         replyDictionary["periods"] = periodsArray as AnyObject
                         print("sending reply: \(replyDictionary)")

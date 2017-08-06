@@ -180,11 +180,11 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
                     parameters["id"] = "\(currentClass!.id)"
                 }
                 sender.isEnabled = false
-                UserManager.sharedInstance?.currentUser.network.performRequest(withMethod: "POST", endpoint: "edit", parameters: parameters, headers: nil, completion: { (response: Response<AnyObject, NSError>) in
-                    sender.enabled = true
+                UserManager.sharedInstance?.currentUser.network.performRequest(withMethod: "POST", endpoint: "edit", parameters: parameters, headers: nil, completion: { (response: DataResponse<Any>) in
+                    sender.isEnabled = true
                     if (response.response?.statusCode == 200) {
                         UserManager.sharedInstance?.refreshNeeded = true
-                        self.dismissViewControllerAnimated(true, completion: nil)
+                        self.dismiss(animated: true, completion: nil)
                     }
                     else {
                         self.createAlert("Error saving period", alert: "Please check your network connection and try again.")

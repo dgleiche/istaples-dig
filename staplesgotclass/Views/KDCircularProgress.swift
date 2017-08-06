@@ -17,11 +17,11 @@ open class KDCircularProgress: UIView,CAAnimationDelegate {
     
     fileprivate struct Conversion {
         static func degreesToRadians (_ value:CGFloat) -> CGFloat {
-            return value * CGFloat(M_PI) / 180.0
+            return value * CGFloat(Double.pi) / 180.0
         }
         
         static func radiansToDegrees (_ value:CGFloat) -> CGFloat {
-            return value * 180.0 / CGFloat(M_PI)
+            return value * 180.0 / CGFloat(Double.pi)
         }
     }
     
@@ -430,7 +430,7 @@ open class KDCircularProgress: UIView,CAAnimationDelegate {
             let trackLineWidth = radius * trackThickness
             let progressLineWidth = radius * progressThickness
             let arcRadius = max(radius - trackLineWidth/2, radius - progressLineWidth/2)
-            CGContextAddArc(ctx, width/2.0, height/2.0, arcRadius, 0, CGFloat(M_PI * 2), 0)
+            ctx.addArc(center: CGPoint(x: width/2.0, y: height/2.0), radius: arcRadius, startAngle: 0, endAngle: CGFloat.pi * 2, clockwise: false)
             trackColor.set()
             ctx.setStrokeColor(trackColor.cgColor)
             ctx.setFillColor(progressInsideFillColor.cgColor)
@@ -445,7 +445,7 @@ open class KDCircularProgress: UIView,CAAnimationDelegate {
                 let fromAngle = Conversion.degreesToRadians(CGFloat(-startAngle))
                 let toAngle = Conversion.degreesToRadians(CGFloat((clockwise == true ? -reducedAngle : reducedAngle) - startAngle))
                 
-                CGContextAddArc(imageCtx, width/2.0, height/2.0, arcRadius, fromAngle, toAngle, clockwise == true ? 1 : 0)
+                imageCtx.addArc(center: CGPoint(x: width/2.0, y: height/2.0), radius: arcRadius, startAngle: fromAngle, endAngle: toAngle, clockwise: clockwise)
                 
                 let glowValue = GlowConstants.glowAmountForAngle(reducedAngle, glowAmount: glowAmount, glowMode: glowMode, size: width)
                 if glowValue > 0 {
@@ -479,7 +479,7 @@ open class KDCircularProgress: UIView,CAAnimationDelegate {
                 }
                 
                 let componentsArray = rgbColorsArray.flatMap { color -> [CGFloat] in
-                    let components: UnsafePointer<CGFloat> = color.cgColor.components
+                    guard let components = color.cgColor.components else { return [] }
                     return [components[0], components[1], components[2], 1.0]
                 }
                 
@@ -535,7 +535,7 @@ open class KDCircularProgress: UIView,CAAnimationDelegate {
             }
             
             let halfX = bounds.size.width / 2.0
-            let floatPi = CGFloat(M_PI)
+            let floatPi = CGFloat(Double.pi)
             let rotateSpeed = clockwise == true ? gradientRotateSpeed : gradientRotateSpeed * -1
             let angleInRadians = Conversion.degreesToRadians(rotateSpeed! * CGFloat(angle) - 90)
             let oppositeAngle = angleInRadians > floatPi ? angleInRadians - floatPi : angleInRadians + floatPi

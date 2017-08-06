@@ -294,20 +294,20 @@ class ClassesVC: UITableViewController {
             //Delete the class
             //Send the delete request to the server
             
-            UserManager.sharedInstance?.currentUser.network.performRequest(withMethod: "POST", endpoint: "delete", parameters: ["id": "\(period.id)"], headers: nil, completion: { (response: Response<AnyObject, NSError>) in
+            UserManager.sharedInstance?.currentUser.network.performRequest(withMethod: "POST", endpoint: "delete", parameters: ["id": "\(period.id)"], headers: nil, completion: { (response: DataResponse<Any>) in
                 
                 if (response.response?.statusCode == 200) {
                     print("successfully deleted period")
                     UserManager.sharedInstance?.refreshNeeded = true
-                    self.myClasses?.removeAtIndex(indexPath.row)
-                    if (self.myClasses?.count > 0) {
-                        self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-                        if (self.editing == false) {
+                    self.myClasses?.remove(at: indexPath.row)
+                    if ((self.myClasses?.count)! > 0) {
+                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                        if (self.isEditing == false) {
                             self.setEditing(false, animated: true)
                         }
                     }
                     else {
-                        self.tableView.deleteSections(NSIndexSet(index: 0), withRowAnimation: .None)
+                        self.tableView.deleteSections(IndexSet(integer: 0), with: .none)
                     }
                 }
             })

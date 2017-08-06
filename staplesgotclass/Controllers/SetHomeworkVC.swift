@@ -28,7 +28,7 @@ class SetHomeworkVC: UITableViewController, UITextFieldDelegate {
         
         if let homework = curHomework {
             assignmentTextField.text = homework.assignment
-            dueDate = homework.dueDate as! Date
+            dueDate = homework.dueDate!
             
             updateDueDateLabel()
         }

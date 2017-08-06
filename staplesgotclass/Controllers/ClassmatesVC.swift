@@ -113,7 +113,7 @@ class ClassmatesVC: UITableViewController {
                 else {
                     print("sd web image error: \(error)")
                 }
-            } as! SDWebImageCompletionBlock)
+            } as? SDExternalCompletionBlock)
             
             cell.classmateImageView.isHidden = false
             cell.initialView.isHidden = true
