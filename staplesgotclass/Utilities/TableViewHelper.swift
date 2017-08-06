@@ -10,16 +10,16 @@ import Foundation
 import UIKit
 class TableViewHelper {
     
-    class func EmptyMessage(message:String, viewController:UITableViewController) {
-        let messageLabel = UILabel(frame: CGRectMake(0,0,viewController.view.bounds.size.width, viewController.view.bounds.size.height))
+    class func EmptyMessage(_ message:String, viewController:UITableViewController) {
+        let messageLabel = UILabel(frame: CGRect(x: 0,y: 0,width: viewController.view.bounds.size.width, height: viewController.view.bounds.size.height))
         messageLabel.text = message
-        messageLabel.textColor = UIColor.blackColor()
+        messageLabel.textColor = UIColor.black
         messageLabel.numberOfLines = 0;
-        messageLabel.textAlignment = .Center;
+        messageLabel.textAlignment = .center;
         messageLabel.font = UIFont(name: "TrebuchetMS", size: 25)
         messageLabel.sizeToFit()
         
         viewController.tableView.backgroundView = messageLabel;
-        viewController.tableView.separatorStyle = .None;
+        viewController.tableView.separatorStyle = .none;
     }
 }

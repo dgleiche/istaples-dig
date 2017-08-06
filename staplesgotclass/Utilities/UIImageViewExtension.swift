@@ -8,19 +8,19 @@
 
 import Foundation
 extension UIImageView {
-    func downloadedFrom(link link:String, contentMode mode: UIViewContentMode, userImage: User?) {
+    func downloadedFrom(link:String, contentMode mode: UIViewContentMode, userImage: User?) {
         guard
-            let url = NSURL(string: link)
+            let url = URL(string: link)
             else {return}
         contentMode = mode
-        NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: { (data, response, error) -> Void in
+        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) -> Void in
             guard
-                let httpURLResponse = response as? NSHTTPURLResponse where httpURLResponse.statusCode == 200,
-                let mimeType = response?.MIMEType where mimeType.hasPrefix("image"),
-                let data = data where error == nil,
+                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
+                let data = data, error == nil,
                 let image = UIImage(data: data)
                 else { return }
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            DispatchQueue.main.async { () -> Void in
                 self.image = image
                 userImage?.profilePic = image
             }
@@ -31,18 +31,18 @@ extension UIImageView {
 
 // Add anywhere in your app
 extension UIImage {
-    func imageWithColor(tintColor: UIColor) -> UIImage {
+    func imageWithColor(_ tintColor: UIColor) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
         
         let context = UIGraphicsGetCurrentContext()
-        CGContextTranslateCTM(context!, 0, self.size.height)
-        CGContextScaleCTM(context!, 1.0, -1.0);
-        CGContextSetBlendMode(context!, CGBlendMode.Normal)
+        context!.translateBy(x: 0, y: self.size.height)
+        context!.scaleBy(x: 1.0, y: -1.0);
+        context!.setBlendMode(CGBlendMode.normal)
         
-        let rect = CGRectMake(0, 0, self.size.width, self.size.height) as CGRect
-        CGContextClipToMask(context!, rect, self.CGImage!)
+        let rect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height) as CGRect
+        context!.clip(to: rect, mask: self.cgImage!)
         tintColor.setFill()
-        CGContextFillRect(context!, rect)
+        context!.fill(rect)
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()! as UIImage
         UIGraphicsEndImageContext()

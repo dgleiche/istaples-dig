@@ -13,7 +13,7 @@ class SetHomeworkVC: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var assignmentTextField: UITextField!
     @IBOutlet weak var dueDateLabel: UILabel!
     
-    var dueDate: NSDate?
+    var dueDate: Date?
     
     //Course has to be set in the segue in
     var periodNumber: Int?
@@ -28,7 +28,7 @@ class SetHomeworkVC: UITableViewController, UITextFieldDelegate {
         
         if let homework = curHomework {
             assignmentTextField.text = homework.assignment
-            dueDate = homework.dueDate
+            dueDate = homework.dueDate as! Date
             
             updateDueDateLabel()
         }
@@ -36,7 +36,7 @@ class SetHomeworkVC: UITableViewController, UITextFieldDelegate {
     
     //MARK: IBActions
     
-    @IBAction func save(sender: AnyObject) {
+    @IBAction func save(_ sender: AnyObject) {
         if let date = dueDate {
             if assignmentTextField.text != nil && assignmentTextField.text != "" {
                 if let currentPeriod = self.periodNumber {
@@ -47,7 +47,7 @@ class SetHomeworkVC: UITableViewController, UITextFieldDelegate {
                         HomeworkManager.setHomework(forPeriod: currentPeriod, assignment: assignmentTextField.text!, dueDate: date)
                     }
                     
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
                     
                 } else {
                     presentAlert(withTitle: "Error", text: "Corrupt period data")
@@ -61,12 +61,12 @@ class SetHomeworkVC: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    @IBAction func cancel(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancel(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     //MARK: Table View Delegate Functions
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 1 {
             //Date row picked
             datePickerPressed()
@@ -75,7 +75,7 @@ class SetHomeworkVC: UITableViewController, UITextFieldDelegate {
     
     //MARK: Text Field Delegate Functions
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
     }
@@ -83,10 +83,10 @@ class SetHomeworkVC: UITableViewController, UITextFieldDelegate {
     //MARK: Misc functions
     
     func datePickerPressed() {
-        DatePickerDialog().show(title: "Due Date", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", datePickerMode: .Date) {
+        DatePickerDialog().show(title: "Due Date", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", datePickerMode: .date) {
             (pickedDate) -> Void in
             if let date = pickedDate {
-                self.dueDate = date
+                self.dueDate = date as Date
                 
                 self.updateDueDateLabel()
             }
@@ -95,17 +95,17 @@ class SetHomeworkVC: UITableViewController, UITextFieldDelegate {
     
     func updateDueDateLabel() {
         if let date = dueDate {
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "E MMM dd, yyyy"
             
-            dueDateLabel.text = dateFormatter.stringFromDate(date)
+            dueDateLabel.text = dateFormatter.string(from: date)
         }
     }
     
     func presentAlert(withTitle title: String, text: String) {
-        let alert = UIAlertController(title: title, message: text, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+        let alert = UIAlertController(title: title, message: text, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 }

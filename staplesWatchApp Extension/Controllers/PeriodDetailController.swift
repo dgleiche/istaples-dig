@@ -17,8 +17,8 @@ class PeriodDetailController: WKInterfaceController {
     @IBOutlet var teacherLabel: WKInterfaceLabel!
     @IBOutlet var quartersLabel: WKInterfaceLabel!
     
-    override func awakeWithContext(context: AnyObject?) {
-        super.awakeWithContext(context)
+    override func awake(withContext context: Any?) {
+        super.awake(withContext: context)
         self.setTitle("Close")
         let selectedPeriod = context as! WatchSchedulePeriod
         if let realPeriod = selectedPeriod.realPeriod {

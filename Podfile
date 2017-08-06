@@ -6,10 +6,17 @@ use_frameworks!
 target 'staplesgotclass' do
 	pod 'Google/Analytics'
 	pod 'Google/SignIn'
-	pod 'Alamofire', '~> 3.5’
-       pod 'Parse'
-       pod 'SDWebImage’
-  pod 'Realm', :git => 'https://github.com/realm/realm-cocoa.git', :branch => 'master’, submodules: true
-  pod 'RealmSwift', :git => 'https://github.com/realm/realm-cocoa.git', :branch => 'master’, submodules: true
+	pod 'Alamofire'
+       	pod 'Parse'
+       	pod 'SDWebImage'
+  	pod 'RealmSwift'
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['SWIFT_VERSION'] = ‘3.1’
+    end
+  end
 end
 

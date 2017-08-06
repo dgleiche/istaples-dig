@@ -23,9 +23,9 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.17, green:0.28, blue:0.89, alpha:1.0)
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 16)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 16)!, NSForegroundColorAttributeName: UIColor.white]
+        UIApplication.shared.statusBarStyle = .lightContent
         
         GIDSignIn.sharedInstance().delegate = nil
         GIDSignIn.sharedInstance().uiDelegate = self
@@ -33,7 +33,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
 //        GIDSignIn.sharedInstance().signInSilently()
         
         
-        self.pageVC = self.storyboard?.instantiateViewControllerWithIdentifier("LoginPageVC") as! UIPageViewController
+        self.pageVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginPageVC") as! UIPageViewController
         self.pageVC.dataSource = self
         self.pageVC.delegate = self
         
@@ -45,22 +45,22 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
         
         let firstPageContentVC = self.viewControllerAtIndex(0)
         let pageViewControllers: [UIViewController] = [firstPageContentVC!]
-        self.pageVC.setViewControllers(pageViewControllers, direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
+        self.pageVC.setViewControllers(pageViewControllers, direction: UIPageViewControllerNavigationDirection.forward, animated: true, completion: nil)
         self.pageVC.view.frame = self.pageVCHolder.frame
         self.addChildViewController(self.pageVC)
         self.pageVCHolder.addSubview(self.pageVC.view)
-        self.pageVC.didMoveToParentViewController(self)
+        self.pageVC.didMove(toParentViewController: self)
         
         
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         let tracker = GAI.sharedInstance().defaultTracker
-        tracker.set(kGAIScreenName, value: "SignIn")
+        tracker?.set(kGAIScreenName, value: "SignIn")
         
         let builder = GAIDictionaryBuilder.createScreenView()
-        tracker.send(builder.build() as [NSObject: AnyObject])
+        tracker?.send(builder?.build() as! [AnyHashable: Any])
     }
     
     override func didReceiveMemoryWarning() {
@@ -71,7 +71,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
     //MARK: Page VC Delegates
     
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
         let vc = viewController as! PageContentVC
         var index = vc.pageIndex!
@@ -86,7 +86,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
         
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
         let vc = viewController as! PageContentVC
         var index = vc.pageIndex!
@@ -105,12 +105,12 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
         
     }
     
-    func viewControllerAtIndex(index: Int) -> PageContentVC? {
+    func viewControllerAtIndex(_ index: Int) -> PageContentVC? {
         if ((self.pageTitles.count == 0) || (index >= self.pageTitles.count)) {
             return nil;
         }
         
-        let newPageVC = self.storyboard?.instantiateViewControllerWithIdentifier("PageContentVC") as! PageContentVC
+        let newPageVC = self.storyboard?.instantiateViewController(withIdentifier: "PageContentVC") as! PageContentVC
         if self.imageNames.count > index {
         newPageVC.imageName = self.imageNames[index]
         }
@@ -132,7 +132,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
 //        return 0
 //    }
 //    
-    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
         // If user bailed our early from the gesture,
         // we have to revert page control to previous position
@@ -142,26 +142,26 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
         }
     }
     
-    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         let pageContentView: PageContentVC = (pendingViewControllers[0] as! PageContentVC)
         self.pageVCIndicator.currentPage = pageContentView.pageIndex!
     }
     
     // Present a view that prompts the user to sign in with Google
-    func signIn(signIn: GIDSignIn!,
-                presentViewController viewController: UIViewController!) {
+    func sign(_ signIn: GIDSignIn!,
+                present viewController: UIViewController!) {
         print("sign in ui delegate")
-        self.presentViewController(viewController, animated: true, completion: nil)
+        self.present(viewController, animated: true, completion: nil)
     }
     
     // Dismiss the "Sign in with Google" view
-    func signIn(signIn: GIDSignIn!,
-                dismissViewController viewController: UIViewController!) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    func sign(_ signIn: GIDSignIn!,
+                dismiss viewController: UIViewController!) {
+        self.dismiss(animated: true, completion: nil)
     }
 
     
-    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
                 withError error: NSError!) {
         if (error == nil) {
             print("email: \(user.profile.email)")
@@ -174,8 +174,8 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
             //            let email = user.profile.email
             // ...
             
-            let emailDomain = user.profile.email.componentsSeparatedByString("@").last
-            if (emailDomain?.containsString("westport.k12.ct.us") == true) {
+            let emailDomain = user.profile.email.components(separatedBy: "@").last
+            if (emailDomain?.contains("westport.k12.ct.us") == true) {
                 print("confirmed wepo")
                 
                 //                Alamofire.request(.POST, "http://localhost:9292/api/validateUser", parameters: ["token": user.authentication.idToken])
@@ -195,7 +195,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
                 var profilePicURL: String?
                 
                 if (user.profile.hasImage) {
-                    profilePicURL = user.profile.imageURLWithDimension(250).absoluteString
+                    profilePicURL = user.profile.imageURL(withDimension: 250).absoluteString
                     print(profilePicURL)
                 }
 
@@ -203,15 +203,15 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
                     if (success) {
                         print("success in login screen!")
                         GIDSignIn.sharedInstance().delegate = nil
-                        NSNotificationCenter.defaultCenter().postNotificationName("loggedIn", object: nil)
-                        self.dismissViewControllerAnimated(true, completion: nil)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "loggedIn"), object: nil)
+                        self.dismiss(animated: true, completion: nil)
                     }
                     else {
                         print("error signing in")
-                        let alert = UIAlertController(title: "Error signing you in", message: "Please check your network connection and try again.", preferredStyle: .Alert)
-                        let dismiss = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+                        let alert = UIAlertController(title: "Error signing you in", message: "Please check your network connection and try again.", preferredStyle: .alert)
+                        let dismiss = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
                         alert.addAction(dismiss)
-                        self.presentViewController(alert, animated: true, completion: nil)
+                        self.present(alert, animated: true, completion: nil)
                     }
                 })
                 //self.performSegueWithIdentifier("logIn", sender: self)
@@ -219,23 +219,23 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
             }
             else {
                 GIDSignIn.sharedInstance().signOut()
-                let alert = UIAlertController(title: "Not Westport Account", message: "Please sign in using your Westport Google account and try again.", preferredStyle: .Alert)
-                let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                let alert = UIAlertController(title: "Not Westport Account", message: "Please sign in using your Westport Google account and try again.", preferredStyle: .alert)
+                let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alert.addAction(ok)
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.present(alert, animated: true, completion: nil)
             }
             
         } else {
             print("\(error.localizedDescription)")
-            let alert = UIAlertController(title: "Error signing in", message: "Please try again.", preferredStyle: .Alert)
-            let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            let alert = UIAlertController(title: "Error signing in", message: "Please try again.", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(ok)
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
     
-    func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!,
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user:GIDGoogleUser!,
                 withError error: NSError!) {
         // Perform any operations when the user disconnects from app here.
         // ...

@@ -20,18 +20,18 @@ class PeriodHomeworkVC: UITableViewController, HomeworkManagerDelegate {
         
         //If the current periodNumber is not set, alert then dismiss the controller cuz everythings gonna be fubar'd
         if periodNumber == nil {
-            let alert = UIAlertController(title: "ERROR", message: "Failed to set periodNumber", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { Void in
-                self.dismissViewControllerAnimated(true, completion: nil)
+            let alert = UIAlertController(title: "ERROR", message: "Failed to set periodNumber", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { Void in
+                self.dismiss(animated: true, completion: nil)
             }))
             
-            presentViewController(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
         }
         
-        self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         HomeworkManager.setup(delegate: self)
@@ -48,58 +48,58 @@ class PeriodHomeworkVC: UITableViewController, HomeworkManagerDelegate {
     
     //MARK: Table View Delegate Functions
     
-    override func setEditing(editing: Bool, animated: Bool) {
+    override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: true)
         
         if (editing) {
             //self.tableView.allowsSelectionDuringEditing = true
-            self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.homework.count, inSection: 0)], withRowAnimation: .Automatic)
+            self.tableView.insertRows(at: [IndexPath(row: self.homework.count, section: 0)], with: .automatic)
         }
         else {
-            if (self.tableView.numberOfRowsInSection(0) > self.homework.count) {
-                self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: self.homework.count, inSection: 0)], withRowAnimation: .Automatic)
+            if (self.tableView.numberOfRows(inSection: 0) > self.homework.count) {
+                self.tableView.deleteRows(at: [IndexPath(row: self.homework.count, section: 0)], with: .automatic)
             }
         }
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //If editing add a row for the add homework row
-        return (self.editing) ? homework.count + 1 : homework.count
+        return (self.isEditing) ? homework.count + 1 : homework.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if (self.editing == true && indexPath.row == self.homework.count) {
-            let cell = tableView.dequeueReusableCellWithIdentifier("newRowCell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (self.isEditing == true && indexPath.row == self.homework.count) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "newRowCell", for: indexPath)
             cell.textLabel?.text = "Add Homework"
             
             return cell
         }
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("homeworkCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "homeworkCell", for: indexPath)
         cell.textLabel!.text = homework[indexPath.row].assignment ?? "CORRUPT ASSIGNMENT DATA"
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         if indexPath.row == homework.count {
-            return .Insert
+            return .insert
         }
         
-        return .Delete
+        return .delete
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
-        if editingStyle == .Insert {
+        if editingStyle == .insert {
             addHomework()
-        } else if editingStyle == .Delete {
+        } else if editingStyle == .delete {
             deleteHomework(homework[indexPath.row])
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if (editing && indexPath.row < homework.count) || !editing {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (isEditing && indexPath.row < homework.count) || !isEditing {
             editHomework()
         } else {
             addHomework()
@@ -109,27 +109,27 @@ class PeriodHomeworkVC: UITableViewController, HomeworkManagerDelegate {
     //MARK: Misc Functions
     
     func editHomework() {
-        self.performSegueWithIdentifier("editHomeworkSegue", sender: nil)
+        self.performSegue(withIdentifier: "editHomeworkSegue", sender: nil)
     }
     
     func addHomework() {
-        self.performSegueWithIdentifier("addHomeworkSegue", sender: nil)
+        self.performSegue(withIdentifier: "addHomeworkSegue", sender: nil)
     }
     
-    func deleteHomework(homework: Homework) {
+    func deleteHomework(_ homework: Homework) {
         HomeworkManager.deleteHomework(homework)
         HomeworkManager.sharedInstance?.loadSavedData()
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addHomeworkSegue" {
-            let setHomeworkView = (segue.destinationViewController as! UINavigationController).topViewController as! SetHomeworkVC
+            let setHomeworkView = (segue.destination as! UINavigationController).topViewController as! SetHomeworkVC
             
             setHomeworkView.periodNumber = self.periodNumber
         } else if segue.identifier == "editHomeworkSegue" {
             if let selectedRow = tableView.indexPathForSelectedRow?.row {
                 if selectedRow < homework.count {
-                    let setHomeworkView = (segue.destinationViewController as! UINavigationController).topViewController as! SetHomeworkVC
+                    let setHomeworkView = (segue.destination as! UINavigationController).topViewController as! SetHomeworkVC
                     
                     setHomeworkView.periodNumber = self.periodNumber
                     setHomeworkView.curHomework = homework[selectedRow]

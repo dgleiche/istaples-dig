@@ -14,7 +14,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
         didSet {
             if let session = session {
                 session.delegate = self
-                session.activateSession()
+                session.activate()
             }
         }
     }
@@ -24,27 +24,27 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
         // Perform any final initialization of your application.
     }
     
-    func session(session: WCSession, activationDidCompleteWithState activationState: WCSessionActivationState, error: NSError?) {
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         self.updateData(nil)
     }
     
-    func sessionReachabilityDidChange(session: WCSession) {
-        if (session.reachable) {
+    func sessionReachabilityDidChange(_ session: WCSession) {
+        if (session.isReachable) {
         self.updateData(nil)
         }
     }
     
     @available(watchOSApplicationExtension 3.0, *)
-    func handleBackgroundTasks(backgroundTasks: Set<WKRefreshBackgroundTask>) {
+    func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
         for task in backgroundTasks {
             print("received background task: ", task)
             // only handle these while running in the background
-            if (WKExtension.sharedExtension().applicationState == .Background) {
+            if (WKExtension.shared().applicationState == .background) {
                 if task is WKApplicationRefreshBackgroundTask {
                     self.updateData(task)
                 }
                 else if task is WKSnapshotRefreshBackgroundTask {
-                    NSNotificationCenter.defaultCenter().postNotificationName("scheduleReceived", object: nil)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "scheduleReceived"), object: nil)
                     task.setTaskCompleted()
                 }
             }
@@ -59,16 +59,16 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         //Write code to get current schedule using watch connectivity
         print("application becoming active")
-        if session == nil || session?.activationState != WCSessionActivationState.Activated {
-            session = WCSession.defaultSession()
+        if session == nil || session?.activationState != WCSessionActivationState.activated {
+            session = WCSession.default()
         }
-        else if (session != nil && session!.reachable) {
+        else if (session != nil && session!.isReachable) {
             self.updateData(nil)
         }
         self.scheduleBackgroundUpdate()
     }
     
-    func updateData(task: AnyObject?) {
+    func updateData(_ task: AnyObject?) {
         session?.sendMessage(["purpose" : "getSchedule"], replyHandler: { (schedule: [String : AnyObject]) in
             print("schedule received")
             if (schedule["noSchedule"]?.boolValue != true) {
@@ -105,10 +105,10 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
                 WatchAppDailyScheduleManager.sharedInstance.currentSchedule = nil
             }
             WatchAppDailyScheduleManager.sharedInstance.scheduleSet = true
-            NSNotificationCenter.defaultCenter().postNotificationName("scheduleReceived", object: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "scheduleReceived"), object: nil)
             if #available(watchOSApplicationExtension 3.0, *) {
                 if task is WKApplicationRefreshBackgroundTask {
-                    WKExtension.sharedExtension().scheduleSnapshotRefreshWithPreferredDate(NSDate(), userInfo: nil, scheduledCompletion: { (error: NSError?) in
+                    WKExtension.shared().scheduleSnapshotRefresh(withPreferredDate: Date(), userInfo: nil, scheduledCompletion: { (error: NSError?) in
                         if (error == nil) {
                             print("successfully scheduled snapshot update")
                         }
@@ -124,11 +124,11 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     
     func scheduleBackgroundUpdate() {
         if #available(watchOSApplicationExtension 3.0, *) {
-            WKExtension.sharedExtension().scheduleBackgroundRefreshWithPreferredDate(NSDate.init(timeIntervalSinceNow: 10800), userInfo: nil, scheduledCompletion: { (error: NSError?) in
+            WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date.init(timeIntervalSinceNow: 10800), userInfo: nil, scheduledCompletion: { (error: NSError?) in
                 if (error == nil) {
                     print("successfully scheduled background update")
                 }
-            })
+            } as! (Error?) -> Void)
         } else {
             // Fallback on earlier versions
         }

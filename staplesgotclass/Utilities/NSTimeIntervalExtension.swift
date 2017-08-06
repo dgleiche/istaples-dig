@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension NSTimeInterval {
+extension TimeInterval {
     func stringFromTimeInterval() -> NSString {
         
         let ti = NSInteger(self)

@@ -25,26 +25,26 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
         
         self.emailLabel.titleLabel!.numberOfLines = 1
         self.emailLabel.titleLabel!.adjustsFontSizeToFitWidth = true
-        self.emailLabel.titleLabel!.lineBreakMode = NSLineBreakMode.ByClipping
+        self.emailLabel.titleLabel!.lineBreakMode = NSLineBreakMode.byClipping
         
         if (currentUser != nil) {
             self.navigationItem.title = "PROFILE"
             self.nameLabel.text = currentUser!.name
-            self.emailLabel.setTitle(currentUser!.email, forState: .Normal)
+            self.emailLabel.setTitle(currentUser!.email, for: UIControlState())
             
             self.view.layoutIfNeeded()
             self.profileImageView.clipsToBounds = true
             self.profileImageView.layer.cornerRadius = self.profileImageView.frame.width / 2
             if (currentUser?.profilePicURL != nil && currentUser?.profilePic == nil) {
                 
-                profileImageView.sd_setImageWithURL(NSURL(string:currentUser!.profilePicURL!), completed: { (image: UIImage!, error: NSError!, cacheType: SDImageCacheType, url: NSURL!) in
+                profileImageView.sd_setImage(with: URL(string:currentUser!.profilePicURL!), completed: { (image: UIImage!, error: NSError!, cacheType: SDImageCacheType, url: URL!) in
                     //now that image is downloaded, set current user prof pic
                     self.currentUser?.profilePic = image
-                })
+                } as! SDWebImageCompletionBlock)
 
                 
-                self.initialView.hidden = true
-                self.profileImageView.hidden = false
+                self.initialView.isHidden = true
+                self.profileImageView.isHidden = false
             }
             else if (currentUser?.profilePic != nil) {
                 profileImageView.image = currentUser!.profilePic!
@@ -55,23 +55,23 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
                 self.initialView.clipsToBounds = true
                 self.initialView.layer.cornerRadius = self.initialView.frame.width / 2
                 
-                let names: [String] = currentUser!.name.componentsSeparatedByString(" ")
+                let names: [String] = currentUser!.name.components(separatedBy: " ")
                 if (names.count >= 3) {
-                    self.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)\(names[2][0].uppercaseString)"
+                    self.initialLabel.text = "\(names[0][0].uppercased())\(names[1][0].uppercased())\(names[2][0].uppercased())"
                 }
                 else if (names.count == 2) {
-                    self.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)"
+                    self.initialLabel.text = "\(names[0][0].uppercased())\(names[1][0].uppercased())"
                     
                 }
                 else if (names.count == 1) {
-                    self.initialLabel.text = "\(names[0][0].uppercaseString))"
+                    self.initialLabel.text = "\(names[0][0].uppercased()))"
                 }
                 else {
                     self.initialLabel.text = nil
                 }
                 
-                self.profileImageView.hidden = true
-                self.initialView.hidden = false
+                self.profileImageView.isHidden = true
+                self.initialView.isHidden = false
             }
             if (currentUser?.schedule == nil) {
                 self.loadingSpinner.startAnimating()
@@ -84,19 +84,19 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
                 }
                 else {
                     print("error getting user's classes")
-                    let alert = UIAlertController(title: "Error retrieving classes", message: "Please check your network connection and try again.", preferredStyle: .Alert)
-                    let dismiss = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+                    let alert = UIAlertController(title: "Error retrieving classes", message: "Please check your network connection and try again.", preferredStyle: .alert)
+                    let dismiss = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
                     alert.addAction(dismiss)
-                    self.presentViewController(alert, animated: true, completion: nil)
+                    self.present(alert, animated: true, completion: nil)
                 }
             })
             
         }
         let tracker = GAI.sharedInstance().defaultTracker
-        tracker.set(kGAIScreenName, value: "ProfileView")
+        tracker?.set(kGAIScreenName, value: "ProfileView")
         
         let builder = GAIDictionaryBuilder.createScreenView()
-        tracker.send(builder.build() as [NSObject: AnyObject])
+        tracker?.send(builder?.build() as! [AnyHashable: Any])
     }
     
     override func didReceiveMemoryWarning() {
@@ -106,27 +106,27 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (currentUser?.schedule != nil) {
             return currentUser!.schedule!.count
         }
         return 0
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 55
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Schedule"
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("profileClassCell", forIndexPath: indexPath) as! ClassCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "profileClassCell", for: indexPath) as! ClassCell
         
         cell.classTitleLabel.text = currentUser!.schedule![indexPath.row].name
         cell.periodNumberLabel.text = "\(currentUser!.schedule![indexPath.row].periodNumber)"
@@ -137,29 +137,29 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let classmatesVC = self.storyboard?.instantiateViewControllerWithIdentifier("classmatesVC") as! ClassmatesVC
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let classmatesVC = self.storyboard?.instantiateViewController(withIdentifier: "classmatesVC") as! ClassmatesVC
         classmatesVC.currentClass = self.currentUser!.schedule![indexPath.row]
-        let backButton = UIBarButtonItem(title: " ", style: .Plain, target: nil, action: nil)
-        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        let backButton = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
+        self.tableView.deselectRow(at: indexPath, animated: true)
         self.navigationItem.backBarButtonItem = backButton
         self.navigationController?.pushViewController(classmatesVC, animated: true)
     }
     
-    @IBAction func emailUser(sender: AnyObject) {
+    @IBAction func emailUser(_ sender: AnyObject) {
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
             mail.setToRecipients([self.currentUser!.email])
             mail.setSubject("StaplesGotClass Email")
-            presentViewController(mail, animated: true, completion: nil)
+            present(mail, animated: true, completion: nil)
         } else {
             // show failure alert
         }
     }
     
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        controller.dismissViewControllerAnimated(true, completion: nil)
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
     
     /*

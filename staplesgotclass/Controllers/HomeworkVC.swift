@@ -18,20 +18,20 @@ class HomeworkVC: UITableViewController, HomeworkManagerDelegate {
         self.definesPresentationContext = false
         
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
-        self.navigationController?.navigationBar.translucent = false
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-UltraLight", size: 15)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-UltraLight", size: 15)!, NSForegroundColorAttributeName: UIColor.white]
+        UIApplication.shared.statusBarStyle = .lightContent
         self.navigationItem.title = "HOMEWORK"
         
         let tracker = GAI.sharedInstance().defaultTracker
-        tracker.set(kGAIScreenName, value: "Homework")
+        tracker?.set(kGAIScreenName, value: "Homework")
         
         let builder = GAIDictionaryBuilder.createScreenView()
-        tracker.send(builder.build() as [NSObject: AnyObject])
+        tracker?.send(builder?.build() as! [AnyHashable: Any])
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         getHomework()
@@ -54,15 +54,15 @@ class HomeworkVC: UITableViewController, HomeworkManagerDelegate {
     
     //MARK: TableView Data Source & Delegate Methods
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return homework.count
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return Array(homework.keys)[section]
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let curHomework = homework[Array(homework.keys)[section]] {
             return curHomework.count
         }
@@ -70,8 +70,8 @@ class HomeworkVC: UITableViewController, HomeworkManagerDelegate {
         return 0
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("homeworkCell")!
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "homeworkCell")!
         
         if let curSectionHomework = homework[Array(homework.keys)[indexPath.section]] {
             cell.textLabel!.text = curSectionHomework[indexPath.row].assignment
@@ -81,12 +81,12 @@ class HomeworkVC: UITableViewController, HomeworkManagerDelegate {
         return cell
     }
     
-    override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return Array(homework.keys)
     }
     
-    override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-        return Array(homework.keys).indexOf(title) ?? 0
+    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        return Array(homework.keys).index(of: title) ?? 0
     }
     
 }

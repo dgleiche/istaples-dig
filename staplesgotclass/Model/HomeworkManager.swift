@@ -23,7 +23,7 @@ class HomeworkManager: NSObject {
     
     weak var delegate: HomeworkManagerDelegate?
     
-    private init(delegate: HomeworkManagerDelegate?) {
+    fileprivate init(delegate: HomeworkManagerDelegate?) {
         self.delegate = delegate
         super.init()
         HomeworkManager.sharedInstance = self
@@ -34,7 +34,7 @@ class HomeworkManager: NSObject {
         sharedInstance = HomeworkManager(delegate: nil)
     }
     
-    class func setup(delegate delegate: HomeworkManagerDelegate?) {
+    class func setup(delegate: HomeworkManagerDelegate?) {
         sharedInstance = HomeworkManager(delegate: delegate)
     }
     
@@ -42,7 +42,7 @@ class HomeworkManager: NSObject {
         sharedInstance = nil
     }
     
-    class func setHomework(forPeriod periodNumber: Int, assignment: String, dueDate: NSDate) {
+    class func setHomework(forPeriod periodNumber: Int, assignment: String, dueDate: Date) {
         let homeworkObject = Homework()
         homeworkObject.assignment = assignment
         homeworkObject.periodNumber = periodNumber
@@ -53,14 +53,14 @@ class HomeworkManager: NSObject {
         }
     }
     
-    class func update(homework homework: Homework, assignment: String, dueDate: NSDate) {
+    class func update(homework: Homework, assignment: String, dueDate: Date) {
         try! realm.write {
             homework.assignment = assignment
             homework.dueDate = dueDate
         }
     }
     
-    class func deleteHomework(homework: Homework) {
+    class func deleteHomework(_ homework: Homework) {
         try! HomeworkManager.realm.write {
             HomeworkManager.realm.delete(homework)
         }

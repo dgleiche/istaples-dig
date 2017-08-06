@@ -15,10 +15,10 @@ extension Int {
     }
     func printSecondsToHoursMinutesSeconds() -> String {
         let (h, m, _) = self.secondsToHoursMinutesSeconds()
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "H:mm"
-        let inDate = dateFormatter.dateFromString(String(format: "%d:%02d", h, m))
+        let inDate = dateFormatter.date(from: String(format: "%d:%02d", h, m))
         dateFormatter.dateFormat = "h:mm"
-        return dateFormatter.stringFromDate(inDate!)
+        return dateFormatter.string(from: inDate!)
     }
 }

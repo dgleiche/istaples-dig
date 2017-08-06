@@ -26,10 +26,10 @@ class ClassesVC: UITableViewController {
         //Turn off extra lines in the table view
         
         self.navigationController?.navigationBar.barTintColor = sweetBlue
-        self.navigationController?.navigationBar.translucent = false
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-UltraLight", size: 15)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-UltraLight", size: 15)!, NSForegroundColorAttributeName: UIColor.white]
+        UIApplication.shared.statusBarStyle = .lightContent
         self.navigationItem.title = "CLASSES"
         
 //        //Info bar button
@@ -38,13 +38,13 @@ class ClassesVC: UITableViewController {
 //        let infoBarButtonItem = UIBarButtonItem(customView: infoButton)
 //        navigationItem.leftBarButtonItem = infoBarButtonItem
         
-        self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         let tracker = GAI.sharedInstance().defaultTracker
-        tracker.set(kGAIScreenName, value: "Classes")
+        tracker?.set(kGAIScreenName, value: "Classes")
         
         let builder = GAIDictionaryBuilder.createScreenView()
-        tracker.send(builder.build() as [NSObject: AnyObject])
+        tracker?.send(builder?.build() as! [AnyHashable: Any])
         
         if (UserManager.sharedInstance?.currentUser.schedule != nil) {
             self.myClasses = UserManager.sharedInstance?.currentUser.schedule
@@ -54,7 +54,7 @@ class ClassesVC: UITableViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         print("view did appear")
         
         //Resets this as to not save the last edited per
@@ -99,15 +99,15 @@ class ClassesVC: UITableViewController {
                     //                        self.presentViewController(alert, animated: true, completion: nil)
                     //                    }
                     self.tableView.reloadData()
-                    self.tableView.tableFooterView = UIView(frame: CGRectZero)
+                    self.tableView.tableFooterView = UIView(frame: CGRect.zero)
                     
                 }
                 else {
                     print("error getting classes")
-                    let alert = UIAlertController(title: "Error retrieving classes", message: "Please check your network connection and try again.", preferredStyle: .Alert)
-                    let dismiss = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+                    let alert = UIAlertController(title: "Error retrieving classes", message: "Please check your network connection and try again.", preferredStyle: .alert)
+                    let dismiss = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
                     alert.addAction(dismiss)
-                    self.presentViewController(alert, animated: true, completion: nil)
+                    self.present(alert, animated: true, completion: nil)
                 }
                 self.activitySpinner.stopAnimating()
             })
@@ -121,65 +121,65 @@ class ClassesVC: UITableViewController {
     
     // MARK: - Table view data source
     
-    override func setEditing(editing: Bool, animated: Bool) {
+    override func setEditing(_ editing: Bool, animated: Bool) {
         print("set editing \(editing)")
         super.setEditing(editing, animated: true)
         if (!self.swipeMode) {
             if (editing) {
                 self.tableView.allowsSelectionDuringEditing = true
                 if (self.myClasses!.count > 0) {
-                    self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.myClasses!.count, inSection: 0)], withRowAnimation: .Automatic)
+                    self.tableView.insertRows(at: [IndexPath(row: self.myClasses!.count, section: 0)], with: .automatic)
                 }
             }
             else {
-                if (self.tableView.numberOfRowsInSection(0) > self.myClasses!.count) {
-                    self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: self.myClasses!.count, inSection: 0)], withRowAnimation: .Automatic)
+                if (self.tableView.numberOfRows(inSection: 0) > self.myClasses!.count) {
+                    self.tableView.deleteRows(at: [IndexPath(row: self.myClasses!.count, section: 0)], with: .automatic)
                 }
             }
         }
     }
     
-    override func tableView(tableView: UITableView, willBeginEditingRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
         self.swipeMode = true
     }
     
-    override func tableView(tableView: UITableView, didEndEditingRowAtIndexPath indexPath: NSIndexPath?) {
+    override func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
         self.swipeMode = false
     }
     
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // Return the number of sections.
         if self.myClasses?.count != 0 {
-            self.tableView.separatorStyle = .SingleLine
+            self.tableView.separatorStyle = .singleLine
             self.tableView.backgroundView = nil
-            self.navigationItem.rightBarButtonItem?.enabled = true
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
             return 1
         }
         else {
             // Display a message when the table is empty
             
-            let newView: UIView = UIView(frame: CGRectMake(0, 0, self.tableView.frame.width, self.tableView.frame.height))
+            let newView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: self.tableView.frame.height))
             
-            let coursesIcon: UIImageView = UIImageView(frame: CGRectMake(0, newView.center.y - 150, 100, 100))
+            let coursesIcon: UIImageView = UIImageView(frame: CGRect(x: 0, y: newView.center.y - 150, width: 100, height: 100))
             coursesIcon.image = UIImage(named: "coursesPic.png")
             coursesIcon.center.x = newView.center.x
             
-            let messageLabel: UILabel = UILabel(frame: CGRectMake(0, newView.center.y - 20, newView.frame.width - 20, 50))
+            let messageLabel: UILabel = UILabel(frame: CGRect(x: 0, y: newView.center.y - 20, width: newView.frame.width - 20, height: 50))
             messageLabel.text = "You have no classes. To create a new one, please tap below."
-            messageLabel.textColor = UIColor.blackColor()
+            messageLabel.textColor = UIColor.black
             messageLabel.numberOfLines = 0
-            messageLabel.textAlignment = .Center
+            messageLabel.textAlignment = .center
             messageLabel.center.x = newView.center.x
             messageLabel.font = UIFont(name: "Palatino-Italic", size: 20)
             
-            let newClassButton: UIButton = UIButton(frame: CGRectMake(0, newView.center.y + 50, 200, 50))
-            newClassButton.backgroundColor = UIColor.purpleColor()
+            let newClassButton: UIButton = UIButton(frame: CGRect(x: 0, y: newView.center.y + 50, width: 200, height: 50))
+            newClassButton.backgroundColor = UIColor.purple
             newClassButton.center.x = newView.center.x
-            newClassButton.setTitle("New Class", forState: .Normal)
-            newClassButton.titleLabel?.textAlignment = .Center
+            newClassButton.setTitle("New Class", for: UIControlState())
+            newClassButton.titleLabel?.textAlignment = .center
             newClassButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 25)
-            newClassButton.addTarget(self, action: #selector(ClassesVC.addClass), forControlEvents: .TouchUpInside)
+            newClassButton.addTarget(self, action: #selector(ClassesVC.addClass), for: .touchUpInside)
             
             
             newView.addSubview(coursesIcon)
@@ -187,17 +187,17 @@ class ClassesVC: UITableViewController {
             newView.addSubview(newClassButton)
             
             self.tableView.backgroundView = newView
-            self.tableView.separatorStyle = .None
-            self.navigationItem.rightBarButtonItem?.enabled = false
+            self.tableView.separatorStyle = .none
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
             
         }
         return 0
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if (self.myClasses != nil) {
-            if (self.editing == true) {
+            if (self.isEditing == true) {
                 return self.myClasses!.count + 1
             }
             else {
@@ -205,7 +205,7 @@ class ClassesVC: UITableViewController {
             }
         }
         else {
-            if (self.editing) {
+            if (self.isEditing) {
                 return 1
             }
             else {
@@ -214,15 +214,15 @@ class ClassesVC: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if (self.editing == true && indexPath.row == self.myClasses!.count) {
-            let cell = tableView.dequeueReusableCellWithIdentifier("newRowCell", forIndexPath: indexPath)
+        if (self.isEditing == true && indexPath.row == self.myClasses!.count) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "newRowCell", for: indexPath)
             cell.textLabel?.text = "Add Class"
             return cell
         }
         else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("classCell", forIndexPath: indexPath) as! ClassCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "classCell", for: indexPath) as! ClassCell
             cell.classTitleLabel.text = self.myClasses![indexPath.row].name
             cell.periodNumberLabel.text = "\(self.myClasses![indexPath.row].periodNumber)"
             cell.quarterLabel!.text = "\(self.myClasses![indexPath.row].quarters)"
@@ -231,22 +231,22 @@ class ClassesVC: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        if self.editing == false {
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        if self.isEditing == false {
             print("editing false")
-            return .Delete
+            return .delete
         }
-        else if self.editing && indexPath.row == (self.myClasses!.count) {
-            return .Insert
+        else if self.isEditing && indexPath.row == (self.myClasses!.count) {
+            return .insert
         }
         else {
-            return .Delete
+            return .delete
         }
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //Smaller row for add class
-        if (self.editing && indexPath.row == self.myClasses!.count) {
+        if (self.isEditing && indexPath.row == self.myClasses!.count) {
             return 50
         }
         
@@ -255,7 +255,7 @@ class ClassesVC: UITableViewController {
         
         var totalHeight = Int(tableView.bounds.height) - Int(navigationController!.navigationBar.frame.height) - 5
         
-        if (self.editing) {
+        if (self.isEditing) {
             //Make room for the add button
             totalHeight -= 50
         }
@@ -273,20 +273,20 @@ class ClassesVC: UITableViewController {
         return CGFloat(defaultCellHeight)
     }
     
-    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         //Here we define the buttons for the table cell swipe
-        let edit = UITableViewRowAction(style: .Normal, title: "Edit") { action, index in
+        let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
             self.curPeriod = self.myClasses![indexPath.row]
             
             print("Edit \(self.curPeriod!.name)")
             
             //Segue to the edit class vc
-            self.editing = false
-            self.performSegueWithIdentifier("periodSegue", sender: nil)
+            self.isEditing = false
+            self.performSegue(withIdentifier: "periodSegue", sender: nil)
         }
-        edit.backgroundColor = UIColor.orangeColor()
+        edit.backgroundColor = UIColor.orange
         
-        let delete = UITableViewRowAction(style: .Normal, title: "Delete") { action, index in
+        let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
             let period: Period = self.myClasses![indexPath.row]
             
             print("Delete \(period.name)")
@@ -314,27 +314,27 @@ class ClassesVC: UITableViewController {
             
             //Upon completion of the delete request reload the table
         }
-        delete.backgroundColor = UIColor.redColor()
+        delete.backgroundColor = UIColor.red
         
         return [delete, edit]
     }
     
     //These methods allows the swipes to occur
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (editingStyle == .Insert) {
-            self.performSegueWithIdentifier("periodSegue", sender: nil)
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .insert) {
+            self.performSegue(withIdentifier: "periodSegue", sender: nil)
         }
     }
     
     func addClass() {
-        if (self.editing == false) {
+        if (self.isEditing == false) {
             self.setEditing(true, animated: false)
         }
-        self.performSegueWithIdentifier("periodSegue", sender: nil)
+        self.performSegue(withIdentifier: "periodSegue", sender: nil)
     }
     
     /*
@@ -364,42 +364,42 @@ class ClassesVC: UITableViewController {
     // MARK: - Navigation
     
     func infoPressed() {
-        let infoPage = self.storyboard?.instantiateViewControllerWithIdentifier("infoVC") as! UINavigationController
-        self.tabBarController?.presentViewController(infoPage, animated: true, completion: nil)
+        let infoPage = self.storyboard?.instantiateViewController(withIdentifier: "infoVC") as! UINavigationController
+        self.tabBarController?.present(infoPage, animated: true, completion: nil)
     }
     
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        if (identifier == "showClassmates" && self.editing) {
-            let editVC = self.storyboard?.instantiateViewControllerWithIdentifier("editVC") as! EditPeriodVC
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if (identifier == "showClassmates" && self.isEditing) {
+            let editVC = self.storyboard?.instantiateViewController(withIdentifier: "editVC") as! EditPeriodVC
             editVC.currentClass = self.myClasses![self.tableView.indexPathForSelectedRow!.row]
             let nav = UINavigationController(rootViewController: editVC)
-            self.presentViewController(nav, animated: true, completion: nil)
+            self.present(nav, animated: true, completion: nil)
             return false
         }
         return true
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "showClassmates") {
-            let newView = segue.destinationViewController as! ClassmatesVC
+            let newView = segue.destination as! ClassmatesVC
             newView.currentClass = self.myClasses![(self.tableView.indexPathForSelectedRow?.row)!]
-            let backButton = UIBarButtonItem(title: " ", style: .Plain, target: nil, action: nil)
+            let backButton = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
             
             self.navigationItem.backBarButtonItem = backButton
-            self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForSelectedRow!, animated: true)
+            self.tableView.deselectRow(at: self.tableView.indexPathForSelectedRow!, animated: true)
             //            self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 16)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
             
             
         } else if (segue.identifier == "periodSegue") {
             if curPeriod != nil {
-                let newView = (segue.destinationViewController as! UINavigationController).topViewController as! EditPeriodVC
+                let newView = (segue.destination as! UINavigationController).topViewController as! EditPeriodVC
                 newView.currentClass = self.curPeriod!
             }
         }
     }
     
     //Allow cancel button to segue back here
-    @IBAction func unwindToClassesView(sender: UIStoryboardSegue) {
+    @IBAction func unwindToClassesView(_ sender: UIStoryboardSegue) {
         
     }
     

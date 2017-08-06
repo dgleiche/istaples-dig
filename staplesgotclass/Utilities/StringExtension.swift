@@ -9,10 +9,10 @@
 import Foundation
 extension String {
     init(htmlEncodedString: String) {
-        if let encodedData = htmlEncodedString.dataUsingEncoding(NSUTF8StringEncoding){
+        if let encodedData = htmlEncodedString.data(using: String.Encoding.utf8){
             let attributedOptions : [String: AnyObject] = [
-                NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-                NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding
+                NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType as AnyObject,
+                NSCharacterEncodingDocumentAttribute: String.Encoding.utf8 as AnyObject
             ]
             
             do{
@@ -33,7 +33,7 @@ extension String {
     }
     
     subscript (i: Int) -> Character {
-        return self[self.startIndex.advancedBy(i)]
+        return self[self.characters.index(self.startIndex, offsetBy: i)]
     }
     
     subscript (i: Int) -> String {
@@ -41,11 +41,11 @@ extension String {
     }
     
     subscript (r: Range<Int>) -> String {
-        return substringWithRange(Range(start: startIndex.advancedBy(r.startIndex), end: startIndex.advancedBy(r.endIndex)))
+        return substring(with: (characters.index(startIndex, offsetBy: r.lowerBound) ..< characters.index(startIndex, offsetBy: r.upperBound)))
     }
     
-    func replace(string:String, replacement:String) -> String {
-        return self.stringByReplacingOccurrencesOfString(string, withString: replacement, options: NSStringCompareOptions.LiteralSearch, range: nil)
+    func replace(_ string:String, replacement:String) -> String {
+        return self.replacingOccurrences(of: string, with: replacement, options: NSString.CompareOptions.literal, range: nil)
     }
     
     func removeWhitespace() -> String {

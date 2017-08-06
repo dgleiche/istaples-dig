@@ -10,7 +10,7 @@ import UIKit
 
 class WatchSchedule: NSObject {
     var name: String?
-    var modifiedDate: NSDate?
+    var modifiedDate: Date?
     var isStatic: Bool = false
     
     //Weekday: 1 is Sunday, 7 is Saturday

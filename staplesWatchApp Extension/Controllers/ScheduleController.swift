@@ -16,8 +16,8 @@ class ScheduleController: WKInterfaceController {
     @IBOutlet var scheduleTable: WKInterfaceTable!
     
     
-    override func awakeWithContext(context: AnyObject?) {
-        super.awakeWithContext(context)
+    override func awake(withContext context: Any?) {
+        super.awake(withContext: context)
         
         // Configure interface objects here.
     }
@@ -25,9 +25,9 @@ class ScheduleController: WKInterfaceController {
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
-        let dateFormatter: NSDateFormatter = NSDateFormatter()
+        let dateFormatter: DateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE, M/d"
-        let dateString = dateFormatter.stringFromDate(NSDate())
+        let dateString = dateFormatter.string(from: Date())
         self.dateLabel.setText(dateString)
         self.loadTable()
     }
@@ -40,8 +40,8 @@ class ScheduleController: WKInterfaceController {
     func loadTable() {
         if (WatchAppDailyScheduleManager.sharedInstance.currentSchedule != nil) {
             scheduleTable.setNumberOfRows((WatchAppDailyScheduleManager.sharedInstance.currentSchedule?.periods.count)!, withRowType: "ScheduleCell")
-            for (index, period) in (WatchAppDailyScheduleManager.sharedInstance.currentSchedule?.periods.enumerate())! {
-                let row = scheduleTable.rowControllerAtIndex(index) as! ScheduleCell
+            for (index, period) in (WatchAppDailyScheduleManager.sharedInstance.currentSchedule?.periods.enumerated())! {
+                let row = scheduleTable.rowController(at: index) as! ScheduleCell
                 if let realPeriod = period.realPeriod {
                     row.classTitleLabel.setText(realPeriod.name)
                     row.periodNumberLabel.setText("\(realPeriod.periodNumber)")
@@ -63,19 +63,19 @@ class ScheduleController: WKInterfaceController {
                 
                 if (period.endSeconds < WatchAppDailyScheduleManager.sharedInstance.secondsFromMidnight()) {
                     //period already passed
-                    row.periodNumberLabel.setTextColor(UIColor.lightGrayColor())
+                    row.periodNumberLabel.setTextColor(UIColor.lightGray)
                 }
                 else if (period == WatchAppDailyScheduleManager.sharedInstance.currentPeriod) {
-                    row.periodNumberLabel.setTextColor(UIColor.greenColor())
+                    row.periodNumberLabel.setTextColor(UIColor.green)
                 }
             }
         }
         else {
-            scheduleTable.removeRowsAtIndexes(NSIndexSet(indexesInRange: NSRange(location: 0, length: scheduleTable.numberOfRows)))
+            scheduleTable.removeRows(at: IndexSet(integersIn: NSRange(location: 0, length: scheduleTable.numberOfRows).toRange() ?? 0..<0))
         }
     }
     
-    override func contextForSegueWithIdentifier(segueIdentifier: String, inTable table: WKInterfaceTable, rowIndex: Int) -> AnyObject? {
+    override func contextForSegue(withIdentifier segueIdentifier: String, in table: WKInterfaceTable, rowIndex: Int) -> Any? {
         print("context segue called")
         if (segueIdentifier == "scheduleDetailSegue") {
             print("current segue")
@@ -83,7 +83,7 @@ class ScheduleController: WKInterfaceController {
             if (selectedPeriod.realPeriod != nil) {
                 let context: AnyObject = selectedPeriod as AnyObject
                 print("presenting vc")
-                self.presentControllerWithName("scheduleDetailVC", context: context)
+                self.presentController(withName: "scheduleDetailVC", context: context)
                 return context
             }
         }
@@ -91,7 +91,7 @@ class ScheduleController: WKInterfaceController {
         return nil
     }
     
-    override func table(table: WKInterfaceTable, didSelectRowAtIndex rowIndex: Int) {
+    override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
         print("selected row")
     }
     

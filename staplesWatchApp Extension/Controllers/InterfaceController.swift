@@ -19,11 +19,11 @@ class InterfaceController: WKInterfaceController {
     @IBOutlet var timerOut: WKInterfaceTimer!
     @IBOutlet var timer: WKInterfaceTimer!
     
-    var periodTimer: NSTimer?
+    var periodTimer: Timer?
     
-    override func awakeWithContext(context: AnyObject?) {
-        super.awakeWithContext(context)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(InterfaceController.setupPeriodTimer), name: "scheduleReceived", object: nil)
+    override func awake(withContext context: Any?) {
+        super.awake(withContext: context)
+        NotificationCenter.default.addObserver(self, selector: #selector(InterfaceController.setupPeriodTimer), name: NSNotification.Name(rawValue: "scheduleReceived"), object: nil)
         // Configure interface objects here.
     }
     
@@ -48,11 +48,11 @@ class InterfaceController: WKInterfaceController {
                     self.periodLabel.setText(currentPeriod.name!)
                 }
                 
-                let date = NSDate()
-                let cal = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-                let newDate = cal.startOfDayForDate(date)
-                let startDate = NSDate(timeInterval: NSTimeInterval(currentPeriod.startSeconds), sinceDate: newDate)
-                let endDate = NSDate(timeInterval: NSTimeInterval(currentPeriod.endSeconds), sinceDate: newDate)
+                let date = Date()
+                let cal = Calendar(identifier: Calendar.Identifier.gregorian)
+                let newDate = cal.startOfDay(for: date)
+                let startDate = Date(timeInterval: TimeInterval(currentPeriod.startSeconds), since: newDate)
+                let endDate = Date(timeInterval: TimeInterval(currentPeriod.endSeconds), since: newDate)
                 
                 self.timer.setDate(startDate)
                 self.timerOut.setDate(endDate)
@@ -65,7 +65,7 @@ class InterfaceController: WKInterfaceController {
                 let percentDone = Double(timeElapsedInPeriod)/Double(currentPeriod.endSeconds - currentPeriod.startSeconds)
                 print("percent done: \(percentDone)")
                 
-                self.group.startAnimatingWithImagesInRange(NSMakeRange(Int(percentDone * 100), 101), duration: NSTimeInterval(timeRemainingInPeriod), repeatCount: 0)
+                self.group.startAnimatingWithImages(in: NSMakeRange(Int(percentDone * 100), 101), duration: TimeInterval(timeRemainingInPeriod), repeatCount: 0)
                 
             }
             else {
@@ -99,14 +99,14 @@ class InterfaceController: WKInterfaceController {
             WatchAppDailyScheduleManager.sharedInstance.currentPeriod = WatchAppDailyScheduleManager.sharedInstance.getCurrentPeriod()
             self.setup()
             if self.periodTimer != nil {
-                if self.periodTimer!.valid == true { self.periodTimer!.invalidate() }
+                if self.periodTimer!.isValid == true { self.periodTimer!.invalidate() }
             }
             
             if let currentPeriod = WatchAppDailyScheduleManager.sharedInstance.currentPeriod {
                 //Next period event should be a passing time which occurs immediately after this period is over
                 let timeIntervalUntilNextPeriodStart: Double = Double(currentPeriod.endSeconds - WatchAppDailyScheduleManager.sharedInstance.secondsFromMidnight())
                 
-                self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart + 1, target: self, selector: #selector(InterfaceController.setupPeriodTimer), userInfo: nil, repeats: false)
+                self.periodTimer = Timer.scheduledTimer(timeInterval: timeIntervalUntilNextPeriodStart + 1, target: self, selector: #selector(InterfaceController.setupPeriodTimer), userInfo: nil, repeats: false)
             }
             else {
                 //no current period, hide status bar
@@ -117,12 +117,12 @@ class InterfaceController: WKInterfaceController {
                     
                     let timeIntervalUntilNextPeriodStart: Double = Double(nextPeriod.startSeconds - WatchAppDailyScheduleManager.sharedInstance.secondsFromMidnight())
                     
-                    self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart, target: self, selector: #selector(InterfaceController.setupPeriodTimer), userInfo: nil, repeats: false)
+                    self.periodTimer = Timer.scheduledTimer(timeInterval: timeIntervalUntilNextPeriodStart, target: self, selector: #selector(InterfaceController.setupPeriodTimer), userInfo: nil, repeats: false)
                 }
             }
             
             if (self.periodTimer != nil) {
-                NSRunLoop.mainRunLoop().addTimer(self.periodTimer!, forMode: NSRunLoopCommonModes)
+                RunLoop.main.add(self.periodTimer!, forMode: RunLoopMode.commonModes)
             }
             
         } else {

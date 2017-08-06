@@ -12,7 +12,7 @@ import Parse
 import RealmSwift
 
 protocol DailyScheduleManagerDelegate: class {
-    func didFetchSchedules(success: Bool)
+    func didFetchSchedules(_ success: Bool)
     func signInUser()
     func showErrorAlert()
 }
@@ -40,7 +40,7 @@ class DailyScheduleManager: NSObject {
     
     weak var delegate:DailyScheduleManagerDelegate!
     
-    private init(delegate: DailyScheduleManagerDelegate) {
+    fileprivate init(delegate: DailyScheduleManagerDelegate) {
         self.delegate = delegate
         super.init()
         DailyScheduleManager.sharedInstance = self
@@ -53,7 +53,7 @@ class DailyScheduleManager: NSObject {
         UserManager.destroy()
     }
     
-    class func setup(delegate: DailyScheduleManagerDelegate) {
+    class func setup(_ delegate: DailyScheduleManagerDelegate) {
         DailyScheduleManager.sharedInstance = DailyScheduleManager(delegate: delegate)
     }
     
@@ -71,7 +71,7 @@ class DailyScheduleManager: NSObject {
         //        print("current user  count: \(self.currentUser)")
         
         print("getting current config")
-        if let currentQ = PFConfig.currentConfig().objectForKey("currentQuarter") as? Int {
+        if let currentQ = PFConfig.current().object(forKey: "currentQuarter") as? Int {
             self.currentQuarter = currentQ
         }
         
@@ -91,7 +91,7 @@ class DailyScheduleManager: NSObject {
         let query = PFQuery(className: "Schedule")
         query.limit = 500
         query.includeKey("Periods")
-        query.findObjectsInBackgroundWithBlock({ (schedules: [PFObject]?, error: NSError?) in
+        query.findObjectsInBackground(block: { (schedules: [PFObject]?, error: NSError?) in
             if (error == nil) {
                 
                 let schedulesToDelete = self.realm.objects(Schedule.self)
@@ -111,7 +111,7 @@ class DailyScheduleManager: NSObject {
                     if let weekday = schedule["Weekday"] as? Int {
                         newSchedule.weekday = weekday
                     }
-                    if let modifiedDate = schedule["ModifiedDate"] as? NSDate {
+                    if let modifiedDate = schedule["ModifiedDate"] as? Date {
                         newSchedule.modifiedDate = modifiedDate
                     }
                     
@@ -160,7 +160,7 @@ class DailyScheduleManager: NSObject {
                 lunchQuery.limit = 500
                 lunchQuery.includeKey("LunchType")
                 
-                lunchQuery.findObjectsInBackgroundWithBlock({ (lunchSchedules: [PFObject]?, lunchError: NSError?) in
+                lunchQuery.findObjectsInBackground(block: { (lunchSchedules: [PFObject]?, lunchError: NSError?) in
                     if (lunchError == nil) {
                         
                         let lunchSchedulesToDelete = self.realm.objects(LunchSchedule.self)
@@ -186,7 +186,7 @@ class DailyScheduleManager: NSObject {
                         let courseQuery = PFQuery(className: "Course")
                         courseQuery.limit = 500
                         courseQuery.includeKey("LunchType")
-                        courseQuery.findObjectsInBackgroundWithBlock({ (courses: [PFObject]?, courseError: NSError?) in
+                        courseQuery.findObjectsInBackground(block: { (courses: [PFObject]?, courseError: NSError?) in
                             if (courseError == nil) {
                                 for course in courses! {
                                     let newCourse = Course()
@@ -202,13 +202,13 @@ class DailyScheduleManager: NSObject {
                                     self.courses.append(newCourse)
                                 }
                                 
-                                PFConfig.getConfigInBackgroundWithBlock({ (fetchedConfig: PFConfig?, error: NSError?) in
+                                PFConfig.getInBackground(block: { (fetchedConfig: PFConfig?, error: NSError?) in
                                     var config: PFConfig?
                                     if (error == nil) {
                                         config = fetchedConfig
                                     }
                                     else {
-                                        config = PFConfig.currentConfig()
+                                        config = PFConfig.current()
                                     }
                                     
                                     if (config != nil) {
@@ -250,17 +250,17 @@ class DailyScheduleManager: NSObject {
                             else {
                                 self.delegate.showErrorAlert()
                             }
-                        })
+                        } as! ([PFObject]?, Error?) -> Void)
                     }
                     else {
                         self.delegate.showErrorAlert()
                     }
-                })
+                } as! ([PFObject]?, Error?) -> Void)
             }
             else {
                 self.delegate.showErrorAlert()
             }
-        })
+        } as! ([PFObject]?, Error?) -> Void)
     }
     
     //TODO: Detect 10 mins before, after school;
@@ -386,19 +386,19 @@ class DailyScheduleManager: NSObject {
     }
     
     func secondsFromMidnight() -> Int {
-        let units : NSCalendarUnit = [.Hour, .Minute, .Second]
-        let components = NSCalendar.currentCalendar().components(units, fromDate: NSDate())
-        return (60 * 60 * components.hour) + (60 * components.minute) + components.second
+        let units : NSCalendar.Unit = [.hour, .minute, .second]
+        let components = (Calendar.current as NSCalendar).components(units, from: Date())
+        return (60 * 60 * components.hour!) + (60 * components.minute!) + components.second!
     }
     
-    func getSchedule(withDate date: NSDate) -> Schedule? {
+    func getSchedule(withDate date: Date) -> Schedule? {
         
-        let calendar = NSCalendar.currentCalendar()
-        let selDateComponents = calendar.components([.Day, .Month, .Weekday], fromDate: date)
+        let calendar = Calendar.current
+        let selDateComponents = (calendar as NSCalendar).components([.day, .month, .weekday], from: date)
         
         for modifiedSchedule in modifiedSchedules {
             if let modDate = modifiedSchedule.modifiedDate {
-                let modDateComponents = calendar.components([.Day , .Month], fromDate: modDate)
+                let modDateComponents = (calendar as NSCalendar).components([.day , .month], from: modDate as Date)
                 
                 if (modDateComponents.month == selDateComponents.month) && (modDateComponents.day == selDateComponents.day) {
                     //Month and day exactly match, thus this date corresponds with a modified schedule
@@ -411,21 +411,21 @@ class DailyScheduleManager: NSObject {
         //Function hasnt returned, thus it is a static schedule
         //Determine if it's a weekday (otherwise there is no schedule)
         let weekday = selDateComponents.weekday
-        var schoolWeekday = 0
+        let schoolWeekday = 0
         switch weekday {
-        case 1:
+        case ?1:
             schoolWeekday = 6
-        case 2:
+        case ?2:
             schoolWeekday = 0
-        case 3:
+        case ?3:
             schoolWeekday = 1
-        case 4:
+        case ?4:
             schoolWeekday = 2
-        case 5:
+        case ?5:
             schoolWeekday = 3
-        case 6:
+        case ?6:
             schoolWeekday = 4
-        case 7:
+        case ?7:
             schoolWeekday = 5
         default:
             break
@@ -446,7 +446,7 @@ class DailyScheduleManager: NSObject {
         return nil
     }
     
-    func syncPeriodsToSchedule(schedule: Schedule, withDate date: NSDate) {
+    func syncPeriodsToSchedule(_ schedule: Schedule, withDate date: Date) {
         //this separate function is needed b/c we want to assign realm periods AFTER everything is setup from Realm/Network
         for schedulePeriod in schedule.periods {
             try! self.realm.write {
@@ -592,8 +592,8 @@ class DailyScheduleManager: NSObject {
         return nil
     }
     
-    func getLunchNumber(withDate date: NSDate, andLunchType lunchtype: LunchType) -> Int? {
-        let month = NSCalendar.currentCalendar().component(.Month, fromDate: date)
+    func getLunchNumber(withDate date: Date, andLunchType lunchtype: LunchType) -> Int? {
+        let month = (Calendar.current as NSCalendar).component(.month, from: date)
         for lunchSchedule in self.lunchSchedules {
             if let lunchTypeInSchedule = lunchSchedule.lunchType {
                 if (lunchSchedule.monthNumber == month - 1) && (lunchTypeInSchedule.name == lunchtype.name) {

@@ -8,6 +8,30 @@
 
 import UIKit
 import RealmSwift
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignInDelegate {
     @IBOutlet var timeLeftRing: KDCircularProgress!
@@ -24,12 +48,12 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     var selectedSchedule: Schedule?
     var isCurrentSchedule = true
-    var selectedDate = NSDate()
+    var selectedDate = Date()
     
-    var timer: NSTimer?
+    var timer: Timer?
     
-    var clockTimer: NSTimer?
-    var periodTimer: NSTimer?
+    var clockTimer: Timer?
+    var periodTimer: Timer?
     
     var spinnerSetup = false
     
@@ -38,7 +62,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     var attemptedToPresentLoginVC = false
     var attemptedToSignIn = false
     
-    var lastUpdateAttempt = NSDate()
+    var lastUpdateAttempt = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,39 +72,39 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         
         
         let sweetBlue = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
-        self.setNavTitleForDate(NSDate())
+        self.setNavTitleForDate(Date())
         
         //Info bar button
-        let infoButton = UIButton(type: .InfoLight)
-        infoButton.addTarget(self, action: #selector(ScheduleVC.infoPressed), forControlEvents: .TouchUpInside)
+        let infoButton = UIButton(type: .infoLight)
+        infoButton.addTarget(self, action: #selector(ScheduleVC.infoPressed), for: .touchUpInside)
         let infoBarButtonItem = UIBarButtonItem(customView: infoButton)
         navigationItem.leftBarButtonItem = infoBarButtonItem
         
-        self.navigationController?.view.backgroundColor = UIColor.whiteColor()
+        self.navigationController?.view.backgroundColor = UIColor.white
         self.navigationController?.navigationBar.barTintColor = sweetBlue
-        self.navigationController?.navigationBar.translucent = false
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-Bold", size: 17)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-Bold", size: 17)!, NSForegroundColorAttributeName: UIColor.white]
+        UIApplication.shared.statusBarStyle = .lightContent
         
         for item in (self.tabBarController?.tabBar.items)! as [UITabBarItem] {
             if let image = item.image {
-                item.image = image.imageWithColor(sweetBlue).imageWithRenderingMode(.AlwaysOriginal)
-                item.selectedImage = item.selectedImage!.imageWithColor(sweetBlue).imageWithRenderingMode(.AlwaysOriginal)
+                item.image = image.imageWithColor(sweetBlue).withRenderingMode(.alwaysOriginal)
+                item.selectedImage = item.selectedImage!.imageWithColor(sweetBlue).withRenderingMode(.alwaysOriginal)
                 
             }
         }
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: sweetBlue], forState:.Normal)
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: sweetBlue], forState:.Selected)
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: sweetBlue], for:UIControlState())
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: sweetBlue], for:.selected)
         
         self.timeLeftRing.angle = 0
         self.timeElapsedRing.angle = 360
         
         let rightSwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(ScheduleVC.swipeDate(_:)))
-        rightSwipeGestureRecognizer.direction = .Right
+        rightSwipeGestureRecognizer.direction = .right
         
         let leftSwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(ScheduleVC.swipeDate(_:)))
-        leftSwipeGestureRecognizer.direction = .Left
+        leftSwipeGestureRecognizer.direction = .left
         
         
         self.tableView.addGestureRecognizer(rightSwipeGestureRecognizer)
@@ -92,25 +116,25 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         self.navigationController?.navigationBar.addGestureRecognizer(doubleTapRecognizer)
         
         let tracker = GAI.sharedInstance().defaultTracker
-        tracker.set(kGAIScreenName, value: "Schedule")
+        tracker?.set(kGAIScreenName, value: "Schedule")
         
         let builder = GAIDictionaryBuilder.createScreenView()
-        tracker.send(builder.build() as [NSObject: AnyObject])
+        tracker?.send(builder?.build() as! [AnyHashable: Any])
         
         //Create the listener for log outs
-        NSNotificationCenter.defaultCenter().addObserverForName("logout", object: nil, queue: nil) { note in
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "logout"), object: nil, queue: nil) { note in
             GIDSignIn.sharedInstance().signOut()
             GIDSignIn.sharedInstance().delegate = nil
             self.navigationController?.tabBarController!.selectedIndex = 0
             DailyScheduleManager.destroy()
             UserManager.destroy()
-            let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
-            loginPage.modalTransitionStyle = .FlipHorizontal
-            self.tabBarController?.presentViewController(loginPage, animated: true, completion: nil)
+            let loginPage = self.storyboard?.instantiateViewController(withIdentifier: "loginVC") as! LoginVC
+            loginPage.modalTransitionStyle = .flipHorizontal
+            self.tabBarController?.present(loginPage, animated: true, completion: nil)
         }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ScheduleVC.callSetup), name: "loggedIn", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ScheduleVC.applicationDidBecomeActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ScheduleVC.callSetup), name: NSNotification.Name(rawValue: "loggedIn"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ScheduleVC.applicationDidBecomeActive), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         GIDSignIn.sharedInstance().delegate = self
         print("view did load setup")
         self.hidePeriodStatusBar(withDuration: 0)
@@ -119,7 +143,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         
@@ -151,10 +175,10 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         setupClockTimer()
         setupPeriodTimer()
         print("setup timers in didbecomeactive")
-        if (DailyScheduleManager.sharedInstance != nil && GIDSignIn.sharedInstance().currentUser != nil && self.inDetailVC == false && DailyScheduleManager.sharedInstance?.fetchInProgress == false && NSCalendar.currentCalendar().compareDate(self.lastUpdateAttempt, toDate: NSDate(), toUnitGranularity: .Day) != .OrderedSame) {
+        if (DailyScheduleManager.sharedInstance != nil && GIDSignIn.sharedInstance().currentUser != nil && self.inDetailVC == false && DailyScheduleManager.sharedInstance?.fetchInProgress == false && (Calendar.current as NSCalendar).compare(self.lastUpdateAttempt, to: Date(), toUnitGranularity: .day) != .orderedSame) {
             print("CALLING ACTIVE")
             DailyScheduleManager.setup(self)
-            self.lastUpdateAttempt = NSDate()
+            self.lastUpdateAttempt = Date()
         }
     }
     
@@ -165,7 +189,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     //MARK: - Daily Schedule Manager Delegate Methods
     
-    func didFetchSchedules(offline: Bool) {
+    func didFetchSchedules(_ offline: Bool) {
         print("delegate called")
         if DailyScheduleManager.sharedInstance != nil {
             print("staticScheduleCount: \(DailyScheduleManager.sharedInstance?.staticSchedules.count)")
@@ -173,14 +197,14 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             
             DailyScheduleManager.sharedInstance?.fetchInProgress = false
             
-            DailyScheduleManager.sharedInstance?.currentSchedule = DailyScheduleManager.sharedInstance!.getSchedule(withDate: NSDate())
+            DailyScheduleManager.sharedInstance?.currentSchedule = DailyScheduleManager.sharedInstance!.getSchedule(withDate: Date())
             //            print("current schedule: \(DailyScheduleManager.sharedInstance?.currentSchedule)")
             
             //Setup the current period
             DailyScheduleManager.sharedInstance?.currentPeriod = DailyScheduleManager.sharedInstance!.getCurrentPeriod()
             
             self.isCurrentSchedule = true
-            self.selectedDate = NSDate()
+            self.selectedDate = Date()
             self.setNavTitleForDate(self.selectedDate)
             
             if (DailyScheduleManager.sharedInstance?.currentSchedule != nil) {
@@ -225,10 +249,10 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     func showErrorAlert() {
         DailyScheduleManager.sharedInstance?.fetchInProgress = false
         
-        let alert = UIAlertController(title: "Error loading schedules", message: "Please try again.", preferredStyle: .Alert)
-        let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        let alert = UIAlertController(title: "Error loading schedules", message: "Please try again.", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(ok)
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
     
     //MARK: - Timer stuff
@@ -237,11 +261,11 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     func setupClockTimer() {
         self.clock()
         if self.clockTimer != nil {
-            if self.clockTimer!.valid == true { self.clockTimer!.invalidate() }
+            if self.clockTimer!.isValid == true { self.clockTimer!.invalidate() }
         }
         
-        self.clockTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(ScheduleVC.clock), userInfo: nil, repeats: true)
-        NSRunLoop.mainRunLoop().addTimer(self.clockTimer!, forMode: NSRunLoopCommonModes)
+        self.clockTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(ScheduleVC.clock), userInfo: nil, repeats: true)
+        RunLoop.main.add(self.clockTimer!, forMode: RunLoopMode.commonModes)
     }
     
     func setupPeriodTimer() {
@@ -251,15 +275,15 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             self.tableView.reloadData()
             
             if self.periodTimer != nil {
-                if self.periodTimer!.valid == true { self.periodTimer!.invalidate() }
+                if self.periodTimer!.isValid == true { self.periodTimer!.invalidate() }
             }
             
             if let currentPeriod = DailyScheduleManager.sharedInstance!.currentPeriod {
-                self.performSelector(#selector(ScheduleVC.showPeriodStatusBar), withObject: nil, afterDelay: 1.0)
+                self.perform(#selector(ScheduleVC.showPeriodStatusBar), with: nil, afterDelay: 1.0)
                 //Next period event should be a passing time which occurs immediately after this period is over
                 let timeIntervalUntilNextPeriodStart: Double = Double(currentPeriod.endSeconds - DailyScheduleManager.sharedInstance!.secondsFromMidnight())
                 
-                self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart + 1, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
+                self.periodTimer = Timer.scheduledTimer(timeInterval: timeIntervalUntilNextPeriodStart + 1, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
                 
                 
                 //                if currentPeriod.isPassingTime || currentPeriod.isBeforeSchool {
@@ -299,12 +323,12 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                     
                     let timeIntervalUntilNextPeriodStart: Double = Double(nextPeriod.startSeconds - DailyScheduleManager.sharedInstance!.secondsFromMidnight())
                     
-                    self.periodTimer = NSTimer.scheduledTimerWithTimeInterval(timeIntervalUntilNextPeriodStart, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
+                    self.periodTimer = Timer.scheduledTimer(timeInterval: timeIntervalUntilNextPeriodStart, target: self, selector: #selector(ScheduleVC.setupPeriodTimer), userInfo: nil, repeats: false)
                 }
             }
             
             if (self.periodTimer != nil) {
-                NSRunLoop.mainRunLoop().addTimer(self.periodTimer!, forMode: NSRunLoopCommonModes)
+                RunLoop.main.add(self.periodTimer!, forMode: RunLoopMode.commonModes)
             }
             
         } else {
@@ -313,15 +337,15 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         }
     }
     
-    func hidePeriodStatusBar(withDuration duration: NSTimeInterval = 0.4) {
+    func hidePeriodStatusBar(withDuration duration: TimeInterval = 0.4) {
         self.tableView.reloadData()
         var smallFrame = self.tableView.tableHeaderView?.frame
         smallFrame?.size.height = 0
         self.tableHeaderView.layer.masksToBounds = true
-        UIView.animateWithDuration(duration) {
+        UIView.animate(withDuration: duration, animations: {
             self.tableHeaderView.frame = smallFrame!
             self.tableView.tableHeaderView = self.tableHeaderView
-        }
+        }) 
     }
     
     func showPeriodStatusBar() {
@@ -329,10 +353,10 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             var smallFrame = self.tableView.tableHeaderView?.frame
             smallFrame?.size.height = self.tableHeaderViewHeight
             self.tableHeaderView.layer.masksToBounds = true
-            UIView.animateWithDuration(0.3) {
+            UIView.animate(withDuration: 0.3, animations: {
                 self.tableHeaderView.frame = smallFrame!
                 self.tableView.tableHeaderView = self.tableHeaderView
-            }
+            }) 
         }
     }
     
@@ -412,13 +436,13 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     //MARK: - Date change handling
     
     func setDateToday() {
-        self.selectedDate = NSDate()
+        self.selectedDate = Date()
         self.changeSchedule(withAnimation: kCATransitionFromTop)
     }
     
-    @IBAction func dateChosen(sender: AnyObject) {
-        let minDate = NSDate(timeIntervalSince1970: 1472688000)
-        DatePickerDialog().show(title: "Select Date", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: self.selectedDate, minimumDate: minDate, maximumDate: nil, datePickerMode: UIDatePickerMode.Date) { (date) in
+    @IBAction func dateChosen(_ sender: AnyObject) {
+        let minDate = Date(timeIntervalSince1970: 1472688000)
+        DatePickerDialog().show(title: "Select Date", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: self.selectedDate, minimumDate: minDate, maximumDate: nil, datePickerMode: UIDatePickerMode.date) { (date) in
             if (date != nil) {
                 self.selectedDate = date!
                 self.changeSchedule(withAnimation: kCATransitionFromBottom)
@@ -427,15 +451,15 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     }
     
     
-    func swipeDate(sender: UISwipeGestureRecognizer) {
+    func swipeDate(_ sender: UISwipeGestureRecognizer) {
         if (DailyScheduleManager.sharedInstance?.fetchInProgress == false) {
             print("swipe activated!")
             switch (sender.direction) {
-            case UISwipeGestureRecognizerDirection.Left:
+            case UISwipeGestureRecognizerDirection.left:
                 //advance schedule 1 day forward
                 self.selectedDate = self.selectedDate.addDay(1)
                 self.changeSchedule(withAnimation: kCATransitionFromRight)
-            case UISwipeGestureRecognizerDirection.Right:
+            case UISwipeGestureRecognizerDirection.right:
                 //advance schedule 1 day backwards
                 self.selectedDate = self.selectedDate.addDay(-1)
                 self.changeSchedule(withAnimation: kCATransitionFromLeft)
@@ -448,7 +472,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     func changeSchedule(withAnimation animation: String?) {
         self.selectedSchedule = DailyScheduleManager.sharedInstance?.getSchedule(withDate: self.selectedDate)
-        if (self.selectedSchedule == DailyScheduleManager.sharedInstance?.currentSchedule && self.selectedSchedule != nil && NSCalendar.currentCalendar().compareDate(self.selectedDate, toDate: NSDate(), toUnitGranularity: .Day) == .OrderedSame) {
+        if (self.selectedSchedule == DailyScheduleManager.sharedInstance?.currentSchedule && self.selectedSchedule != nil && Calendar.currentCalendar().compareDate(self.selectedDate, toDate: Date(), toUnitGranularity: .Day) == .OrderedSame) {
             self.isCurrentSchedule = true
             if (DailyScheduleManager.sharedInstance?.getCurrentPeriod() != nil) {
                 self.showPeriodStatusBar()
@@ -488,28 +512,28 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         transition.type = kCATransitionPush
         transition.subtype = animation
         transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
-        self.view.layer.addAnimation(transition, forKey: "reloadTableView")
+        self.view.layer.add(transition, forKey: "reloadTableView")
         self.tableView.reloadData()
-        self.view.layer.removeAnimationForKey("reloadTableView")
+        self.view.layer.removeAnimation(forKey: "reloadTableView")
         self.setNavTitleForDate(self.selectedDate)
     }
     
-    func setNavTitleForDate(date: NSDate) {
-        let dateFormatter = NSDateFormatter()
+    func setNavTitleForDate(_ date: Date) {
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE, MMMM d, Y"
-        self.navigationItem.title = dateFormatter.stringFromDate(date)
+        self.navigationItem.title = dateFormatter.string(from: date)
         
-        if (NSCalendar.currentCalendar().compareDate(self.selectedDate, toDate: NSDate(), toUnitGranularity: .Day) == .OrderedSame) {
-            self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-Bold", size: 17)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        if ((Calendar.current as NSCalendar).compare(self.selectedDate, to: Date(), toUnitGranularity: .day) == .orderedSame) {
+            self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-Bold", size: 17)!, NSForegroundColorAttributeName: UIColor.white]
         }
         else {
-            self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-Medium", size: 17)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+            self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-Medium", size: 17)!, NSForegroundColorAttributeName: UIColor.white]
         }
     }
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         self.tableView.backgroundView = nil
         if (self.selectedSchedule != nil && DailyScheduleManager.sharedInstance != nil) {
@@ -534,7 +558,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         }
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let defaultCellHeight = 63
         let minimumCellHeight = 50.0
         
@@ -553,12 +577,12 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         return CGFloat(defaultCellHeight)
     }
     
-    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return CGFloat.min
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
         
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if (self.isCurrentSchedule == true) {
             if (section == 0) {
                 if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
@@ -571,7 +595,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         return "Schedule"
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (self.selectedSchedule != nil) {
             
             if (self.isCurrentSchedule == true) {
@@ -600,8 +624,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     }
     
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("scheduleCell", forIndexPath: indexPath) as! ClassCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ClassCell
         
         var indexSchedulePeriod: SchedulePeriod?
         
@@ -623,7 +647,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 cell.classTitleLabel.text = indexSchedulePeriod!.realPeriod!.name
                 cell.teacherLabel.text = indexSchedulePeriod!.realPeriod!.teacherName
                 cell.periodNumberLabel.text = "\(indexSchedulePeriod!.realPeriod!.periodNumber)"
-                cell.userInteractionEnabled = true //allow selection bc of real period
+                cell.isUserInteractionEnabled = true //allow selection bc of real period
             }
             else {
                 //no real period assigned, probs a modified period
@@ -631,25 +655,25 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 cell.periodNumberLabel.text = String(indexSchedulePeriodName.characters.first!)
                 cell.classTitleLabel.text = (indexSchedulePeriod!.isCustom) ? indexSchedulePeriod!.name : nil
                 cell.teacherLabel.text = nil
-                cell.userInteractionEnabled = false //disable selection because no real period
+                cell.isUserInteractionEnabled = false //disable selection because no real period
             }
             
             if (indexSchedulePeriod!.isLunchPeriod) {
                 if let lunchType = indexSchedulePeriod!.lunchType {
                     cell.lunchNumberLabel?.text = "\(DailyScheduleManager.sharedInstance?.getLunchNumber(withDate: selectedDate, andLunchType: lunchType) ?? 0)"
                     cell.classTitleLabel.text = "Lunch"
-                    cell.teacherLabel.hidden = true
+                    cell.teacherLabel.isHidden = true
                     if (lunchType.isLab == true) {
-                        cell.labView!.hidden = false
+                        cell.labView!.isHidden = false
                     }
                     else {
-                        cell.labView!.hidden = true
+                        cell.labView!.isHidden = true
                     }
                 }
                 else {
                     cell.lunchNumberLabel?.text = "\(indexSchedulePeriod!.lunchNumber)"
-                    cell.labView!.hidden = true
-                    cell.teacherLabel.hidden = false
+                    cell.labView!.isHidden = true
+                    cell.teacherLabel.isHidden = false
                 }
             }
             else if (indexSchedulePeriod!.isLunch) {
@@ -659,13 +683,13 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 else {
                     cell.lunchNumberLabel?.text = nil
                 }
-                cell.labView!.hidden = true
-                cell.teacherLabel.hidden = false
+                cell.labView!.isHidden = true
+                cell.teacherLabel.isHidden = false
             }
             else {
                 cell.lunchNumberLabel?.text = nil
-                cell.labView!.hidden = true
-                cell.teacherLabel.hidden = false
+                cell.labView!.isHidden = true
+                cell.teacherLabel.isHidden = false
             }
             
             cell.timeLabel!.text = "\(indexSchedulePeriod!.startSeconds.printSecondsToHoursMinutesSeconds())-\(indexSchedulePeriod!.endSeconds.printSecondsToHoursMinutesSeconds())"
@@ -673,7 +697,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         
         if (self.isCurrentSchedule == true) {
             if (DailyScheduleManager.sharedInstance?.secondsFromMidnight() > indexSchedulePeriod?.endSeconds) {
-                cell.periodNumberLabel.textColor = UIColor.lightGrayColor()
+                cell.periodNumberLabel.textColor = UIColor.lightGray
                 cell.classTitleLabel.font = UIFont(name: "HelveticaNeue", size: 17)
             }
             else if (indexSchedulePeriod == DailyScheduleManager.sharedInstance?.currentPeriod) {
@@ -693,21 +717,21 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: true)
     }
     
     //MARK: - Segue Handling
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if (segue.identifier == "scheduleClassmatesSegue") {
             self.inDetailVC = true
-            let classmatesVC = segue.destinationViewController as! ClassmatesVC
+            let classmatesVC = segue.destination as! ClassmatesVC
             let selectedIndexPath = self.tableView.indexPathForSelectedRow
             var indexSchedulePeriod: SchedulePeriod?
             
-            let backButton = UIBarButtonItem(title: " ", style: .Plain, target: nil, action: nil)
+            let backButton = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
             self.navigationItem.backBarButtonItem = backButton
             
             if (self.isCurrentSchedule == true && selectedIndexPath!.section == 0 && self.tableView.numberOfSections == 2) {
@@ -730,7 +754,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         }
     }
     
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if (identifier == "scheduleClassmatesSegue") {
             let selectedIndexPath = self.tableView.indexPathForSelectedRow
             var indexSchedulePeriod: SchedulePeriod?
@@ -809,10 +833,10 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                     print("error getting classes")
                     DailyScheduleManager.sharedInstance?.fetchInProgress = false
                     
-                    let alert = UIAlertController(title: "Error retrieving classes", message: "Please check your network connection and try again.", preferredStyle: .Alert)
-                    let dismiss = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+                    let alert = UIAlertController(title: "Error retrieving classes", message: "Please check your network connection and try again.", preferredStyle: .alert)
+                    let dismiss = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
                     alert.addAction(dismiss)
-                    self.presentViewController(alert, animated: true, completion: nil)
+                    self.present(alert, animated: true, completion: nil)
                 }
             })
         }
@@ -820,18 +844,18 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     //MARK: - Sign in handling
     
-    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!,
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
                 withError error: NSError!) {
         if (error == nil) {
             print("email: \(user.profile.email)")
-            let emailDomain = user.profile.email.componentsSeparatedByString("@").last
-            if (emailDomain?.containsString("westport.k12.ct.us") == true) {
+            let emailDomain = user.profile.email.components(separatedBy: "@").last
+            if (emailDomain?.contains("westport.k12.ct.us") == true) {
                 print("confirmed wepo")
                 
                 var profilePicURL: String?
                 
                 if (user.profile.hasImage) {
-                    profilePicURL = user.profile.imageURLWithDimension(250).absoluteString
+                    profilePicURL = user.profile.imageURL(withDimension: 250).absoluteString
                     print(profilePicURL)
                 }
                 
@@ -842,10 +866,10 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                     }
                     else {
                         print("error signing in")
-                        let alert = UIAlertController(title: "Error signing you in", message: "Please check your network connection and try again.", preferredStyle: .Alert)
-                        let dismiss = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+                        let alert = UIAlertController(title: "Error signing you in", message: "Please check your network connection and try again.", preferredStyle: .alert)
+                        let dismiss = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
                         alert.addAction(dismiss)
-                        self.presentViewController(alert, animated: true, completion: nil)
+                        self.present(alert, animated: true, completion: nil)
                     }
                 })
                 //self.performSegueWithIdentifier("logIn", sender: self)
@@ -853,10 +877,10 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             }
             else {
                 GIDSignIn.sharedInstance().signOut()
-                let alert = UIAlertController(title: "Not Westport Account", message: "Please sign in using your Westport Google account and try again.", preferredStyle: .Alert)
-                let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                let alert = UIAlertController(title: "Not Westport Account", message: "Please sign in using your Westport Google account and try again.", preferredStyle: .alert)
+                let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alert.addAction(ok)
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.present(alert, animated: true, completion: nil)
             }
             
         } else {
@@ -876,16 +900,16 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     }
     
     func infoPressed() {
-        let infoPage = self.storyboard?.instantiateViewControllerWithIdentifier("infoVC") as! UINavigationController
-        self.tabBarController?.presentViewController(infoPage, animated: true, completion: nil)
+        let infoPage = self.storyboard?.instantiateViewController(withIdentifier: "infoVC") as! UINavigationController
+        self.tabBarController?.present(infoPage, animated: true, completion: nil)
     }
     
     func logoutUser() {
         DailyScheduleManager.destroy()
         GIDSignIn.sharedInstance().delegate = nil
         GIDSignIn.sharedInstance().signOut()
-        let loginPage = self.storyboard?.instantiateViewControllerWithIdentifier("loginVC") as! LoginVC
-        UIApplication.topViewController()?.presentViewController(loginPage, animated: true, completion: nil)
+        let loginPage = self.storyboard?.instantiateViewController(withIdentifier: "loginVC") as! LoginVC
+        UIApplication.topViewController()?.present(loginPage, animated: true, completion: nil)
     }
     
     

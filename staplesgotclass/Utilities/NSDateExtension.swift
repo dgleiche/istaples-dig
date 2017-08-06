@@ -8,14 +8,14 @@
 
 import Foundation
 
-extension NSDate {
+extension Date {
     
-    func addDay(daysToAdd: Int) -> NSDate {
-        return NSCalendar.currentCalendar()
-            .dateByAddingUnit(
-                .Day,
+    func addDay(_ daysToAdd: Int) -> Date {
+        return (Calendar.current as NSCalendar)
+            .date(
+                byAdding: .day,
                 value: daysToAdd,
-                toDate: self,
+                to: self,
                 options: []
         )!
     }

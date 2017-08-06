@@ -35,10 +35,10 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
         self.view.layoutIfNeeded()
         
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
-        self.navigationController?.navigationBar.translucent = false
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-UltraLight", size: 15)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-UltraLight", size: 15)!, NSForegroundColorAttributeName: UIColor.white]
+        UIApplication.shared.statusBarStyle = .lightContent
         
         quarterTable.dataSource = quarterTable
         quarterTable.delegate = quarterTable
@@ -50,7 +50,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
         teacherTextField.autoCompleteDataSource = self
         teacherTextField.autoCompleteTableAppearsAsKeyboardAccessory = true
         
-        quarterTable.scrollEnabled = false
+        quarterTable.isScrollEnabled = false
         
         classes = UserManager.sharedInstance!.classNames
         teachers = UserManager.sharedInstance!.teacherNames
@@ -61,42 +61,42 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
             //Load the default values for this class
             print("Cur Class: \(curClass.name)")
             self.navigationItem.title = "EDIT PERIOD"
-            tracker.set(kGAIScreenName, value: "EditPeriod")
+            tracker?.set(kGAIScreenName, value: "EditPeriod")
             classTextField.text = curClass.name
             teacherTextField.text = curClass.teacherName
             periodPicker.selectRow(curClass.periodNumber - 1, inComponent: 0, animated: false)
         }
         else {
             self.navigationItem.title = "NEW PERIOD"
-            tracker.set(kGAIScreenName, value: "NewPeriod")
+            tracker?.set(kGAIScreenName, value: "NewPeriod")
         }
         let builder = GAIDictionaryBuilder.createScreenView()
-        tracker.send(builder.build() as [NSObject: AnyObject])
+        tracker?.send(builder?.build() as! [AnyHashable: Any])
         
     }
     
-    func createAlert(title: String, alert: String) {
+    func createAlert(_ title: String, alert: String) {
         let alertController = UIAlertController(title: title, message:
-            alert, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+            alert, preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
         
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     //MARK: Actions
     
-    @IBAction func cancel(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancel(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
     }
     
     //MARK: Text Field
     
-    func autoCompleteTextField(textField: MLPAutoCompleteTextField!, possibleCompletionsForString string: String!) -> [AnyObject]! {
+    func autoCompleteTextField(_ textField: MLPAutoCompleteTextField!, possibleCompletionsFor string: String!) -> [AnyObject]! {
         var returnStrings = Array<String>()
         
         //Return nothing if the string is empty
         if string.isEmpty {
-            return returnStrings
+            return returnStrings as [AnyObject]
         }
         
         if textField === classTextField {
@@ -105,23 +105,23 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
             returnStrings = teachers
         }
         
-        return returnStrings
+        return returnStrings as [AnyObject]
     }
     
     
     //MARK: Picker View
     
     //Data sources
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return 8
     }
     
     //Delegates
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return "\(row+1)"
     }
     
@@ -130,7 +130,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
     //MARK: Navigation
     
     
-    @IBAction func savePeriod(sender: UIButton) {
+    @IBAction func savePeriod(_ sender: UIButton) {
         
         //Verify the class is set
         if let selectedClass = classTextField.text {
@@ -150,7 +150,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
                 var selectedQuartersText = ""
                 
                 for i in 0..<4 {
-                    let selected: Bool = quarterTable.cellForRowAtIndexPath(NSIndexPath(forItem: i, inSection: 0))!.accessoryType == UITableViewCellAccessoryType.Checkmark
+                    let selected: Bool = quarterTable.cellForRow(at: IndexPath(item: i, section: 0))!.accessoryType == UITableViewCellAccessoryType.checkmark
                     
                     if selected {
                         //Make sure to add the commas at the right spot
@@ -170,7 +170,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
                 
                 let selectedTeacher = teacherTextField.text ?? ""
                 
-                let period = periodPicker.selectedRowInComponent(0) + 1
+                let period = periodPicker.selectedRow(inComponent: 0) + 1
                 
                 //All the variables should now be created and verified. Send the request
                 print("Info: period: \(period) class: \(selectedClass) teacher: \(selectedTeacher) quarters: \(selectedQuartersText)")
@@ -179,7 +179,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
                 if (currentClass != nil) {
                     parameters["id"] = "\(currentClass!.id)"
                 }
-                sender.enabled = false
+                sender.isEnabled = false
                 UserManager.sharedInstance?.currentUser.network.performRequest(withMethod: "POST", endpoint: "edit", parameters: parameters, headers: nil, completion: { (response: Response<AnyObject, NSError>) in
                     sender.enabled = true
                     if (response.response?.statusCode == 200) {

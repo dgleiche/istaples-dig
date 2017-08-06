@@ -11,7 +11,7 @@ import RealmSwift
 
 class Schedule: Object {
     dynamic var name: String?
-    dynamic var modifiedDate: NSDate?
+    dynamic var modifiedDate: Date?
     dynamic var isStatic: Bool = false
     
     //Weekday: 1 is Sunday, 7 is Saturday
@@ -83,7 +83,7 @@ class RealmPeriod: Object {
     dynamic var quarters: String?
     dynamic var id: Int = 0
     
-    func setPeriod(period: Period) {
+    func setPeriod(_ period: Period) {
         self.name = period.name
         self.periodNumber = period.periodNumber
         self.teacherName = period.teacherName
@@ -108,5 +108,5 @@ class RealmPeriod: Object {
 class Homework: Object {
     dynamic var periodNumber = 0
     dynamic var assignment: String?
-    dynamic var dueDate: NSDate?
+    dynamic var dueDate: Date?
 }

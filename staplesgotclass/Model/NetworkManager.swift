@@ -14,14 +14,14 @@ class NetworkManager: NSObject {
         var alamofireManager : Alamofire.Manager?
         
         override init() {
-            let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+            let configuration = URLSessionConfiguration.default
             configuration.timeoutIntervalForResource = 15 // seconds
-            configuration.HTTPMaximumConnectionsPerHost = 4
+            configuration.httpMaximumConnectionsPerHost = 4
             self.alamofireManager = Alamofire.Manager(configuration: configuration)
         }
         
         func performRequest(withMethod method: String, endpoint: String, parameters: [String : String]?, headers: [String : String]?, completion: (Response<AnyObject, NSError>) -> Void) {
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             self.alamofireManager!.request(returnMethod(method), "\(baseURL)/\(endpoint)", headers: headers, parameters: parameters)
                 .responseJSON { response in
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
@@ -38,7 +38,7 @@ class NetworkManager: NSObject {
         }
     
     
-        func returnMethod(name: String) -> Alamofire.Method {
+        func returnMethod(_ name: String) -> Alamofire.Method {
             switch name {
             case "GET":
                 return Alamofire.Method.GET

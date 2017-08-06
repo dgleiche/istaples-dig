@@ -27,7 +27,7 @@ class ScheduleDetailVC: UITableViewController, HomeworkManagerDelegate {
         self.view.setNeedsLayout()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         HomeworkManager.setup(delegate: self)
         HomeworkManager.sharedInstance?.loadSavedData()
     }
@@ -44,23 +44,23 @@ class ScheduleDetailVC: UITableViewController, HomeworkManagerDelegate {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "scheduleDetailClassmatesSegue") {
-            let newView = segue.destinationViewController as! ClassmatesVC
+            let newView = segue.destination as! ClassmatesVC
             newView.currentClass = self.realmPeriod.exchangeForRealPeriod()
-            let backButton = UIBarButtonItem(title: " ", style: .Plain, target: nil, action: nil)
+            let backButton = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
             
             self.navigationItem.backBarButtonItem = backButton
-            self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForSelectedRow!, animated: true)
+            self.tableView.deselectRow(at: self.tableView.indexPathForSelectedRow!, animated: true)
             
         }
         else if (segue.identifier == "assignmentsSegue") {
-            let newView = segue.destinationViewController as! PeriodHomeworkVC
+            let newView = segue.destination as! PeriodHomeworkVC
             newView.periodNumber = self.realmPeriod.periodNumber
         }
     }
     
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if (identifier == "scheduleDetailClassmatesSegue" && self.realmPeriod.exchangeForRealPeriod() != nil) {
             return true
         }

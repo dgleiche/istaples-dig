@@ -20,7 +20,7 @@ class UserManager: NSObject {
     
     var refreshNeeded = false
     
-    private init(name: String, email: String, token: String, profilePicURL: String?, completion: ((Bool) -> Void)?) {
+    fileprivate init(name: String, email: String, token: String, profilePicURL: String?, completion: ((Bool) -> Void)?) {
         self.currentUser = User(name: name, email: email, profilePicURL: profilePicURL)
 
         self.token = token
@@ -28,11 +28,11 @@ class UserManager: NSObject {
         self.verifyUser(completion)
     }
     
-    class func createCurrentUser(name: String, email: String, token: String, profilePicURL: String?, completion: ((Bool) -> Void)?) {
+    class func createCurrentUser(_ name: String, email: String, token: String, profilePicURL: String?, completion: ((Bool) -> Void)?) {
         sharedInstance = UserManager(name: name, email: email, token: token, profilePicURL: profilePicURL, completion: completion)
     }
     
-    func verifyUser(completion: ((Bool) -> Void)?) {
+    func verifyUser(_ completion: ((Bool) -> Void)?) {
         self.currentUser.network.performRequest(withMethod: "POST", endpoint: "validateUser", parameters: ["token": self.token, "name": self.currentUser.name], headers: nil) { (response: Response<AnyObject, NSError>) in
             if (response.response?.statusCode == 200) {
                 if let verifyResponse = response.result.value as? NSDictionary {
@@ -49,7 +49,7 @@ class UserManager: NSObject {
                         let builder = GAIDictionaryBuilder.createEventWithCategory("UX", action: "Sign In", label: nil, value: nil)
                         // This hit will be sent with the User ID value and be visible in User-ID-enabled views (profiles).
                         
-                        tracker.send(builder.build() as [NSObject: AnyObject])
+                        tracker.send(builder.build() as [AnyHashable: Any])
                         print("sent user id  \(userID)")
 
                     }
@@ -86,7 +86,7 @@ class UserManager: NSObject {
         }
     }
     
-    func getAllUsers(completion: ((success: Bool, userList: [User]?) -> Void)?) {
+    func getAllUsers(_ completion: ((_ success: Bool, _ userList: [User]?) -> Void)?) {
         self.currentUser.network.performRequest(withMethod: "GET", endpoint: "getUsers", parameters: nil, headers: nil) { (response: Response<AnyObject, NSError>) in
             if (response.response?.statusCode == 200) {
                 if let userResponse = response.result.value as? [[String : AnyObject]] {

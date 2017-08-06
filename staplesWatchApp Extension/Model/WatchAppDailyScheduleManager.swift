@@ -16,7 +16,7 @@ class WatchAppDailyScheduleManager: NSObject {
     
     var fetchInProgress = false
     
-    private override init() {
+    fileprivate override init() {
         super.init()
     }
     
@@ -142,9 +142,9 @@ class WatchAppDailyScheduleManager: NSObject {
     }
     
     func secondsFromMidnight() -> Int {
-        let units : NSCalendarUnit = [.Hour, .Minute, .Second]
-        let components = NSCalendar.currentCalendar().components(units, fromDate: NSDate())
-        return (60 * 60 * components.hour) + (60 * components.minute) + components.second
+        let units : NSCalendar.Unit = [.hour, .minute, .second]
+        let components = (Calendar.current as NSCalendar).components(units, from: Date())
+        return (60 * 60 * components.hour!) + (60 * components.minute!) + components.second!
     }
     
 }

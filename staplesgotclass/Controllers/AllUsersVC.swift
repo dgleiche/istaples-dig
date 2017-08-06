@@ -8,6 +8,30 @@
 
 import UIKit
 import SDWebImage
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 
 class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchControllerDelegate {
@@ -28,10 +52,10 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
         self.definesPresentationContext = false
         
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
-        self.navigationController?.navigationBar.translucent = false
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-UltraLight", size: 15)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-UltraLight", size: 15)!, NSForegroundColorAttributeName: UIColor.white]
+        UIApplication.shared.statusBarStyle = .lightContent
         
         
         searchController.searchResultsUpdater = self
@@ -42,27 +66,27 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
         tableView.tableHeaderView = searchController.searchBar
         
         noResultsView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.width))
-        noResultsView.backgroundColor = UIColor.clearColor()
+        noResultsView.backgroundColor = UIColor.clear
         
         let noResultsLabel = UILabel(frame: noResultsView.frame)
         noResultsLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
         noResultsLabel.numberOfLines = 1
-        noResultsLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
-        noResultsLabel.shadowColor = UIColor.lightTextColor()
-        noResultsLabel.textColor = UIColor.darkGrayColor()
+        noResultsLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        noResultsLabel.shadowColor = UIColor.lightText
+        noResultsLabel.textColor = UIColor.darkGray
         noResultsLabel.shadowOffset = CGSize(width: 0, height: 1)
-        noResultsLabel.backgroundColor = UIColor.clearColor()
-        noResultsLabel.textAlignment = NSTextAlignment.Center
+        noResultsLabel.backgroundColor = UIColor.clear
+        noResultsLabel.textAlignment = NSTextAlignment.center
         
         noResultsLabel.text = "No Results"
         
-        refresh.backgroundColor = UIColor.whiteColor()
-        refresh.tintColor = UIColor.darkGrayColor()
-        noResultsView.hidden = true
+        refresh.backgroundColor = UIColor.white
+        refresh.tintColor = UIColor.darkGray
+        noResultsView.isHidden = true
         noResultsView.addSubview(noResultsLabel)
         
         self.tableView.backgroundView = UIView()
-        self.tableView.backgroundView!.backgroundColor = UIColor.clearColor()
+        self.tableView.backgroundView!.backgroundColor = UIColor.clear
         
         
         self.tableView.insertSubview(noResultsView, belowSubview: self.tableView)
@@ -72,18 +96,18 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
         self.userCountLabel.text = nil
         
         let tracker = GAI.sharedInstance().defaultTracker
-        tracker.set(kGAIScreenName, value: "AllUsers")
+        tracker?.set(kGAIScreenName, value: "AllUsers")
         
         let builder = GAIDictionaryBuilder.createScreenView()
-        tracker.send(builder.build() as [NSObject: AnyObject])
+        tracker?.send(builder?.build() as! [AnyHashable: Any])
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         if (self.userDict.count == 0) {
             self.getUsers()
         }
     }
-    @IBAction func refresh(sender: AnyObject) {
+    @IBAction func refresh(_ sender: AnyObject) {
         self.getUsers()
         
     }
@@ -96,38 +120,38 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
                     self.userCountLabel.text = "\(self.allUsers!.count) users"
                     for user in self.allUsers! {
                         let firstCharacter: String = user.name[0]
-                        self.userDict[firstCharacter.uppercaseString] = []
+                        self.userDict[firstCharacter.uppercased()] = []
                     }
                     
                     for user in self.allUsers! {
                         let firstCharacter: String = user.name[0]
-                        self.userDict[firstCharacter.uppercaseString]?.append(user)
+                        self.userDict[firstCharacter.uppercased()]?.append(user)
                         
                     }
-                    self.sectionTitleArray1 = self.userDict.keys.sort { $0.localizedCaseInsensitiveCompare($1) == NSComparisonResult.OrderedAscending }
+                    self.sectionTitleArray1 = self.userDict.keys.sorted { $0.localizedCaseInsensitiveCompare($1) == ComparisonResult.orderedAscending }
                     self.sectionTitleArray = self.sectionTitleArray1.mutableCopy() as! NSMutableArray
                     self.activitySpinner.stopAnimating()
                     
-                    if (self.refresh.refreshing) {
+                    if (self.refresh.isRefreshing) {
                         self.refresh.endRefreshing()
                     }
                     self.tableView.reloadData()
-                    let dateFormatter = NSDateFormatter()
+                    let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "MMM d, h:mm a"
                     let attrsDictionary = [
-                        NSForegroundColorAttributeName : UIColor.darkGrayColor()
+                        NSForegroundColorAttributeName : UIColor.darkGray
                     ]
                     
-                    let attributedTitle: NSAttributedString = NSAttributedString(string: "Last update: \(dateFormatter.stringFromDate(NSDate()))", attributes: attrsDictionary)
+                    let attributedTitle: NSAttributedString = NSAttributedString(string: "Last update: \(dateFormatter.string(from: Date()))", attributes: attrsDictionary)
                     
                     self.refresh.attributedTitle = attributedTitle
                 }
                 else {
                     print("error getting all users")
-                    let alert = UIAlertController(title: "Error retrieving all users", message: "Please check your network connection and try again.", preferredStyle: .Alert)
-                    let dismiss = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+                    let alert = UIAlertController(title: "Error retrieving all users", message: "Please check your network connection and try again.", preferredStyle: .alert)
+                    let dismiss = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
                     alert.addAction(dismiss)
-                    self.presentViewController(alert, animated: true, completion: nil)
+                    self.present(alert, animated: true, completion: nil)
                 }
                 
             })
@@ -143,34 +167,34 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
     
     //MARK: -Search Bar/Controller Delegate
     
-    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         self.refreshControl = nil
         return true
     }
     
-    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         self.refreshControl = refresh
     }
     
-    func willPresentSearchController(searchController: UISearchController) {
+    func willPresentSearchController(_ searchController: UISearchController) {
         // do something before the search controller is presented
-        self.navigationController!.navigationBar.translucent = true
+        self.navigationController!.navigationBar.isTranslucent = true
     }
     
-    func willDismissSearchController(searchController: UISearchController) {
-        self.navigationController!.navigationBar.translucent = false
+    func willDismissSearchController(_ searchController: UISearchController) {
+        self.navigationController!.navigationBar.isTranslucent = false
     }
     
     
     
     // MARK: - Table view data source
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if searchController.active && searchController.searchBar.text != "" {
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        if searchController.isActive && searchController.searchBar.text != "" {
             return 1
         }
         else {
@@ -178,8 +202,8 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
         }
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if searchController.active && searchController.searchBar.text != "" {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if searchController.isActive && searchController.searchBar.text != "" {
             return nil
         }
         else {
@@ -187,23 +211,23 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
         }
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if searchController.active && searchController.searchBar.text != "" {
+        if searchController.isActive && searchController.searchBar.text != "" {
             if (filteredUsers?.count == 0) {
-                noResultsView.hidden = false
-                userCountLabel.hidden = true
+                noResultsView.isHidden = false
+                userCountLabel.isHidden = true
             }
             else {
-                noResultsView.hidden = true
-                userCountLabel.hidden = false
+                noResultsView.isHidden = true
+                userCountLabel.isHidden = false
             }
             return filteredUsers!.count
         }
         else {
             if noResultsView != nil {
-                noResultsView.hidden = true
-                userCountLabel.hidden = false
+                noResultsView.isHidden = true
+                userCountLabel.isHidden = false
             }
             if (allUsers != nil) {
                 
@@ -218,10 +242,10 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
     }
     
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("allUserClassmateCell", forIndexPath: indexPath) as! ClassmateCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "allUserClassmateCell", for: indexPath) as! ClassmateCell
         let indexUser: User
-        if searchController.active && searchController.searchBar.text != "" {
+        if searchController.isActive && searchController.searchBar.text != "" {
             indexUser = filteredUsers![indexPath.row]
         } else {
             let userWithLetterArray: Array = userDict[sectionTitleArray[indexPath.section] as! String]!
@@ -237,7 +261,7 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
         cell.initialView.layer.cornerRadius = cell.initialView.frame.width / 2
         
         if (indexUser.profilePicURL != nil) {
-            cell.classmateImageView.sd_setImageWithURL(NSURL(string:indexUser.profilePicURL!), completed: { (image: UIImage!, error: NSError!, cacheType: SDImageCacheType, url: NSURL!) in
+            cell.classmateImageView.sd_setImage(with: URL(string:indexUser.profilePicURL!), completed: { (image: UIImage!, error: NSError!, cacheType: SDImageCacheType, url: URL!) in
                 if (image != nil && error == nil) {
                     //now that image is downloaded, set current user prof pic
                     if (image.images?.count > 1) {
@@ -245,63 +269,63 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
                     }
                 }
                 
-            })
+            } as! SDWebImageCompletionBlock)
             
-            cell.classmateImageView.hidden = false
-            cell.initialView.hidden = true
+            cell.classmateImageView.isHidden = false
+            cell.initialView.isHidden = true
         }
         else {
-            let names: [String] = indexUser.name.componentsSeparatedByString(" ")
+            let names: [String] = indexUser.name.components(separatedBy: " ")
             if (names.count >= 3) {
-                cell.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)\(names[2][0].uppercaseString)"
+                cell.initialLabel.text = "\(names[0][0].uppercased())\(names[1][0].uppercased())\(names[2][0].uppercased())"
             }
             else if (names.count == 2) {
-                cell.initialLabel.text = "\(names[0][0].uppercaseString)\(names[1][0].uppercaseString)"
+                cell.initialLabel.text = "\(names[0][0].uppercased())\(names[1][0].uppercased())"
                 
             }
             else if (names.count == 1) {
-                cell.initialLabel.text = "\(names[0][0].uppercaseString))"
+                cell.initialLabel.text = "\(names[0][0].uppercased()))"
             }
             else{
                 cell.initialLabel.text = nil
             }
-            cell.classmateImageView.hidden = true
-            cell.initialView.hidden = false
+            cell.classmateImageView.isHidden = true
+            cell.initialView.isHidden = false
         }
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let displayedCell = cell as! ClassmateCell
         displayedCell.classmateImageView.image = nil
     }
     
-    override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     }
     
-    override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-        return sectionTitleArray.indexOfObject(title)
+    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        return sectionTitleArray.index(of: title)
     }
     
     //MARK: Search Controller Methods
     
-    func filterContentForSearchText(searchText: String, scope: String = "All") {
+    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
         filteredUsers = allUsers!.filter { user in
-            return user.name.lowercaseString.containsString(searchText.lowercaseString)
+            return user.name.lowercased().contains(searchText.lowercased())
         }
         
         tableView.reloadData()
     }
     
     //MARK: Navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "showAllUserProfile") {
-            let newView = segue.destinationViewController as! ProfileVC
+            let newView = segue.destination as! ProfileVC
             let selectedIndexPath = self.tableView.indexPathForSelectedRow
             let indexUser: User
-            if searchController.active && searchController.searchBar.text != "" {
+            if searchController.isActive && searchController.searchBar.text != "" {
                 indexUser = filteredUsers![(selectedIndexPath?.row)!]
             } else {
                 let userWithLetterArray: Array = userDict[sectionTitleArray[selectedIndexPath!.section] as! String]!
@@ -310,11 +334,11 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
             newView.currentUser = indexUser
             [(self.tableView.indexPathForSelectedRow?.row)!]
             
-            let backButton = UIBarButtonItem(title: " ", style: .Plain, target: nil, action: nil)
+            let backButton = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
             
             self.navigationItem.backBarButtonItem = backButton
             
-            self.tableView.deselectRowAtIndexPath(self.tableView.indexPathForSelectedRow!, animated: true)
+            self.tableView.deselectRow(at: self.tableView.indexPathForSelectedRow!, animated: true)
             
         }
         
@@ -323,7 +347,7 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
 }
 
 extension AllUsersVC: UISearchResultsUpdating {
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
+    func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
     }
 }

@@ -31,7 +31,7 @@ class PageContentVC: UIViewController {
         }
         
         if (self.imageName != nil) {
-        self.imageView.image = UIImage(named: self.imageName!)?.imageWithColor(UIColor.whiteColor())
+        self.imageView.image = UIImage(named: self.imageName!)?.imageWithColor(UIColor.white)
         }
         if (self.titleText != nil) {
         self.titleLabel.text = self.titleText
