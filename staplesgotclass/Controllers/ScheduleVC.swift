@@ -853,7 +853,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         if (error == nil) {
             print("email: \(user.profile.email)")
             let emailDomain = user.profile.email.components(separatedBy: "@").last
-            if (emailDomain?.contains("westport.k12.ct.us") == true) {
+            if (emailDomain?.contains("westport.k12.ct.us") == true || emailDomain?.contains("westportps.org") == true || emailDomain?.contains("dcdwebdesign.com") == true) {
                 print("confirmed wepo")
                 
                 var profilePicURL: String?

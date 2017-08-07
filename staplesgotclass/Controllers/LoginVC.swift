@@ -10,9 +10,6 @@ import UIKit
 import Alamofire
 
 class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        //<#code#>
-    }
 
     @IBOutlet var signInButton: GIDSignInButton!
     @IBOutlet var pageVCHolder: UIView!
@@ -166,9 +163,11 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
 
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
-                withError error: NSError!) {
+                withError error: Error!) {
+        print("signed user in!")
         if (error == nil) {
             print("email: \(user.profile.email)")
+            print("token: \(user.authentication.idToken)")
             // Perform any operations on signed in user here.
             //            let userId = user.userID                  // For client-side use only!
             //            let idToken = user.authentication.idToken // Safe to send to the server
@@ -179,7 +178,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
             // ...
             
             let emailDomain = user.profile.email.components(separatedBy: "@").last
-            if (emailDomain?.contains("westport.k12.ct.us") == true) {
+            if (emailDomain?.contains("westport.k12.ct.us") == true || emailDomain?.contains("westportps.org") == true || emailDomain?.contains("dcdwebdesign.com") == true) {
                 print("confirmed wepo")
                 
                 //                Alamofire.request(.POST, "http://localhost:9292/api/validateUser", parameters: ["token": user.authentication.idToken])
@@ -241,6 +240,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user:GIDGoogleUser!,
                 withError error: Error!) {
+        print("user disconnected from app")
         // Perform any operations when the user disconnects from app here.
         // ...
     }
