@@ -160,7 +160,6 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, UIPageV
                 dismiss viewController: UIViewController!) {
         self.dismiss(animated: true, completion: nil)
     }
-
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
                 withError error: Error!) {

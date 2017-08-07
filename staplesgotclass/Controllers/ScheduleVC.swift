@@ -34,9 +34,6 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 
 class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignInDelegate {
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        //code
-    }
 
     @IBOutlet var timeLeftRing: KDCircularProgress!
     @IBOutlet var timeElapsedRing: KDCircularProgress!
@@ -476,6 +473,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     func changeSchedule(withAnimation animation: String?) {
         self.selectedSchedule = DailyScheduleManager.sharedInstance?.getSchedule(withDate: self.selectedDate)
+        print("selectected schedule: \(String(describing: self.selectedSchedule))")
         if (self.selectedSchedule == DailyScheduleManager.sharedInstance?.currentSchedule && self.selectedSchedule != nil && (Calendar.current as NSCalendar).compare(self.selectedDate, to: Date(), toUnitGranularity: .day) == .orderedSame) {
             self.isCurrentSchedule = true
             if (DailyScheduleManager.sharedInstance?.getCurrentPeriod() != nil) {
@@ -848,8 +846,10 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     //MARK: - Sign in handling
     
+    
+    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
-                withError error: NSError!) {
+              withError error: Error!) {
         if (error == nil) {
             print("email: \(user.profile.email)")
             let emailDomain = user.profile.email.components(separatedBy: "@").last
@@ -889,7 +889,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             
         } else {
             print("error signing in:( \(error)")
-            if error.code == -4 {
+            if (error as NSError?)?.code == -4 {
                 //only do this if error is wrong creds, not for offline
                 if !attemptedToPresentLoginVC {
                     attemptedToPresentLoginVC = true

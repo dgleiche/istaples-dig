@@ -91,8 +91,9 @@ class DailyScheduleManager: NSObject {
         let query = PFQuery(className: "Schedule")
         query.limit = 500
         query.includeKey("Periods")
-        query.findObjectsInBackground(block: { (schedules: [PFObject]?, error: NSError?) in
+        query.findObjectsInBackground { (schedules: [PFObject]?, error: Error?) in
             if (error == nil) {
+                print("found schedules: \(String(describing: schedules))")
                 
                 let schedulesToDelete = self.realm.objects(Schedule.self)
                 let schedulePeriodsToDelete = self.realm.objects(SchedulePeriod.self)
@@ -160,13 +161,12 @@ class DailyScheduleManager: NSObject {
                 lunchQuery.limit = 500
                 lunchQuery.includeKey("LunchType")
                 
-                lunchQuery.findObjectsInBackground(block: { (lunchSchedules: [PFObject]?, lunchError: NSError?) in
+                lunchQuery.findObjectsInBackground(block: { (lunchSchedules: [PFObject]?, lunchError: Error?) in
                     if (lunchError == nil) {
-                        
                         let lunchSchedulesToDelete = self.realm.objects(LunchSchedule.self)
                         let lunchTypesToDelete = self.realm.objects(LunchType.self)
                         let coursesToDelete = self.realm.objects(Course.self)
-
+                        
                         self.lunchSchedules.removeAll()
                         self.courses.removeAll()
                         
@@ -186,7 +186,7 @@ class DailyScheduleManager: NSObject {
                         let courseQuery = PFQuery(className: "Course")
                         courseQuery.limit = 500
                         courseQuery.includeKey("LunchType")
-                        courseQuery.findObjectsInBackground(block: { (courses: [PFObject]?, courseError: NSError?) in
+                        courseQuery.findObjectsInBackground(block: { (courses: [PFObject]?, courseError: Error?) in
                             if (courseError == nil) {
                                 for course in courses! {
                                     let newCourse = Course()
@@ -219,9 +219,9 @@ class DailyScheduleManager: NSObject {
                                     
                                     try! self.realm.write {
                                         if (self.realmPeriodsToDelete != nil) {
-                                        self.realm.delete(self.realmPeriodsToDelete!)
+                                            self.realm.delete(self.realmPeriodsToDelete!)
                                         }
-
+                                        
                                         self.realm.delete(schedulesToDelete)
                                         self.realm.delete(schedulePeriodsToDelete)
                                         
@@ -244,23 +244,21 @@ class DailyScheduleManager: NSObject {
                                     self.delegate.didFetchSchedules(false)
                                 }
                                 
-                                
-                                
                             }
                             else {
                                 self.delegate.showErrorAlert()
+                                
                             }
-                            } as? ([PFObject]?, Error?) -> Void)
+                            
+                        })
+                        
                     }
                     else {
                         self.delegate.showErrorAlert()
                     }
-                    } as? ([PFObject]?, Error?) -> Void)
+                })
             }
-            else {
-                self.delegate.showErrorAlert()
-            }
-            } as? ([PFObject]?, Error?) -> Void)
+        }
     }
     //TODO: Detect 10 mins before, after school;
     func getCurrentPeriod() -> SchedulePeriod? {
@@ -385,7 +383,7 @@ class DailyScheduleManager: NSObject {
     }
     func secondsFromMidnight() -> Int {
         let calendar = Calendar.current
-        let units = Set<Calendar.Component>([.hour, .minute, .second])
+        _ = Set<Calendar.Component>([.hour, .minute, .second])
         let components = calendar.dateComponents([.hour,.minute,.second], from: Date())
         return (60 * 60 * components.hour!) + (60 * components.minute!) + components.second!
     }
@@ -393,15 +391,15 @@ class DailyScheduleManager: NSObject {
     func getSchedule(withDate date: Date) -> Schedule? {
         
         let calendar = Calendar.current
-        let selDateComponents = (calendar as NSCalendar).components([.day, .month, .weekday], from: date)
+        let selDateComponents = calendar.dateComponents([.day, .month, .weekday], from: date as Date)
         
         for modifiedSchedule in modifiedSchedules {
             if let modDate = modifiedSchedule.modifiedDate {
-                let modDateComponents = (calendar as NSCalendar).components([.day , .month], from: modDate as Date)
+                let modDateComponents = calendar.dateComponents([.day, .month], from: modDate)
                 
                 if (modDateComponents.month == selDateComponents.month) && (modDateComponents.day == selDateComponents.day) {
                     //Month and day exactly match, thus this date corresponds with a modified schedule
-                    self.syncPeriodsToSchedule(modifiedSchedule, withDate: date)
+                    self.syncPeriodsToSchedule(modifiedSchedule, withDate: date as Date)
                     return modifiedSchedule
                 }
             }
@@ -409,9 +407,9 @@ class DailyScheduleManager: NSObject {
         
         //Function hasnt returned, thus it is a static schedule
         //Determine if it's a weekday (otherwise there is no schedule)
-        let weekday = Calendar.current.component(.weekday, from: Date())
+        let weekday = selDateComponents.weekday
         var schoolWeekday = 0
-        switch weekday {
+        switch weekday! {
         case 1:
             schoolWeekday = 6
         case 2:
@@ -429,13 +427,13 @@ class DailyScheduleManager: NSObject {
         default:
             break
         }
-        
+        print("school weekday: \(schoolWeekday)")
         if schoolWeekday >= 0 && schoolWeekday <= 4 {
             //It's a weekday
             //Return the corresponding static schedule
             for staticSchedule in staticSchedules {
                 if staticSchedule.weekday == schoolWeekday {
-                    self.syncPeriodsToSchedule(staticSchedule, withDate: date)
+                    self.syncPeriodsToSchedule(staticSchedule, withDate: date as Date)
                     return staticSchedule
                 }
                 
@@ -509,7 +507,7 @@ class DailyScheduleManager: NSObject {
                     }
                     else {
                         //NO LUNCH TYPE, FREE LUNCH
-                                                print("no lunch type for \(String(describing: schedulePeriod.name))")
+                        print("no lunch type for \(String(describing: schedulePeriod.name))")
                         if (!schedule.containsLunchPeriods()) {
                             let lunchLength = 30*60
                             let periodLength = (((realPeriodEndTime - realPeriodStartTime) - lunchLength - passingTime*2) / 2)
