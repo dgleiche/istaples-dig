@@ -33,10 +33,12 @@ class User: NSObject {
     }
     
     func getClassmates(_ completion: ((Bool) -> Void)?) {
+        //print("GET CLASSMATES")
         self.network.performRequest(withMethod: "GET", endpoint: "classmates", parameters: ["email": email], headers: nil) { (response: DataResponse<Any>) in
+
             if (response.response?.statusCode == 200) {
                 self.schedule = [Period]()
-                
+
                 if let classData = response.result.value as? NSDictionary {
                     if let periods = classData["periods"] as? [[String: AnyObject]] {
                         for period in periods {
@@ -53,10 +55,12 @@ class User: NSObject {
                                     newUsers.append(newUser)
                                 }
                             }
-                            
+
                             let newPeriod = Period(name: period["name"]! as! String, periodNumber: period["period_number"]! as! Int, teacherName: period["teacher_name"]! as! String, quarters: period["quarters"]! as! String, id: period["id"] as! Int, users: newUsers)
+
                             self.schedule?.append(newPeriod)
                         }
+
                         completion!(true)
                         print("schedule count: \(self.schedule!.count)")
                     }

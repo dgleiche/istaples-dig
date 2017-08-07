@@ -17,9 +17,9 @@ class Period: NSObject {
     let id: Int
     
     init(name: String, periodNumber: Int, teacherName: String, quarters: String, id: Int, users: [User]) {
-        self.name = String(htmlEncodedString: name)
+        self.name = String(name)
         self.periodNumber = periodNumber
-        self.teacherName = String(htmlEncodedString: teacherName)
+        self.teacherName = String(teacherName)
         self.quarters = quarters
         self.users = users
         self.id = id
