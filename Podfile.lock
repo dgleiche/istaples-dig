@@ -40,6 +40,7 @@ PODS:
   - GTMSessionFetcher/Core (1.1.11)
   - GTMSessionFetcher/Full (1.1.11):
     - GTMSessionFetcher/Core (= 1.1.11)
+  - KDCircularProgress (1.5.2)
   - Parse (1.15.1):
     - Bolts/Tasks (~> 1.8)
   - Realm (2.9.1):
@@ -55,6 +56,7 @@ DEPENDENCIES:
   - Alamofire
   - Google/Analytics
   - Google/SignIn
+  - KDCircularProgress
   - Parse
   - RealmSwift
   - SDWebImage
@@ -71,11 +73,12 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 5ad62e8200fa00ed011fe5e08d27fef72c5b1429
+  KDCircularProgress: 12f677b2deb02409ab48c6cae1898d146b8ad549
   Parse: b7a77b20b8a6dede8058da1e2b339593578ce158
   Realm: f91fb43bd474c4f731a116ebf7392c75dd015920
   RealmSwift: 207f12a4a36b696c5183c60a1c06d70234a23e56
   SDWebImage: 0e435c14e402a6730315a0fb79f95e68654d55a4
 
-PODFILE CHECKSUM: 89d75c9d49009de818d2b465979d54971f1af7ca
+PODFILE CHECKSUM: 629037796a55a7968041eae3569aeb0b8c35301c
 
 COCOAPODS: 1.2.1

@@ -24,7 +24,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
     var teachers: [String] = []
     
     //This is set prior to the segue for editing
-    //Saving will update this class
+    //Saving will update this clas
     var currentClass: Period?
     
     override func viewDidLoad() {
@@ -64,6 +64,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
             tracker?.set(kGAIScreenName, value: "EditPeriod")
             classTextField.text = curClass.name
             teacherTextField.text = curClass.teacherName
+            print("cur teacher: \(curClass.teacherName)")
             periodPicker.selectRow(curClass.periodNumber - 1, inComponent: 0, animated: false)
         }
         else {
@@ -93,7 +94,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
     
     func autoCompleteTextField(_ textField: MLPAutoCompleteTextField!, possibleCompletionsFor string: String!) -> [AnyObject]! {
         var returnStrings = Array<String>()
-        
+        print("GOT TO AUTOCOMPLETE")
         //Return nothing if the string is empty
         if string.isEmpty {
             return returnStrings as [AnyObject]

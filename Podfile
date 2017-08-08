@@ -10,6 +10,7 @@ target 'staplesgotclass' do
        	pod 'Parse'
        	pod 'SDWebImage'
   	pod 'RealmSwift'
+	pod 'KDCircularProgress'
 end
 
 post_install do |installer|

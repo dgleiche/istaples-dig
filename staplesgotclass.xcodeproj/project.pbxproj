@@ -45,7 +45,6 @@
 		775DC44B1CED558A00046768 /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775DC44A1CED558A00046768 /* Period.swift */; };
 		775DC44D1CED55CD00046768 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775DC44C1CED55CD00046768 /* User.swift */; };
 		775DC44F1CED583400046768 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775DC44E1CED583400046768 /* NetworkManager.swift */; };
-		77703B3C1D5C3D3B0093CF95 /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77703B3B1D5C3D3B0093CF95 /* KDCircularProgress.swift */; };
 		77703B3E1D5C47530093CF95 /* ScheduleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77703B3D1D5C47530093CF95 /* ScheduleVC.swift */; };
 		777771C71D7D3D7C006F47EE /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 777771C51D7D3D7C006F47EE /* Interface.storyboard */; };
 		777771C91D7D3D7C006F47EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 777771C81D7D3D7C006F47EE /* Assets.xcassets */; };
@@ -189,7 +188,6 @@
 		775DC44A1CED558A00046768 /* Period.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
 		775DC44C1CED55CD00046768 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		775DC44E1CED583400046768 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		77703B3B1D5C3D3B0093CF95 /* KDCircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDCircularProgress.swift; sourceTree = "<group>"; };
 		77703B3D1D5C47530093CF95 /* ScheduleVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleVC.swift; sourceTree = "<group>"; };
 		777771C31D7D3D7C006F47EE /* staplesWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = staplesWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		777771C61D7D3D7C006F47EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
@@ -396,7 +394,6 @@
 				77D8F2F11CF135C2007A1002 /* ClassCell.swift */,
 				7746F38D1CF19241003E9D6A /* ClassmateCell.swift */,
 				FC99DE291CF5652C0006F62E /* QuarterTable.swift */,
-				77703B3B1D5C3D3B0093CF95 /* KDCircularProgress.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -842,7 +839,6 @@
 				77D8F2F21CF135C2007A1002 /* ClassCell.swift in Sources */,
 				FC2078EC1CFC0D8C00D86F54 /* InfoVC.swift in Sources */,
 				FC9A2D3D1D6EB23E00436546 /* SetHomeworkVC.swift in Sources */,
-				77703B3C1D5C3D3B0093CF95 /* KDCircularProgress.swift in Sources */,
 				FC53CF9A1CF5215A0034266F /* NSString+Levenshtein.m in Sources */,
 				FC99DE2A1CF5652C0006F62E /* QuarterTable.swift in Sources */,
 				773A35F61D6834B8005BF01A /* IntExtension.swift in Sources */,

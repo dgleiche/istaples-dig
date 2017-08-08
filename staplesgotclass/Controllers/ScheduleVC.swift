@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import KDCircularProgress
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
@@ -383,14 +384,14 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 //                    self.timeElapsedRing.animateFromAngle(360, toAngle: <#T##Double#>, duration: <#T##NSTimeInterval#>, completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
                 //                }
                 //
-                self.timeElapsedRing.animateToAngle(Double(360*percentDone), duration: 1.0, completion: { (success: Bool) in
+                self.timeElapsedRing.animate(toAngle: Double(360*percentDone), duration: 1.0, completion: { (success: Bool) in
                     if (success) {
                         //progress ring successfully animated
                         
                     }
                 })
                 
-                self.timeLeftRing.animateToAngle(Double(360*(1-percentDone)), duration: 1.0, completion: { (success: Bool) in
+                self.timeLeftRing.animate(toAngle: Double(360*(1-percentDone)), duration: 1.0, completion: { (success: Bool) in
                     if (success) {
                         //progress ring successfully animated
                         
