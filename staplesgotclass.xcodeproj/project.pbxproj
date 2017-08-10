@@ -86,8 +86,6 @@
 		FC2078F61CFC268800D86F54 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2078F51CFC268800D86F54 /* AboutVC.swift */; };
 		FC3A411F1D5C31AB000738F2 /* DailyScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3A411E1D5C31AB000738F2 /* DailyScheduleManager.swift */; };
 		FC53CF851CF3E8690034266F /* EditPeriodVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC53CF841CF3E8690034266F /* EditPeriodVC.swift */; };
-		FC53CF991CF5215A0034266F /* MLPAutoCompleteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = FC53CF931CF5215A0034266F /* MLPAutoCompleteTextField.m */; };
-		FC53CF9A1CF5215A0034266F /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = FC53CF981CF5215A0034266F /* NSString+Levenshtein.m */; };
 		FC99DE2A1CF5652C0006F62E /* QuarterTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC99DE291CF5652C0006F62E /* QuarterTable.swift */; };
 		FC9A2D3B1D6E9F9A00436546 /* HomeworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9A2D3A1D6E9F9A00436546 /* HomeworkManager.swift */; };
 		FC9A2D3D1D6EB23E00436546 /* SetHomeworkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9A2D3C1D6EB23E00436546 /* SetHomeworkVC.swift */; };
@@ -236,13 +234,6 @@
 		FC2078F51CFC268800D86F54 /* AboutVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
 		FC3A411E1D5C31AB000738F2 /* DailyScheduleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyScheduleManager.swift; sourceTree = "<group>"; };
 		FC53CF841CF3E8690034266F /* EditPeriodVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditPeriodVC.swift; path = ../Views/EditPeriodVC.swift; sourceTree = "<group>"; };
-		FC53CF921CF5215A0034266F /* MLPAutoCompleteTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompleteTextField.h; sourceTree = "<group>"; };
-		FC53CF931CF5215A0034266F /* MLPAutoCompleteTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPAutoCompleteTextField.m; sourceTree = "<group>"; };
-		FC53CF941CF5215A0034266F /* MLPAutoCompleteTextFieldDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompleteTextFieldDataSource.h; sourceTree = "<group>"; };
-		FC53CF951CF5215A0034266F /* MLPAutoCompleteTextFieldDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompleteTextFieldDelegate.h; sourceTree = "<group>"; };
-		FC53CF961CF5215A0034266F /* MLPAutoCompletionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompletionObject.h; sourceTree = "<group>"; };
-		FC53CF971CF5215A0034266F /* NSString+Levenshtein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Levenshtein.h"; sourceTree = "<group>"; };
-		FC53CF981CF5215A0034266F /* NSString+Levenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Levenshtein.m"; sourceTree = "<group>"; };
 		FC99DE291CF5652C0006F62E /* QuarterTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuarterTable.swift; path = ../Controllers/QuarterTable.swift; sourceTree = "<group>"; };
 		FC9A2D3A1D6E9F9A00436546 /* HomeworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeworkManager.swift; sourceTree = "<group>"; };
 		FC9A2D3C1D6EB23E00436546 /* SetHomeworkVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetHomeworkVC.swift; sourceTree = "<group>"; };
@@ -460,7 +451,6 @@
 			isa = PBXGroup;
 			children = (
 				77EDB1781D8B6C5600611AA1 /* staplesgotclass.entitlements */,
-				FC53CF911CF5214A0034266F /* MLPAutoCompleteTextField */,
 				77D54F731CECBEC600C11FA5 /* AppDelegate.swift */,
 				77AB0F4D1CECC0E900A25110 /* staplesgotclass-Bridging-Header.h */,
 				77D8F2EE1CF1145A007A1002 /* Utilities */,
@@ -487,20 +477,6 @@
 				77B11E2A1D77029300177D5D /* TableViewHelper.swift */,
 			);
 			path = Utilities;
-			sourceTree = "<group>";
-		};
-		FC53CF911CF5214A0034266F /* MLPAutoCompleteTextField */ = {
-			isa = PBXGroup;
-			children = (
-				FC53CF921CF5215A0034266F /* MLPAutoCompleteTextField.h */,
-				FC53CF931CF5215A0034266F /* MLPAutoCompleteTextField.m */,
-				FC53CF941CF5215A0034266F /* MLPAutoCompleteTextFieldDataSource.h */,
-				FC53CF951CF5215A0034266F /* MLPAutoCompleteTextFieldDelegate.h */,
-				FC53CF961CF5215A0034266F /* MLPAutoCompletionObject.h */,
-				FC53CF971CF5215A0034266F /* NSString+Levenshtein.h */,
-				FC53CF981CF5215A0034266F /* NSString+Levenshtein.m */,
-			);
-			name = MLPAutoCompleteTextField;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -839,7 +815,6 @@
 				77D8F2F21CF135C2007A1002 /* ClassCell.swift in Sources */,
 				FC2078EC1CFC0D8C00D86F54 /* InfoVC.swift in Sources */,
 				FC9A2D3D1D6EB23E00436546 /* SetHomeworkVC.swift in Sources */,
-				FC53CF9A1CF5215A0034266F /* NSString+Levenshtein.m in Sources */,
 				FC99DE2A1CF5652C0006F62E /* QuarterTable.swift in Sources */,
 				773A35F61D6834B8005BF01A /* IntExtension.swift in Sources */,
 				FC53CF851CF3E8690034266F /* EditPeriodVC.swift in Sources */,
@@ -849,7 +824,6 @@
 				FC9A2D431D74F62800436546 /* HomeworkVC.swift in Sources */,
 				775DC44D1CED55CD00046768 /* User.swift in Sources */,
 				7700379B1D700168001641F8 /* ScheduleDetailVC.swift in Sources */,
-				FC53CF991CF5215A0034266F /* MLPAutoCompleteTextField.m in Sources */,
 				7746F38C1CF1755F003E9D6A /* UIImageViewExtension.swift in Sources */,
 				772D52F61D6652430032C1E7 /* NSTimeIntervalExtension.swift in Sources */,
 				7746F38E1CF19241003E9D6A /* ClassmateCell.swift in Sources */,

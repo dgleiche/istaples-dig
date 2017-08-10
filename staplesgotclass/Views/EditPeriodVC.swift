@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import MLPAutoCompleteTextField
 
 class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate, MLPAutoCompleteTextFieldDataSource {
     
@@ -91,13 +92,14 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
     }
     
     //MARK: Text Field
+    //func autoCompleteTextField(_ textField: MLPAutoCompleteTextField!, possibleCompletionsForString: String!, completionHandler handler: (([AnyObject]?) -> Void)!)
     
-    func autoCompleteTextField(_ textField: MLPAutoCompleteTextField!, possibleCompletionsFor string: String!) -> [AnyObject]! {
+    private func autoCompleteTextField(_ textField: MLPAutoCompleteTextField!, possibleCompletionsFor string: String!, completionHandler handler: (([AnyObject]?) -> Void)!) {
         var returnStrings = Array<String>()
         print("GOT TO AUTOCOMPLETE")
         //Return nothing if the string is empty
         if string.isEmpty {
-            return returnStrings as [AnyObject]
+            handler(returnStrings as [AnyObject])
         }
         
         if textField === classTextField {
@@ -106,7 +108,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
             returnStrings = teachers
         }
         
-        return returnStrings as [AnyObject]
+         handler(returnStrings as [AnyObject])
     }
     
     

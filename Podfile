@@ -11,6 +11,7 @@ target 'staplesgotclass' do
        	pod 'SDWebImage'
   	pod 'RealmSwift'
 	pod 'KDCircularProgress'
+	pod 'MLPAutoCompleteTextField'
 end
 
 post_install do |installer|
