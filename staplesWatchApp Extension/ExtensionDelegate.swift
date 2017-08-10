@@ -118,7 +118,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
                 }
             }
             }, errorHandler: { (error: Error?) in
-                print("error getting current schedule \(error)")
+                print("error getting current schedule \(String(describing: error))")
         })
     }
     

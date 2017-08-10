@@ -194,7 +194,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     func didFetchSchedules(_ offline: Bool) {
         print("delegate called")
         if DailyScheduleManager.sharedInstance != nil {
-            print("staticScheduleCount: \(DailyScheduleManager.sharedInstance?.staticSchedules.count)")
+            print("staticScheduleCount: \(String(describing: DailyScheduleManager.sharedInstance?.staticSchedules.count))")
             print("modScheduleCount: \(String(describing: DailyScheduleManager.sharedInstance?.modifiedSchedules.count))")
             
             DailyScheduleManager.sharedInstance?.fetchInProgress = false
