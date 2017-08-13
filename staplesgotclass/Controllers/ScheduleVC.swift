@@ -33,6 +33,8 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
+//Load Schedule from CSV, Split it by day, Take day (String) and hash schedule value by day, 
+
 
 class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignInDelegate {
 

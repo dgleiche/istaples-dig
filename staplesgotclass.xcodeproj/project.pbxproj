@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		078B0CEA10E638BFC57FE69E /* Pods_staplesgotclass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */; };
+		363951D71F3FF6900083DC13 /* CSVParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363951D61F3FF6900083DC13 /* CSVParse.swift */; };
+		363951D91F3FF8510083DC13 /* ClassRotation.csv in Resources */ = {isa = PBXBuildFile; fileRef = 363951D81F3FF8510083DC13 /* ClassRotation.csv */; };
 		7700379B1D700168001641F8 /* ScheduleDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7700379A1D700168001641F8 /* ScheduleDetailVC.swift */; };
 		771C2C8C1CFD21AD002C7A41 /* roundedAppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 771C2C8B1CFD21AD002C7A41 /* roundedAppIcon.png */; };
 		771C2C8E1CFD2DFE002C7A41 /* exit.png in Resources */ = {isa = PBXBuildFile; fileRef = 771C2C8D1CFD2DFE002C7A41 /* exit.png */; };
@@ -147,6 +149,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		363951D61F3FF6900083DC13 /* CSVParse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVParse.swift; sourceTree = "<group>"; };
+		363951D81F3FF8510083DC13 /* ClassRotation.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ClassRotation.csv; sourceTree = "<group>"; };
 		382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_staplesgotclass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F3617A969EFDF047E0788E2 /* Pods-staplesgotclass.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-staplesgotclass.release.xcconfig"; path = "Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass.release.xcconfig"; sourceTree = "<group>"; };
 		7700379A1D700168001641F8 /* ScheduleDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleDetailVC.swift; sourceTree = "<group>"; };
@@ -396,10 +400,12 @@
 				772DCA501CEF40D200F52AA6 /* LoginPageViewController.swift */,
 				772DCA521CEF428500F52AA6 /* PageContentVC.swift */,
 				77703B3D1D5C47530093CF95 /* ScheduleVC.swift */,
+				363951D81F3FF8510083DC13 /* ClassRotation.csv */,
 				77D8F2EC1CF0FFB6007A1002 /* ClassesVC.swift */,
 				FC2078EB1CFC0D8C00D86F54 /* InfoVC.swift */,
 				FC2078F51CFC268800D86F54 /* AboutVC.swift */,
 				FC53CF841CF3E8690034266F /* EditPeriodVC.swift */,
+				363951D61F3FF6900083DC13 /* CSVParse.swift */,
 				771D46DB1CF13C9900458369 /* ClassmatesVC.swift */,
 				7746F3891CF16312003E9D6A /* ProfileVC.swift */,
 				77DB561F1CF25C7C0014B002 /* AllUsersVC.swift */,
@@ -629,6 +635,7 @@
 				7721B8231CF967AF008C1A76 /* usersFilled@2x.png in Resources */,
 				775A18F21D701D8200D1AA9C /* dateSearch@2x.png in Resources */,
 				7721B81A1CF9673A008C1A76 /* schoolFilled.png in Resources */,
+				363951D91F3FF8510083DC13 /* ClassRotation.csv in Resources */,
 				7789466A1CFAC09500C41F19 /* globe.png in Resources */,
 				7721B8191CF9673A008C1A76 /* school@2x.png in Resources */,
 				FC2078EA1CFB7E9B00D86F54 /* profile.png in Resources */,
@@ -836,6 +843,7 @@
 				77D983CA1D6EA2B6002CE65F /* NSDateExtension.swift in Sources */,
 				77B11E2B1D77029300177D5D /* TableViewHelper.swift in Sources */,
 				772DCA531CEF428500F52AA6 /* PageContentVC.swift in Sources */,
+				363951D71F3FF6900083DC13 /* CSVParse.swift in Sources */,
 				FC9A2D3F1D70015C00436546 /* DatePickerDialog.swift in Sources */,
 				FC2078F61CFC268800D86F54 /* AboutVC.swift in Sources */,
 				77DB56201CF25C7C0014B002 /* AllUsersVC.swift in Sources */,
