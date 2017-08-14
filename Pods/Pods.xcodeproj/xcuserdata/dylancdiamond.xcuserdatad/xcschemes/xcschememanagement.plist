@@ -29,6 +29,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>KDCircularProgress.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MLPAutoCompleteTextField.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Parse.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -62,27 +72,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1BD99B02B380AEFB870DEB6F7FFCC44C</key>
+		<key>28EF52801AE247556BAAD53E87D50182</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>28236F0F5C73F0D683F1734D35F6B57B</key>
+		<key>322428ECC8C5EC71F14C92233787C7AC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2A3926D84E278EF3C270EA741071678F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>2DA4F4EE001007760C8416E303ABE8BD</key>
+		<key>381600EF72ACB63DE8F82AD7BAE6B1C8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>3FD8DDB4E32851048D10BEF25BE87608</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6642233DD00DDFBCE54BF39FA578067F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -98,6 +108,16 @@
 			<true/>
 		</dict>
 		<key>B1C4AAFAF49036C7007633DAA3C806AD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F465A050FF481900E3877E099748501C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F5E0BFAC161144466B6A26B5404DF707</key>
 		<dict>
 			<key>primary</key>
 			<true/>

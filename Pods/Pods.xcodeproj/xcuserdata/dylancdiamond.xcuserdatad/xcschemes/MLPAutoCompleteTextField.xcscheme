@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'F5E0BFAC161144466B6A26B5404DF707'
-               BlueprintName = 'SDWebImage'
+               BlueprintIdentifier = 'F465A050FF481900E3877E099748501C'
+               BlueprintName = 'MLPAutoCompleteTextField'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'SDWebImage.framework'>
+               BuildableName = 'MLPAutoCompleteTextField.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

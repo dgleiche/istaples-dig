@@ -124,11 +124,11 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     
     func scheduleBackgroundUpdate() {
         if #available(watchOSApplicationExtension 3.0, *) {
-            WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date.init(timeIntervalSinceNow: 10800), userInfo: nil, scheduledCompletion: { (error: NSError?) in
+            WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date.init(timeIntervalSinceNow: 10800), userInfo: nil, scheduledCompletion: { (error: Error?) in
                 if (error == nil) {
                     print("successfully scheduled background update")
                 }
-            } as! (Error?) -> Void)
+            })
         } else {
             // Fallback on earlier versions
         }
