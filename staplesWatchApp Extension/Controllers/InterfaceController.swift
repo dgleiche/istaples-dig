@@ -78,9 +78,18 @@ class InterfaceController: WKInterfaceController {
             }
         }
         else {
-            //weekend
+            //weekend or no school
             if (WatchAppDailyScheduleManager.sharedInstance.scheduleSet) {
+                let calendar = Calendar.current
+                let currentDateComponents = calendar.dateComponents([.day, .month, .weekday], from: Date())
+                let weekday = currentDateComponents.weekday!
+                print("weekday: \(String(describing: weekday))")
+                if (weekday == 7 || weekday == 1) {
                 self.headerLabel.setText("enjoy the weekend!")
+                }
+                else {
+                    self.headerLabel.setText("no school!")
+                }
             }
             else {
                 self.headerLabel.setText("loading schedule")
