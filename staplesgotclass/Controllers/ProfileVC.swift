@@ -128,7 +128,7 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "profileClassCell", for: indexPath) as! ClassCell
         
-        cell.classTitleLabel.text = currentUser!.schedule![indexPath.row].name
+        cell.classTitleLabel.text = currentUser!.schedule![indexPath.row].name.removingPercentEncoding!
         cell.periodNumberLabel.text = "\(currentUser!.schedule![indexPath.row].periodNumber)"
         cell.quarterLabel!.text = "\(currentUser!.schedule![indexPath.row].quarters)"
         cell.teacherLabel.text = currentUser!.schedule![indexPath.row].teacherName

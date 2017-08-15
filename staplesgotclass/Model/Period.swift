@@ -17,7 +17,7 @@ class Period: NSObject {
     let id: Int
     
     init(name: String, periodNumber: Int, teacherName: String, quarters: String, id: Int, users: [User]) {
-        self.name = String(name)
+        self.name = name.convertSpecialCharacters()
         self.periodNumber = periodNumber
         self.teacherName = String(teacherName)
         self.quarters = quarters

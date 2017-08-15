@@ -94,12 +94,13 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
     //MARK: Text Field
     //func autoCompleteTextField(_ textField: MLPAutoCompleteTextField!, possibleCompletionsForString: String!, completionHandler handler: (([AnyObject]?) -> Void)!)
     
-     @nonobjc func autoCompleteTextField(_ textField: MLPAutoCompleteTextField!, possibleCompletionsForString string: String!, completionHandler handler: (([AnyObject]?) -> Void)!) {
+    
+    func autoCompleteTextField(_ textField: MLPAutoCompleteTextField!, possibleCompletionsFor string: String!, completionHandler handler: (([Any]?) -> Void)!) {
         var returnStrings = Array<String>()
         print("GOT TO AUTOCOMPLETE")
         //Return nothing if the string is empty
         if string.isEmpty {
-            handler(returnStrings as [AnyObject])
+            handler(returnStrings as [Any])
         }
         
         if textField === classTextField {
@@ -108,7 +109,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
             returnStrings = teachers
         }
         
-         handler(returnStrings as [AnyObject])
+         handler(returnStrings as [Any])
     }
     
     
