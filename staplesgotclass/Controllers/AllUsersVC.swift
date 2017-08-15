@@ -129,9 +129,7 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
                         
                     }
                     
-                    
-                    var sortedArray = self.userDict.keys.sorted { $0.localizedCaseInsensitiveCompare($1) == ComparisonResult.orderedAscending }
-                    
+                                        
 
                     self.sectionTitleArray1 = self.userDict.keys.sorted { $0.localizedCaseInsensitiveCompare($1) == ComparisonResult.orderedAscending } as NSArray
                     

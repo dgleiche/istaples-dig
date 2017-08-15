@@ -14,9 +14,6 @@ class Schedule: Object {
     dynamic var modifiedDate: Date?
     dynamic var isStatic: Bool = false
     
-    //Weekday: 1 is Sunday, 7 is Saturday
-    dynamic var weekday = 0
-    
     let periods = List<SchedulePeriod>()
     
     func containsLunchPeriods() -> Bool {
@@ -57,6 +54,11 @@ class SchedulePeriod: Object {
 class Course: Object {
     dynamic var name: String?
     dynamic var lunchType: LunchType?
+}
+
+class BlockDay: Object {
+    dynamic var date: Date?
+    dynamic var title: String?
 }
 
 class LunchType: Object {

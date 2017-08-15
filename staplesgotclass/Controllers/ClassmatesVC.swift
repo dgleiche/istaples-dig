@@ -8,29 +8,6 @@
 
 import UIKit
 import SDWebImage
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
 
 
 class ClassmatesVC: UITableViewController {
@@ -106,7 +83,7 @@ class ClassmatesVC: UITableViewController {
                 if (error == nil && image != nil) {
                     //now that image is downloaded, set current user prof pic
                     self.currentClass!.users[indexPath.row].profilePic = image
-                    if (image.images?.count > 1) {
+                    if ((image.images?.count)! > 1) {
                         cell.classmateImageView.image = image.images?.first
                     }
                 }
@@ -188,7 +165,6 @@ class ClassmatesVC: UITableViewController {
             let newView = segue.destination as! ProfileVC
             let selectedIndexPath = self.tableView.indexPathForSelectedRow
             newView.currentUser = self.currentClass?.users[(selectedIndexPath?.row)!]
-            [(self.tableView.indexPathForSelectedRow?.row)!]
             
             let backButton = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
             

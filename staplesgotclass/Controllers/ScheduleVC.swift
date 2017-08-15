@@ -12,32 +12,32 @@ import KDCircularProgress
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l < r
+    case (nil, _?):
+        return true
+    default:
+        return false
+    }
 }
 
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l > r
+    default:
+        return rhs < lhs
+    }
 }
 
-//Load Schedule from CSV, Split it by day, Take day (String) and hash schedule value by day, 
+//Load Schedule from CSV, Split it by day, Take day (String) and hash schedule value by day,
 
 
 class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignInDelegate {
-
+    
     @IBOutlet var timeLeftRing: KDCircularProgress!
     @IBOutlet var timeElapsedRing: KDCircularProgress!
     @IBOutlet var timeRemainingLabel: UILabel!
@@ -213,13 +213,13 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             
             if (DailyScheduleManager.sharedInstance?.currentSchedule != nil) {
                 //start timer if current schedule not nil
+                self.selectedSchedule = DailyScheduleManager.sharedInstance?.currentSchedule
                 if (DailyScheduleManager.sharedInstance?.currentSchedule?.isStatic == false) {
-                    self.navigationItem.prompt = "Modified Schedule"
+                    self.navigationItem.prompt = "\(self.selectedSchedule!.name!)"
                 }
                 else {
                     self.navigationItem.prompt = nil
                 }
-                self.selectedSchedule = DailyScheduleManager.sharedInstance?.currentSchedule
                 
                 self.setupClockTimer()
                 self.setupPeriodTimer()
@@ -349,7 +349,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         UIView.animate(withDuration: duration, animations: {
             self.tableHeaderView.frame = smallFrame!
             self.tableView.tableHeaderView = self.tableHeaderView
-        }) 
+        })
     }
     
     func showPeriodStatusBar() {
@@ -360,7 +360,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             UIView.animate(withDuration: 0.3, animations: {
                 self.tableHeaderView.frame = smallFrame!
                 self.tableView.tableHeaderView = self.tableHeaderView
-            }) 
+            })
         }
     }
     
@@ -492,7 +492,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             self.navigationItem.prompt = nil
         }
         else {
-            self.navigationItem.prompt = "Modified Schedule"
+            self.navigationItem.prompt = "\(self.selectedSchedule!.name!)"
         }
         //        if (animation != nil) {
         //            let range: NSRange!
@@ -553,11 +553,20 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         }
         else {
             if (DailyScheduleManager.sharedInstance?.staticSchedules.count > 0) {
-            TableViewHelper.EmptyMessage("Enjoy the weekend!", viewController: self)
+                let calendar = Calendar.current
+                let currentDateComponents = calendar.dateComponents([.day, .month, .weekday], from: selectedDate)
+                let weekday = currentDateComponents.weekday!
+                print("weekday: \(String(describing: weekday))")
+                if (weekday == 7 || weekday == 1) {
+                    TableViewHelper.EmptyMessage("Enjoy the weekend!", viewController: self)
+                }
+                else {
+                    TableViewHelper.EmptyMessage("No School!", viewController: self)
+                }
             }
             else {
                 TableViewHelper.EmptyMessage("Loading schedules...", viewController: self)
-
+                
             }
             return 0
         }
@@ -597,7 +606,12 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 }
             }
         }
-        return "Schedule"
+        if (self.selectedSchedule?.isStatic)! {
+            return "Schedule - \(self.selectedSchedule!.name!)"
+        }
+        else {
+            return "MODIFIED SCHEDULE"
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

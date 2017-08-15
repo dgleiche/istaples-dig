@@ -94,7 +94,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
     //MARK: Text Field
     //func autoCompleteTextField(_ textField: MLPAutoCompleteTextField!, possibleCompletionsForString: String!, completionHandler handler: (([AnyObject]?) -> Void)!)
     
-     func autoCompleteTextField(_ textField: MLPAutoCompleteTextField!, possibleCompletionsForString string: String!, completionHandler handler: (([AnyObject]?) -> Void)!) {
+     @nonobjc func autoCompleteTextField(_ textField: MLPAutoCompleteTextField!, possibleCompletionsForString string: String!, completionHandler handler: (([AnyObject]?) -> Void)!) {
         var returnStrings = Array<String>()
         print("GOT TO AUTOCOMPLETE")
         //Return nothing if the string is empty

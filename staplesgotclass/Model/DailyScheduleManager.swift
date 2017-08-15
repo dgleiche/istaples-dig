@@ -28,6 +28,7 @@ class DailyScheduleManager: NSObject {
     var modifiedSchedules = [Schedule]()
     var staticSchedules = [Schedule]()
     var lunchSchedules = [LunchSchedule]()
+    var blockDays = [BlockDay]()
     var courses = [Course]()
     var realmPeriods = [RealmPeriod]()
     var currentUser: RealmUser?
@@ -62,11 +63,13 @@ class DailyScheduleManager: NSObject {
         self.modifiedSchedules = Array(realm.objects(Schedule.self).filter("isStatic == false"))
         self.staticSchedules = Array(realm.objects(Schedule.self).filter("isStatic == true"))
         self.lunchSchedules = Array(realm.objects(LunchSchedule.self))
+        self.blockDays = Array(realm.objects(BlockDay.self))
         self.courses = Array(realm.objects(Course.self))
         self.currentUser = realm.objects(RealmUser.self).first
         print("mod schedules count: \(self.modifiedSchedules.count)")
         print("static schedules count: \(self.staticSchedules.count)")
         print("lunch schedules count: \(self.lunchSchedules.count)")
+        print("block days count: \(self.blockDays.count)")
         print("courses  count: \(self.courses.count)")
         //        print("current user  count: \(self.currentUser)")
         
@@ -92,9 +95,7 @@ class DailyScheduleManager: NSObject {
         query.limit = 500
         query.includeKey("Periods")
         query.findObjectsInBackground { (schedules: [PFObject]?, error: Error?) in
-            if (error == nil) {
-                print("found schedules: \(String(describing: schedules))")
-                
+            if (error == nil) {                
                 let schedulesToDelete = self.realm.objects(Schedule.self)
                 let schedulePeriodsToDelete = self.realm.objects(SchedulePeriod.self)
                 
@@ -108,9 +109,6 @@ class DailyScheduleManager: NSObject {
                     }
                     if let custom = schedule["Static"] as? Bool {
                         newSchedule.isStatic = custom
-                    }
-                    if let weekday = schedule["Weekday"] as? Int {
-                        newSchedule.weekday = weekday
                     }
                     if let modifiedDate = schedule["ModifiedDate"] as? Date {
                         newSchedule.modifiedDate = modifiedDate
@@ -202,47 +200,70 @@ class DailyScheduleManager: NSObject {
                                     self.courses.append(newCourse)
                                 }
                                 
-                                PFConfig.getInBackground{(fetchedConfig: PFConfig?, error: Error?) -> Void in
-                                    var config: PFConfig?
-                                    if (error == nil) {
-                                        config = fetchedConfig
+                                let blockQuery = PFQuery(className: "BlockRotation")
+                                blockQuery.limit = 500
+                                
+                                blockQuery.findObjectsInBackground(block: { (blockRotations: [PFObject]?, blockError: Error?) in
+                                    if (blockError == nil) {
+                                        let blockDaysToDelete = self.realm.objects(BlockDay.self)
+                                        self.blockDays.removeAll()
+                                        for blockRotation in blockRotations! {
+                                            if (blockRotation["title"] as! String) != "X" {
+                                                let newBlockDay = BlockDay()
+                                                newBlockDay.date = blockRotation["date"] as? Date
+                                                newBlockDay.title = blockRotation["title"] as? String
+                                                self.blockDays.append(newBlockDay)
+                                            }
+                                        }
+                                        PFConfig.getInBackground{(fetchedConfig: PFConfig?, error: Error?) -> Void in
+                                            var config: PFConfig?
+                                            if (error == nil) {
+                                                config = fetchedConfig
+                                            }
+                                            else {
+                                                config = PFConfig.current()
+                                            }
+                                            
+                                            if (config != nil) {
+                                                if let currentQ = config!["currentQuarter"] as? Int {
+                                                    self.currentQuarter = currentQ
+                                                }
+                                            }
+                                            
+                                            try! self.realm.write {
+                                                if (self.realmPeriodsToDelete != nil) {
+                                                    self.realm.delete(self.realmPeriodsToDelete!)
+                                                }
+                                                
+                                                self.realm.delete(schedulesToDelete)
+                                                self.realm.delete(schedulePeriodsToDelete)
+                                                
+                                                self.realm.delete(lunchSchedulesToDelete)
+                                                self.realm.delete(lunchTypesToDelete)
+                                                self.realm.delete(coursesToDelete)
+                                                
+                                                self.realm.delete(blockDaysToDelete)
+                                                
+                                                self.realm.add(self.staticSchedules)
+                                                self.realm.add(self.modifiedSchedules)
+                                                self.realm.add(self.lunchSchedules)
+                                                self.realm.add(self.courses)
+                                                self.realm.add(self.blockDays)
+                                                
+                                                print("mod schedules count: \(self.modifiedSchedules.count)")
+                                                print("static schedules count: \(self.staticSchedules.count)")
+                                                print("lunch schedules count: \(self.lunchSchedules.count)")
+                                                print("block days count: \(self.blockDays.count)")
+                                                print("courses  count: \(self.courses.count)")
+                                            }
+                                            self.delegate.didFetchSchedules(false)
+                                        }
                                     }
                                     else {
-                                        config = PFConfig.current()
+                                        self.delegate.showErrorAlert()
                                     }
                                     
-                                    if (config != nil) {
-                                        if let currentQ = config!["currentQuarter"] as? Int {
-                                            self.currentQuarter = currentQ
-                                        }
-                                    }
-                                    
-                                    try! self.realm.write {
-                                        if (self.realmPeriodsToDelete != nil) {
-                                            self.realm.delete(self.realmPeriodsToDelete!)
-                                        }
-                                        
-                                        self.realm.delete(schedulesToDelete)
-                                        self.realm.delete(schedulePeriodsToDelete)
-                                        
-                                        self.realm.delete(lunchSchedulesToDelete)
-                                        self.realm.delete(lunchTypesToDelete)
-                                        self.realm.delete(coursesToDelete)
-                                        
-                                        self.realm.add(self.staticSchedules)
-                                        self.realm.add(self.modifiedSchedules)
-                                        self.realm.add(self.lunchSchedules)
-                                        self.realm.add(self.courses)
-                                        
-                                        print("mod schedules count: \(self.modifiedSchedules.count)")
-                                        print("static schedules count: \(self.staticSchedules.count)")
-                                        print("lunch schedules count: \(self.lunchSchedules.count)")
-                                        print("courses  count: \(self.courses.count)")
-                                        //                                    print("current user  count: \(self.currentUser)")
-                                        
-                                    }
-                                    self.delegate.didFetchSchedules(false)
-                                }
+                                })
                                 
                             }
                             else {
@@ -405,38 +426,18 @@ class DailyScheduleManager: NSObject {
             }
         }
         
-        //Function hasnt returned, thus it is a static schedule
-        //Determine if it's a weekday (otherwise there is no schedule)
-        let weekday = selDateComponents.weekday
-        var schoolWeekday = 0
-        switch weekday! {
-        case 1:
-            schoolWeekday = 6
-        case 2:
-            schoolWeekday = 0
-        case 3:
-            schoolWeekday = 1
-        case 4:
-            schoolWeekday = 2
-        case 5:
-            schoolWeekday = 3
-        case 6:
-            schoolWeekday = 4
-        case 7:
-            schoolWeekday = 5
-        default:
-            break
-        }
-        print("school weekday: \(schoolWeekday)")
-        if schoolWeekday >= 0 && schoolWeekday <= 4 {
-            //It's a weekday
-            //Return the corresponding static schedule
-            for staticSchedule in staticSchedules {
-                if staticSchedule.weekday == schoolWeekday {
-                    self.syncPeriodsToSchedule(staticSchedule, withDate: date as Date)
-                    return staticSchedule
-                }
+        //FIND CURRENT BLOCK SCHEDULE
+        for blockDay in blockDays {
+            if let blockDate = blockDay.date {
+                let blockDateComponents = calendar.dateComponents([.day, .month], from: blockDate)
                 
+                if (blockDateComponents.month == selDateComponents.month) && (blockDateComponents.day == selDateComponents.day) {
+                    //Month and day exactly match, thus this date corresponds with a modified schedule
+                    print("found current schedule: \(blockDay.title!)")
+                    let currentStaticSchedule = realm.objects(Schedule.self).filter("name=='\(blockDay.title!)'")[0]
+                    self.syncPeriodsToSchedule(currentStaticSchedule, withDate: date as Date)
+                    return currentStaticSchedule
+                }
             }
         }
         

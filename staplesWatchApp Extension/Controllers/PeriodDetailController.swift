@@ -29,7 +29,7 @@ class PeriodDetailController: WKInterfaceController {
         }
         else {
             periodTitleLabel.setText(selectedPeriod.name)
-            periodNumberLabel.setText("\(selectedPeriod.name!.characters.first)")
+            periodNumberLabel.setText("\(String(describing: selectedPeriod.name!.characters.first))")
         }
     }
 
