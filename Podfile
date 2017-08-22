@@ -12,6 +12,8 @@ target 'staplesgotclass' do
   	pod 'RealmSwift'
 	pod 'KDCircularProgress'
 	pod 'MLPAutoCompleteTextField'
+  	pod 'HTMLEntities', :git => 'https://github.com/IBM-Swift/swift-html-entities.git'
+
 end
 
 post_install do |installer|

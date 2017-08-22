@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import HTMLEntities
+
 
 class Period: NSObject {
     let name: String
@@ -17,7 +19,7 @@ class Period: NSObject {
     let id: Int
     
     init(name: String, periodNumber: Int, teacherName: String, quarters: String, id: Int, users: [User]) {
-        self.name = name.convertSpecialCharacters()
+        self.name = name.htmlUnescape()
         self.periodNumber = periodNumber
         self.teacherName = String(teacherName)
         self.quarters = quarters

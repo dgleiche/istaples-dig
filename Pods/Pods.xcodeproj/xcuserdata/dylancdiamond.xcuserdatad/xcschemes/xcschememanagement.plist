@@ -29,6 +29,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>HTMLEntities.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>KDCircularProgress.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -72,17 +77,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>28EF52801AE247556BAAD53E87D50182</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>322428ECC8C5EC71F14C92233787C7AC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>381600EF72ACB63DE8F82AD7BAE6B1C8</key>
+		<key>322C3C072D4381397F04381E772E12BA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>35E33AB4F5C3440A6916F92C7013818C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,12 +97,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6642233DD00DDFBCE54BF39FA578067F</key>
+		<key>6057493D14D64BD86FE5347C341C8815</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>681BE6E3D02A43F9BA63777AC435C8FD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7FBEBC4205F67CC2C03A1B1ABF15A51A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,12 +122,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F465A050FF481900E3877E099748501C</key>
+		<key>DA6AC1D575399E27074A5F81E620E0FF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F5E0BFAC161144466B6A26B5404DF707</key>
+		<key>F465A050FF481900E3877E099748501C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
