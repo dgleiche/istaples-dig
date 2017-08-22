@@ -35,12 +35,13 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
     
     func sendMail(_ address: String) {
         let toRecipents = [address]
-        let mc: MFMailComposeViewController = MFMailComposeViewController()
+        let mc = MFMailComposeViewController()
         mc.mailComposeDelegate = self
         mc.setToRecipients(toRecipents)
         mc.setSubject("iStaples App")
         mc.setMessageBody("\n\nFrom,\n\(UserManager.sharedInstance!.currentUser.name)", isHTML: false)
         
+        //TODO: CHECK IF MAIL VC IS PRESENTED ON iPHONE!
         self.present(mc, animated: true, completion: nil)
     }
     
@@ -76,7 +77,10 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
                 sendMail("dgleiche@me.com")
             case 2:
                 print("Email Neal")
-                sendMail("ns51387@students.westport.k12.ct.us")
+                sendMail("ns51387@students.westportps.org")
+            case 3:
+                print("Email Sharkey")
+                sendMail("sharkeyjack11@gmail.com")
             default:
                 break
             }
