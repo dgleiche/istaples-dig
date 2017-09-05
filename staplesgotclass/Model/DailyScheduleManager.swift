@@ -534,7 +534,7 @@ class DailyScheduleManager: NSObject {
                     //no real period but still show lunch
                     if (!schedule.containsLunchPeriods()) {
                         let lunchLength = 30*60
-                        let periodLength = (((realPeriodEndTime - realPeriodStartTime) - lunchLength) / 2)
+                        let periodLength = (((realPeriodEndTime - realPeriodStartTime) - lunchLength - passingTime*2) / 2)
                         schedulePeriod.endSeconds = realPeriodStartTime + periodLength
                         schedulePeriod.isLunchPeriod = true
                         schedulePeriod.lunchNumber = 1
