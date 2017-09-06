@@ -13,6 +13,7 @@ target 'staplesgotclass' do
 	pod 'KDCircularProgress'
 	pod 'MLPAutoCompleteTextField'
   	pod 'HTMLEntities', :git => 'https://github.com/IBM-Swift/swift-html-entities.git'
+	pod ‘SWXMLHash’
 
 end
 

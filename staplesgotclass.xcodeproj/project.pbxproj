@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		078B0CEA10E638BFC57FE69E /* Pods_staplesgotclass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */; };
+		499531E21F607FB60022A4A3 /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499531E11F607FB60022A4A3 /* GameCell.swift */; };
+		499531E41F60804A0022A4A3 /* SportsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499531E31F60804A0022A4A3 /* SportsVC.swift */; };
 		7700379B1D700168001641F8 /* ScheduleDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7700379A1D700168001641F8 /* ScheduleDetailVC.swift */; };
 		771C2C8C1CFD21AD002C7A41 /* roundedAppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 771C2C8B1CFD21AD002C7A41 /* roundedAppIcon.png */; };
 		771C2C8E1CFD2DFE002C7A41 /* exit.png in Resources */ = {isa = PBXBuildFile; fileRef = 771C2C8D1CFD2DFE002C7A41 /* exit.png */; };
@@ -148,6 +150,8 @@
 
 /* Begin PBXFileReference section */
 		382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_staplesgotclass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		499531E11F607FB60022A4A3 /* GameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
+		499531E31F60804A0022A4A3 /* SportsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsVC.swift; sourceTree = "<group>"; };
 		6F3617A969EFDF047E0788E2 /* Pods-staplesgotclass.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-staplesgotclass.release.xcconfig"; path = "Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass.release.xcconfig"; sourceTree = "<group>"; };
 		7700379A1D700168001641F8 /* ScheduleDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleDetailVC.swift; sourceTree = "<group>"; };
 		771C2C8B1CFD21AD002C7A41 /* roundedAppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = roundedAppIcon.png; path = "Icons/App Icon [Rounded]/roundedAppIcon.png"; sourceTree = "<group>"; };
@@ -385,6 +389,7 @@
 				77D8F2F11CF135C2007A1002 /* ClassCell.swift */,
 				7746F38D1CF19241003E9D6A /* ClassmateCell.swift */,
 				FC99DE291CF5652C0006F62E /* QuarterTable.swift */,
+				499531E11F607FB60022A4A3 /* GameCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -407,6 +412,7 @@
 				FC9A2D401D7009FF00436546 /* PeriodHomeworkVC.swift */,
 				FC9A2D3C1D6EB23E00436546 /* SetHomeworkVC.swift */,
 				FC9A2D421D74F62800436546 /* HomeworkVC.swift */,
+				499531E31F60804A0022A4A3 /* SportsVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -719,6 +725,7 @@
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SWXMLHash/SWXMLHash.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -734,6 +741,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -819,12 +827,14 @@
 				77D8F2F01CF11470007A1002 /* StringExtension.swift in Sources */,
 				FC9A2D411D7009FF00436546 /* PeriodHomeworkVC.swift in Sources */,
 				77D8F2F21CF135C2007A1002 /* ClassCell.swift in Sources */,
+				499531E41F60804A0022A4A3 /* SportsVC.swift in Sources */,
 				FC2078EC1CFC0D8C00D86F54 /* InfoVC.swift in Sources */,
 				FC9A2D3D1D6EB23E00436546 /* SetHomeworkVC.swift in Sources */,
 				FC99DE2A1CF5652C0006F62E /* QuarterTable.swift in Sources */,
 				773A35F61D6834B8005BF01A /* IntExtension.swift in Sources */,
 				FC53CF851CF3E8690034266F /* EditPeriodVC.swift in Sources */,
 				77D54F761CECBEC600C11FA5 /* LoginVC.swift in Sources */,
+				499531E21F607FB60022A4A3 /* GameCell.swift in Sources */,
 				775DC44B1CED558A00046768 /* Period.swift in Sources */,
 				771D46DC1CF13C9900458369 /* ClassmatesVC.swift in Sources */,
 				FC9A2D431D74F62800436546 /* HomeworkVC.swift in Sources */,
