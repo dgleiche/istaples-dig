@@ -324,8 +324,10 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
     //MARK: Search Controller Methods
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        filteredUsers = allUsers!.filter { user in
-            return user.name.lowercased().contains(searchText.lowercased())
+        if (allUsers != nil){
+          filteredUsers = allUsers!.filter { user in
+              return user.name.lowercased().contains(searchText.lowercased())
+          }
         }
         
         tableView.reloadData()

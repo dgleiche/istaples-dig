@@ -26,10 +26,10 @@ class NetworkManager: NSObject {
         let url: String! = "\(baseURL)/\(endpoint)"
         self.alamofireManager?.request(url, method: returnMethod(method), parameters: parameters, headers: headers).responseJSON(completionHandler: { (response: DataResponse<Any>) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            print(response.response ?? "no response") // URL response
-            print(response.data ?? "no data")     // server data
+            //print(response.response ?? "no response") // URL response
+            //print(response.data ?? "no data")     // server data
             
-            print(response.result)   // result of response serialization
+            //print(response.result)   // result of response serialization
             completion(response)
         })
     }
@@ -42,7 +42,7 @@ class NetworkManager: NSObject {
         case "POST":
             return Alamofire.HTTPMethod.post
         default:
-            print("returning get")
+            //print("returning get")
             return Alamofire.HTTPMethod.get
         }
     }

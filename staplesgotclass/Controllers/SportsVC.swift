@@ -10,18 +10,13 @@ import UIKit
 import Alamofire
 import SWXMLHash
 
+
 class SportsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-    var sportNames = [String]()
+    var sportingEvents = [SportingEvent]()
     var gameDates = [String]()
-    var gameNSDates = [NSDate]()
-    var gameWeekday = [String]()
-    
-    var homeAways = [String]()
-    var locations = [String]()
-    var times = [String]()
-    
+    var uniqueCount = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self;
@@ -60,7 +55,6 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
                 let gameType = elem["gametype"].element!.text
                 let level = elem["gamelevel"].element!.text
                 
-                
                 var dateArray : [String] = gameDate.components(separatedBy: "-")
                 
                 let index = gameDate.index(gameDate.startIndex, offsetBy: 8)
@@ -80,27 +74,16 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
                 
                 let (gameNSDate, weekDay) = self.convertDateToDay(date: gameDate)
                 //varsity game
-                if level == "V" && gameType == "Game" {
-                    self.sportNames.append(sportName)
-                    self.gameDates.append(gameDate)
-                    self.gameNSDates.append(gameNSDate)
-                    self.gameWeekday.append(weekDay)
-                    self.homeAways.append(homeAway)
-                    if location == "" {
-                        location = "Location Unknown"
-                        self.locations.append(location)
-                        
-                    } else {
-                        self.locations.append(location)
-                        
-                    }
-                    self.times.append(time)
+                if location == "" {
+                    location = "Location Unknown"
                 }
+                let uniqueDate = !self.gameDates.contains(gameDate)
+                if uniqueDate{self.uniqueCount += 1}
                 
-                
-                
-                
-                
+                if level == "V"{
+                    self.sportingEvents.append(SportingEvent(sport: sportName, stringDate: gameDate, gameNSDate: gameNSDate, weekday: weekDay, time: time, school: location, gameLevel: level, uniqueDate: uniqueDate, home: homeAway))
+                    self.gameDates.append(gameDate)
+                }
             }
             self.tableView.reloadData()
             print("I AM BELOW THE TABLE VIEW REFRESH")
@@ -116,25 +99,28 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sportNames.count
+        return sportingEvents.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SportsCell
-        cell.date.text = gameDates[indexPath.row]
-        cell.sport.text = sportNames[indexPath.row]
-        cell.time.text = "\(gameWeekday[indexPath.row]) at \(times[indexPath.row])"
-        cell.school.text = locations[indexPath.row]
+        if (sportingEvents[indexPath.row].uniqueDate) {
+            cell.date.text = sportingEvents[indexPath.row].stringDate
+            self.tableView.rowHeight = 85.0
+
+        }else {
+            cell.date.text = ""
+            self.tableView.rowHeight = 70.0
+
+        }
+        cell.sport.text = sportingEvents[indexPath.row].sport
+        cell.time.text = "\(sportingEvents[indexPath.row].weekday) at \(sportingEvents[indexPath.row].time)"
+        cell.school.text = sportingEvents[indexPath.row].school
         cell.home.font = UIFont(name: "HelveticaNeue", size: 35)
         cell.time.font = UIFont(name: "HelveticaNeue", size: 17)
         //print(gameDates[indexPath.row])
         
-        
-        
-        
-        
-        
-        if homeAways[indexPath.row] == "Home" {
+        if sportingEvents[indexPath.row].home == "Home" {
             cell.home.text = "H"
             cell.home.textColor = UIColor(red:0.0, green:0.38, blue:0.76, alpha:1.0) //Classic iStaples Blue
             
@@ -199,12 +185,25 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         
         return (gameDate! as NSDate, weekDay as String)
     }
-    
+    func dateIsUnique(date: String) -> Bool{
+        print("DATE: \(date)")
+
+        for strDate in gameDates{
+            if strDate == date {
+                print("-----------------------------False")
+                return false
+
+            }
+            print("------ \(strDate)")
+        }
+        print("---------------------True")
+
+        return true
+    }
     
 }
 
 extension String {
-    
     func contains(find: String) -> Bool{
         return self.range(of: find) != nil
     }

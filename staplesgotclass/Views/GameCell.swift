@@ -15,8 +15,7 @@ class SportsCell: UITableViewCell {
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var school: UILabel!
     @IBOutlet weak var home: UILabel!
-    @IBOutlet weak var away: UILabel!
-    
+    @IBOutlet weak var away: UILabel!    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,3 +29,4 @@ class SportsCell: UITableViewCell {
     }
     
 }
+

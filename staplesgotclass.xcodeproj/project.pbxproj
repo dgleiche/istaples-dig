@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		078B0CEA10E638BFC57FE69E /* Pods_staplesgotclass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */; };
+		36FBEC051F616EE3002C7527 /* SportsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FBEC041F616EE3002C7527 /* SportsManager.swift */; };
+		36FBEC071F61EE2E002C7527 /* SportingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FBEC061F61EE2E002C7527 /* SportingEvent.swift */; };
 		499531E21F607FB60022A4A3 /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499531E11F607FB60022A4A3 /* GameCell.swift */; };
 		499531E41F60804A0022A4A3 /* SportsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499531E31F60804A0022A4A3 /* SportsVC.swift */; };
 		7700379B1D700168001641F8 /* ScheduleDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7700379A1D700168001641F8 /* ScheduleDetailVC.swift */; };
@@ -149,6 +151,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		36FBEC041F616EE3002C7527 /* SportsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsManager.swift; sourceTree = "<group>"; };
+		36FBEC061F61EE2E002C7527 /* SportingEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportingEvent.swift; sourceTree = "<group>"; };
 		382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_staplesgotclass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		499531E11F607FB60022A4A3 /* GameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
 		499531E31F60804A0022A4A3 /* SportsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsVC.swift; sourceTree = "<group>"; };
@@ -390,6 +394,7 @@
 				7746F38D1CF19241003E9D6A /* ClassmateCell.swift */,
 				FC99DE291CF5652C0006F62E /* QuarterTable.swift */,
 				499531E11F607FB60022A4A3 /* GameCell.swift */,
+				36FBEC061F61EE2E002C7527 /* SportingEvent.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -425,6 +430,7 @@
 				775DC44C1CED55CD00046768 /* User.swift */,
 				775DC44E1CED583400046768 /* NetworkManager.swift */,
 				FC3A411E1D5C31AB000738F2 /* DailyScheduleManager.swift */,
+				36FBEC041F616EE3002C7527 /* SportsManager.swift */,
 				FC9A2D3A1D6E9F9A00436546 /* HomeworkManager.swift */,
 				77320A9B1D5D7AAF00603A38 /* RealmObjects.swift */,
 			);
@@ -826,12 +832,14 @@
 				775DC4491CED537F00046768 /* UserManager.swift in Sources */,
 				77D8F2F01CF11470007A1002 /* StringExtension.swift in Sources */,
 				FC9A2D411D7009FF00436546 /* PeriodHomeworkVC.swift in Sources */,
+				36FBEC071F61EE2E002C7527 /* SportingEvent.swift in Sources */,
 				77D8F2F21CF135C2007A1002 /* ClassCell.swift in Sources */,
 				499531E41F60804A0022A4A3 /* SportsVC.swift in Sources */,
 				FC2078EC1CFC0D8C00D86F54 /* InfoVC.swift in Sources */,
 				FC9A2D3D1D6EB23E00436546 /* SetHomeworkVC.swift in Sources */,
 				FC99DE2A1CF5652C0006F62E /* QuarterTable.swift in Sources */,
 				773A35F61D6834B8005BF01A /* IntExtension.swift in Sources */,
+				36FBEC051F616EE3002C7527 /* SportsManager.swift in Sources */,
 				FC53CF851CF3E8690034266F /* EditPeriodVC.swift in Sources */,
 				77D54F761CECBEC600C11FA5 /* LoginVC.swift in Sources */,
 				499531E21F607FB60022A4A3 /* GameCell.swift in Sources */,

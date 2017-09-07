@@ -115,7 +115,7 @@ class DailyScheduleManager: NSObject {
                     }
                     
                     let periods = schedule["Periods"] as! [PFObject]
-                    print("periods: \(periods)")
+                    //print("periods: \(periods)")
                     for period in periods {
                         let newPeriod = SchedulePeriod()
                         newPeriod.name = period["Name"] as? String
