@@ -15,6 +15,9 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var tableView: UITableView!
     var sportNames = [String]()
     var gameDates = [String]()
+    var gameNSDates = [NSDate]()
+    var gameWeekday = [String]()
+    
     var homeAways = [String]()
     var locations = [String]()
     var times = [String]()
@@ -75,11 +78,13 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
                 
                 gameDate = monthName + " " + day
                 
-                
+                let (gameNSDate, weekDay) = self.convertDateToDay(date: gameDate)
                 //varsity game
                 if level == "V" && gameType == "Game" {
                     self.sportNames.append(sportName)
                     self.gameDates.append(gameDate)
+                    self.gameNSDates.append(gameNSDate)
+                    self.gameWeekday.append(weekDay)
                     self.homeAways.append(homeAway)
                     if location == "" {
                         location = "Location Unknown"
@@ -115,27 +120,98 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = self.tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SportsCell
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SportsCell
         cell.date.text = gameDates[indexPath.row]
         cell.sport.text = sportNames[indexPath.row]
-        cell.time.text = times[indexPath.row]
+        cell.time.text = "\(gameWeekday[indexPath.row]) at \(times[indexPath.row])"
         cell.school.text = locations[indexPath.row]
+        cell.home.font = UIFont(name: "HelveticaNeue", size: 35)
+        cell.time.font = UIFont(name: "HelveticaNeue", size: 17)
+        //print(gameDates[indexPath.row])
+        
+        
+        
+        
+        
         
         if homeAways[indexPath.row] == "Home" {
-            cell.away.textColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
-            cell.home.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
+            cell.home.text = "H"
+            cell.home.textColor = UIColor(red:0.0, green:0.38, blue:0.76, alpha:1.0) //Classic iStaples Blue
             
         } else {
-            cell.home.textColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
-            cell.away.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
+            cell.home.text = "A"
+            cell.home.textColor = UIColor(red:0.3, green:0.8, blue:0.13, alpha:1.0)
+
         }
         
         return cell
         
     }
+    func convertDateToDay(date: String) -> (NSDate, String){
+        let day = date.components(separatedBy: " ")[1]
+        let year = 2017
+        var month = 1
+        if date.contains("January") {
+            month = 1
+        }else if date.contains("February"){
+            month = 2
+        }else if date.contains("March"){
+             month = 3
+        }else if date.contains("April"){
+             month = 4
+        }else if date.contains("May"){
+             month = 5
+        }else if date.contains("June"){
+             month = 6
+        }else if date.contains("July"){
+             month = 7
+        }else if date.contains("August"){
+             month = 8
+        }else if date.contains("September"){
+             month = 9
+        }else if date.contains("October"){
+             month = 10
+        }else if date.contains("November"){
+             month = 11
+        }else if date.contains("November"){
+             month = 12
+        }
+        
+        //print("\(day), \(month), \(year)");
+        let strDate = "\(year)-\(month)-\(day)"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let gameDate = dateFormatter.date(from:strDate)
+        
+        let weekdays = [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Satudrday,"
+        ]
+        
+        let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+        let components: NSDateComponents = calendar.components(.weekday, from: gameDate!) as NSDateComponents
+        let weekDay = weekdays[components.weekday - 1]
+        
+        return (gameDate! as NSDate, weekDay as String)
+    }
     
     
 }
 
+extension String {
+    
+    func contains(find: String) -> Bool{
+        return self.range(of: find) != nil
+    }
+    
+    func containsIgnoringCase(find: String) -> Bool{
+        return self.range(of: find, options: .caseInsensitive) != nil
+    }
+}
 
 
