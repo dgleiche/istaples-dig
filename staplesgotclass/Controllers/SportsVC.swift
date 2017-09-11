@@ -12,10 +12,21 @@ import SWXMLHash
 
 
 class SportsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+    
+    
+    
+    
+    @IBOutlet var activitySpinner: UIActivityIndicatorView!
     
     @IBOutlet weak var tableView: UITableView!
     var sportingEvents = [SportingEvent]()
+    
+    
     var gameDates = [String]()
+    var uniqueGameDates = [String]()
+    var gameLevel = "V"
+    
     var uniqueCount = 0
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,11 +91,13 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
                 let uniqueDate = !self.gameDates.contains(gameDate)
                 if uniqueDate{self.uniqueCount += 1}
                 
-                if level == "V"{
+                if level == self.gameLevel{
                     self.sportingEvents.append(SportingEvent(sport: sportName, stringDate: gameDate, gameNSDate: gameNSDate, weekday: weekDay, time: time, school: location, gameLevel: level, uniqueDate: uniqueDate, home: homeAway))
                     self.gameDates.append(gameDate)
                 }
+                
             }
+            self.uniqueGameDates = Array(Set(self.gameDates))
             self.tableView.reloadData()
             print("I AM BELOW THE TABLE VIEW REFRESH")
             
@@ -98,31 +111,51 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath, numberOfRowsInSection section: Int) -> Int {
+        
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SportsCell
+        var rows = 0;
+        for event in self.sportingEvents{
+            
+        }
+        
+        return sportingEvents.count
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
         return sportingEvents.count
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SportsCell
+        cell.date.font = UIFont(name: "HelveticaNeue", size: 17)
         if (sportingEvents[indexPath.row].uniqueDate) {
-            cell.date.text = sportingEvents[indexPath.row].stringDate
-            self.tableView.rowHeight = 85.0
+            cell.date.text = "\(sportingEvents[indexPath.row].weekday), \(sportingEvents[indexPath.row].stringDate)"
+            self.tableView.rowHeight = 87.0
 
         }else {
             cell.date.text = ""
-            self.tableView.rowHeight = 70.0
+            cell.date.isHidden = true
+            self.tableView.rowHeight = 73.0
 
         }
         cell.sport.text = sportingEvents[indexPath.row].sport
-        cell.time.text = "\(sportingEvents[indexPath.row].weekday) at \(sportingEvents[indexPath.row].time)"
+        cell.time.text = "\(sportingEvents[indexPath.row].time)"
         cell.school.text = sportingEvents[indexPath.row].school
         cell.home.font = UIFont(name: "HelveticaNeue", size: 35)
         cell.time.font = UIFont(name: "HelveticaNeue", size: 17)
         //print(gameDates[indexPath.row])
         
         if sportingEvents[indexPath.row].home == "Home" {
-            cell.home.text = "H"
+            cell.home.text = "🏠"
             cell.home.textColor = UIColor(red:0.0, green:0.38, blue:0.76, alpha:1.0) //Classic iStaples Blue
+            cell.home.font = UIFont(name: "HelveticaNeue", size: 16)
             
         } else {
             cell.home.text = "A"
@@ -133,6 +166,21 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         return cell
         
     }
+    
+    @IBOutlet weak var levelSelector: UISegmentedControl!
+    
+    @IBAction func levelSelector(_ sender: Any) {
+        if(levelSelector.selectedSegmentIndex == 0){
+            
+        }
+        if(levelSelector.selectedSegmentIndex == 1){
+        }
+        if(levelSelector.selectedSegmentIndex == 2){
+        }
+        
+    }
+    
+    
     func convertDateToDay(date: String) -> (NSDate, String){
         let day = date.components(separatedBy: " ")[1]
         let year = 2017
@@ -176,7 +224,7 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
             "Wednesday",
             "Thursday",
             "Friday",
-            "Satudrday,"
+            "Saturday"
         ]
         
         let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
@@ -184,21 +232,6 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         let weekDay = weekdays[components.weekday - 1]
         
         return (gameDate! as NSDate, weekDay as String)
-    }
-    func dateIsUnique(date: String) -> Bool{
-        print("DATE: \(date)")
-
-        for strDate in gameDates{
-            if strDate == date {
-                print("-----------------------------False")
-                return false
-
-            }
-            print("------ \(strDate)")
-        }
-        print("---------------------True")
-
-        return true
     }
     
 }
