@@ -152,7 +152,7 @@
 
 /* Begin PBXFileReference section */
 		36FBEC041F616EE3002C7527 /* SportsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsManager.swift; sourceTree = "<group>"; };
-		36FBEC061F61EE2E002C7527 /* SportingEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportingEvent.swift; sourceTree = "<group>"; };
+		36FBEC061F61EE2E002C7527 /* SportingEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SportingEvent.swift; path = ../Views/SportingEvent.swift; sourceTree = "<group>"; };
 		382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_staplesgotclass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		499531E11F607FB60022A4A3 /* GameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
 		499531E31F60804A0022A4A3 /* SportsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsVC.swift; sourceTree = "<group>"; };
@@ -394,7 +394,6 @@
 				7746F38D1CF19241003E9D6A /* ClassmateCell.swift */,
 				FC99DE291CF5652C0006F62E /* QuarterTable.swift */,
 				499531E11F607FB60022A4A3 /* GameCell.swift */,
-				36FBEC061F61EE2E002C7527 /* SportingEvent.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -433,6 +432,7 @@
 				36FBEC041F616EE3002C7527 /* SportsManager.swift */,
 				FC9A2D3A1D6E9F9A00436546 /* HomeworkManager.swift */,
 				77320A9B1D5D7AAF00603A38 /* RealmObjects.swift */,
+				36FBEC061F61EE2E002C7527 /* SportingEvent.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

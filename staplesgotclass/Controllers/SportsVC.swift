@@ -13,18 +13,29 @@ import SWXMLHash
 
 class SportsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    
-    
-    
-    
+
     @IBOutlet var activitySpinner: UIActivityIndicatorView!
     
     @IBOutlet weak var tableView: UITableView!
     var sportingEvents = [SportingEvent]()
+    var sportingEventsVarsity = [SportingEvent]()
+    var sportingEventsJV = [SportingEvent]()
+    var sportingEventsFR = [SportingEvent]()
+
+
     
     
     var gameDates = [String]()
+    var gameDatesV = [String]()
+    var gameDatesJV = [String]()
+    var gameDatesFR = [String]()
+
+    
     var uniqueGameDates = [String]()
+    var uniqueGameDatesV = [String]()
+    var uniqueGameDatesJV = [String]()
+    var uniqueGameDatesFR = [String]()
+
     var gameLevel = "V"
     
     var uniqueCount = 0
@@ -91,11 +102,21 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
                 let uniqueDate = !self.gameDates.contains(gameDate)
                 if uniqueDate{self.uniqueCount += 1}
                 
-                if level == self.gameLevel{
-                    self.sportingEvents.append(SportingEvent(sport: sportName, stringDate: gameDate, gameNSDate: gameNSDate, weekday: weekDay, time: time, school: location, gameLevel: level, uniqueDate: uniqueDate, home: homeAway))
-                    self.gameDates.append(gameDate)
+                if level == "V" {
+                    self.sportingEventsVarsity.append(SportingEvent(sport: sportName, stringDate: gameDate, gameNSDate: gameNSDate, weekday: weekDay, time: time, school: location, gameLevel: level, uniqueDate: uniqueDate, home: homeAway))
+                    
+                    self.gameDatesV.append(gameDate)
                 }
                 
+                if level == "JV" {
+                    self.sportingEventsJV.append(SportingEvent(sport: sportName, stringDate: gameDate, gameNSDate: gameNSDate, weekday: weekDay, time: time, school: location, gameLevel: level, uniqueDate: uniqueDate, home: homeAway))
+                    self.gameDatesJV.append(gameDate)
+                }
+                
+                if level == "FR" {
+                    self.sportingEventsFR.append(SportingEvent(sport: sportName, stringDate: gameDate, gameNSDate: gameNSDate, weekday: weekDay, time: time, school: location, gameLevel: level, uniqueDate: uniqueDate, home: homeAway))
+                    self.gameDatesFR.append(gameDate)
+                }
             }
             self.uniqueGameDates = Array(Set(self.gameDates))
             self.tableView.reloadData()
@@ -111,27 +132,52 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath, numberOfRowsInSection section: Int) -> Int {
-        
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SportsCell
-        var rows = 0;
-        for event in self.sportingEvents{
-            
-        }
-        
-        return sportingEvents.count
-    }
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sportingEvents.count
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        
+        switch gameLevel {
+        case "V":
+            sportingEvents = sportingEventsVarsity
+        case "JV":
+            sportingEvents = sportingEventsJV
+        case "FR":
+            sportingEvents = sportingEventsFR
+        default:
+            sportingEvents = sportingEventsVarsity
+        }
+
+        
+        return sportingEvents.count
     }
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return sportingEvents.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 10
+//    }
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch gameLevel {
+        case "V":
+            sportingEvents = sportingEventsVarsity
+            uniqueGameDates = uniqueGameDatesV
+        case "JV":
+            sportingEvents = sportingEventsJV
+            uniqueGameDates = uniqueGameDatesJV
+
+        case "FR":
+            sportingEvents = sportingEventsFR
+            uniqueGameDates = uniqueGameDatesFR
+
+        default:
+            sportingEvents = sportingEventsVarsity
+            uniqueGameDates = uniqueGameDatesV
+        }
         
+        
+
+        print(sportingEvents)
         
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SportsCell
         cell.date.font = UIFont(name: "HelveticaNeue", size: 17)
@@ -139,7 +185,7 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
             cell.date.text = "\(sportingEvents[indexPath.row].weekday), \(sportingEvents[indexPath.row].stringDate)"
             self.tableView.rowHeight = 87.0
 
-        }else {
+        } else {
             cell.date.text = ""
             cell.date.isHidden = true
             self.tableView.rowHeight = 73.0
@@ -153,9 +199,9 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         //print(gameDates[indexPath.row])
         
         if sportingEvents[indexPath.row].home == "Home" {
-            cell.home.text = "🏠"
+            cell.home.text = "H"
             cell.home.textColor = UIColor(red:0.0, green:0.38, blue:0.76, alpha:1.0) //Classic iStaples Blue
-            cell.home.font = UIFont(name: "HelveticaNeue", size: 16)
+//            cell.home.font = UIFont(name: "HelveticaNeue", size: 16)
             
         } else {
             cell.home.text = "A"
@@ -171,13 +217,18 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
     
     @IBAction func levelSelector(_ sender: Any) {
         if(levelSelector.selectedSegmentIndex == 0){
-            
+            print("clicked varsity")
+            self.gameLevel = "V"
         }
         if(levelSelector.selectedSegmentIndex == 1){
+            print("clicked j varsity")
+
+            self.gameLevel = "JV"
         }
         if(levelSelector.selectedSegmentIndex == 2){
+        self.gameLevel = "FR"
         }
-        
+        self.tableView.reloadData()
     }
     
     
