@@ -51,7 +51,10 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
         super.viewDidLoad()
         self.definesPresentationContext = false
         
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
+        let sweetBlue = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
+
+        
+        self.navigationController?.navigationBar.barTintColor = sweetBlue
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-UltraLight", size: 15)!, NSForegroundColorAttributeName: UIColor.white]

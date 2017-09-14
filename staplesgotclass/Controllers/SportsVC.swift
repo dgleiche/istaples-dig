@@ -11,11 +11,12 @@ import Alamofire
 import SWXMLHash
 
 
-class SportsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SportsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchControllerDelegate {
 
 
     @IBOutlet var activitySpinner: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
+    var refreshControl: UIRefreshControl!
     
     
     
@@ -68,9 +69,59 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let todayDate = dateFormatter.string(from: currentDate as Date)
         
-        print(todayDate)
+        print("GOT TO REFRESH 1!")
+        //refreshControl.backgroundColor = UIColor.white
+        //refreshControl.tintColor = UIColor.darkGray
+
+        refreshControl = UIRefreshControl()
+        dateFormatter.dateFormat = "MMM d, h:mm a"
+        let attrsDictionary = [
+            NSForegroundColorAttributeName : UIColor.darkGray
+        ]
+        let attributedTitle: NSAttributedString = NSAttributedString(string: "Last update: \(dateFormatter.string(from: Date()))", attributes: attrsDictionary)
+
+        refreshControl.attributedTitle = attributedTitle
+
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
+        tableView.addSubview(refreshControl)
+        print("GOT TO REFRESH 2!")
+        refreshControl.backgroundColor = UIColor.white
+        refreshControl.tintColor = UIColor.darkGray
+
+        self.tableView.reloadData()
+
+
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if (self.uniqueNSGameDatesV.count == 0) {
+            self.getGames()
+        }
+    }
+    func refresh(sender:AnyObject) {
+        print("GOT TO REFRESH!")
+        gameNSDates.removeAll()
+        gameNSDatesV.removeAll()
+        gameNSDatesJV.removeAll()
+        gameNSDatesFR.removeAll()
+
+        uniqueNSGameDates.removeAll()
+        uniqueNSGameDatesV.removeAll()
+        uniqueNSGameDatesJV.removeAll()
+        uniqueNSGameDatesFR.removeAll()
         
-        
+        gamesDictionary.removeAll()
+        gamesDictionaryV.removeAll()
+        gamesDictionaryJV.removeAll()
+        gamesDictionaryFR.removeAll()
+        getGames()
+        self.tableView.reloadData()
+        self.refreshControl?.endRefreshing()
+
+    }
+    
+    func getGames(){
         Alamofire.request("https://www.casciac.org/xml/?sc=Staples&starttoday=1").responseJSON { response in
             
             let xml = SWXMLHash.lazy(response.data!)
@@ -136,14 +187,15 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
             self.uniqueNSGameDatesV = self.gameNSDatesV.removeDuplicates()
             self.uniqueNSGameDatesJV = self.gameNSDatesJV.removeDuplicates()
             self.uniqueNSGameDatesFR = self.gameNSDatesFR.removeDuplicates()
-
+            
             self.tableView.reloadData()
             //print("GAME DATES: \(self.gameNSDatesV)");
             //print("UNIQUE GAME DATES: \(self.uniqueNSGameDatesV)");
             
         }
-        // Do any additional setup after loading the view, typically from a nib.
+        
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
