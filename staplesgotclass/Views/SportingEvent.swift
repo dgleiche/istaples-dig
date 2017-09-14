@@ -18,9 +18,8 @@ class SportingEvent: NSObject {
     var school: String
     var home: String
     var gameLevel: String
-    var uniqueDate: Bool
     
-    init(sport: String, stringDate: String, gameNSDate: NSDate, weekday: String, time: String, school: String, gameLevel: String, uniqueDate: Bool, home: String){
+    init(sport: String, stringDate: String, gameNSDate: NSDate, weekday: String, time: String, school: String, gameLevel: String, home: String){
         self.stringDate = stringDate
         self.sport = sport
         self.gameNSDate = gameNSDate
@@ -28,7 +27,6 @@ class SportingEvent: NSObject {
         self.time = time
         self.school = school
         self.gameLevel = gameLevel
-        self.uniqueDate = uniqueDate
         self.home = home
     }
 }

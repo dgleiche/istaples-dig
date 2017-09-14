@@ -21,31 +21,25 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
     
     var sportingEvents = [SportingEvent]()
     var sportingEventsVarsity = [SportingEvent]()
-    var sportingEventsJV = [SportingEvent]()
-    var sportingEventsFR = [SportingEvent]()
+
+    var gamesDictionary = [NSDate: [SportingEvent]]()
+    var gamesDictionaryV = [NSDate: [SportingEvent]]()
     
-    var gameDates = [String]()
-    var gameDatesV = [String]()
-    var gameDatesJV = [String]()
-    var gameDatesFR = [String]()
+    var gameNSDates = [NSDate]()
+    var gameNSDatesV = [NSDate]()
 
     
-    var uniqueGameDates = [String]()
-    var uniqueGameDatesV = [String]()
-    var uniqueGameDatesJV = [String]()
-    var uniqueGameDatesFR = [String]()
+    var uniqueNSGameDates = [NSDate]()
+    var uniqueNSGameDatesV = [NSDate]()
+    
 
     var gameLevel = "V"
     
-    var uniqueReference = [Int](repeating: 0, count: 100)
-    var uniqueReferenceV = [Int](repeating: 0, count: 100)
-    var uniqueReferenceJV = [Int](repeating: 0, count: 100)
-    var uniqueReferenceFR = [Int](repeating: 0, count: 100)
 
+    
     var uniqueCount = 0;
     var uniqueCountV = 0;
-    var uniqueCountJV = 0;
-    var uniqueCountFR = 0;
+
 
     
     
@@ -80,17 +74,17 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
             
             for elem in xml["SCHEDULE_DATA"]["EVENTS"]["EVENT"].all {
                 let sportName = elem["sport"].element!.text
-                var gameDate = elem["gamedate"].element!.text
+                let gameDate1 = elem["gamedate"].element!.text
                 let homeAway = elem["site"].element!.text
                 var location = elem["facility"].element!.text
                 let time = elem["gametime"].element!.text
                 let gameType = elem["gametype"].element!.text
                 let level = elem["gamelevel"].element!.text
                 
-                var dateArray : [String] = gameDate.components(separatedBy: "-")
+                var dateArray : [String] = gameDate1.components(separatedBy: "-")
                 
-                let index = gameDate.index(gameDate.startIndex, offsetBy: 8)
-                var day = gameDate.substring(from: index)
+                let index = gameDate1.index(gameDate1.startIndex, offsetBy: 8)
+                var day = gameDate1.substring(from: index)
                 let dayFirst = day.index(day.startIndex, offsetBy: 1);
                 let temp = day.substring(to: dayFirst)
                 
@@ -98,48 +92,35 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
                     day = day.substring(from: dayFirst)
                 }
                 
-                
                 let monthName = DateFormatter().monthSymbols[Int(dateArray[1])! - 1]
                 
+                let gameDate = monthName + " " + day
                 
-                gameDate = monthName + " " + day
-                
-                let (gameNSDate, weekDay) = self.convertDateToDay(date: gameDate)
+                let (gameNSDate, weekDay) = self.convertDateToDay(date: gameDate1)
                 //varsity game
                 if location == "" {
                     location = "Location Unknown"
                 }
                 
-                var uniqueDate = false;
-                
                 if level == "V" {
-                    self.sportingEventsVarsity.append(SportingEvent(sport: sportName, stringDate: gameDate, gameNSDate: gameNSDate, weekday: weekDay, time: time, school: location, gameLevel: level, uniqueDate: uniqueDate, home: homeAway))
-                    self.uniqueReferenceV[self.uniqueCountV] += 1
+                    let event = SportingEvent(sport: sportName, stringDate: gameDate, gameNSDate: gameNSDate, weekday: weekDay, time: time, school: location, gameLevel: level, home: homeAway)
+                    self.sportingEventsVarsity.append(event)
                     
-                    uniqueDate = !self.gameDatesV.contains(gameDate)
-                    if uniqueDate{
-                        self.uniqueCountV += 1;
+                    if (self.gamesDictionaryV[gameNSDate]?.append(event)) == nil {
+                        self.gamesDictionaryV[gameNSDate] = [event]
                     }
-                    self.gameDatesV.append(gameDate)
-                    
-
+                    print("new game: \(event.sport)")
+                    print("added \(String(describing: self.gamesDictionaryV[gameNSDate]))");
+                    self.gameNSDatesV.append(gameNSDate)
                 }
                 
-                if level == "JV" {
-                    self.sportingEventsJV.append(SportingEvent(sport: sportName, stringDate: gameDate, gameNSDate: gameNSDate, weekday: weekDay, time: time, school: location, gameLevel: level, uniqueDate: uniqueDate, home: homeAway))
-                    self.gameDatesJV.append(gameDate)
-                }
-                
-                if level == "FR" {
-                    self.sportingEventsFR.append(SportingEvent(sport: sportName, stringDate: gameDate, gameNSDate: gameNSDate, weekday: weekDay, time: time, school: location, gameLevel: level, uniqueDate: uniqueDate, home: homeAway))
-                    self.gameDatesFR.append(gameDate)
-                }
             }
             print("I AM BELOW THE TABLE VIEW REFRESH")
+            self.uniqueNSGameDatesV = self.gameNSDatesV.removeDuplicates()
+
             self.tableView.reloadData()
-            self.uniqueGameDatesV = Array(Set(self.gameDatesV))
-            self.uniqueGameDatesJV = Array(Set(self.gameDatesJV))
-            self.uniqueGameDatesFR = Array(Set(self.gameDatesFR))
+            print("GAME DATES: \(self.gameNSDatesV)");
+            print("UNIQUE GAME DATES: \(self.uniqueNSGameDatesV)");
             
         }
         // Do any additional setup after loading the view, typically from a nib.
@@ -149,75 +130,71 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        switch gameLevel {
+        case "V":
+            uniqueNSGameDates = uniqueNSGameDatesV
+            
+        default:
+            uniqueNSGameDates = uniqueNSGameDatesV
+        }
+        print("There are \(uniqueNSGameDates.count) Section")
+        return uniqueNSGameDates.count
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(uniqueReferenceV[section])
-        return uniqueReferenceV[section]
+        switch gameLevel {
+        case "V":
+            uniqueNSGameDates = uniqueNSGameDatesV
+            
+        default:
+            uniqueNSGameDates = uniqueNSGameDatesV
+        }
+        print("Section Number: \(section). Section Name: \(uniqueNSGameDates[section]) and rows in section: \(self.gamesDictionaryV[uniqueNSGameDatesV[section]]?.count ?? Int())")
+        return (self.gamesDictionaryV[uniqueNSGameDatesV[section]]?.count ?? Int())
 
     }
-    func numberOfSections(in tableView: UITableView) -> Int {
-        print("I AM SSETING THE NUMBER OF SECTIONS")
-        switch gameLevel {
-        
-        case "V":
-            uniqueGameDates = uniqueGameDatesV
-        case "JV":
-            uniqueGameDates = uniqueGameDatesJV
-        case "FR":
-            uniqueGameDates = uniqueGameDatesFR
-        default:
-            uniqueGameDates = uniqueGameDatesV
-        }
-        return uniqueGameDates.count
-    }
+
 //
      func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return uniqueGameDates[section]
+        switch gameLevel {
+        case "V":
+            uniqueNSGameDates = uniqueNSGameDatesV
+        default:
+            uniqueNSGameDates = uniqueNSGameDatesV
+        }
+
+        return uniqueNSGameDates[section].toString(dateFormat: "dd-MM")
     }
+    
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch gameLevel {
         case "V":
             sportingEvents = sportingEventsVarsity
-            uniqueGameDates = uniqueGameDatesV
-            print("VARSITY GAMES COUNT: \(uniqueReferenceV.count)")
-        case "JV":
-            sportingEvents = sportingEventsJV
-            uniqueGameDates = uniqueGameDatesJV
-            print("JV GAMES COUNT: \(uniqueGameDatesJV.count)")
-
-
-        case "FR":
-            sportingEvents = sportingEventsFR
-            uniqueGameDates = uniqueGameDatesFR
-            print("FR GAMES COUNT: \(uniqueGameDatesFR.count)")
-
+            uniqueNSGameDates = uniqueNSGameDatesV
         default:
             sportingEvents = sportingEventsVarsity
-            uniqueGameDates = uniqueGameDatesV
+            uniqueNSGameDates = uniqueNSGameDatesV
         }
         
+        let event = gamesDictionaryV[uniqueNSGameDates[indexPath.section]]?[indexPath.row]
+        
+
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SportsCell
-        cell.date.font = UIFont(name: "HelveticaNeue", size: 17)
-        if (sportingEvents[indexPath.row].uniqueDate) {
-            cell.date.text = "\(sportingEvents[indexPath.row].weekday), \(sportingEvents[indexPath.row].stringDate)"
-            self.tableView.rowHeight = 87.0
-
-        } else {
-            cell.date.text = ""
-            cell.date.isHidden = true
-            self.tableView.rowHeight = 73.0
-
-        }
-        cell.sport.text = sportingEvents[indexPath.row].sport
-        cell.time.text = "\(sportingEvents[indexPath.row].time)"
-        cell.school.text = sportingEvents[indexPath.row].school
+                self.tableView.rowHeight = 87.0
+        self.tableView.rowHeight = 73.0
+        
+        
+        cell.sport.text = event?.sport
+        cell.time.text = "\(String(describing: event?.time))"
+        cell.school.text = event?.school
         cell.home.font = UIFont(name: "HelveticaNeue", size: 35)
         cell.time.font = UIFont(name: "HelveticaNeue", size: 17)
         //print(gameDates[indexPath.row])
         
-        if sportingEvents[indexPath.row].home == "Home" {
+        if event?.home == "Home" {
             cell.home.text = "H"
             cell.home.textColor = UIColor(red:0.0, green:0.38, blue:0.76, alpha:1.0) //Classic iStaples Blue
 //            cell.home.font = UIFont(name: "HelveticaNeue", size: 16)
@@ -249,40 +226,9 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
     
     
     func convertDateToDay(date: String) -> (NSDate, String){ // FIX THIS LATER _________________________NOTE___
-        let day = date.components(separatedBy: " ")[1]
-        let year = 2017
-        var month = 1
-        if date.contains("January") {
-            month = 1
-        }else if date.contains("February"){
-            month = 2
-        }else if date.contains("March"){
-             month = 3
-        }else if date.contains("April"){
-             month = 4
-        }else if date.contains("May"){
-             month = 5
-        }else if date.contains("June"){
-             month = 6
-        }else if date.contains("July"){
-             month = 7
-        }else if date.contains("August"){
-             month = 8
-        }else if date.contains("September"){
-             month = 9
-        }else if date.contains("October"){
-             month = 10
-        }else if date.contains("November"){
-             month = 11
-        }else if date.contains("December"){
-             month = 12
-        }
-        
-        //print("\(day), \(month), \(year)");
-        let strDate = "\(year)-\(month)-\(day)"
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        let gameDate = dateFormatter.date(from:strDate)
+        let gameDate = dateFormatter.date(from:date)
         
         let weekdays = [
             "Sunday",
@@ -300,6 +246,17 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         
         return (gameDate! as NSDate, weekDay as String)
     }
+    func uniq<S : Sequence, T : Hashable>(source: S) -> [T] where S.Iterator.Element == T {
+        var buffer = [T]()
+        var added = Set<T>()
+        for elem in source {
+            if !added.contains(elem) {
+                buffer.append(elem)
+                added.insert(elem)
+            }
+        }
+        return buffer
+    }
     
 }
 
@@ -313,4 +270,30 @@ extension String {
     }
 }
 
+extension NSDate
+{
+    func toString( dateFormat format  : String ) -> String
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: self as Date)
+    }
+    
+    
+    
+}
+
+extension Array where Element:Equatable {
+    func removeDuplicates() -> [Element] {
+        var result = [Element]()
+        
+        for value in self {
+            if result.contains(value) == false {
+                result.append(value)
+            }
+        }
+        
+        return result
+    }
+}
 

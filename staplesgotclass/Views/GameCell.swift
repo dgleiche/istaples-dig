@@ -10,12 +10,10 @@
 import UIKit
 
 class SportsCell: UITableViewCell {
-    @IBOutlet weak var date: UILabel!
     @IBOutlet weak var sport: UILabel!
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var school: UILabel!
     @IBOutlet weak var home: UILabel!
-    @IBOutlet weak var away: UILabel!    
     
     override func awakeFromNib() {
         super.awakeFromNib()
