@@ -16,6 +16,7 @@ class PageContentVC: UIViewController {
     //Only viewable on opening page
     @IBOutlet var creditLabel: UILabel!
     @IBOutlet weak var dylanLabel: UILabel!
+    @IBOutlet weak var updateLabel: UILabel!
     
     var pageIndex: Int?
     var titleText: String?
@@ -28,6 +29,7 @@ class PageContentVC: UIViewController {
         if self.pageIndex != 0 {
             self.creditLabel.text = ""
             self.dylanLabel.text = ""
+            self.updateLabel.text = ""
         }
         
         if (self.imageName != nil) {

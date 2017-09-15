@@ -64,17 +64,28 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="D6Z-yf-L07">
-                                <rect key="frame" x="26" y="364.5" width="323" height="282.5"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="D6Z-yf-L07">
+                                <rect key="frame" x="16" y="415" width="323" height="282.5"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updated by Neal Soni '18 and Jack Sharkey '18" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="wUd-5Z-Aj9">
+                                <rect key="frame" x="20" y="415" width="335" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="JPU-7O-HYO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.12941176470588234" green="0.42352941176470588" blue="0.81176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="wUd-5Z-Aj9" firstAttribute="top" secondItem="zPk-jI-ZAu" secondAttribute="bottom" constant="1.5" id="1me-xz-rxi"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2jT-OR-o38" secondAttribute="trailing" constant="20" id="1u4-wk-rgv"/>
+                            <constraint firstItem="wUd-5Z-Aj9" firstAttribute="leading" secondItem="3e0-od-r4c" secondAttribute="leadingMargin" constant="4" id="2K0-CN-GcI"/>
                             <constraint firstItem="pDs-ai-GgU" firstAttribute="centerY" secondItem="3e0-od-r4c" secondAttribute="centerY" id="7Y1-cs-9Du"/>
                             <constraint firstItem="pDs-ai-GgU" firstAttribute="top" secondItem="JJr-GJ-gls" secondAttribute="bottom" constant="-2" id="8Eq-hM-nP5"/>
                             <constraint firstItem="pDs-ai-GgU" firstAttribute="centerX" secondItem="3e0-od-r4c" secondAttribute="centerX" id="AFo-mY-hWZ"/>
@@ -91,6 +102,7 @@
                             <constraint firstItem="9qX-sj-QRi" firstAttribute="top" secondItem="JJr-GJ-gls" secondAttribute="bottom" constant="336" id="jXC-J7-3Hj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="D6Z-yf-L07" secondAttribute="trailing" constant="10" id="kvD-zH-VEb"/>
                             <constraint firstItem="D6Z-yf-L07" firstAttribute="leading" secondItem="3e0-od-r4c" secondAttribute="leadingMargin" constant="10" id="r1X-8S-4Hi"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wUd-5Z-Aj9" secondAttribute="trailing" constant="4" id="sbQ-IN-SCD"/>
                             <constraint firstAttribute="trailing" secondItem="zPk-jI-ZAu" secondAttribute="trailing" constant="20" id="u8V-PN-ctF"/>
                             <constraint firstItem="2jT-OR-o38" firstAttribute="top" secondItem="pDs-ai-GgU" secondAttribute="bottom" constant="-18" id="vFk-yT-Hqx"/>
                             <constraint firstItem="pDs-ai-GgU" firstAttribute="top" secondItem="3e0-od-r4c" secondAttribute="top" constant="64" id="ySu-Kl-sdR"/>
@@ -116,6 +128,7 @@
                         <outlet property="dylanLabel" destination="zPk-jI-ZAu" id="8Gb-Hq-vt3"/>
                         <outlet property="imageView" destination="JJr-GJ-gls" id="Cjq-nl-q3i"/>
                         <outlet property="titleLabel" destination="pDs-ai-GgU" id="ZpN-Vp-zwO"/>
+                        <outlet property="updateLabel" destination="wUd-5Z-Aj9" id="sdF-JK-GWy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4bI-c0-Xkl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -724,6 +737,7 @@
                                     <segment title="JV"/>
                                     <segment title="Freshman"/>
                                 </segments>
+                                <color key="tintColor" red="0.15674439072608948" green="0.37381660938262939" blue="0.73343563079833984" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <connections>
                                     <action selector="levelSelector:" destination="9LO-l2-gfO" eventType="valueChanged" id="rtN-9p-AZg"/>
                                 </connections>
@@ -760,8 +774,8 @@
                                                         <constraint firstAttribute="width" constant="242" id="ag8-o8-HGO"/>
                                                         <constraint firstAttribute="height" constant="25" id="c8Y-n9-woC"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" red="0.66533153550000002" green="0.66533153550000002" blue="0.66533153550000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
+                                                    <color key="textColor" red="0.29421618580818176" green="0.2942100465297699" blue="0.29421424865722656" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:45PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BXB-ri-0BG">
@@ -869,7 +883,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IaA-Kg-Waz">
-                                                    <rect key="frame" x="10" y="7.5" width="322" height="17"/>
+                                                    <rect key="frame" x="10.5" y="7.5" width="322" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1487,7 +1501,7 @@
             <objects>
                 <navigationController id="NJv-Nk-3SU" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Schedule" image="clock.png" selectedImage="clockFilled.png" id="5CM-io-coI"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="hYt-mc-Z5h">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hYt-mc-Z5h">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1525,7 +1539,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eCD-hb-3OC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Classes" image="school.png" selectedImage="schoolFilled.png" id="or9-BX-dnr"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="teJ-Z1-Cf1">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="teJ-Z1-Cf1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2169,7 +2183,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="M81-PC-nEs" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Users" image="users.png" selectedImage="usersFilled.png" id="oLB-qX-QZF"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Whq-rC-T6h">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Whq-rC-T6h">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2337,7 +2351,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZU1-ye-9pg" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="quS-LZ-gIJ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="quS-LZ-gIJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2355,7 +2369,7 @@
             <objects>
                 <navigationController storyboardIdentifier="infoVC" automaticallyAdjustsScrollViewInsets="NO" id="fbu-63-vb0" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="rUt-uI-Sxg">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rUt-uI-Sxg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2373,7 +2387,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cO4-mQ-RSs" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="75z-2f-cWb">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="75z-2f-cWb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2392,7 +2406,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Wr4-QY-hHO" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Homework" id="kli-ob-aYe"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="avd-C2-3je">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="avd-C2-3je">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2411,7 +2425,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gbM-eP-2h6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Sports" image="footballFilled.png" selectedImage="football.png" id="TQy-1j-f71"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="NjT-0S-JrX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NjT-0S-JrX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

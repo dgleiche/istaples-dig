@@ -19,7 +19,8 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
     var refreshControl: UIRefreshControl!
     
     
-    
+    let sweetBlue = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
+
 
     var gamesDictionary = [NSDate: [SportingEvent]]()
     var gamesDictionaryV = [NSDate: [SportingEvent]]()
@@ -38,13 +39,10 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
     var uniqueNSGameDatesJV = [NSDate]()
     var uniqueNSGameDatesFR = [NSDate]()
 
-    
+    var updatedLast = Date()
     
 
     var gameLevel = "V"
-    
-
-
     
     
     override func viewDidLoad() {
@@ -52,10 +50,9 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         
-        let sweetBlue = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
 
         
-        self.navigationController?.navigationBar.barTintColor = sweetBlue
+        self.navigationController?.navigationBar.barTintColor = self.sweetBlue
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-UltraLight", size: 15)!, NSForegroundColorAttributeName: UIColor.white]
@@ -74,14 +71,7 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         //refreshControl.tintColor = UIColor.darkGray
 
         refreshControl = UIRefreshControl()
-        dateFormatter.dateFormat = "MMM d, h:mm a"
-        let attrsDictionary = [
-            NSForegroundColorAttributeName : UIColor.darkGray
-        ]
-        let attributedTitle: NSAttributedString = NSAttributedString(string: "Last update: \(dateFormatter.string(from: Date()))", attributes: attrsDictionary)
-
-        refreshControl.attributedTitle = attributedTitle
-
+        
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
         tableView.addSubview(refreshControl)
         print("GOT TO REFRESH 2!")
@@ -97,10 +87,10 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewWillAppear(_ animated: Bool) {
         if (self.uniqueNSGameDatesV.count == 0) {
             self.getGames()
+            self.updatedLast = Date(timeIntervalSinceReferenceDate: Date().timeIntervalSinceReferenceDate)
         }
     }
     func refresh(sender:AnyObject) {
-        print("GOT TO REFRESH!")
         gameNSDates.removeAll()
         gameNSDatesV.removeAll()
         gameNSDatesJV.removeAll()
@@ -115,7 +105,20 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         gamesDictionaryV.removeAll()
         gamesDictionaryJV.removeAll()
         gamesDictionaryFR.removeAll()
+        
         getGames()
+        
+        let dateFormatter = DateFormatter()
+
+        dateFormatter.dateFormat = "MMM d, h:mm a"
+        let attrsDictionary = [
+            NSForegroundColorAttributeName : UIColor.darkGray
+        ]
+        let attributedTitle: NSAttributedString = NSAttributedString(string: "Last update: \(dateFormatter.string(from: updatedLast))", attributes: attrsDictionary)
+        
+        refreshControl.attributedTitle = attributedTitle
+
+        
         self.tableView.reloadData()
         self.refreshControl?.endRefreshing()
 
@@ -161,8 +164,8 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
                     if (self.gamesDictionaryV[gameNSDate]?.append(event)) == nil {
                         self.gamesDictionaryV[gameNSDate] = [event]
                     }
-                    print("new game: \(event.sport)")
-                    print("added \(String(describing: self.gamesDictionaryV[gameNSDate]))");
+                    //print("new game: \(event.sport)")
+                    //print("added \(String(describing: self.gamesDictionaryV[gameNSDate]))");
                     self.gameNSDatesV.append(gameNSDate)
                 }
                 if level == "JV" {
@@ -288,22 +291,23 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         
 
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SportsCell
-                self.tableView.rowHeight = 87.0
         self.tableView.rowHeight = 73.0
         
         
         cell.sport.text = event?.sport
         cell.time.text = "\(String(describing: event!.time))"
         cell.school.text = event?.school
+        cell.school.font = UIFont(name: "HelveticaNeue-Medium", size: 12)
+
         cell.home.font = UIFont(name: "HelveticaNeue", size: 35)
         cell.time.font = UIFont(name: "HelveticaNeue", size: 17)
         //print(gameDates[indexPath.row])
         
         if event?.home == "Home" {
             cell.home.text = "H"
-            cell.home.textColor = UIColor(red:0.0, green:0.38, blue:0.76, alpha:1.0) //Classic iStaples Blue
+            cell.home.textColor = self.sweetBlue //Classic iStaples Blue
 //            cell.home.font = UIFont(name: "HelveticaNeue", size: 16)
-            
+    
         } else {
             cell.home.text = "A"
             cell.home.textColor = UIColor(red:0.3, green:0.8, blue:0.13, alpha:1.0)
@@ -334,7 +338,6 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let gameDate = dateFormatter.date(from:date)
-        
 
         let weekDay = convertDaytoWeekday(date: gameDate! as NSDate)
         
