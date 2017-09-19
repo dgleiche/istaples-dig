@@ -10,6 +10,7 @@
 		078B0CEA10E638BFC57FE69E /* Pods_staplesgotclass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */; };
 		360AD3071F6ADE2000A851C6 /* football.png in Resources */ = {isa = PBXBuildFile; fileRef = 360AD3061F6ADE2000A851C6 /* football.png */; };
 		360AD3091F6AE4BA00A851C6 /* footballFilled.png in Resources */ = {isa = PBXBuildFile; fileRef = 360AD3081F6AE4BA00A851C6 /* footballFilled.png */; };
+		363D4FD71F6C409000AB2D59 /* SportingEventVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363D4FD61F6C409000AB2D59 /* SportingEventVC.swift */; };
 		36FBEC051F616EE3002C7527 /* SportsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FBEC041F616EE3002C7527 /* SportsManager.swift */; };
 		36FBEC071F61EE2E002C7527 /* SportingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FBEC061F61EE2E002C7527 /* SportingEvent.swift */; };
 		499531E21F607FB60022A4A3 /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499531E11F607FB60022A4A3 /* GameCell.swift */; };
@@ -155,6 +156,7 @@
 /* Begin PBXFileReference section */
 		360AD3061F6ADE2000A851C6 /* football.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = football.png; sourceTree = "<group>"; };
 		360AD3081F6AE4BA00A851C6 /* footballFilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = footballFilled.png; sourceTree = "<group>"; };
+		363D4FD61F6C409000AB2D59 /* SportingEventVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportingEventVC.swift; sourceTree = "<group>"; };
 		36FBEC041F616EE3002C7527 /* SportsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsManager.swift; sourceTree = "<group>"; };
 		36FBEC061F61EE2E002C7527 /* SportingEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SportingEvent.swift; path = ../Views/SportingEvent.swift; sourceTree = "<group>"; };
 		382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_staplesgotclass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -417,6 +419,7 @@
 				771D46DB1CF13C9900458369 /* ClassmatesVC.swift */,
 				7746F3891CF16312003E9D6A /* ProfileVC.swift */,
 				77DB561F1CF25C7C0014B002 /* AllUsersVC.swift */,
+				363D4FD61F6C409000AB2D59 /* SportingEventVC.swift */,
 				77703B3D1D5C47530093CF95 /* ScheduleVC.swift */,
 				7700379A1D700168001641F8 /* ScheduleDetailVC.swift */,
 				FC9A2D401D7009FF00436546 /* PeriodHomeworkVC.swift */,
@@ -590,7 +593,6 @@
 					};
 					77D54F6F1CECBEC600C11FA5 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 9FC732TXJR;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -841,6 +843,7 @@
 				77D8F2F01CF11470007A1002 /* StringExtension.swift in Sources */,
 				FC9A2D411D7009FF00436546 /* PeriodHomeworkVC.swift in Sources */,
 				36FBEC071F61EE2E002C7527 /* SportingEvent.swift in Sources */,
+				363D4FD71F6C409000AB2D59 /* SportingEventVC.swift in Sources */,
 				77D8F2F21CF135C2007A1002 /* ClassCell.swift in Sources */,
 				499531E41F60804A0022A4A3 /* SportsVC.swift in Sources */,
 				FC2078EC1CFC0D8C00D86F54 /* InfoVC.swift in Sources */,
@@ -1113,7 +1116,7 @@
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = staplesgotclass/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1140,7 +1143,7 @@
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INFOPLIST_FILE = staplesgotclass/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass;
 				PRODUCT_NAME = "$(TARGET_NAME)";

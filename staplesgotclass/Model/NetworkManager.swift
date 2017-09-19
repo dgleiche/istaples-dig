@@ -24,6 +24,7 @@ class NetworkManager: NSObject {
     
     func performRequest(withMethod method: String, endpoint: String, parameters: [String : String]?, headers: [String : String]?, completion: @escaping (DataResponse<Any>) -> Void) {
         let url: String! = "\(baseURL)/\(endpoint)"
+        print(url)
         self.alamofireManager?.request(url, method: returnMethod(method), parameters: parameters, headers: headers).responseJSON(completionHandler: { (response: DataResponse<Any>) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             //print(response.response ?? "no response") // URL response

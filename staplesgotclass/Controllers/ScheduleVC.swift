@@ -581,7 +581,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             let totalHeight = Int(tableView.bounds.height) - Int(navigationController!.navigationBar.frame.height) - 60
             
             if let curSchedule = self.selectedSchedule {
-                let newHeight = (Double(1) / Double(curSchedule.periods.count)) * Double(totalHeight)
+                let newHeight = (Double(1) / Double(curSchedule.periods.count+1)) * Double(totalHeight)
                 
                 //Make sure not to go under the minimum
                 return (newHeight < minimumCellHeight) ? CGFloat(minimumCellHeight) : CGFloat(newHeight)

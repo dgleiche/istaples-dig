@@ -86,26 +86,13 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewWillAppear(_ animated: Bool) {
         if (self.uniqueNSGameDatesV.count == 0) {
-            self.getGames()
+            removeAll()
+            getGames()
             self.updatedLast = Date(timeIntervalSinceReferenceDate: Date().timeIntervalSinceReferenceDate)
         }
     }
     func refresh(sender:AnyObject) {
-        gameNSDates.removeAll()
-        gameNSDatesV.removeAll()
-        gameNSDatesJV.removeAll()
-        gameNSDatesFR.removeAll()
-
-        uniqueNSGameDates.removeAll()
-        uniqueNSGameDatesV.removeAll()
-        uniqueNSGameDatesJV.removeAll()
-        uniqueNSGameDatesFR.removeAll()
-        
-        gamesDictionary.removeAll()
-        gamesDictionaryV.removeAll()
-        gamesDictionaryJV.removeAll()
-        gamesDictionaryFR.removeAll()
-        
+        removeAll()
         getGames()
         
         let dateFormatter = DateFormatter()
@@ -121,7 +108,22 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         
         self.tableView.reloadData()
         self.refreshControl?.endRefreshing()
-
+    }
+    func removeAll(){
+        gameNSDates.removeAll()
+        gameNSDatesV.removeAll()
+        gameNSDatesJV.removeAll()
+        gameNSDatesFR.removeAll()
+        
+        uniqueNSGameDates.removeAll()
+        uniqueNSGameDatesV.removeAll()
+        uniqueNSGameDatesJV.removeAll()
+        uniqueNSGameDatesFR.removeAll()
+        
+        gamesDictionary.removeAll()
+        gamesDictionaryV.removeAll()
+        gamesDictionaryJV.removeAll()
+        gamesDictionaryFR.removeAll()
     }
     
     func getGames(){
@@ -187,9 +189,9 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
                 
             }
             print("I AM BELOW THE TABLE VIEW REFRESH")
-            self.uniqueNSGameDatesV = self.gameNSDatesV.removeDuplicates()
-            self.uniqueNSGameDatesJV = self.gameNSDatesJV.removeDuplicates()
-            self.uniqueNSGameDatesFR = self.gameNSDatesFR.removeDuplicates()
+            self.gameNSDatesV = self.gameNSDatesV.removeDuplicates()
+            self.gameNSDatesJV = self.gameNSDatesJV.removeDuplicates()
+            self.gameNSDatesFR = self.gameNSDatesFR.removeDuplicates()
             
             self.tableView.reloadData()
             //print("GAME DATES: \(self.gameNSDatesV)");
@@ -207,13 +209,13 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
     func numberOfSections(in tableView: UITableView) -> Int {
         switch gameLevel {
         case "V":
-            uniqueNSGameDates = uniqueNSGameDatesV
+            uniqueNSGameDates = gameNSDatesV
         case "FR":
-            uniqueNSGameDates = uniqueNSGameDatesFR
+            uniqueNSGameDates = gameNSDatesFR
         case "JV":
-            uniqueNSGameDates = uniqueNSGameDatesJV
+            uniqueNSGameDates = gameNSDatesJV
         default:
-            uniqueNSGameDates = uniqueNSGameDatesV
+            uniqueNSGameDates = gameNSDatesV
         }
         //print("There are \(uniqueNSGameDates.count) Section")
         return uniqueNSGameDates.count
@@ -222,19 +224,19 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch gameLevel {
         case "V":
-            uniqueNSGameDates = uniqueNSGameDatesV
+            uniqueNSGameDates = gameNSDatesV
             gamesDictionary = gamesDictionaryV
         case "JV":
-            uniqueNSGameDates = uniqueNSGameDatesJV
+            uniqueNSGameDates = gameNSDatesJV
             gamesDictionary = gamesDictionaryJV
 
 
         case "FR":
-            uniqueNSGameDates = uniqueNSGameDatesFR
+            uniqueNSGameDates = gameNSDatesFR
             gamesDictionary = gamesDictionaryFR
 
         default:
-            uniqueNSGameDates = uniqueNSGameDatesV
+            uniqueNSGameDates = gameNSDatesV
             gamesDictionary = gamesDictionaryV
 
         }
@@ -247,13 +249,13 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
      func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch gameLevel {
         case "V":
-            uniqueNSGameDates = uniqueNSGameDatesV
+            uniqueNSGameDates = gameNSDatesV
         case "JV":
-            uniqueNSGameDates = uniqueNSGameDatesJV
+            uniqueNSGameDates = gameNSDatesJV
         case "FR":
-            uniqueNSGameDates = uniqueNSGameDatesFR
+            uniqueNSGameDates = gameNSDatesFR
         default:
-            uniqueNSGameDates = uniqueNSGameDatesV
+            uniqueNSGameDates = gameNSDatesV
         }
         
         let gameDate = uniqueNSGameDates[section].toString(dateFormat: "yyyy-MM-dd")
@@ -275,17 +277,17 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         
         switch gameLevel {
         case "V":
-            uniqueNSGameDates = uniqueNSGameDatesV
+            uniqueNSGameDates = gameNSDatesV
             event = gamesDictionaryV[uniqueNSGameDates[indexPath.section]]?[indexPath.row]
         case "JV":
-            uniqueNSGameDates = uniqueNSGameDatesJV
+            uniqueNSGameDates = gameNSDatesJV
             event = gamesDictionaryJV[uniqueNSGameDates[indexPath.section]]?[indexPath.row]
         case "FR":
-            uniqueNSGameDates = uniqueNSGameDatesFR
+            uniqueNSGameDates = gameNSDatesFR
             event = gamesDictionaryFR[uniqueNSGameDates[indexPath.section]]?[indexPath.row]
 
         default:
-            uniqueNSGameDates = uniqueNSGameDatesV
+            uniqueNSGameDates = gameNSDatesV
         }
         
         
@@ -383,18 +385,6 @@ extension String {
     }
 }
 
-extension NSDate
-{
-    func toString( dateFormat format  : String ) -> String
-    {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        return dateFormatter.string(from: self as Date)
-    }
-    
-    
-    
-}
 
 extension Array where Element:Equatable {
     func removeDuplicates() -> [Element] {
