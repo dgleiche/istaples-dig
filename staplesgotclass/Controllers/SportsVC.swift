@@ -259,7 +259,7 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
 //
      func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        if (gamesDictionary[uniqueNSGameDates[0]]?[0] != nil){
+        if (uniqueNSGameDates.count != 0 && gamesDictionary[uniqueNSGameDates[0]]?[0] != nil){
         switch gameLevel {
         case "V":
             uniqueNSGameDates = gameNSDatesV
@@ -289,7 +289,7 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SportsCell
         self.tableView.rowHeight = 73.0
 
-        if (gamesDictionary[uniqueNSGameDates[0]]?[0] != nil){
+        if (uniqueNSGameDates.count != 0 && gamesDictionary[uniqueNSGameDates[0]]?[0] != nil){
             var event = gamesDictionaryV[uniqueNSGameDates[0]]?[0] // just a place holder for no apparent reason because swift hates me, Don't remove
         
             switch gameLevel {
@@ -391,7 +391,7 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
             
             let selectedIndexPath = self.tableView.indexPathForSelectedRow
             
-            if (gamesDictionary[uniqueNSGameDates[0]]?[0] != nil){
+            if (uniqueNSGameDates.count != 0 && gamesDictionary[uniqueNSGameDates[0]]?[0] != nil){
                 var indexEvent = gamesDictionaryV[uniqueNSGameDates[0]]?[0] // just a place holder for no apparent reason because swift hates me, Don't remove
                 
                 switch gameLevel {
@@ -411,7 +411,7 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
             
             newView.currentEvent = indexEvent
             
-            print(indexEvent!.sport)
+            //print(indexEvent!.sport)
             }
             let backButton = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
             

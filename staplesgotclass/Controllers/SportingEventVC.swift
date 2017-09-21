@@ -43,9 +43,17 @@ class SportingEventVC: UITableViewController {
             self.headers.append("Time")
             self.information.append(self.currentEvent!.time)
 
-            self.headers.append("School")
+            self.headers.append("Location")
             self.information.append(self.currentEvent!.school)
 
+            self.headers.append("School")
+            if (self.currentEvent!.directionsURL.range(of: "school") != nil){
+                let schoolName =  self.currentEvent!.directionsURL.components(separatedBy: "school=")
+                self.information.append(schoolName[1])
+            }else{
+                self.information.append("")
+            }
+            
             self.headers.append("Opponent")
             self.information.append(self.currentEvent!.opponent)
 
@@ -58,8 +66,7 @@ class SportingEventVC: UITableViewController {
             self.headers.append("Season")
             self.information.append(self.currentEvent!.season)
 
-            self.headers.append("Directions URL")
-            self.information.append(self.currentEvent!.directionsURL)
+
 
             if (self.currentEvent!.bus == "yes"){
                 self.headers.append("Bus Time")
