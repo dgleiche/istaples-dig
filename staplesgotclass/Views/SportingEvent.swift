@@ -18,8 +18,16 @@ class SportingEvent: NSObject {
     var school: String
     var home: String
     var gameLevel: String
+    var gameType: String
+    var season: String
+    var opponent: String
+    var directionsURL: String
+    var id_num: String
+    var bus: String
+    var busTime: String
     
-    init(sport: String, stringDate: String, gameNSDate: NSDate, weekday: String, time: String, school: String, gameLevel: String, home: String){
+    init(sport: String, stringDate: String, gameNSDate: NSDate, weekday: String, time: String, school: String, gameLevel: String, home: String, gameType: String, season: String, opponent: String, directionsURL: String, id_num: String, bus: String, busTime: String){
+        
         self.stringDate = stringDate
         self.sport = sport
         self.gameNSDate = gameNSDate
@@ -28,5 +36,13 @@ class SportingEvent: NSObject {
         self.school = school
         self.gameLevel = gameLevel
         self.home = home
+        self.gameLevel = gameLevel
+        self.gameType = gameType
+        self.season = season
+        self.opponent = opponent
+        self.directionsURL = directionsURL
+        self.id_num = id_num
+        self.bus = bus
+        self.busTime = busTime
     }
 }

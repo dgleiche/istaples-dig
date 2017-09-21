@@ -137,8 +137,16 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
                 let homeAway = elem["site"].element!.text
                 var location = elem["facility"].element!.text
                 let time = elem["gametime"].element!.text
-                let gameType = elem["gametype"].element!.text
                 let level = elem["gamelevel"].element!.text
+
+                let gameType = elem["gametype"].element!.text
+                let season = elem["season"].element!.text
+                let opponent = elem["opponent"].element!.text
+                let directionsURL = elem["directionsurl"].element!.text
+                let id_num = elem["id_num"].element!.text
+                let bus = elem["bus"].element!.text
+                let busTime = elem["bustime"].element!.text
+                
                 
                 var dateArray : [String] = gameDate1.components(separatedBy: "-")
                 
@@ -153,14 +161,17 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
                 
                 let monthName = DateFormatter().monthSymbols[Int(dateArray[1])! - 1]
                 
-                let gameDate = monthName + " " + day
                 
                 let (gameNSDate, weekDay) = self.convertDateToDay(date: gameDate1)
                 //varsity game
+                let gameDate = self.convertDaytoWeekday(date: gameNSDate) + ", " + monthName + " " + day
+
                 if location == "" {
                     location = "Location Unknown"
                 }
-                let event = SportingEvent(sport: sportName, stringDate: gameDate, gameNSDate: gameNSDate, weekday: weekDay, time: time, school: location, gameLevel: level, home: homeAway)
+                
+                
+                let event = SportingEvent(sport: sportName, stringDate: gameDate, gameNSDate: gameNSDate, weekday: weekDay, time: time, school: location, gameLevel: level, home: homeAway, gameType: gameType, season: season, opponent: opponent, directionsURL: directionsURL, id_num: id_num, bus: bus, busTime: busTime)
                 
                 if level == "V" {
                     if (self.gamesDictionaryV[gameNSDate]?.append(event)) == nil {
@@ -247,6 +258,8 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
 
 //
      func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        if (gamesDictionary[uniqueNSGameDates[0]]?[0] != nil){
         switch gameLevel {
         case "V":
             uniqueNSGameDates = gameNSDatesV
@@ -266,56 +279,55 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
 
         let gameDate1 = convertDaytoWeekday(date: uniqueNSGameDates[section]) + ", " + monthName + " " + day
         return gameDate1
+        }
+        return ""
     }
     
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        var event = gamesDictionaryV[uniqueNSGameDates[0]]?[0] // just a place holder for no apparent reason because swift hates me, Don't remove
-        
-        
-        switch gameLevel {
-        case "V":
-            uniqueNSGameDates = gameNSDatesV
-            event = gamesDictionaryV[uniqueNSGameDates[indexPath.section]]?[indexPath.row]
-        case "JV":
-            uniqueNSGameDates = gameNSDatesJV
-            event = gamesDictionaryJV[uniqueNSGameDates[indexPath.section]]?[indexPath.row]
-        case "FR":
-            uniqueNSGameDates = gameNSDatesFR
-            event = gamesDictionaryFR[uniqueNSGameDates[indexPath.section]]?[indexPath.row]
-
-        default:
-            uniqueNSGameDates = gameNSDatesV
-        }
-        
-        
-
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SportsCell
         self.tableView.rowHeight = 73.0
-        
-        
-        cell.sport.text = event?.sport
-        cell.time.text = "\(String(describing: event!.time))"
-        cell.school.text = event?.school
-        cell.school.font = UIFont(name: "HelveticaNeue-Medium", size: 12)
 
-        cell.home.font = UIFont(name: "HelveticaNeue", size: 35)
-        cell.time.font = UIFont(name: "HelveticaNeue", size: 17)
-        //print(gameDates[indexPath.row])
+        if (gamesDictionary[uniqueNSGameDates[0]]?[0] != nil){
+            var event = gamesDictionaryV[uniqueNSGameDates[0]]?[0] // just a place holder for no apparent reason because swift hates me, Don't remove
         
-        if event?.home == "Home" {
-            cell.home.text = "H"
-            cell.home.textColor = self.sweetBlue //Classic iStaples Blue
-//            cell.home.font = UIFont(name: "HelveticaNeue", size: 16)
-    
-        } else {
-            cell.home.text = "A"
-            cell.home.textColor = UIColor(red:0.3, green:0.8, blue:0.13, alpha:1.0)
+            switch gameLevel {
+            case "V":
+                uniqueNSGameDates = gameNSDatesV
+                event = gamesDictionaryV[uniqueNSGameDates[indexPath.section]]?[indexPath.row]
+            case "JV":
+                uniqueNSGameDates = gameNSDatesJV
+                event = gamesDictionaryJV[uniqueNSGameDates[indexPath.section]]?[indexPath.row]
+            case "FR":
+                uniqueNSGameDates = gameNSDatesFR
+                event = gamesDictionaryFR[uniqueNSGameDates[indexPath.section]]?[indexPath.row]
 
+            default:
+                uniqueNSGameDates = gameNSDatesV
+            }
+            
+            cell.sport.text = event?.sport
+            cell.time.text = "\(String(describing: event!.time))"
+            cell.school.text = event?.school
+            cell.school.font = UIFont(name: "HelveticaNeue-Medium", size: 12)
+            
+            cell.home.font = UIFont(name: "HelveticaNeue", size: 35)
+            cell.time.font = UIFont(name: "HelveticaNeue", size: 17)
+            //print(gameDates[indexPath.row])
+            
+            if event?.home == "Home" {
+                cell.home.text = "H"
+                cell.home.textColor = self.sweetBlue //Classic iStaples Blue
+                //            cell.home.font = UIFont(name: "HelveticaNeue", size: 16)
+                
+            } else {
+                cell.home.text = "A"
+                cell.home.textColor = UIColor(red:0.3, green:0.8, blue:0.13, alpha:1.0)
+                
+            }
         }
-        
+    
         return cell
         
     }
@@ -371,6 +383,45 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
             }
         }
         return buffer
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "showEvent") {
+            let newView = segue.destination as! SportingEventVC
+            
+            let selectedIndexPath = self.tableView.indexPathForSelectedRow
+            
+            if (gamesDictionary[uniqueNSGameDates[0]]?[0] != nil){
+                var indexEvent = gamesDictionaryV[uniqueNSGameDates[0]]?[0] // just a place holder for no apparent reason because swift hates me, Don't remove
+                
+                switch gameLevel {
+                case "V":
+                    uniqueNSGameDates = gameNSDatesV
+                    indexEvent = gamesDictionaryV[uniqueNSGameDates[selectedIndexPath![0]]]?[selectedIndexPath![1]]
+                case "JV":
+                    uniqueNSGameDates = gameNSDatesJV
+                    indexEvent = gamesDictionaryJV[uniqueNSGameDates[selectedIndexPath![0]]]?[selectedIndexPath![1]]
+                case "FR":
+                    uniqueNSGameDates = gameNSDatesFR
+                    indexEvent = gamesDictionaryFR[uniqueNSGameDates[selectedIndexPath![0]]]?[selectedIndexPath![1]]
+
+                default:
+                    uniqueNSGameDates = gameNSDatesV
+                }
+            
+            newView.currentEvent = indexEvent
+            
+            print(indexEvent!.sport)
+            }
+            let backButton = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
+            
+            self.navigationItem.backBarButtonItem = backButton
+            
+            self.tableView.deselectRow(at: self.tableView.indexPathForSelectedRow!, animated: true)
+            
+            
+            
+        }
     }
     
 }

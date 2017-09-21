@@ -10,6 +10,7 @@
 		078B0CEA10E638BFC57FE69E /* Pods_staplesgotclass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */; };
 		360AD3071F6ADE2000A851C6 /* football.png in Resources */ = {isa = PBXBuildFile; fileRef = 360AD3061F6ADE2000A851C6 /* football.png */; };
 		360AD3091F6AE4BA00A851C6 /* footballFilled.png in Resources */ = {isa = PBXBuildFile; fileRef = 360AD3081F6AE4BA00A851C6 /* footballFilled.png */; };
+		363C15FE1F72E6A70037B2CC /* SportsInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363C15FD1F72E6A70037B2CC /* SportsInfoCell.swift */; };
 		363D4FD71F6C409000AB2D59 /* SportingEventVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363D4FD61F6C409000AB2D59 /* SportingEventVC.swift */; };
 		36FBEC051F616EE3002C7527 /* SportsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FBEC041F616EE3002C7527 /* SportsManager.swift */; };
 		36FBEC071F61EE2E002C7527 /* SportingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FBEC061F61EE2E002C7527 /* SportingEvent.swift */; };
@@ -156,6 +157,7 @@
 /* Begin PBXFileReference section */
 		360AD3061F6ADE2000A851C6 /* football.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = football.png; sourceTree = "<group>"; };
 		360AD3081F6AE4BA00A851C6 /* footballFilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = footballFilled.png; sourceTree = "<group>"; };
+		363C15FD1F72E6A70037B2CC /* SportsInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsInfoCell.swift; sourceTree = "<group>"; };
 		363D4FD61F6C409000AB2D59 /* SportingEventVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportingEventVC.swift; sourceTree = "<group>"; };
 		36FBEC041F616EE3002C7527 /* SportsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsManager.swift; sourceTree = "<group>"; };
 		36FBEC061F61EE2E002C7527 /* SportingEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SportingEvent.swift; path = ../Views/SportingEvent.swift; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 				7746F38D1CF19241003E9D6A /* ClassmateCell.swift */,
 				FC99DE291CF5652C0006F62E /* QuarterTable.swift */,
 				499531E11F607FB60022A4A3 /* GameCell.swift */,
+				363C15FD1F72E6A70037B2CC /* SportsInfoCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -571,7 +574,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Dylan Diamond";
 				TargetAttributes = {
 					777771C21D7D3D7C006F47EE = {
@@ -858,6 +861,7 @@
 				771D46DC1CF13C9900458369 /* ClassmatesVC.swift in Sources */,
 				FC9A2D431D74F62800436546 /* HomeworkVC.swift in Sources */,
 				775DC44D1CED55CD00046768 /* User.swift in Sources */,
+				363C15FE1F72E6A70037B2CC /* SportsInfoCell.swift in Sources */,
 				7700379B1D700168001641F8 /* ScheduleDetailVC.swift in Sources */,
 				7746F38C1CF1755F003E9D6A /* UIImageViewExtension.swift in Sources */,
 				772D52F61D6652430032C1E7 /* NSTimeIntervalExtension.swift in Sources */,
@@ -1021,14 +1025,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1068,14 +1078,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
