@@ -32,8 +32,13 @@ class SportingEventVC: UITableViewController {
         self.navigationItem.title = "SPORTING EVENT"
         
         if (currentEvent != nil) {
+            self.navigationItem.title = "\(self.currentEvent!.sport)"
 
-            nameLabel.text = currentEvent!.sport
+            var opponentName = self.currentEvent!.opponent.components(separatedBy: " ")
+            opponentName.append("Staples")
+            nameLabel.attributedText = "Staples vs \(self.currentEvent!.opponent)".color(opponentName)
+            
+            
             self.headers.append("Sport")
             self.information.append(self.currentEvent!.sport)
 
@@ -114,6 +119,45 @@ class SportingEventVC: UITableViewController {
         return cell
     }
     
+}
+
+extension String {
+    func getRanges(of string: String) -> [NSRange] {
+        var ranges:[NSRange] = []
+        if contains(string) {
+            let words = self.components(separatedBy: " ")
+            var position: Int = 0
+            for word in words {
+                if word.lowercased() == string.lowercased() {
+                    let startIndex = position
+                    let endIndex = word.characters.count
+                    let range = NSMakeRange(startIndex, endIndex)
+                    ranges.append(range)
+                }
+                position += (word.characters.count + 1)
+            }
+        }
+        return ranges
+    }
+    func color(_ words: [String]) -> NSMutableAttributedString {
+        let attributedString = NSMutableAttributedString(string: self)
+        print(words)
+        for word in words {
+            let ranges = getRanges(of: word)
+            for range in ranges {
+                if word.contains("Staples"){
+                    attributedString.addAttributes([NSForegroundColorAttributeName: UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)], range: range)
+                    print("Staples")
+                }else{
+                    attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.red], range: range)
+                    print("\(word)")
+                }
+
+            }
+            print("\(word)")
+        }
+        return attributedString
+    }
 }
 
 
