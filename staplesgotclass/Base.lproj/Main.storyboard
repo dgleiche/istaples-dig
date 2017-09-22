@@ -2453,13 +2453,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Auy-qp-Y0w">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="61"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Staples vs Warde" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Wc-nP-CZy">
-                                    <rect key="frame" x="8" y="8" width="359" height="42"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Staples vs Opponent" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Wc-nP-CZy">
+                                    <rect key="frame" x="8" y="0.0" width="359" height="61"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="42" id="VDq-mk-EPP"/>
+                                        <constraint firstAttribute="height" constant="61" id="VDq-mk-EPP"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2470,11 +2470,11 @@
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="5Wc-nP-CZy" secondAttribute="trailing" constant="8" id="9Q8-26-ZS6"/>
                                 <constraint firstItem="5Wc-nP-CZy" firstAttribute="leading" secondItem="Auy-qp-Y0w" secondAttribute="leading" constant="8" id="9uQ-r4-eqH"/>
-                                <constraint firstItem="5Wc-nP-CZy" firstAttribute="top" secondItem="Auy-qp-Y0w" secondAttribute="top" constant="8" id="xoW-Md-Dtg"/>
+                                <constraint firstItem="5Wc-nP-CZy" firstAttribute="top" secondItem="Auy-qp-Y0w" secondAttribute="top" id="xoW-Md-Dtg"/>
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="uff-VV-LVR">
-                            <rect key="frame" x="0.0" y="206.5" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="192.5" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="eqj-Vj-Qn9">
@@ -2489,14 +2489,14 @@
                             </constraints>
                             <variation key="default">
                                 <mask key="constraints">
-                                    <exclude reference="ifU-0g-li0"/>
                                     <exclude reference="X0b-qY-t0Q"/>
+                                    <exclude reference="ifU-0g-li0"/>
                                 </mask>
                             </variation>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sportsInfoCell" rowHeight="58" id="rKk-wV-mz6" customClass="SportsInfoCell" customModule="staplesgotclass" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="130.5" width="375" height="58"/>
+                                <rect key="frame" x="0.0" y="116.5" width="375" height="58"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rKk-wV-mz6" id="Rtn-1b-Pyk">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="57.5"/>

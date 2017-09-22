@@ -18,7 +18,7 @@ class SportingEventVC: UITableViewController {
     
     var headers = [String]()
     var information = [String]()
-    
+    var schoolName: [String] = [""]
     
     override func viewDidLoad(){
         super.viewDidLoad()
@@ -34,10 +34,7 @@ class SportingEventVC: UITableViewController {
         if (currentEvent != nil) {
             self.navigationItem.title = "\(self.currentEvent!.sport)"
 
-            var opponentName = self.currentEvent!.opponent.components(separatedBy: " ")
-            opponentName.append("Staples")
-            nameLabel.attributedText = "Staples vs \(self.currentEvent!.opponent)".color(opponentName)
-            
+
             
             self.headers.append("Sport")
             self.information.append(self.currentEvent!.sport)
@@ -53,7 +50,7 @@ class SportingEventVC: UITableViewController {
 
             self.headers.append("School")
             if (self.currentEvent!.directionsURL.range(of: "school") != nil){
-                let schoolName =  self.currentEvent!.directionsURL.components(separatedBy: "school=")
+                self.schoolName =  self.currentEvent!.directionsURL.components(separatedBy: "school=")
                 self.information.append(schoolName[1])
             }else{
                 self.information.append("")
@@ -71,7 +68,13 @@ class SportingEventVC: UITableViewController {
             self.headers.append("Season")
             self.information.append(self.currentEvent!.season)
 
-
+            var opponentName = self.currentEvent!.opponent.components(separatedBy: " ")
+            opponentName.append("Staples")
+            if (opponentName[0] != "") {
+                nameLabel.attributedText = "Staples vs \(self.currentEvent!.opponent)".color(opponentName)
+            }else{
+                nameLabel.attributedText = "Staples vs \(schoolName)".color(opponentName)
+            }
 
             if (self.currentEvent!.bus == "yes"){
                 self.headers.append("Bus Time")
@@ -152,7 +155,6 @@ extension String {
                     attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.red], range: range)
                     print("\(word)")
                 }
-
             }
             print("\(word)")
         }
