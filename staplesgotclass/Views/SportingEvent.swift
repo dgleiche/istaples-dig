@@ -39,7 +39,7 @@ class SportingEvent: NSObject {
         self.gameLevel = gameLevel
         self.gameType = gameType
         self.season = season
-        self.opponent = opponent
+        self.opponent = opponent.replacingOccurrences(of: ",", with: " &", options: NSString.CompareOptions.literal, range:nil)
         self.directionsURL = directionsURL
         self.id_num = id_num
         self.bus = bus

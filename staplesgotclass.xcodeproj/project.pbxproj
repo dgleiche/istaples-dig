@@ -157,6 +157,8 @@
 /* Begin PBXFileReference section */
 		360AD3061F6ADE2000A851C6 /* football.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = football.png; sourceTree = "<group>"; };
 		360AD3081F6AE4BA00A851C6 /* footballFilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = footballFilled.png; sourceTree = "<group>"; };
+		360EF3821F756C500016037D /* footballFilled@x2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "footballFilled@x2.png"; sourceTree = "<group>"; };
+		360EF3831F756C510016037D /* football@x2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "football@x2.png"; sourceTree = "<group>"; };
 		363C15FD1F72E6A70037B2CC /* SportsInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsInfoCell.swift; sourceTree = "<group>"; };
 		363D4FD61F6C409000AB2D59 /* SportingEventVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportingEventVC.swift; sourceTree = "<group>"; };
 		36FBEC041F616EE3002C7527 /* SportsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsManager.swift; sourceTree = "<group>"; };
@@ -325,6 +327,8 @@
 				77390BE41D7564E40095FD9E /* clockFilled.png */,
 				77390BE51D7564E40095FD9E /* clockFilled@2x.png */,
 				7721B8121CF9574B008C1A76 /* coursesPic.png */,
+				360EF3831F756C510016037D /* football@x2.png */,
+				360EF3821F756C500016037D /* footballFilled@x2.png */,
 				77DB56211CF2AD2D0014B002 /* defaultGooglePic.png */,
 				7746F38F1CF19314003E9D6A /* shs.jpg */,
 				773F5DF71CF6145600143C2D /* shs.png */,

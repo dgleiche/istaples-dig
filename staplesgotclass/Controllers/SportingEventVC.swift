@@ -73,7 +73,7 @@ class SportingEventVC: UITableViewController {
             if (opponentName[0] != "") {
                 nameLabel.attributedText = "Staples vs \(self.currentEvent!.opponent)".color(opponentName)
             }else{
-                nameLabel.attributedText = "Staples vs \(schoolName)".color(opponentName)
+                nameLabel.attributedText = "Staples vs \(opponentName[0])".color(opponentName)
             }
 
             if (self.currentEvent!.bus == "yes"){
@@ -152,7 +152,7 @@ extension String {
                     attributedString.addAttributes([NSForegroundColorAttributeName: UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)], range: range)
                     print("Staples")
                 }else{
-                    attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.red], range: range)
+                    attributedString.addAttributes([NSForegroundColorAttributeName: UIColor(red:0.83, green:0.18, blue:0.18, alpha:1.0)], range: range)
                     print("\(word)")
                 }
             }
