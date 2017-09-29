@@ -31,6 +31,7 @@ class DailyScheduleManager: NSObject {
     var blockDays = [BlockDay]()
     var courses = [Course]()
     var realmPeriods = [RealmPeriod]()
+    
     var currentUser: RealmUser?
     
     var realmPeriodsToDelete: [RealmPeriod]?

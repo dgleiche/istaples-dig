@@ -12,6 +12,8 @@
 		360AD3091F6AE4BA00A851C6 /* footballFilled.png in Resources */ = {isa = PBXBuildFile; fileRef = 360AD3081F6AE4BA00A851C6 /* footballFilled.png */; };
 		363C15FE1F72E6A70037B2CC /* SportsInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363C15FD1F72E6A70037B2CC /* SportsInfoCell.swift */; };
 		363D4FD71F6C409000AB2D59 /* SportingEventVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363D4FD61F6C409000AB2D59 /* SportingEventVC.swift */; };
+		366433701F7D19C400DF2720 /* ColorTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3664336F1F7D19C400DF2720 /* ColorTable.swift */; };
+		36B3D11A1F7AA548004D9462 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B3D1191F7AA548004D9462 /* ColorCell.swift */; };
 		36FBEC051F616EE3002C7527 /* SportsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FBEC041F616EE3002C7527 /* SportsManager.swift */; };
 		36FBEC071F61EE2E002C7527 /* SportingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FBEC061F61EE2E002C7527 /* SportingEvent.swift */; };
 		499531E21F607FB60022A4A3 /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499531E11F607FB60022A4A3 /* GameCell.swift */; };
@@ -161,6 +163,8 @@
 		360EF3831F756C510016037D /* football@x2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "football@x2.png"; sourceTree = "<group>"; };
 		363C15FD1F72E6A70037B2CC /* SportsInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsInfoCell.swift; sourceTree = "<group>"; };
 		363D4FD61F6C409000AB2D59 /* SportingEventVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportingEventVC.swift; sourceTree = "<group>"; };
+		3664336F1F7D19C400DF2720 /* ColorTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTable.swift; sourceTree = "<group>"; };
+		36B3D1191F7AA548004D9462 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
 		36FBEC041F616EE3002C7527 /* SportsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsManager.swift; sourceTree = "<group>"; };
 		36FBEC061F61EE2E002C7527 /* SportingEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SportingEvent.swift; path = ../Views/SportingEvent.swift; sourceTree = "<group>"; };
 		382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_staplesgotclass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -408,6 +412,8 @@
 				7746F38D1CF19241003E9D6A /* ClassmateCell.swift */,
 				FC99DE291CF5652C0006F62E /* QuarterTable.swift */,
 				499531E11F607FB60022A4A3 /* GameCell.swift */,
+				36B3D1191F7AA548004D9462 /* ColorCell.swift */,
+				3664336F1F7D19C400DF2720 /* ColorTable.swift */,
 				363C15FD1F72E6A70037B2CC /* SportsInfoCell.swift */,
 			);
 			path = Views;
@@ -844,6 +850,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77320A9C1D5D7AAF00603A38 /* RealmObjects.swift in Sources */,
+				36B3D11A1F7AA548004D9462 /* ColorCell.swift in Sources */,
 				775DC44F1CED583400046768 /* NetworkManager.swift in Sources */,
 				FC9A2D3B1D6E9F9A00436546 /* HomeworkManager.swift in Sources */,
 				775DC4491CED537F00046768 /* UserManager.swift in Sources */,
@@ -873,6 +880,7 @@
 				7746F38A1CF16312003E9D6A /* ProfileVC.swift in Sources */,
 				77703B3E1D5C47530093CF95 /* ScheduleVC.swift in Sources */,
 				772DCA511CEF40D200F52AA6 /* LoginPageViewController.swift in Sources */,
+				366433701F7D19C400DF2720 /* ColorTable.swift in Sources */,
 				77D54F741CECBEC600C11FA5 /* AppDelegate.swift in Sources */,
 				FC3A411F1D5C31AB000738F2 /* DailyScheduleManager.swift in Sources */,
 				77D8F2ED1CF0FFB6007A1002 /* ClassesVC.swift in Sources */,

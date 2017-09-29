@@ -20,7 +20,7 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
     
     
     let sweetBlue = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
-
+    let sweetGreen = UIColor(red:0.3, green:0.8, blue:0.13, alpha:1.0)
 
     var gamesDictionary = [NSDate: [SportingEvent]]()
     var gamesDictionaryV = [NSDate: [SportingEvent]]()
@@ -323,7 +323,7 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
                 
             } else {
                 cell.home.text = "A"
-                cell.home.textColor = UIColor(red:0.3, green:0.8, blue:0.13, alpha:1.0)
+                cell.home.textColor = self.sweetGreen
                 
             }
         }

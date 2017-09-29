@@ -17,7 +17,6 @@ class Period: NSObject {
     let quarters: String
     let users: [User]
     let id: Int
-    
     init(name: String, periodNumber: Int, teacherName: String, quarters: String, id: Int, users: [User]) {
         self.name = name.htmlUnescape()
         self.periodNumber = periodNumber

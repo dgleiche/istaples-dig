@@ -20,6 +20,8 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
     @IBOutlet weak var teacherTextField: MLPAutoCompleteTextField!
     
     @IBOutlet weak var quarterTable: QuarterTable!
+    @IBOutlet weak var collectionView: ColorTable!
+    
     
     var classes: [String] = []
     var teachers: [String] = []
@@ -29,10 +31,14 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
     var currentClass: Period?
     
     override func viewDidLoad() {
+        print("CREATE TABLE")
+//EAT IT NEAL!
         super.viewDidLoad()
         
         self.tableView.allowsSelection = false
         
+        print("CREATE TABLE")
+
         self.view.layoutIfNeeded()
         
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
@@ -44,6 +50,8 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
         quarterTable.dataSource = quarterTable
         quarterTable.delegate = quarterTable
         quarterTable.currentClass = currentClass
+        print("CREATE TABLE")
+        collectionView.dataSource = collectionView
         
         classTextField.autoCompleteDataSource = self
         classTextField.autoCompleteTableAppearsAsKeyboardAccessory = true
@@ -52,7 +60,8 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
         teacherTextField.autoCompleteTableAppearsAsKeyboardAccessory = true
         
         quarterTable.isScrollEnabled = false
-        
+        collectionView.isScrollEnabled = true
+
         classes = UserManager.sharedInstance!.classNames
         teachers = UserManager.sharedInstance!.teacherNames
         
@@ -109,13 +118,22 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
             returnStrings = teachers
         }
         
-         handler(returnStrings as [Any])
+        handler(returnStrings as [Any])
     }
     
     
     //MARK: Picker View
     
     //Data sources
+    
+
+    
+    
+    
+    //Delegates
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "\(row+1)"
+    }
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -124,15 +142,11 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
         return 8
     }
     
-    //Delegates
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "\(row+1)"
-    }
+    //MARK: Colection View
     
-    //MARK: Table View
-    
+
     //MARK: Navigation
-    
+
     
     @IBAction func savePeriod(_ sender: UIButton) {
         
@@ -210,3 +224,5 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
     }
     
 }
+
+
