@@ -31,7 +31,7 @@ class DailyScheduleManager: NSObject {
     var blockDays = [BlockDay]()
     var courses = [Course]()
     var realmPeriods = [RealmPeriod]()
-    
+    //var colors = [Color]()
     var currentUser: RealmUser?
     
     var realmPeriodsToDelete: [RealmPeriod]?
@@ -66,6 +66,9 @@ class DailyScheduleManager: NSObject {
         self.lunchSchedules = Array(realm.objects(LunchSchedule.self))
         self.blockDays = Array(realm.objects(BlockDay.self))
         self.courses = Array(realm.objects(Course.self))
+        
+        //self.colors = Array(realm.objects(Color.self))
+        
         self.currentUser = realm.objects(RealmUser.self).first
         print("mod schedules count: \(self.modifiedSchedules.count)")
         print("static schedules count: \(self.staticSchedules.count)")

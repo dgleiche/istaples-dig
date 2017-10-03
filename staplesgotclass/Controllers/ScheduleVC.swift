@@ -9,6 +9,11 @@
 import UIKit
 import RealmSwift
 import KDCircularProgress
+
+
+let sweetBlue = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
+
+
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
@@ -74,8 +79,6 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         tableHeaderView = tableView.tableHeaderView
         tableHeaderViewHeight = tableView.tableHeaderView?.frame.size.height
         
-        
-        let sweetBlue = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
         self.setNavTitleForDate(Date())
         
         //Info bar button
@@ -95,7 +98,6 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             if let image = item.image {
                 item.image = image.imageWithColor(sweetBlue).withRenderingMode(.alwaysOriginal)
                 item.selectedImage = item.selectedImage!.imageWithColor(sweetBlue).withRenderingMode(.alwaysOriginal)
-                
             }
         }
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: sweetBlue], for:UIControlState())
@@ -383,7 +385,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 //                if (!spinnerSetup) {
                 //                    spinnerSetup = true
                 //
-                //                    self.timeElapsedRing.animateFromAngle(360, toAngle: <#T##Double#>, duration: <#T##NSTimeInterval#>, completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
+                //                    self.timeElapsedRing.animateFromAngle(360, toAngle: <#T##Double#>, duration: , completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
                 //                }
                 //
                 self.timeElapsedRing.animate(toAngle: Double(360*percentDone), duration: 1.0, completion: { (success: Bool) in
@@ -666,6 +668,9 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 cell.classTitleLabel.text = indexSchedulePeriod!.realPeriod!.name
                 cell.teacherLabel.text = indexSchedulePeriod!.realPeriod!.teacherName
                 cell.periodNumberLabel.text = "\(indexSchedulePeriod!.realPeriod!.periodNumber)"
+                let defaultObject: String = String(describing: (defaults.object(forKey: "\(indexSchedulePeriod!.realPeriod!.periodNumber)") ?? "0"))
+                print(Int(defaultObject)!)
+                cell.periodNumberLabel.textColor = colors[Int(defaultObject)!]
                 cell.isUserInteractionEnabled = true //allow selection bc of real period
             }
             else {
@@ -724,12 +729,23 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 cell.classTitleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 17)
             }
             else {
-                cell.periodNumberLabel.textColor = UIColor(red:0.0, green:0.38, blue:0.76, alpha:1.0)
+                //cell.periodNumberLabel.textColor = UIColor(red:0.0, green:0.38, blue:0.76, alpha:1.0)
+                let defaultObject: String = String(describing: (defaults.object(forKey: "\(indexSchedulePeriod!.realPeriod!.periodNumber)") ?? "0"))
+                print(Int(defaultObject)!)
+                cell.periodNumberLabel.textColor = colors[Int(defaultObject)!]
+                
+                
                 cell.classTitleLabel.font = UIFont(name: "HelveticaNeue", size: 17)
             }
         }
         else {
             cell.periodNumberLabel.textColor = UIColor(red:0.0, green:0.38, blue:0.76, alpha:1.0)
+            print("Period Number: \(cell.periodNumberLabel.text!)")
+            let defaultObject: String = String(describing: (defaults.object(forKey: "\(String(describing: cell.periodNumberLabel.text!))") ?? "0"))
+            print("Color Int for Period: \(Int(defaultObject)!)")
+            cell.periodNumberLabel.textColor = colors[Int(defaultObject)!]
+        
+            
             cell.classTitleLabel.font = UIFont(name: "HelveticaNeue", size: 17)
         }
         

@@ -17,7 +17,7 @@ class ClassesVC: UITableViewController {
     
     var curPeriod: Period?
     @IBOutlet var activitySpinner: UIActivityIndicatorView!
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -225,6 +225,10 @@ class ClassesVC: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "classCell", for: indexPath) as! ClassCell
             cell.classTitleLabel.text = self.myClasses![indexPath.row].name
             cell.periodNumberLabel.text = "\(self.myClasses![indexPath.row].periodNumber)"
+            let defaultObject: String = String(describing: (defaults.object(forKey: "\(self.myClasses![indexPath.row].periodNumber)") ?? "0"))
+            print(Int(defaultObject)!)
+            
+            cell.periodNumberLabel.textColor = colors[Int(defaultObject)!]
             cell.quarterLabel!.text = "\(self.myClasses![indexPath.row].quarters)"
             cell.teacherLabel.text = self.myClasses![indexPath.row].teacherName
             return cell

@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
+    var defaults = UserDefaults.standard
+    
     var session: WCSession? {
         didSet {
             if let session = session {

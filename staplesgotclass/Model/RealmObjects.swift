@@ -84,7 +84,6 @@ class RealmPeriod: Object {
     dynamic var teacherName: String?
     dynamic var quarters: String?
     dynamic var id: Int = 0
-    dynamic var color: UIColor?
     
     func setPeriod(_ period: Period) {
         self.name = period.name
@@ -113,3 +112,5 @@ class Homework: Object {
     dynamic var assignment: String?
     dynamic var dueDate: Date?
 }
+
+

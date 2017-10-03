@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		078B0CEA10E638BFC57FE69E /* Pods_staplesgotclass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */; };
-		360AD3071F6ADE2000A851C6 /* football.png in Resources */ = {isa = PBXBuildFile; fileRef = 360AD3061F6ADE2000A851C6 /* football.png */; };
 		360AD3091F6AE4BA00A851C6 /* footballFilled.png in Resources */ = {isa = PBXBuildFile; fileRef = 360AD3081F6AE4BA00A851C6 /* footballFilled.png */; };
 		363C15FE1F72E6A70037B2CC /* SportsInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363C15FD1F72E6A70037B2CC /* SportsInfoCell.swift */; };
 		363D4FD71F6C409000AB2D59 /* SportingEventVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363D4FD61F6C409000AB2D59 /* SportingEventVC.swift */; };
@@ -157,7 +156,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		360AD3061F6ADE2000A851C6 /* football.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = football.png; sourceTree = "<group>"; };
 		360AD3081F6AE4BA00A851C6 /* footballFilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = footballFilled.png; sourceTree = "<group>"; };
 		360EF3821F756C500016037D /* footballFilled@x2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "footballFilled@x2.png"; sourceTree = "<group>"; };
 		360EF3831F756C510016037D /* football@x2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "football@x2.png"; sourceTree = "<group>"; };
@@ -168,6 +166,7 @@
 		36FBEC041F616EE3002C7527 /* SportsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsManager.swift; sourceTree = "<group>"; };
 		36FBEC061F61EE2E002C7527 /* SportingEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SportingEvent.swift; path = ../Views/SportingEvent.swift; sourceTree = "<group>"; };
 		382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_staplesgotclass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E0DF6671F80902900EE77C1 /* football.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = football.png; sourceTree = "<group>"; };
 		499531E11F607FB60022A4A3 /* GameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
 		499531E31F60804A0022A4A3 /* SportsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsVC.swift; sourceTree = "<group>"; };
 		6F3617A969EFDF047E0788E2 /* Pods-staplesgotclass.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-staplesgotclass.release.xcconfig"; path = "Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass.release.xcconfig"; sourceTree = "<group>"; };
@@ -338,7 +337,7 @@
 				773F5DF71CF6145600143C2D /* shs.png */,
 				7721B81C1CF967AF008C1A76 /* users.png */,
 				360AD3081F6AE4BA00A851C6 /* footballFilled.png */,
-				360AD3061F6ADE2000A851C6 /* football.png */,
+				3E0DF6671F80902900EE77C1 /* football.png */,
 				7721B81D1CF967AF008C1A76 /* users@2x.png */,
 				775A18ED1D70105000D1AA9C /* usersIcon.png */,
 				7721B81E1CF967AF008C1A76 /* usersFilled.png */,
@@ -589,7 +588,6 @@
 				TargetAttributes = {
 					777771C21D7D3D7C006F47EE = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 9FC732TXJR;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
@@ -693,7 +691,6 @@
 				775A18F01D701D3F00D1AA9C /* dateSearch.png in Resources */,
 				773F5DF81CF6145600143C2D /* shs.png in Resources */,
 				77DEF2A21CFBAD7800E94B57 /* blueAppIcon.png in Resources */,
-				360AD3071F6ADE2000A851C6 /* football.png in Resources */,
 				77DB56221CF2AD2D0014B002 /* defaultGooglePic.png in Resources */,
 				7721B8221CF967AF008C1A76 /* usersFilled.png in Resources */,
 			);
@@ -944,7 +941,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 9FC732TXJR;
+				DEVELOPMENT_TEAM = "";
 				IBSC_MODULE = staplesWatchApp_Extension;
 				INFOPLIST_FILE = staplesWatchApp/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass.watchkitapp;
@@ -965,7 +962,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 9FC732TXJR;
+				DEVELOPMENT_TEAM = "";
 				IBSC_MODULE = staplesWatchApp_Extension;
 				INFOPLIST_FILE = staplesWatchApp/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass.watchkitapp;

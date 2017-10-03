@@ -8,7 +8,7 @@
 
 import UIKit
 import HTMLEntities
-
+import RealmSwift
 
 class Period: NSObject {
     let name: String
@@ -17,6 +17,8 @@ class Period: NSObject {
     let quarters: String
     let users: [User]
     let id: Int
+    var colorInt: Int?
+    //var realm: Realm
     init(name: String, periodNumber: Int, teacherName: String, quarters: String, id: Int, users: [User]) {
         self.name = name.htmlUnescape()
         self.periodNumber = periodNumber
@@ -24,5 +26,8 @@ class Period: NSObject {
         self.quarters = quarters
         self.users = users
         self.id = id
+        //let colors = Array(realm.objects(Color.self))
+        
+
     }
 }
