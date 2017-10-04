@@ -217,7 +217,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
                 
                 defaults.set(selectedColor, forKey: "\(periodPicker.selectedRow(inComponent: 0) + 1)")
                 
-                print(defaults.object(forKey:"\(periodPicker.selectedRow(inComponent: 0) + 1)") ?? "0")
+                //print(defaults.object(forKey:"\(periodPicker.selectedRow(inComponent: 0) + 1)") ?? "0")
                 
                 
                 
