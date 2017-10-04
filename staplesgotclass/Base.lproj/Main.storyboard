@@ -2471,7 +2471,7 @@
         <scene sceneID="Pvb-bw-8fE">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gbM-eP-2h6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Sports" image="footballFilled.png" selectedImage="football.png" id="TQy-1j-f71"/>
+                    <tabBarItem key="tabBarItem" title="Sports" image="footballFilled.png" selectedImage="footballFilled.png" id="TQy-1j-f71"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NjT-0S-JrX">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -2617,7 +2617,6 @@
         <image name="dateSearch.png" width="25" height="25"/>
         <image name="email.png" width="42" height="42"/>
         <image name="exit.png" width="44" height="44"/>
-        <image name="football.png" width="25" height="25"/>
         <image name="footballFilled.png" width="25" height="25"/>
         <image name="info.png" width="42" height="42"/>
         <image name="lock.png" width="42" height="42"/>

@@ -69,74 +69,13 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SWXMLHash.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>107A9565F9DF88517DFD3E28C05B2B96</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>322428ECC8C5EC71F14C92233787C7AC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>322C3C072D4381397F04381E772E12BA</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>35E33AB4F5C3440A6916F92C7013818C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3FD8DDB4E32851048D10BEF25BE87608</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6057493D14D64BD86FE5347C341C8815</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>681BE6E3D02A43F9BA63777AC435C8FD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>7FBEBC4205F67CC2C03A1B1ABF15A51A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B1C4AAFAF49036C7007633DAA3C806AD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DA6AC1D575399E27074A5F81E620E0FF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F465A050FF481900E3877E099748501C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F957EABCA56BD8F5B626798CC7B344D3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-	</dict>
+	<dict/>
 </dict>
 </plist>
