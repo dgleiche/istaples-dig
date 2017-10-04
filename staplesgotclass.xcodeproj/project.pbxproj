@@ -164,6 +164,7 @@
 		36FBEC041F616EE3002C7527 /* SportsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsManager.swift; sourceTree = "<group>"; };
 		36FBEC061F61EE2E002C7527 /* SportingEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SportingEvent.swift; path = ../Views/SportingEvent.swift; sourceTree = "<group>"; };
 		382E4E0BF92F9C24A2B02438 /* Pods_staplesgotclass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_staplesgotclass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E0DF6671F80902900EE77C1 /* football.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = football.png; sourceTree = "<group>"; };
 		499531E11F607FB60022A4A3 /* GameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
 		499531E31F60804A0022A4A3 /* SportsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsVC.swift; sourceTree = "<group>"; };
 		6F3617A969EFDF047E0788E2 /* Pods-staplesgotclass.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-staplesgotclass.release.xcconfig"; path = "Pods/Target Support Files/Pods-staplesgotclass/Pods-staplesgotclass.release.xcconfig"; sourceTree = "<group>"; };
@@ -582,7 +583,6 @@
 				TargetAttributes = {
 					777771C21D7D3D7C006F47EE = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 9FC732TXJR;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
@@ -936,7 +936,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 9FC732TXJR;
+				DEVELOPMENT_TEAM = "";
 				IBSC_MODULE = staplesWatchApp_Extension;
 				INFOPLIST_FILE = staplesWatchApp/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass.watchkitapp;
@@ -957,7 +957,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 9FC732TXJR;
+				DEVELOPMENT_TEAM = "";
 				IBSC_MODULE = staplesWatchApp_Extension;
 				INFOPLIST_FILE = staplesWatchApp/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass.watchkitapp;

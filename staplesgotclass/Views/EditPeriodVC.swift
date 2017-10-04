@@ -10,6 +10,8 @@ import UIKit
 import Alamofire
 import MLPAutoCompleteTextField
 
+let defaults = UserDefaults.standard
+
 class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate, MLPAutoCompleteTextFieldDataSource {
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
@@ -31,13 +33,11 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
     var currentClass: Period?
     
     override func viewDidLoad() {
-        print("CREATE TABLE")
+        collectionView.allowsSelection = true
+        self.tableView.allowsSelection = false
+
 //EAT IT NEAL!
         super.viewDidLoad()
-        
-        self.tableView.allowsSelection = false
-        
-        print("CREATE TABLE")
 
         self.view.layoutIfNeeded()
         
@@ -50,8 +50,15 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
         quarterTable.dataSource = quarterTable
         quarterTable.delegate = quarterTable
         quarterTable.currentClass = currentClass
-        print("CREATE TABLE")
+        quarterTable.isScrollEnabled = false
+
         collectionView.dataSource = collectionView
+        collectionView.delegate = collectionView
+        collectionView.currentClass = currentClass
+        collectionView.isScrollEnabled = true
+        collectionView.allowsSelection = true
+        collectionView.allowsMultipleSelection = false
+        
         
         classTextField.autoCompleteDataSource = self
         classTextField.autoCompleteTableAppearsAsKeyboardAccessory = true
@@ -59,9 +66,6 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
         teacherTextField.autoCompleteDataSource = self
         teacherTextField.autoCompleteTableAppearsAsKeyboardAccessory = true
         
-        quarterTable.isScrollEnabled = false
-        collectionView.isScrollEnabled = true
-
         classes = UserManager.sharedInstance!.classNames
         teachers = UserManager.sharedInstance!.teacherNames
         
@@ -102,8 +106,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
     
     //MARK: Text Field
     //func autoCompleteTextField(_ textField: MLPAutoCompleteTextField!, possibleCompletionsForString: String!, completionHandler handler: (([AnyObject]?) -> Void)!)
-    
-    
+
     func autoCompleteTextField(_ textField: MLPAutoCompleteTextField!, possibleCompletionsFor string: String!, completionHandler handler: (([Any]?) -> Void)!) {
         var returnStrings = Array<String>()
         print("GOT TO AUTOCOMPLETE")
@@ -190,8 +193,10 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
                 
                 let period = periodPicker.selectedRow(inComponent: 0) + 1
                 
+                let selectedColor = collectionView.selectedColor ?? 0
+                
                 //All the variables should now be created and verified. Send the request
-                print("Info: period: \(period) class: \(selectedClass) teacher: \(selectedTeacher) quarters: \(selectedQuartersText)")
+                print("Info: period: \(period) class: \(selectedClass) teacher: \(selectedTeacher) quarters: \(selectedQuartersText) color: \(selectedColor)")
                 
                 var parameters = ["name": selectedClass, "teacher_name": selectedTeacher, "period_number": "\(period)", "quarters": selectedQuartersText]
                 if (currentClass != nil) {
@@ -209,6 +214,11 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
                     }
                     
                 })
+                
+                defaults.set(selectedColor, forKey: "\(periodPicker.selectedRow(inComponent: 0) + 1)")
+                
+                print(defaults.object(forKey:"\(periodPicker.selectedRow(inComponent: 0) + 1)") ?? "0")
+                
                 
                 
             } else {
