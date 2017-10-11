@@ -170,6 +170,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         setupClockTimer()
         setupPeriodTimer()
         print("setup timers in view did appear")
+        
+
     }
     
     func callSetup() {
@@ -211,6 +213,9 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             
             self.isCurrentSchedule = true
             self.selectedDate = Date()
+            
+            
+            
             self.setNavTitleForDate(self.selectedDate)
             
             if (DailyScheduleManager.sharedInstance?.currentSchedule != nil) {
@@ -443,6 +448,9 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     func setDateToday() {
         self.selectedDate = Date()
+        
+        
+        
         self.changeSchedule(withAnimation: kCATransitionFromTop)
     }
     
@@ -725,8 +733,11 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 cell.classTitleLabel.font = UIFont(name: "HelveticaNeue", size: 17)
             }
             else if (indexSchedulePeriod == DailyScheduleManager.sharedInstance?.currentPeriod) {
-                cell.periodNumberLabel.textColor = UIColor(red:0.3, green:0.8, blue:0.13, alpha:1.0)
-                cell.classTitleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 17)
+                let defaultObject: String = String(describing: (defaults.object(forKey: "\(indexSchedulePeriod!.realPeriod!.periodNumber)") ?? "0"))
+                print(Int(defaultObject)!)
+                cell.periodNumberLabel.textColor = colors[Int(defaultObject)!]
+                //cell.periodNumberLabel.textColor = UIColor(red:0.3, green:0.8, blue:0.13, alpha:1.0)
+                cell.classTitleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 19)
             }
             else {
                 //cell.periodNumberLabel.textColor = UIColor(red:0.0, green:0.38, blue:0.76, alpha:1.0)

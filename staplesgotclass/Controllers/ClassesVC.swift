@@ -127,8 +127,10 @@ class ClassesVC: UITableViewController {
         if (!self.swipeMode) {
             if (editing) {
                 self.tableView.allowsSelectionDuringEditing = true
-                if (self.myClasses!.count > 0) {
-                    self.tableView.insertRows(at: [IndexPath(row: self.myClasses!.count, section: 0)], with: .automatic)
+                if (self.myClasses != nil){
+                    if (self.myClasses!.count > 0) {
+                        self.tableView.insertRows(at: [IndexPath(row: self.myClasses!.count, section: 0)], with: .automatic)
+                    }
                 }
             }
             else {

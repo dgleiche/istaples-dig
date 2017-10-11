@@ -136,7 +136,7 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
                 let gameDate1 = elem["gamedate"].element!.text
                 let homeAway = elem["site"].element!.text
                 var location = elem["facility"].element!.text
-                let time = elem["gametime"].element!.text
+                let time = elem["gametime"].element!.text.replacingOccurrences(of: " p.m.", with: "PM", options: .literal, range: nil)
                 let level = elem["gamelevel"].element!.text
 
                 let gameType = elem["gametype"].element!.text

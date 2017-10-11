@@ -72,10 +72,10 @@ class ColorTable: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "colorCell", for: indexPath) as! ColorCell
         // Configure the cell
-//        print("colorInt: \(currentClass?.colorInt)")
+        print("colorInt: \(indexPath.row)")
         
-        let defaultObject: String = String(describing: (defaults.object(forKey: "\(String(describing: currentClass?.periodNumber))") ?? "0"))
-        if (indexPath.row == Int(defaultObject)!){
+        let defaultObject: String = String(describing: (defaults.object(forKey: "\(String(describing: indexPath.row))") ?? "0"))
+        if (indexPath.row == selectedColor){
             cell.select()
             print("selected \(Int(defaultObject)!)");
         }
@@ -88,7 +88,6 @@ class ColorTable: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         cell.layer.shadowOpacity = 1
         cell.layer.shadowOffset = CGSize.zero
         cell.layer.shadowRadius = 4
-        
         return cell
     }
 
