@@ -92,7 +92,6 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     func refresh(sender:AnyObject) {
-        removeAll()
         getGames()
         
         let dateFormatter = DateFormatter()
@@ -127,6 +126,7 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func getGames(){
+        removeAll()
         Alamofire.request("https://www.casciac.org/xml/?sc=Staples&starttoday=1").responseJSON { response in
             
             let xml = SWXMLHash.lazy(response.data!)
