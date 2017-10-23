@@ -1784,10 +1784,44 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Quarters" id="Gqs-aJ-vQB">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="160" id="eL5-jo-teK">
+                                        <rect key="frame" x="0.0" y="464.5" width="375" height="160"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eL5-jo-teK" id="qpc-RE-MhG">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="159.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="53" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OQD-Xt-yMi" customClass="QuarterTable" customModule="staplesgotclass" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="0.0" width="367" height="160"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <prototypes>
+                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="quarterCell" rowHeight="53" id="SNA-ba-X91">
+                                                            <rect key="frame" x="0.0" y="28" width="367" height="53"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SNA-ba-X91" id="ZAo-UT-Xnq">
+                                                                <rect key="frame" x="0.0" y="0.0" width="328" height="52.5"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                            </tableViewCellContentView>
+                                                        </tableViewCell>
+                                                    </prototypes>
+                                                </tableView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="OQD-Xt-yMi" secondAttribute="trailing" id="SRa-53-ZCZ"/>
+                                                <constraint firstAttribute="bottom" secondItem="OQD-Xt-yMi" secondAttribute="bottom" constant="-0.5" id="Smp-go-v7P"/>
+                                                <constraint firstItem="OQD-Xt-yMi" firstAttribute="leading" secondItem="qpc-RE-MhG" secondAttribute="leading" constant="8" id="qkf-9P-JsH"/>
+                                                <constraint firstItem="OQD-Xt-yMi" firstAttribute="top" secondItem="qpc-RE-MhG" secondAttribute="top" id="vmz-Fp-fxN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection headerTitle="Color Selector" id="RYf-sZ-Zqi">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="75" id="PdQ-gu-sje">
-                                        <rect key="frame" x="0.0" y="464.5" width="375" height="75"/>
+                                        <rect key="frame" x="0.0" y="680.5" width="375" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PdQ-gu-sje" id="dYa-Oz-9B1">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
@@ -1835,40 +1869,6 @@
                                                 <constraint firstAttribute="bottom" secondItem="bnE-zV-wgH" secondAttribute="bottom" id="8xt-8O-QkY"/>
                                                 <constraint firstItem="bnE-zV-wgH" firstAttribute="top" secondItem="dYa-Oz-9B1" secondAttribute="top" id="CK9-2L-vSp"/>
                                                 <constraint firstItem="bnE-zV-wgH" firstAttribute="leading" secondItem="dYa-Oz-9B1" secondAttribute="leading" id="kss-kD-R7L"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="Quarters" id="Gqs-aJ-vQB">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="160" id="eL5-jo-teK">
-                                        <rect key="frame" x="0.0" y="595.5" width="375" height="160"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eL5-jo-teK" id="qpc-RE-MhG">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="159.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="53" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OQD-Xt-yMi" customClass="QuarterTable" customModule="staplesgotclass" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="0.0" width="367" height="160"/>
-                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <prototypes>
-                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="quarterCell" rowHeight="53" id="SNA-ba-X91">
-                                                            <rect key="frame" x="0.0" y="28" width="367" height="53"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SNA-ba-X91" id="ZAo-UT-Xnq">
-                                                                <rect key="frame" x="0.0" y="0.0" width="328" height="52.5"/>
-                                                                <autoresizingMask key="autoresizingMask"/>
-                                                            </tableViewCellContentView>
-                                                        </tableViewCell>
-                                                    </prototypes>
-                                                </tableView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="OQD-Xt-yMi" secondAttribute="trailing" id="SRa-53-ZCZ"/>
-                                                <constraint firstAttribute="bottom" secondItem="OQD-Xt-yMi" secondAttribute="bottom" constant="-0.5" id="Smp-go-v7P"/>
-                                                <constraint firstItem="OQD-Xt-yMi" firstAttribute="leading" secondItem="qpc-RE-MhG" secondAttribute="leading" constant="8" id="qkf-9P-JsH"/>
-                                                <constraint firstItem="OQD-Xt-yMi" firstAttribute="top" secondItem="qpc-RE-MhG" secondAttribute="top" id="vmz-Fp-fxN"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
