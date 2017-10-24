@@ -14,7 +14,6 @@ target 'staplesgotclass' do
 	pod 'MLPAutoCompleteTextField'
   	pod 'HTMLEntities', :git => 'https://github.com/IBM-Swift/swift-html-entities.git'
 	pod ‘SWXMLHash’
-
 end
 
 post_install do |installer|

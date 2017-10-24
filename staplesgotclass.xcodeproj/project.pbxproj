@@ -13,6 +13,9 @@
 		363D4FD71F6C409000AB2D59 /* SportingEventVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363D4FD61F6C409000AB2D59 /* SportingEventVC.swift */; };
 		366433701F7D19C400DF2720 /* ColorTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3664336F1F7D19C400DF2720 /* ColorTable.swift */; };
 		36B3D11A1F7AA548004D9462 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B3D1191F7AA548004D9462 /* ColorCell.swift */; };
+		36BDB98D1F9FB9D80093E352 /* footballFilled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 360EF3821F756C500016037D /* footballFilled@2x.png */; };
+		36BDB98E1F9FB9FD0093E352 /* football@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 360EF3831F756C510016037D /* football@2x.png */; };
+		36BDB98F1F9FBA010093E352 /* football.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E0DF6671F80902900EE77C1 /* football.png */; };
 		36FBEC051F616EE3002C7527 /* SportsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FBEC041F616EE3002C7527 /* SportsManager.swift */; };
 		36FBEC071F61EE2E002C7527 /* SportingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FBEC061F61EE2E002C7527 /* SportingEvent.swift */; };
 		499531E21F607FB60022A4A3 /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499531E11F607FB60022A4A3 /* GameCell.swift */; };
@@ -157,8 +160,8 @@
 
 /* Begin PBXFileReference section */
 		360AD3081F6AE4BA00A851C6 /* footballFilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = footballFilled.png; sourceTree = "<group>"; };
-		360EF3821F756C500016037D /* footballFilled@x2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "footballFilled@x2.png"; sourceTree = "<group>"; };
-		360EF3831F756C510016037D /* football@x2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "football@x2.png"; sourceTree = "<group>"; };
+		360EF3821F756C500016037D /* footballFilled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "footballFilled@2x.png"; sourceTree = "<group>"; };
+		360EF3831F756C510016037D /* football@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "football@2x.png"; sourceTree = "<group>"; };
 		363C15FD1F72E6A70037B2CC /* SportsInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsInfoCell.swift; sourceTree = "<group>"; };
 		363D4FD61F6C409000AB2D59 /* SportingEventVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportingEventVC.swift; sourceTree = "<group>"; };
 		3664336F1F7D19C400DF2720 /* ColorTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTable.swift; sourceTree = "<group>"; };
@@ -331,9 +334,9 @@
 				77390BE51D7564E40095FD9E /* clockFilled@2x.png */,
 				7721B8121CF9574B008C1A76 /* coursesPic.png */,
 				3E0DF6671F80902900EE77C1 /* football.png */,
-				360EF3831F756C510016037D /* football@x2.png */,
+				360EF3831F756C510016037D /* football@2x.png */,
 				360AD3081F6AE4BA00A851C6 /* footballFilled.png */,
-				360EF3821F756C500016037D /* footballFilled@x2.png */,
+				360EF3821F756C500016037D /* footballFilled@2x.png */,
 				77DB56211CF2AD2D0014B002 /* defaultGooglePic.png */,
 				7746F38F1CF19314003E9D6A /* shs.jpg */,
 				773F5DF71CF6145600143C2D /* shs.png */,
@@ -666,9 +669,11 @@
 				778946681CFABFDA00C41F19 /* appIcon.png in Resources */,
 				771C2C8C1CFD21AD002C7A41 /* roundedAppIcon.png in Resources */,
 				771C2C901CFD3130002C7A41 /* safari.png in Resources */,
+				36BDB98F1F9FBA010093E352 /* football.png in Resources */,
 				77D54F7E1CECBEC600C11FA5 /* LaunchScreen.storyboard in Resources */,
 				FC2078EE1CFC110900D86F54 /* lock.png in Resources */,
 				7721B8131CF9574B008C1A76 /* coursesPic.png in Resources */,
+				36BDB98D1F9FB9D80093E352 /* footballFilled@2x.png in Resources */,
 				77D54F861CECBEE600C11FA5 /* GoogleService-Info.plist in Resources */,
 				77D54F7B1CECBEC600C11FA5 /* Assets.xcassets in Resources */,
 				77390BE71D7564E40095FD9E /* clock@2x.png in Resources */,
@@ -693,6 +698,7 @@
 				77DEF2A21CFBAD7800E94B57 /* blueAppIcon.png in Resources */,
 				77DB56221CF2AD2D0014B002 /* defaultGooglePic.png in Resources */,
 				7721B8221CF967AF008C1A76 /* usersFilled.png in Resources */,
+				36BDB98E1F9FB9FD0093E352 /* football@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
