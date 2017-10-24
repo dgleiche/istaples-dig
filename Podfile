@@ -4,16 +4,16 @@
 use_frameworks!
 
 target 'staplesgotclass' do
-	pod 'Google/Analytics'
-	pod 'Google/SignIn'
-	pod 'Alamofire'
-       	pod 'Parse'
-       	pod 'SDWebImage'
-  	pod 'RealmSwift'
-	pod 'KDCircularProgress'
-	pod 'MLPAutoCompleteTextField'
-  	pod 'HTMLEntities', :git => 'https://github.com/IBM-Swift/swift-html-entities.git'
-	pod 'SWXMLHash'
+    pod 'Google/Analytics'
+    pod 'Google/SignIn'
+    pod 'Alamofire'
+    pod 'Parse'
+    pod 'SDWebImage'
+    pod 'RealmSwift'
+    pod 'KDCircularProgress'
+    pod 'MLPAutoCompleteTextField'
+    pod 'HTMLEntities', :git => 'https://github.com/IBM-Swift/swift-html-entities.git'
+    pod 'SWXMLHash'
 
 end
 
