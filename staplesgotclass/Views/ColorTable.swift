@@ -12,17 +12,22 @@ let colors: [UIColor] = [UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0),//S
                         UIColor(red:0.32, green:0.55, blue:0.81, alpha:1.0), //Blue 3
                         UIColor(red:0.14, green:0.69, blue:0.66, alpha:1.0), //Turcois
                         UIColor(red:0.30, green:0.80, blue:0.13, alpha:1.0), //Sweet Green
+                        UIColor(red:0.31, green:0.64, blue:0.42, alpha:1.0), //Sweet Green
                         UIColor(red:0.11, green:0.37, blue:0.13, alpha:1.0), //Dark Green
                         UIColor(red:0.84, green:0.00, blue:0.00, alpha:1.0), //Red
                         UIColor(red:0.93, green:0.27, blue:0.29, alpha:1.0), //Red 2
-                        UIColor(red:1.00, green:0.27, blue:0.41, alpha:1.0), //Pink 1
+                        UIColor(red:0.91, green:0.59, blue:0.69, alpha:1.0), //Pedal Pink
                         UIColor(red:0.85, green:0.11, blue:0.38, alpha:1.0), //Pink dark
                         UIColor(red:0.69, green:0.43, blue:0.84, alpha:1.0), //Purple
                         UIColor(red:0.99, green:0.51, blue:0.12, alpha:1.0), //Orange
-                        UIColor(red:1.00, green:0.92, blue:0.23, alpha:1.0), //Yellow
+                        UIColor(red:0.96, green:0.82, blue:0.46, alpha:1.0), //Yellow
                         UIColor(red:0.95, green:0.71, blue:0.51, alpha:1.0), //Peach
+                        UIColor(red:0.64, green:0.45, blue:0.38, alpha:1.0), //brown
                         UIColor(red:0.36, green:0.36, blue:0.36, alpha:1.0)  //grey-black
                         ]
+    
+
+
 
 class ColorTable: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -72,10 +77,10 @@ class ColorTable: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "colorCell", for: indexPath) as! ColorCell
         // Configure the cell
-//        print("colorInt: \(currentClass?.colorInt)")
+        print("colorInt: \(indexPath.row)")
         
-        let defaultObject: String = String(describing: (defaults.object(forKey: "\(String(describing: currentClass?.periodNumber))") ?? "0"))
-        if (indexPath.row == Int(defaultObject)!){
+        let defaultObject: String = String(describing: (defaults.object(forKey: "\(String(describing: indexPath.row))") ?? "0"))
+        if (indexPath.row == selectedColor){
             cell.select()
             print("selected \(Int(defaultObject)!)");
         }
@@ -88,10 +93,10 @@ class ColorTable: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         cell.layer.shadowOpacity = 1
         cell.layer.shadowOffset = CGSize.zero
         cell.layer.shadowRadius = 4
-        
         return cell
     }
 
 
 
 }
+

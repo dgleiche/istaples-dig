@@ -46,7 +46,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-UltraLight", size: 15)!, NSForegroundColorAttributeName: UIColor.white]
         UIApplication.shared.statusBarStyle = .lightContent
-        
+        print(quarterTable)
         quarterTable.dataSource = quarterTable
         quarterTable.delegate = quarterTable
         quarterTable.currentClass = currentClass
@@ -88,6 +88,10 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
         let builder = GAIDictionaryBuilder.createScreenView()
         tracker?.send(builder?.build() as! [AnyHashable: Any])
         
+        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        collectionView.selectedColor =  Int(String(describing: (defaults.object(forKey:"\(periodPicker.selectedRow(inComponent: 0) + 1)") ?? "0")))!
     }
     
     func createAlert(_ title: String, alert: String) {
@@ -171,6 +175,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
                 var selectedQuartersText = ""
                 
                 for i in 0..<4 {
+                    print(quarterTable)
                     let selected: Bool = quarterTable.cellForRow(at: IndexPath(item: i, section: 0))!.accessoryType == UITableViewCellAccessoryType.checkmark
                     
                     if selected {
