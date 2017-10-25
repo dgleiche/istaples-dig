@@ -26,18 +26,19 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
     var gamesDictionaryV = [NSDate: [SportingEvent]]()
     var gamesDictionaryJV = [NSDate: [SportingEvent]]()
     var gamesDictionaryFR = [NSDate: [SportingEvent]]()
-
+    var gamesDictionaryAll = [NSDate: [SportingEvent]]()
     
     var gameNSDates = [NSDate]()
     var gameNSDatesV = [NSDate]()
     var gameNSDatesJV = [NSDate]()
     var gameNSDatesFR = [NSDate]()
-
+    var gameNSDatesAll = [NSDate]()
     
     var uniqueNSGameDates = [NSDate]()
     var uniqueNSGameDatesV = [NSDate]()
     var uniqueNSGameDatesJV = [NSDate]()
     var uniqueNSGameDatesFR = [NSDate]()
+    var uniqueNSGameDatesAll = [NSDate]()
 
     var updatedLast = Date()
     
@@ -113,16 +114,21 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         gameNSDatesV.removeAll()
         gameNSDatesJV.removeAll()
         gameNSDatesFR.removeAll()
+        gameNSDatesAll.removeAll()
+
         
         uniqueNSGameDates.removeAll()
         uniqueNSGameDatesV.removeAll()
         uniqueNSGameDatesJV.removeAll()
         uniqueNSGameDatesFR.removeAll()
-        
+        uniqueNSGameDatesAll.removeAll()
+
         gamesDictionary.removeAll()
         gamesDictionaryV.removeAll()
         gamesDictionaryJV.removeAll()
         gamesDictionaryFR.removeAll()
+        gamesDictionaryAll.removeAll()
+
     }
     
     func getGames(){
@@ -197,12 +203,18 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
                     //print("added \(String(describing: self.gamesDictionaryV[gameNSDate]))");
                     self.gameNSDatesFR.append(gameNSDate)
                 }
+                if (self.gamesDictionaryAll[gameNSDate]?.append(event)) == nil {
+                    self.gamesDictionaryAll[gameNSDate] = [event]
+                }
+                self.gameNSDatesAll.append(gameNSDate)
+
                 
             }
             self.gameNSDatesV = self.gameNSDatesV.removeDuplicates()
             self.gameNSDatesJV = self.gameNSDatesJV.removeDuplicates()
             self.gameNSDatesFR = self.gameNSDatesFR.removeDuplicates()
-            
+            self.gameNSDatesAll = self.gameNSDatesAll.removeDuplicates()
+
             self.tableView.reloadData()
             //print("GAME DATES: \(self.gameNSDatesV)");
             //print("UNIQUE GAME DATES: \(self.uniqueNSGameDatesV)");
@@ -224,6 +236,9 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
             uniqueNSGameDates = gameNSDatesFR
         case "JV":
             uniqueNSGameDates = gameNSDatesJV
+        case "All":
+            uniqueNSGameDates = gameNSDatesAll
+
         default:
             uniqueNSGameDates = gameNSDatesV
         }
@@ -244,6 +259,9 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         case "FR":
             uniqueNSGameDates = gameNSDatesFR
             gamesDictionary = gamesDictionaryFR
+        case "All":
+            uniqueNSGameDates = gameNSDatesAll
+            gamesDictionary = gamesDictionaryAll
 
         default:
             uniqueNSGameDates = gameNSDatesV
@@ -266,6 +284,9 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
             uniqueNSGameDates = gameNSDatesJV
         case "FR":
             uniqueNSGameDates = gameNSDatesFR
+        case "All":
+            uniqueNSGameDates = gameNSDatesAll
+
         default:
             uniqueNSGameDates = gameNSDatesV
         }
@@ -290,7 +311,7 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
 
         if (uniqueNSGameDates.count != 0 && gamesDictionary[uniqueNSGameDates[0]]?[0] != nil){
             var event = gamesDictionaryV[uniqueNSGameDates[0]]?[0] // just a place holder for no apparent reason because swift hates me, Don't remove
-        
+            var tag = ""
             switch gameLevel {
             case "V":
                 uniqueNSGameDates = gameNSDatesV
@@ -298,15 +319,29 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
             case "JV":
                 uniqueNSGameDates = gameNSDatesJV
                 event = gamesDictionaryJV[uniqueNSGameDates[indexPath.section]]?[indexPath.row]
+
             case "FR":
                 uniqueNSGameDates = gameNSDatesFR
                 event = gamesDictionaryFR[uniqueNSGameDates[indexPath.section]]?[indexPath.row]
-
+            case "All":
+                uniqueNSGameDates = gameNSDatesAll
+                event = gamesDictionaryAll[uniqueNSGameDates[indexPath.section]]?[indexPath.row]
+                switch event?.gameLevel {
+                case "V"?:
+                    tag = "Varsity "
+                case "JV"?:
+                    tag = "JV "
+                case "FR"?:
+                    tag = "Freshman "
+                default:
+                    tag = ""
+                }
             default:
                 uniqueNSGameDates = gameNSDatesV
             }
+           
             
-            cell.sport.text = event?.sport
+            cell.sport.text = tag + (event?.sport)!
             cell.time.text = "\(String(describing: event!.time))"
             cell.school.text = event?.school
             cell.school.font = UIFont(name: "HelveticaNeue-Medium", size: 12)
@@ -343,6 +378,10 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         if(levelSelector.selectedSegmentIndex == 2){
             self.gameLevel = "FR"
         }
+        if(levelSelector.selectedSegmentIndex == 3){
+            self.gameLevel = "All"
+        }
+        
         self.tableView.reloadData()
     }
     
@@ -403,7 +442,9 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
                 case "FR":
                     uniqueNSGameDates = gameNSDatesFR
                     indexEvent = gamesDictionaryFR[uniqueNSGameDates[selectedIndexPath![0]]]?[selectedIndexPath![1]]
-
+                case "All":
+                    uniqueNSGameDates = gameNSDatesAll
+                    indexEvent = gamesDictionaryAll[uniqueNSGameDates[selectedIndexPath![0]]]?[selectedIndexPath![1]]
                 default:
                     uniqueNSGameDates = gameNSDatesV
                 }
