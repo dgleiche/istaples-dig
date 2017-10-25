@@ -58,7 +58,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
         collectionView.isScrollEnabled = true
         collectionView.allowsSelection = true
         collectionView.allowsMultipleSelection = false
-        
+        collectionView.isPrefetchingEnabled = true
         
         classTextField.autoCompleteDataSource = self
         classTextField.autoCompleteTableAppearsAsKeyboardAccessory = true
@@ -80,6 +80,7 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
             teacherTextField.text = curClass.teacherName
             print("cur teacher: \(curClass.teacherName)")
             periodPicker.selectRow(curClass.periodNumber - 1, inComponent: 0, animated: false)
+            
         }
         else {
             self.navigationItem.title = "NEW PERIOD"
@@ -88,10 +89,15 @@ class EditPeriodVC: UITableViewController, UIPickerViewDataSource, UIPickerViewD
         let builder = GAIDictionaryBuilder.createScreenView()
         tracker?.send(builder?.build() as! [AnyHashable: Any])
         
-        
     }
     override func viewDidAppear(_ animated: Bool) {
-        collectionView.selectedColor =  Int(String(describing: (defaults.object(forKey:"\(periodPicker.selectedRow(inComponent: 0) + 1)") ?? "0")))!
+        let indexPath = IndexPath(row: (Int(String(describing: (defaults.object(forKey:"\(periodPicker.selectedRow(inComponent: 0) + 1)") ?? "0")))!), section: 0)
+        self.collectionView.reloadData()
+        collectionView.selectedColor =  indexPath.row
+        //collectionView.scrollToItem(at: indexPath, at: [.centeredHorizontally,.centeredVertically], animated: false)
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+
+
     }
     
     func createAlert(_ title: String, alert: String) {

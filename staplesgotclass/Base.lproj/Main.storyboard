@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -712,12 +712,12 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="heI-cw-183" secondAttribute="bottom" id="4PR-wz-vft"/>
                             <constraint firstItem="heI-cw-183" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4nS-2L-FeO"/>
                             <constraint firstItem="heI-cw-183" firstAttribute="top" secondItem="wuZ-BT-lcl" secondAttribute="bottom" constant="15" id="BW1-bY-T5g"/>
                             <constraint firstItem="wuZ-BT-lcl" firstAttribute="centerX" secondItem="K5T-yT-7zA" secondAttribute="centerX" id="I4A-1k-VBM"/>
                             <constraint firstItem="K5T-yT-7zA" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="RTX-mf-URn"/>
                             <constraint firstItem="heI-cw-183" firstAttribute="top" secondItem="K5T-yT-7zA" secondAttribute="bottom" constant="-48" id="Xt3-Qd-0I5"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="heI-cw-183" secondAttribute="bottom" id="b0c-vz-qRh"/>
                             <constraint firstAttribute="trailing" secondItem="K5T-yT-7zA" secondAttribute="trailing" id="khw-dG-gCf"/>
                             <constraint firstItem="K5T-yT-7zA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="nEL-17-cZP"/>
                         </constraints>
@@ -731,7 +731,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="735" y="3044"/>
+            <point key="canvasLocation" x="734" y="3045"/>
         </scene>
         <!--Sports View Controller-->
         <scene sceneID="BlO-EF-b1f">
@@ -1838,14 +1838,14 @@
                                                     </collectionViewFlowLayout>
                                                     <cells>
                                                         <collectionViewCell opaque="NO" clipsSubviews="YES" contentMode="center" reuseIdentifier="colorCell" id="riq-y7-p55" customClass="ColorCell" customModule="staplesgotclass" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="8" width="61" height="59"/>
+                                                            <rect key="frame" x="0.0" y="7.5" width="60" height="60"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                                <rect key="frame" x="0.0" y="0.0" width="61" height="59"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VZA-8E-DKh">
-                                                                        <rect key="frame" x="3" y="3" width="55" height="53"/>
+                                                                        <rect key="frame" x="3" y="3" width="55" height="55"/>
                                                                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     </view>
                                                                 </subviews>
@@ -1857,6 +1857,7 @@
                                                                 <constraint firstItem="VZA-8E-DKh" firstAttribute="centerX" secondItem="riq-y7-p55" secondAttribute="centerX" id="K4N-af-4vi"/>
                                                                 <constraint firstItem="VZA-8E-DKh" firstAttribute="top" secondItem="riq-y7-p55" secondAttribute="top" constant="3" id="S8s-Kd-19l"/>
                                                             </constraints>
+                                                            <size key="customSize" width="60" height="60"/>
                                                             <connections>
                                                                 <outlet property="innerCircle" destination="VZA-8E-DKh" id="ekD-J4-PZt"/>
                                                             </connections>
@@ -1918,13 +1919,13 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Last" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1u7-p8-aNJ">
-                                    <rect key="frame" x="16" y="20" width="343" height="22"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="42"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                     <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Marking Periods: 1, 2, 3, 4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ymi-AR-AAJ">
-                                    <rect key="frame" x="16" y="41" width="343" height="21"/>
+                                    <rect key="frame" x="0.0" y="41" width="375" height="21"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>

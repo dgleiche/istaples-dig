@@ -68,6 +68,7 @@ class ColorTable: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             customCell.unselect()
         }
     }
+
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 35, height: 35);
@@ -93,6 +94,7 @@ class ColorTable: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         cell.layer.shadowOpacity = 1
         cell.layer.shadowOffset = CGSize.zero
         cell.layer.shadowRadius = 4
+        cell.layoutIfNeeded()
         return cell
     }
 
