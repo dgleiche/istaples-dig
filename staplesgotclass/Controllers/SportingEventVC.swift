@@ -66,7 +66,7 @@ class SportingEventVC: UITableViewController {
             self.information.append(self.currentEvent!.gameType)
 
             self.headers.append("Season")
-            self.information.append(self.currentEvent!.season)
+            self.information.append(self.currentEvent!.season.capitalized)
 
             var opponentName = self.currentEvent!.opponent.components(separatedBy: " ")
             opponentName.append("Staples")

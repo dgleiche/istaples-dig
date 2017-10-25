@@ -199,7 +199,6 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
                 }
                 
             }
-            print("I AM BELOW THE TABLE VIEW REFRESH")
             self.gameNSDatesV = self.gameNSDatesV.removeDuplicates()
             self.gameNSDatesJV = self.gameNSDatesJV.removeDuplicates()
             self.gameNSDatesFR = self.gameNSDatesFR.removeDuplicates()
