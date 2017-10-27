@@ -31,7 +31,7 @@
                 <pageViewController storyboardIdentifier="LoginPageVC" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Hii-j3-ccU" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qhC-Yg-eFw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="735" y="2394"/>
+            <point key="canvasLocation" x="734" y="2430"/>
         </scene>
         <!--Page ContentVC-->
         <scene sceneID="1B5-ve-AdI">
@@ -1192,6 +1192,11 @@
                                 <constraint firstItem="tfk-At-ucG" firstAttribute="top" secondItem="DZG-Sb-9mr" secondAttribute="top" id="okj-ok-kHr"/>
                                 <constraint firstItem="OId-rE-rPz" firstAttribute="top" secondItem="3J2-Bb-Rj3" secondAttribute="bottom" constant="-18" id="p9z-cb-2gv"/>
                             </constraints>
+                        </view>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="B2A-fV-aKZ">
+                            <rect key="frame" x="0.0" y="324.5" width="375" height="42"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="scheduleCell" rowHeight="63" id="GQm-hr-vAR" customClass="ClassCell" customModule="staplesgotclass" customModuleProvider="target">

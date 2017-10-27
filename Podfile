@@ -14,6 +14,7 @@ target 'staplesgotclass' do
     pod 'MLPAutoCompleteTextField'
     pod 'HTMLEntities', :git => 'https://github.com/IBM-Swift/swift-html-entities.git'
     pod 'SWXMLHash'
+    pod 'Google-Mobile-Ads-SDK'
 
 end
 

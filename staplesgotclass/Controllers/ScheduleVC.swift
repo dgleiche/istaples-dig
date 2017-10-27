@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import KDCircularProgress
+import GoogleMobileAds
 
 
 let sweetBlue = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
@@ -41,7 +42,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 //Load Schedule from CSV, Split it by day, Take day (String) and hash schedule value by day,
 
 
-class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignInDelegate {
+class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignInDelegate, GADBannerViewDelegate {
     
     @IBOutlet var timeLeftRing: KDCircularProgress!
     @IBOutlet var timeElapsedRing: KDCircularProgress!
@@ -73,6 +74,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     var lastUpdateAttempt = Date()
     
+    var bannerView: GADBannerView! //Ads
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -145,6 +148,22 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         print("view did load setup")
         self.hidePeriodStatusBar(withDuration: 0)
         DailyScheduleManager.setup(self)
+        
+        //ads code:
+        //App ID: ca-app-pub-6421137549100021~7706337193
+        //Ad unit ID: ca-app-pub-6421137549100021/7517677074 //Name: adBanner
+        
+        bannerView =  GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        
+        addBannerViewToView(bannerView)
+        //bannerView.adUnitID = "ca-app-pub-6421137549100021/7517677074" // real one
+                bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716" // Test one
+        //request.testDevices = @[ kGADSimulatorID ]
+        let request = GADRequest()
+        request.testDevices = [ kGADSimulatorID ];
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+        bannerView.delegate = self
         
         
     }
@@ -958,6 +977,35 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         GIDSignIn.sharedInstance().signOut()
         let loginPage = self.storyboard?.instantiateViewController(withIdentifier: "loginVC") as! LoginVC
         UIApplication.topViewController()?.present(loginPage, animated: true, completion: nil)
+    }
+    
+    
+    
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
+    }
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        bannerView.alpha = 0
+        UIView.animate(withDuration: 1, animations: {
+            bannerView.alpha = 1
+        })
     }
     
     
