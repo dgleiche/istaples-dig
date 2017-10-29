@@ -821,6 +821,7 @@
                                     <outlet property="school" destination="OnJ-wu-g1J" id="Brb-sv-9UD"/>
                                     <outlet property="sport" destination="re3-0B-hAf" id="aEm-6e-pDK"/>
                                     <outlet property="time" destination="21v-2c-g5V" id="eQp-wW-zBO"/>
+                                    <segue destination="psZ-j5-qY5" kind="show" identifier="showEvent" id="4FA-wb-6Uo"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -2632,7 +2633,7 @@
         <segue reference="Fa7-BJ-f92"/>
         <segue reference="uxm-2y-bLg"/>
         <segue reference="ub8-Te-EcC"/>
-        <segue reference="u1Y-OQ-oo7"/>
+        <segue reference="Wk5-fx-GIZ"/>
         <segue reference="X5m-eg-DKD"/>
     </inferredMetricsTieBreakers>
 </document>
