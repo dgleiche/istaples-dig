@@ -11,23 +11,33 @@ import Alamofire
 import SWXMLHash
 
 
-class SportsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchControllerDelegate {
+class SportsViewController: UITableViewController, UISearchBarDelegate, UISearchControllerDelegate {
 
 
     @IBOutlet var activitySpinner: UIActivityIndicatorView!
-    @IBOutlet weak var tableView: UITableView!
-    var refreshControl: UIRefreshControl!
-    
+    //var refreshControl: UIRefreshControl!
+    let searchController = UISearchController(searchResultsController: nil)
+    var noResultsView: UIView!
+
     
     let sweetBlue = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
     let sweetGreen = UIColor(red:0.3, green:0.8, blue:0.13, alpha:1.0)
-
+    
+    var allGames = [SportingEvent]()
+    var allGamesV = [SportingEvent]()
+    var allGamesJV = [SportingEvent]()
+    var allGamesFR = [SportingEvent]()
+    var filteredGames = [SportingEvent]()
+    var convertedFilteredGames = [NSDate: [SportingEvent]]()
+    var filteredUniqueDates = [NSDate]()
+    
     var gamesDictionary = [NSDate: [SportingEvent]]()
     var gamesDictionaryV = [NSDate: [SportingEvent]]()
     var gamesDictionaryJV = [NSDate: [SportingEvent]]()
     var gamesDictionaryFR = [NSDate: [SportingEvent]]()
     var gamesDictionaryAll = [NSDate: [SportingEvent]]()
-    
+    var filteredGamesDictionary = [NSDate: [SportingEvent]]()
+
     var gameNSDates = [NSDate]()
     var gameNSDatesV = [NSDate]()
     var gameNSDatesJV = [NSDate]()
@@ -41,17 +51,13 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
     var uniqueNSGameDatesAll = [NSDate]()
 
     var updatedLast = Date()
-    
 
     var gameLevel = "V"
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
-        
-
         
         self.navigationController?.navigationBar.barTintColor = self.sweetBlue
         self.navigationController?.navigationBar.isTranslucent = false
@@ -60,6 +66,39 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         UIApplication.shared.statusBarStyle = .lightContent
         self.navigationItem.title = "SPORTS SCHEDULE"
 
+        
+        //Search Stuff
+        searchController.searchResultsUpdater = self as? UISearchResultsUpdating
+        searchController.searchBar.delegate = self
+        searchController.delegate = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        tableView.tableHeaderView?.addSubview(searchController.searchBar)
+        
+        noResultsView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.width))
+        noResultsView.backgroundColor = UIColor.clear
+        
+        let noResultsLabel = UILabel(frame: noResultsView.frame)
+        noResultsLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
+        noResultsLabel.numberOfLines = 1
+        noResultsLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        noResultsLabel.shadowColor = UIColor.lightText
+        noResultsLabel.textColor = UIColor.darkGray
+        noResultsLabel.shadowOffset = CGSize(width: 0, height: 1)
+        noResultsLabel.backgroundColor = UIColor.clear
+        noResultsLabel.textAlignment = NSTextAlignment.center
+        
+        noResultsLabel.text = "No Results"
+        
+
+        noResultsView.isHidden = true
+        noResultsView.addSubview(noResultsLabel)
+        
+        
+        self.tableView.insertSubview(noResultsView, belowSubview: self.tableView)
+
+        
+        
         let currentDate = NSDate()
         let dateFormatter = DateFormatter()
         
@@ -73,11 +112,11 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
 
         refreshControl = UIRefreshControl()
         
-        refreshControl.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
-        tableView.addSubview(refreshControl)
+        refreshControl?.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
+        tableView.addSubview(refreshControl!)
         print("GOT TO REFRESH 2!")
-        refreshControl.backgroundColor = UIColor.white
-        refreshControl.tintColor = UIColor.darkGray
+        refreshControl?.backgroundColor = UIColor.white
+        refreshControl?.tintColor = UIColor.darkGray
 
         self.tableView.reloadData()
 
@@ -103,13 +142,22 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         ]
         let attributedTitle: NSAttributedString = NSAttributedString(string: "Last update: \(dateFormatter.string(from: updatedLast))", attributes: attrsDictionary)
         
-        refreshControl.attributedTitle = attributedTitle
+        refreshControl?.attributedTitle = attributedTitle
 
         
         self.tableView.reloadData()
         self.refreshControl?.endRefreshing()
     }
     func removeAll(){
+        
+        allGames.removeAll()
+        allGamesV.removeAll()
+        allGamesJV.removeAll()
+        allGamesFR.removeAll()
+        filteredGames.removeAll()
+        convertedFilteredGames.removeAll()
+        filteredUniqueDates.removeAll()
+        
         gameNSDates.removeAll()
         gameNSDatesV.removeAll()
         gameNSDatesJV.removeAll()
@@ -186,6 +234,7 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
                     //print("new game: \(event.sport)")
                     //print("added \(String(describing: self.gamesDictionaryV[gameNSDate]))");
                     self.gameNSDatesV.append(gameNSDate)
+                    self.allGamesV.append(event)
                 }
                 if level == "JV" {
                     if (self.gamesDictionaryJV[gameNSDate]?.append(event)) == nil {
@@ -194,6 +243,7 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
                     //print("new game: \(event.sport)")
                     //print("added \(String(describing: self.gamesDictionaryV[gameNSDate]))");
                     self.gameNSDatesJV.append(gameNSDate)
+                    self.allGamesJV.append(event)
                 }
                 if level == "FR" {
                     if (self.gamesDictionaryFR[gameNSDate]?.append(event)) == nil {
@@ -202,11 +252,15 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
                     //print("new game: \(event.sport)")
                     //print("added \(String(describing: self.gamesDictionaryV[gameNSDate]))");
                     self.gameNSDatesFR.append(gameNSDate)
+                    self.allGamesFR.append(event)
+
                 }
                 if (self.gamesDictionaryAll[gameNSDate]?.append(event)) == nil {
                     self.gamesDictionaryAll[gameNSDate] = [event]
                 }
                 self.gameNSDatesAll.append(gameNSDate)
+                self.allGames.append(event)
+                
 
                 
             }
@@ -228,45 +282,65 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func numberOfSections(in tableView: UITableView) -> Int {
-        switch gameLevel {
-        case "V":
-            uniqueNSGameDates = gameNSDatesV
-        case "FR":
-            uniqueNSGameDates = gameNSDatesFR
-        case "JV":
-            uniqueNSGameDates = gameNSDatesJV
-        case "All":
-            uniqueNSGameDates = gameNSDatesAll
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        if searchController.isActive && searchController.searchBar.text != "" {
+            uniqueNSGameDates = filteredUniqueDates
+            print("number of sections: \(filteredUniqueDates)")
+        }else{
+            switch gameLevel {
+            case "V":
+                uniqueNSGameDates = gameNSDatesV
+            case "FR":
+                uniqueNSGameDates = gameNSDatesFR
+            case "JV":
+                uniqueNSGameDates = gameNSDatesJV
+            case "All":
+                uniqueNSGameDates = gameNSDatesAll
 
-        default:
-            uniqueNSGameDates = gameNSDatesV
+            default:
+                uniqueNSGameDates = gameNSDatesV
+            }
         }
         //print("There are \(uniqueNSGameDates.count) Section")
         return uniqueNSGameDates.count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch gameLevel {
-        case "V":
-            uniqueNSGameDates = gameNSDatesV
-            gamesDictionary = gamesDictionaryV
-        case "JV":
-            uniqueNSGameDates = gameNSDatesJV
-            gamesDictionary = gamesDictionaryJV
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if searchController.isActive && searchController.searchBar.text != "" {
+            if (filteredGames.count == 0){
+                noResultsView.isHidden = false
+                
+            }else{
+                noResultsView.isHidden = true
+            }
+           return (self.convertedFilteredGames[filteredUniqueDates[section]]?.count ?? Int())
+            
+        }else{
+            if (noResultsView != nil) {
+                noResultsView.isHidden = true
+            }
+            switch gameLevel {
+            case "V":
+                uniqueNSGameDates = gameNSDatesV
+                gamesDictionary = gamesDictionaryV
+            case "JV":
+                uniqueNSGameDates = gameNSDatesJV
+                gamesDictionary = gamesDictionaryJV
 
 
-        case "FR":
-            uniqueNSGameDates = gameNSDatesFR
-            gamesDictionary = gamesDictionaryFR
-        case "All":
-            uniqueNSGameDates = gameNSDatesAll
-            gamesDictionary = gamesDictionaryAll
+            case "FR":
+                uniqueNSGameDates = gameNSDatesFR
+                gamesDictionary = gamesDictionaryFR
+            case "All":
+                uniqueNSGameDates = gameNSDatesAll
+                gamesDictionary = gamesDictionaryAll
 
-        default:
-            uniqueNSGameDates = gameNSDatesV
-            gamesDictionary = gamesDictionaryV
+            default:
+                uniqueNSGameDates = gameNSDatesV
+                gamesDictionary = gamesDictionaryV
 
+            }
         }
         //print("Section Number: \(section). Section Name: \(uniqueNSGameDates[section]) and rows in section: \(self.gamesDictionaryV[uniqueNSGameDatesV[section]]?.count ?? Int())")
         return (self.gamesDictionary[uniqueNSGameDates[section]]?.count ?? Int())
@@ -274,83 +348,131 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
 //
-     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         if (uniqueNSGameDates.count != 0 && gamesDictionary[uniqueNSGameDates[0]]?[0] != nil){
-        switch gameLevel {
-        case "V":
-            uniqueNSGameDates = gameNSDatesV
-        case "JV":
-            uniqueNSGameDates = gameNSDatesJV
-        case "FR":
-            uniqueNSGameDates = gameNSDatesFR
-        case "All":
-            uniqueNSGameDates = gameNSDatesAll
+            
+            if searchController.isActive && searchController.searchBar.text != "" {
+                uniqueNSGameDates = filteredUniqueDates
+            }else{
+                switch gameLevel {
+                case "V":
+                    uniqueNSGameDates = gameNSDatesV
+                case "JV":
+                    uniqueNSGameDates = gameNSDatesJV
+                case "FR":
+                    uniqueNSGameDates = gameNSDatesFR
+                case "All":
+                    uniqueNSGameDates = gameNSDatesAll
+                default:
+                    uniqueNSGameDates = gameNSDatesV
+                }
+            }
+            
+            let gameDate = uniqueNSGameDates[section].toString(dateFormat: "yyyy-MM-dd")
+            let index = gameDate.index(gameDate.startIndex, offsetBy: 8)
+            let day = gameDate.substring(from: index)
+            let dateArray : [String] = gameDate.components(separatedBy: "-")
+            let monthName = DateFormatter().monthSymbols[Int(dateArray[1])! - 1]
 
-        default:
-            uniqueNSGameDates = gameNSDatesV
-        }
-        
-        let gameDate = uniqueNSGameDates[section].toString(dateFormat: "yyyy-MM-dd")
-        let index = gameDate.index(gameDate.startIndex, offsetBy: 8)
-        let day = gameDate.substring(from: index)
-        let dateArray : [String] = gameDate.components(separatedBy: "-")
-        let monthName = DateFormatter().monthSymbols[Int(dateArray[1])! - 1]
-
-        let gameDate1 = convertDaytoWeekday(date: uniqueNSGameDates[section]) + ", " + monthName + " " + day
-        return gameDate1
+            let gameDate1 = convertDaytoWeekday(date: uniqueNSGameDates[section]) + ", " + monthName + " " + day
+            return gameDate1
         }
         return ""
     }
     
 
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SportsCell
         self.tableView.rowHeight = 73.0
+        var tag = ""
+        var event: SportingEvent = allGames[0]
+        if searchController.isActive && searchController.searchBar.text != "" {
 
-        if (uniqueNSGameDates.count != 0 && gamesDictionary[uniqueNSGameDates[0]]?[0] != nil){
-            var event = gamesDictionaryV[uniqueNSGameDates[0]]?[0] // just a place holder for no apparent reason because swift hates me, Don't remove
-            var tag = ""
-            switch gameLevel {
-            case "V":
-                uniqueNSGameDates = gameNSDatesV
-                event = gamesDictionaryV[uniqueNSGameDates[indexPath.section]]?[indexPath.row]
-            case "JV":
-                uniqueNSGameDates = gameNSDatesJV
-                event = gamesDictionaryJV[uniqueNSGameDates[indexPath.section]]?[indexPath.row]
-
-            case "FR":
-                uniqueNSGameDates = gameNSDatesFR
-                event = gamesDictionaryFR[uniqueNSGameDates[indexPath.section]]?[indexPath.row]
-            case "All":
-                uniqueNSGameDates = gameNSDatesAll
-                event = gamesDictionaryAll[uniqueNSGameDates[indexPath.section]]?[indexPath.row]
-                switch event?.gameLevel {
-                case "V"?:
-                    tag = "Varsity "
-                case "JV"?:
-                    tag = "JV "
-                case "FR"?:
-                    tag = "Freshman "
-                default:
-                    tag = ""
+            if (filteredUniqueDates.count != 0 && convertedFilteredGames[filteredUniqueDates[0]]?[0] != nil){
+                uniqueNSGameDates = filteredUniqueDates
+                event = (convertedFilteredGames[filteredUniqueDates[indexPath.section]]?[indexPath.row])!
+                
+                if gameLevel == "All"{
+                    switch event.gameLevel {
+                    case "V":
+                        tag = "Varsity "
+                    case "JV":
+                        tag = "JV "
+                    case "FR":
+                        tag = "Freshman "
+                    default:
+                        tag = ""
+                    }
                 }
-            default:
-                uniqueNSGameDates = gameNSDatesV
+                
+                
+                cell.sport.text = tag + (event.sport)
+                cell.time.text = "\(String(describing: event.time))"
+                cell.school.text = event.school
+                cell.school.font = UIFont(name: "HelveticaNeue-Medium", size: 12)
+                
+                cell.home.font = UIFont(name: "HelveticaNeue", size: 35)
+                cell.time.font = UIFont(name: "HelveticaNeue", size: 17)
+                //print(gameDates[indexPath.row])
+                
+                if event.home == "Home" {
+                    cell.home.text = "H"
+                    cell.home.textColor = self.sweetBlue //Classic iStaples Blue
+                    //            cell.home.font = UIFont(name: "HelveticaNeue", size: 16)
+                    
+                } else {
+                    cell.home.text = "A"
+                    cell.home.textColor = self.sweetGreen
+                    
+                }
+                return cell
             }
+
+        } else{
+            if (uniqueNSGameDates.count != 0 && gamesDictionary[uniqueNSGameDates[0]]?[0] != nil){
+                //event = (gamesDictionaryV[uniqueNSGameDates[0]]?[0])! // just a place holder for no apparent reason because swift hates me, Don't remove
+                switch gameLevel {
+                case "V":
+                    uniqueNSGameDates = gameNSDatesV
+                    event = (gamesDictionaryV[uniqueNSGameDates[indexPath.section]]?[indexPath.row])!
+                case "JV":
+                    uniqueNSGameDates = gameNSDatesJV
+                    event = (gamesDictionaryJV[uniqueNSGameDates[indexPath.section]]?[indexPath.row])!
+
+                case "FR":
+                    uniqueNSGameDates = gameNSDatesFR
+                    event = (gamesDictionaryFR[uniqueNSGameDates[indexPath.section]]?[indexPath.row])!
+                case "All":
+                    uniqueNSGameDates = gameNSDatesAll
+                    event = (gamesDictionaryAll[uniqueNSGameDates[indexPath.section]]?[indexPath.row])!
+                    switch event.gameLevel {
+                    case "V":
+                        tag = "Varsity "
+                    case "JV":
+                        tag = "JV "
+                    case "FR":
+                        tag = "Freshman "
+                    default:
+                        tag = ""
+                    }
+                default:
+                    uniqueNSGameDates = gameNSDatesV
+                }
            
+            }
             
-            cell.sport.text = tag + (event?.sport)!
-            cell.time.text = "\(String(describing: event!.time))"
-            cell.school.text = event?.school
+            cell.sport.text = tag + (event.sport)
+            cell.time.text = "\(String(describing: event.time))"
+            cell.school.text = event.school
             cell.school.font = UIFont(name: "HelveticaNeue-Medium", size: 12)
             
             cell.home.font = UIFont(name: "HelveticaNeue", size: 35)
             cell.time.font = UIFont(name: "HelveticaNeue", size: 17)
             //print(gameDates[indexPath.row])
             
-            if event?.home == "Home" {
+            if event.home == "Home" {
                 cell.home.text = "H"
                 cell.home.textColor = self.sweetBlue //Classic iStaples Blue
                 //            cell.home.font = UIFont(name: "HelveticaNeue", size: 16)
@@ -422,6 +544,51 @@ class SportsViewController: UIViewController, UITableViewDataSource, UITableView
         }
         return buffer
     }
+    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+        filteredGames.removeAll()
+        convertedFilteredGames.removeAll()
+        filteredUniqueDates.removeAll()
+        print("Filtering")
+        switch gameLevel {
+        case "V":
+            filteredGames = allGamesV.filter { game in
+                return game.sport.lowercased().contains(searchText.lowercased())
+            }
+        case "JV":
+            filteredGames = allGamesJV.filter { game in
+                return game.sport.lowercased().contains(searchText.lowercased())
+            }
+        case "FR":
+            filteredGames = allGamesFR.filter { game in
+                return game.sport.lowercased().contains(searchText.lowercased())
+            }
+        case "All":
+            filteredGames = allGames.filter { game in
+                return game.sport.lowercased().contains(searchText.lowercased())
+            }
+            
+        default:
+            filteredGames = allGames.filter { game in
+                return game.sport.lowercased().contains(searchText.lowercased())
+            }
+        }
+        print(filteredGames.count)
+
+        for event in filteredGames {
+            if (self.convertedFilteredGames[event.gameNSDate]?.append(event)) == nil {
+                self.convertedFilteredGames[event.gameNSDate] = [event]
+            }
+            self.filteredUniqueDates.append(event.gameNSDate)
+            print(event.sport)
+        }
+        self.filteredUniqueDates = self.filteredUniqueDates.removeDuplicates()
+        
+        print("unique Dates: \(filteredUniqueDates)")
+        print("unique Events: \(convertedFilteredGames)")
+        
+        print("Done Filtering")
+        tableView.reloadData()
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "showEvent") {
@@ -491,3 +658,8 @@ extension Array where Element:Equatable {
     }
 }
 
+extension SportsViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
+}

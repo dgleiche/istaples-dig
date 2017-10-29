@@ -345,7 +345,6 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
               return user.name.lowercased().contains(searchText.lowercased())
           }
         }
-        
         tableView.reloadData()
     }
     
