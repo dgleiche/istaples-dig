@@ -613,7 +613,7 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
         
         print("Done Filtering")
         tableView.reloadData()
-        bannerView.superview?.bringSubview(toFront: bannerView)
+        //bannerView.superview?.bringSubview(toFront: bannerView)
 
     }
     
