@@ -737,121 +737,99 @@
         <scene sceneID="BlO-EF-b1f">
             <objects>
                 <viewController id="9LO-l2-gfO" customClass="SportsViewController" customModule="staplesgotclass" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Bwf-HB-vrZ"/>
-                        <viewControllerLayoutGuide type="bottom" id="mQK-5B-qhz"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Uf1-SX-Dxx">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="dUe-gm-UBi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rgY-9A-B6p" userLabel="LevelSelector">
-                                <rect key="frame" x="16" y="74" width="343" height="29"/>
-                                <segments>
-                                    <segment title="Varsity"/>
-                                    <segment title="JV"/>
-                                    <segment title="Freshman"/>
-                                    <segment title="All"/>
-                                </segments>
-                                <color key="tintColor" red="0.15674439072608948" green="0.37381660938262939" blue="0.73343563079833984" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <connections>
-                                    <action selector="levelSelector:" destination="9LO-l2-gfO" eventType="valueChanged" id="rtN-9p-AZg"/>
-                                </connections>
-                            </segmentedControl>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="56" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hfm-d9-R8s">
-                                <rect key="frame" x="0.0" y="110" width="375" height="508"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="56" id="pEY-XA-sib" customClass="SportsCell" customModule="staplesgotclass" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="56"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pEY-XA-sib" id="hvL-sA-ME8">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="H" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Stm-fi-5j6">
-                                                    <rect key="frame" x="8" y="9.5" width="26" height="41"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="35"/>
-                                                    <color key="textColor" red="0.15674439072608948" green="0.37381660938262939" blue="0.73343563079833984" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="School Address" textAlignment="right" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bH3-f3-cNx">
-                                                    <rect key="frame" x="125" y="-5.5" width="242" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="242" id="ag8-o8-HGO"/>
-                                                        <constraint firstAttribute="height" constant="25" id="c8Y-n9-woC"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
-                                                    <color key="textColor" red="0.29421618580818176" green="0.2942100465297699" blue="0.29421424865722656" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BXB-ri-0BG">
-                                                    <rect key="frame" x="289" y="19.5" width="78" height="23"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="19"/>
-                                                    <color key="textColor" red="0.18156249821186066" green="0.42604514956474304" blue="0.5373498797416687" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sport Name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SE6-LC-3Xw">
-                                                    <rect key="frame" x="48" y="20" width="187" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="187" id="ORT-JA-Dn1"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="BXB-ri-0BG" firstAttribute="trailing" secondItem="hvL-sA-ME8" secondAttribute="trailingMargin" id="3az-qa-Fxh"/>
-                                                <constraint firstItem="Stm-fi-5j6" firstAttribute="leading" secondItem="hvL-sA-ME8" secondAttribute="leadingMargin" id="6Q4-th-1Ky"/>
-                                                <constraint firstItem="BXB-ri-0BG" firstAttribute="centerY" secondItem="hvL-sA-ME8" secondAttribute="centerY" constant="3.25" id="AJI-YQ-Wae"/>
-                                                <constraint firstItem="bH3-f3-cNx" firstAttribute="trailing" secondItem="hvL-sA-ME8" secondAttribute="trailingMargin" id="HOW-1w-BUF"/>
-                                                <constraint firstItem="Stm-fi-5j6" firstAttribute="centerY" secondItem="hvL-sA-ME8" secondAttribute="centerY" constant="2.25" id="UWY-Sf-Bjv"/>
-                                                <constraint firstItem="BXB-ri-0BG" firstAttribute="top" secondItem="bH3-f3-cNx" secondAttribute="bottom" id="qZ5-J7-E8x"/>
-                                                <constraint firstItem="SE6-LC-3Xw" firstAttribute="leading" secondItem="Stm-fi-5j6" secondAttribute="trailing" constant="14" id="wJe-R3-6M0"/>
-                                                <constraint firstItem="SE6-LC-3Xw" firstAttribute="centerY" secondItem="hvL-sA-ME8" secondAttribute="centerY" constant="2.75" id="yom-Nt-aEH"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="home" destination="Stm-fi-5j6" id="NrG-1P-OmR"/>
-                                            <outlet property="school" destination="bH3-f3-cNx" id="wwQ-14-O9J"/>
-                                            <outlet property="sport" destination="SE6-LC-3Xw" id="80b-Bu-Ygh"/>
-                                            <outlet property="time" destination="BXB-ri-0BG" id="A3Q-Vk-H5i"/>
-                                            <segue destination="psZ-j5-qY5" kind="show" identifier="showEvent" id="yoW-E9-PXi"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <sections/>
-                            </tableView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cpD-YI-vlb">
-                                <rect key="frame" x="0.0" y="311" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="yyG-Zs-8fC">
-                                        <rect key="frame" x="177.5" y="12" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                            </view>
-                        </subviews>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="hfm-d9-R8s" secondAttribute="trailing" id="B8A-F5-6o1"/>
-                            <constraint firstItem="hfm-d9-R8s" firstAttribute="top" secondItem="rgY-9A-B6p" secondAttribute="bottom" constant="8" id="JkL-5H-one"/>
-                            <constraint firstItem="rgY-9A-B6p" firstAttribute="top" secondItem="Bwf-HB-vrZ" secondAttribute="bottom" constant="10" id="Pj9-CV-ADT"/>
-                            <constraint firstItem="mQK-5B-qhz" firstAttribute="top" secondItem="hfm-d9-R8s" secondAttribute="bottom" id="bjg-f6-fDJ"/>
-                            <constraint firstItem="rgY-9A-B6p" firstAttribute="leading" secondItem="Uf1-SX-Dxx" secondAttribute="leading" constant="16" id="dCU-al-1T3"/>
-                            <constraint firstAttribute="trailing" secondItem="rgY-9A-B6p" secondAttribute="trailing" constant="16" id="jJJ-0c-lT9"/>
-                            <constraint firstItem="hfm-d9-R8s" firstAttribute="leading" secondItem="Uf1-SX-Dxx" secondAttribute="leading" id="sXR-gB-Bex"/>
-                        </constraints>
-                    </view>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="7an-FY-YRr" userLabel="Selector View">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="118"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="e2w-6u-fnf">
+                                    <rect key="frame" x="8" y="67" width="359" height="29"/>
+                                    <segments>
+                                        <segment title="Varsity"/>
+                                        <segment title="JV"/>
+                                        <segment title="Freshman"/>
+                                        <segment title="All"/>
+                                    </segments>
+                                    <connections>
+                                        <action selector="levelSelector:" destination="9LO-l2-gfO" eventType="valueChanged" id="Gh3-nK-lLM"/>
+                                    </connections>
+                                </segmentedControl>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="e2w-6u-fnf" firstAttribute="top" secondItem="7an-FY-YRr" secondAttribute="top" constant="67" id="8YB-Uq-sBU"/>
+                                <constraint firstAttribute="trailing" secondItem="e2w-6u-fnf" secondAttribute="trailing" constant="8" id="d7b-Pa-zdN"/>
+                                <constraint firstItem="e2w-6u-fnf" firstAttribute="leading" secondItem="7an-FY-YRr" secondAttribute="leading" constant="8" id="zsx-Zd-qhG"/>
+                            </constraints>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="56" id="VQj-Q0-Bxb" customClass="SportsCell" customModule="staplesgotclass" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="146" width="375" height="56"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VQj-Q0-Bxb" id="m7j-ni-cPW">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="55.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="H" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vaO-su-LMU">
+                                            <rect key="frame" x="8" y="9.5" width="26" height="41"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="35"/>
+                                            <color key="textColor" red="0.15674439070000001" green="0.3738166094" blue="0.73343563079999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="School Address" textAlignment="right" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OnJ-wu-g1J">
+                                            <rect key="frame" x="125" y="-5.5" width="242" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="242" id="RZw-iX-3FC"/>
+                                                <constraint firstAttribute="height" constant="25" id="yBP-sW-pDo"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
+                                            <color key="textColor" red="0.29421618579999997" green="0.29421004649999999" blue="0.29421424870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="21v-2c-g5V">
+                                            <rect key="frame" x="289" y="19.5" width="78" height="23"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="19"/>
+                                            <color key="textColor" red="0.18156249820000001" green="0.42604514960000001" blue="0.53734987970000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sport Name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="re3-0B-hAf">
+                                            <rect key="frame" x="48" y="20" width="187" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="187" id="JPp-gX-x3T"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="re3-0B-hAf" firstAttribute="centerY" secondItem="m7j-ni-cPW" secondAttribute="centerY" constant="2.75" id="0ti-F9-A2s"/>
+                                        <constraint firstItem="21v-2c-g5V" firstAttribute="centerY" secondItem="m7j-ni-cPW" secondAttribute="centerY" constant="3.25" id="EUF-4s-HxU"/>
+                                        <constraint firstItem="vaO-su-LMU" firstAttribute="centerY" secondItem="m7j-ni-cPW" secondAttribute="centerY" constant="2.25" id="Tgg-W6-foe"/>
+                                        <constraint firstItem="21v-2c-g5V" firstAttribute="top" secondItem="OnJ-wu-g1J" secondAttribute="bottom" id="aR5-IP-T4z"/>
+                                        <constraint firstItem="OnJ-wu-g1J" firstAttribute="trailing" secondItem="m7j-ni-cPW" secondAttribute="trailingMargin" id="leL-9n-8ft"/>
+                                        <constraint firstItem="re3-0B-hAf" firstAttribute="leading" secondItem="vaO-su-LMU" secondAttribute="trailing" constant="14" id="xwP-rI-CvR"/>
+                                        <constraint firstItem="21v-2c-g5V" firstAttribute="trailing" secondItem="m7j-ni-cPW" secondAttribute="trailingMargin" id="y1l-35-1rv"/>
+                                        <constraint firstItem="vaO-su-LMU" firstAttribute="leading" secondItem="m7j-ni-cPW" secondAttribute="leadingMargin" id="yVf-aw-ALg"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="home" destination="vaO-su-LMU" id="9E9-Tr-orQ"/>
+                                    <outlet property="school" destination="OnJ-wu-g1J" id="Brb-sv-9UD"/>
+                                    <outlet property="sport" destination="re3-0B-hAf" id="aEm-6e-pDK"/>
+                                    <outlet property="time" destination="21v-2c-g5V" id="eQp-wW-zBO"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
                     <navigationItem key="navigationItem" id="Zdb-3j-iMI">
                         <nil key="title"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="activitySpinner" destination="yyG-Zs-8fC" id="UgT-Um-nkc"/>
-                        <outlet property="levelSelector" destination="rgY-9A-B6p" id="3zV-zS-b9M"/>
-                        <outlet property="tableView" destination="hfm-d9-R8s" id="Tlv-0T-yol"/>
+                        <outlet property="levelSelector" destination="e2w-6u-fnf" id="UeS-AI-M7l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eCh-PD-xgq" userLabel="First Responder" sceneMemberID="firstResponder"/>

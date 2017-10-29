@@ -491,6 +491,7 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
     @IBOutlet weak var levelSelector: UISegmentedControl!
     
     @IBAction func levelSelector(_ sender: Any) {
+        
         if(levelSelector.selectedSegmentIndex == 0){
             self.gameLevel = "V"
         }
@@ -503,7 +504,9 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
         if(levelSelector.selectedSegmentIndex == 3){
             self.gameLevel = "All"
         }
-        
+        if searchController.isActive && searchController.searchBar.text != "" {
+            filterContentForSearchText(searchController.searchBar.text!)
+        }
         self.tableView.reloadData()
     }
     
