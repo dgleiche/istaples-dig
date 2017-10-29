@@ -11,6 +11,10 @@
 		360AD3091F6AE4BA00A851C6 /* footballFilled.png in Resources */ = {isa = PBXBuildFile; fileRef = 360AD3081F6AE4BA00A851C6 /* footballFilled.png */; };
 		363C15FE1F72E6A70037B2CC /* SportsInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363C15FD1F72E6A70037B2CC /* SportsInfoCell.swift */; };
 		363D4FD71F6C409000AB2D59 /* SportingEventVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363D4FD61F6C409000AB2D59 /* SportingEventVC.swift */; };
+		36476E4D1FA65FE300BE50AC /* ads@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36476E4C1FA65C8900BE50AC /* ads@2x.png */; };
+		36476E4E1FA65FE600BE50AC /* ads.png in Resources */ = {isa = PBXBuildFile; fileRef = 36476E491FA65C8500BE50AC /* ads.png */; };
+		36476E4F1FA65FEA00BE50AC /* adsFilled.png in Resources */ = {isa = PBXBuildFile; fileRef = 36476E4A1FA65C8600BE50AC /* adsFilled.png */; };
+		36476E501FA65FEC00BE50AC /* adsFilled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36476E4B1FA65C8700BE50AC /* adsFilled@2x.png */; };
 		366433701F7D19C400DF2720 /* ColorTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3664336F1F7D19C400DF2720 /* ColorTable.swift */; };
 		36B3D11A1F7AA548004D9462 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B3D1191F7AA548004D9462 /* ColorCell.swift */; };
 		36BDB98E1F9FB9FD0093E352 /* (null) in Resources */ = {isa = PBXBuildFile; };
@@ -163,6 +167,10 @@
 		360AD3081F6AE4BA00A851C6 /* footballFilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = footballFilled.png; sourceTree = "<group>"; };
 		363C15FD1F72E6A70037B2CC /* SportsInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsInfoCell.swift; sourceTree = "<group>"; };
 		363D4FD61F6C409000AB2D59 /* SportingEventVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportingEventVC.swift; sourceTree = "<group>"; };
+		36476E491FA65C8500BE50AC /* ads.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ads.png; sourceTree = "<group>"; };
+		36476E4A1FA65C8600BE50AC /* adsFilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = adsFilled.png; sourceTree = "<group>"; };
+		36476E4B1FA65C8700BE50AC /* adsFilled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "adsFilled@2x.png"; sourceTree = "<group>"; };
+		36476E4C1FA65C8900BE50AC /* ads@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ads@2x.png"; sourceTree = "<group>"; };
 		3664336F1F7D19C400DF2720 /* ColorTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTable.swift; sourceTree = "<group>"; };
 		36B3D1191F7AA548004D9462 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
 		36FBEC041F616EE3002C7527 /* SportsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsManager.swift; sourceTree = "<group>"; };
@@ -323,6 +331,10 @@
 			isa = PBXGroup;
 			children = (
 				771C2C911CFD3165002C7A41 /* compare.png */,
+				36476E491FA65C8500BE50AC /* ads.png */,
+				36476E4C1FA65C8900BE50AC /* ads@2x.png */,
+				36476E4A1FA65C8600BE50AC /* adsFilled.png */,
+				36476E4B1FA65C8700BE50AC /* adsFilled@2x.png */,
 				771C2C8F1CFD3130002C7A41 /* safari.png */,
 				771C2C8D1CFD2DFE002C7A41 /* exit.png */,
 				771C2C8B1CFD21AD002C7A41 /* roundedAppIcon.png */,
@@ -670,6 +682,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36476E4E1FA65FE600BE50AC /* ads.png in Resources */,
 				7721B81B1CF9673A008C1A76 /* schoolFilled@2x.png in Resources */,
 				7721B8231CF967AF008C1A76 /* usersFilled@2x.png in Resources */,
 				775A18F21D701D8200D1AA9C /* dateSearch@2x.png in Resources */,
@@ -677,6 +690,8 @@
 				7789466A1CFAC09500C41F19 /* globe.png in Resources */,
 				7721B8191CF9673A008C1A76 /* school@2x.png in Resources */,
 				FC2078EA1CFB7E9B00D86F54 /* profile.png in Resources */,
+				36476E4F1FA65FEA00BE50AC /* adsFilled.png in Resources */,
+				36476E501FA65FEC00BE50AC /* adsFilled@2x.png in Resources */,
 				77284F8C1FA007FA000379A3 /* footballFilled@2x.png in Resources */,
 				778946681CFABFDA00C41F19 /* appIcon.png in Resources */,
 				771C2C8C1CFD21AD002C7A41 /* roundedAppIcon.png in Resources */,
@@ -701,6 +716,7 @@
 				77D54F791CECBEC600C11FA5 /* Main.storyboard in Resources */,
 				77390BE81D7564E40095FD9E /* clockFilled.png in Resources */,
 				FC2078E81CFB7E6400D86F54 /* sync.png in Resources */,
+				36476E4D1FA65FE300BE50AC /* ads@2x.png in Resources */,
 				FC2078F21CFC139900D86F54 /* email.png in Resources */,
 				771C2C8E1CFD2DFE002C7A41 /* exit.png in Resources */,
 				7721B8201CF967AF008C1A76 /* users.png in Resources */,

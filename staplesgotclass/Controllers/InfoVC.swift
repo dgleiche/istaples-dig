@@ -8,9 +8,12 @@
 
 import UIKit
 import MessageUI
+var adsSwitch = true
+
 
 class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
     @IBOutlet var versionNumberLabel: UILabel!
+    @IBOutlet weak var adsSwitch2: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +29,9 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
         self.navigationItem.title = "INFO"
         
         self.versionNumberLabel.text = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+        adsSwitch2.setOn(((defaults.object(forKey: "ads") as? Bool) ?? true), animated: false)
+    }
+    override func viewDidAppear(_ animated: Bool) {
     }
     
     func logout() {
@@ -33,6 +39,10 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
         NotificationCenter.default.post(name: Notification.Name(rawValue: "logout"), object: nil)
     }
     
+    @IBAction func ads(_ sender: Any) {
+        adsSwitch = adsSwitch2.isOn
+        defaults.set(adsSwitch, forKey: "ads")
+    }
     func sendMail(_ address: String) {
         let toRecipents = [address]
         let mc = MFMailComposeViewController()
@@ -67,7 +77,7 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
         if indexPath.section == 1 && indexPath.row == 0 {
             UIApplication.shared.openURL(URL(string: "http://staplesgotclass.com")!)
         }
-        else if indexPath.section == 2 {
+        else if indexPath.section == 3 {
             switch indexPath.row {
             case 0:
                 print("Email Diamond")

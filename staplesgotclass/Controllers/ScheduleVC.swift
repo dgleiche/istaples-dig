@@ -155,19 +155,20 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         //ads code:
         //App ID: ca-app-pub-6421137549100021~7706337193
         //Ad unit ID: ca-app-pub-6421137549100021/7517677074 //Name: adBanner
-        
-        bannerView =  GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        
-        addBannerViewToView(bannerView)
-        //bannerView.adUnitID = "ca-app-pub-6421137549100021/7517677074" // real one
-                bannerView.adUnitID = adID // Test one
-        //request.testDevices = @[ kGADSimulatorID ]
-        let request = GADRequest()
-        request.testDevices = [ kGADSimulatorID ];
-        bannerView.rootViewController = self
-        bannerView.load(GADRequest())
-        bannerView.delegate = self
-        
+        adsSwitch = ((defaults.object(forKey: "ads") as? Bool) ?? true)
+        if (adsSwitch){
+            bannerView =  GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+            
+            addBannerViewToView(bannerView)
+            //bannerView.adUnitID = "ca-app-pub-6421137549100021/7517677074" // real one
+                    bannerView.adUnitID = adID // Test one
+            //request.testDevices = @[ kGADSimulatorID ]
+            let request = GADRequest()
+            request.testDevices = [ kGADSimulatorID ];
+            bannerView.rootViewController = self
+            bannerView.load(GADRequest())
+            bannerView.delegate = self
+        }
         
     }
     

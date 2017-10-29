@@ -125,18 +125,23 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
         self.tableView.reloadData()
         
         //ads
-        
-        bannerView =  GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        
-        addBannerViewToView(bannerView)
-        //bannerView.adUnitID = "ca-app-pub-6421137549100021/7517677074" // real one
-        bannerView.adUnitID = adID // Test one
-        //request.testDevices = @[ kGADSimulatorID ]
-        let request = GADRequest()
-        request.testDevices = [ kGADSimulatorID ];
-        bannerView.rootViewController = self
-        bannerView.load(GADRequest())
-        bannerView.delegate = self
+        adsSwitch = ((defaults.object(forKey: "ads") as? Bool) ?? true)
+
+        if (adsSwitch){
+            bannerView =  GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+            
+            addBannerViewToView(bannerView)
+            //bannerView.adUnitID = "ca-app-pub-6421137549100021/7517677074" // real one
+            bannerView.adUnitID = adID // Test one
+            //request.testDevices = @[ kGADSimulatorID ]
+            let request = GADRequest()
+            request.testDevices = [ kGADSimulatorID ];
+            bannerView.rootViewController = self
+            bannerView.load(GADRequest())
+            bannerView.delegate = self
+            bannerView.superview?.bringSubview(toFront: bannerView)
+        }
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -286,6 +291,8 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
             self.gameNSDatesAll = self.gameNSDatesAll.removeDuplicates()
 
             self.tableView.reloadData()
+            //self.bannerView.superview?.bringSubview(toFront: self.bannerView)
+
             //print("GAME DATES: \(self.gameNSDatesV)");
             //print("UNIQUE GAME DATES: \(self.uniqueNSGameDatesV)");
             
@@ -606,6 +613,8 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
         
         print("Done Filtering")
         tableView.reloadData()
+        bannerView.superview?.bringSubview(toFront: bannerView)
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -626,7 +635,7 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
             }else{
                 if (uniqueNSGameDates.count != 0 && gamesDictionary[uniqueNSGameDates[0]]?[0] != nil){
                     var indexEvent = allGames[0] // just a place holder for no apparent reason because swift hates me, Don't remove
-                        
+                    
                     switch gameLevel {
                     case "V":
                         uniqueNSGameDates = gameNSDatesV
