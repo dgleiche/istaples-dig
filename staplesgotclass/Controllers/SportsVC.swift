@@ -9,9 +9,10 @@
 import UIKit
 import Alamofire
 import SWXMLHash
+import GoogleMobileAds
 
 
-class SportsViewController: UITableViewController, UISearchBarDelegate, UISearchControllerDelegate {
+class SportsViewController: UITableViewController, UISearchBarDelegate, UISearchControllerDelegate, GADBannerViewDelegate {
 
 
     @IBOutlet var activitySpinner: UIActivityIndicatorView!
@@ -53,6 +54,9 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
     var updatedLast = Date()
 
     var gameLevel = "V"
+    
+    var bannerView: GADBannerView! //Ads
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,9 +123,20 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
         refreshControl?.tintColor = UIColor.darkGray
 
         self.tableView.reloadData()
-
-
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        //ads
+        
+        bannerView =  GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        
+        addBannerViewToView(bannerView)
+        //bannerView.adUnitID = "ca-app-pub-6421137549100021/7517677074" // real one
+        bannerView.adUnitID = adID // Test one
+        //request.testDevices = @[ kGADSimulatorID ]
+        let request = GADRequest()
+        request.testDevices = [ kGADSimulatorID ];
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+        bannerView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -131,6 +146,7 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
             self.updatedLast = Date(timeIntervalSinceReferenceDate: Date().timeIntervalSinceReferenceDate)
         }
     }
+    
     func refresh(sender:AnyObject) {
         getGames()
         
@@ -640,6 +656,32 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
             self.tableView.deselectRow(at: self.tableView.indexPathForSelectedRow!, animated: true)
 
         }
+    }
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
+    }
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        bannerView.alpha = 0
+        UIView.animate(withDuration: 1, animations: {
+            bannerView.alpha = 1
+        })
     }
     
 }
