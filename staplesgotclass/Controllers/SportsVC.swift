@@ -406,8 +406,6 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
                         tag = ""
                     }
                 }
-                
-                
                 cell.sport.text = tag + (event.sport)
                 cell.time.text = "\(String(describing: event.time))"
                 cell.school.text = event.school
@@ -420,7 +418,6 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
                 if event.home == "Home" {
                     cell.home.text = "H"
                     cell.home.textColor = self.sweetBlue //Classic iStaples Blue
-                    //            cell.home.font = UIFont(name: "HelveticaNeue", size: 16)
                     
                 } else {
                     cell.home.text = "A"
@@ -507,6 +504,9 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
         if searchController.isActive && searchController.searchBar.text != "" {
             filterContentForSearchText(searchController.searchBar.text!)
         }
+        
+        
+        
         self.tableView.reloadData()
     }
     
@@ -555,24 +555,24 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
         switch gameLevel {
         case "V":
             filteredGames = allGamesV.filter { game in
-                return game.sport.lowercased().contains(searchText.lowercased())
+                return game.searchCriteria.lowercased().contains(searchText.lowercased())
             }
         case "JV":
             filteredGames = allGamesJV.filter { game in
-                return game.sport.lowercased().contains(searchText.lowercased())
+                return game.searchCriteria.lowercased().contains(searchText.lowercased())
             }
         case "FR":
             filteredGames = allGamesFR.filter { game in
-                return game.sport.lowercased().contains(searchText.lowercased())
+                return game.searchCriteria.lowercased().contains(searchText.lowercased())
             }
         case "All":
             filteredGames = allGames.filter { game in
-                return game.sport.lowercased().contains(searchText.lowercased())
+                return game.searchCriteria.lowercased().contains(searchText.lowercased())
             }
             
         default:
             filteredGames = allGames.filter { game in
-                return game.sport.lowercased().contains(searchText.lowercased())
+                return game.searchCriteria.lowercased().contains(searchText.lowercased())
             }
         }
         print(filteredGames.count)
@@ -582,7 +582,6 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
                 self.convertedFilteredGames[event.gameNSDate] = [event]
             }
             self.filteredUniqueDates.append(event.gameNSDate)
-            print(event.sport)
         }
         self.filteredUniqueDates = self.filteredUniqueDates.removeDuplicates()
         
@@ -598,39 +597,48 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
             let newView = segue.destination as! SportingEventVC
             
             let selectedIndexPath = self.tableView.indexPathForSelectedRow
-            
-            if (uniqueNSGameDates.count != 0 && gamesDictionary[uniqueNSGameDates[0]]?[0] != nil){
-                var indexEvent = gamesDictionaryV[uniqueNSGameDates[0]]?[0] // just a place holder for no apparent reason because swift hates me, Don't remove
-                
-                switch gameLevel {
-                case "V":
-                    uniqueNSGameDates = gameNSDatesV
-                    indexEvent = gamesDictionaryV[uniqueNSGameDates[selectedIndexPath![0]]]?[selectedIndexPath![1]]
-                case "JV":
-                    uniqueNSGameDates = gameNSDatesJV
-                    indexEvent = gamesDictionaryJV[uniqueNSGameDates[selectedIndexPath![0]]]?[selectedIndexPath![1]]
-                case "FR":
-                    uniqueNSGameDates = gameNSDatesFR
-                    indexEvent = gamesDictionaryFR[uniqueNSGameDates[selectedIndexPath![0]]]?[selectedIndexPath![1]]
-                case "All":
-                    uniqueNSGameDates = gameNSDatesAll
-                    indexEvent = gamesDictionaryAll[uniqueNSGameDates[selectedIndexPath![0]]]?[selectedIndexPath![1]]
-                default:
-                    uniqueNSGameDates = gameNSDatesV
+            if searchController.isActive && searchController.searchBar.text != "" {
+                var indexEvent = allGames[0]
+
+                if (filteredUniqueDates.count != 0 && convertedFilteredGames[filteredUniqueDates[0]]?[0] != nil){
+                    uniqueNSGameDates = filteredUniqueDates
+                    indexEvent = (convertedFilteredGames[filteredUniqueDates[selectedIndexPath![0]]]?[selectedIndexPath![1]])!
+                    newView.currentEvent = indexEvent
                 }
-            
-            newView.currentEvent = indexEvent
-            
-            //print(indexEvent!.sport)
+                
+                
+            }else{
+                if (uniqueNSGameDates.count != 0 && gamesDictionary[uniqueNSGameDates[0]]?[0] != nil){
+                    var indexEvent = allGames[0] // just a place holder for no apparent reason because swift hates me, Don't remove
+                        
+                    switch gameLevel {
+                    case "V":
+                        uniqueNSGameDates = gameNSDatesV
+                        indexEvent = (gamesDictionaryV[uniqueNSGameDates[selectedIndexPath![0]]]?[selectedIndexPath![1]])!
+                    case "JV":
+                        uniqueNSGameDates = gameNSDatesJV
+                        indexEvent = (gamesDictionaryJV[uniqueNSGameDates[selectedIndexPath![0]]]?[selectedIndexPath![1]])!
+                    case "FR":
+                        uniqueNSGameDates = gameNSDatesFR
+                        indexEvent = (gamesDictionaryFR[uniqueNSGameDates[selectedIndexPath![0]]]?[selectedIndexPath![1]])!
+                    case "All":
+                        uniqueNSGameDates = gameNSDatesAll
+                        indexEvent = (gamesDictionaryAll[uniqueNSGameDates[selectedIndexPath![0]]]?[selectedIndexPath![1]])!
+                    default:
+                        uniqueNSGameDates = gameNSDatesV
+                    }
+                
+                newView.currentEvent = indexEvent
+                
+                //print(indexEvent!.sport)
+                }
             }
             let backButton = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
             
             self.navigationItem.backBarButtonItem = backButton
             
             self.tableView.deselectRow(at: self.tableView.indexPathForSelectedRow!, animated: true)
-            
-            
-            
+
         }
     }
     

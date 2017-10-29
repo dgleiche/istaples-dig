@@ -25,6 +25,7 @@ class SportingEvent: NSObject {
     var id_num: String
     var bus: String
     var busTime: String
+    var searchCriteria: String
     
     init(sport: String, stringDate: String, gameNSDate: NSDate, weekday: String, time: String, school: String, gameLevel: String, home: String, gameType: String, season: String, opponent: String, directionsURL: String, id_num: String, bus: String, busTime: String){
         
@@ -44,5 +45,6 @@ class SportingEvent: NSObject {
         self.id_num = id_num
         self.bus = bus
         self.busTime = busTime
+        self.searchCriteria =  self.sport + " " + self.stringDate + " " + self.opponent + " " + self.school
     }
 }
