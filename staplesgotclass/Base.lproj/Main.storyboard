@@ -2275,28 +2275,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="2QV-KP-TCT">
-                            <rect key="frame" x="0.0" y="88" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="88" width="375" height="102"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2000 users" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FZo-rh-B0U">
                                     <rect key="frame" x="8" y="4" width="359" height="36"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="36" id="gCJ-ZE-gI8"/>
+                                        <constraint firstAttribute="height" constant="36" id="F4K-wO-zYH"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="WtC-El-KeQ">
+                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="WtC-El-KeQ">
                                     <rect key="frame" x="177.5" y="12" width="20" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </activityIndicatorView>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="WtC-El-KeQ" firstAttribute="centerX" secondItem="FZo-rh-B0U" secondAttribute="centerX" id="95C-hw-xkn"/>
-                                <constraint firstItem="WtC-El-KeQ" firstAttribute="centerY" secondItem="FZo-rh-B0U" secondAttribute="centerY" id="CFn-el-7cw"/>
-                                <constraint firstAttribute="trailing" secondItem="FZo-rh-B0U" secondAttribute="trailing" constant="8" id="Ifm-O0-eUB"/>
-                                <constraint firstItem="FZo-rh-B0U" firstAttribute="leading" secondItem="2QV-KP-TCT" secondAttribute="leading" constant="8" id="Utm-xD-6ml"/>
-                                <constraint firstItem="FZo-rh-B0U" firstAttribute="top" secondItem="2QV-KP-TCT" secondAttribute="top" constant="4" id="guW-jg-zqh"/>
+                                <constraint firstAttribute="trailing" secondItem="FZo-rh-B0U" secondAttribute="trailing" constant="8" id="Td4-hS-YWS"/>
+                                <constraint firstItem="FZo-rh-B0U" firstAttribute="leading" secondItem="2QV-KP-TCT" secondAttribute="leading" constant="8" id="c8x-SR-rjU"/>
+                                <constraint firstItem="FZo-rh-B0U" firstAttribute="top" secondItem="2QV-KP-TCT" secondAttribute="top" constant="4" id="n9W-HD-7xG"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -2414,7 +2413,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="4153" y="1900"/>
+            <point key="canvasLocation" x="4152.8000000000002" y="1899.400299850075"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LhN-LI-ar9">
@@ -2654,8 +2653,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="Fa7-BJ-f92"/>
         <segue reference="uxm-2y-bLg"/>
-        <segue reference="Mpo-zk-SGw"/>
-        <segue reference="xTU-HF-hhu"/>
+        <segue reference="ub8-Te-EcC"/>
+        <segue reference="u1Y-OQ-oo7"/>
         <segue reference="X5m-eg-DKD"/>
     </inferredMetricsTieBreakers>
 </document>

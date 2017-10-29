@@ -8,6 +8,8 @@
 
 import UIKit
 import SDWebImage
+import GoogleMobileAds
+
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
@@ -34,7 +36,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 
 
-class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchControllerDelegate {
+class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchControllerDelegate, GADBannerViewDelegate {
     var allUsers: [User]?
     let searchController = UISearchController(searchResultsController: nil)
     var filteredUsers: [User]?
@@ -42,6 +44,9 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
     var userDict = [String : [User]]()
     var sectionTitleArray1 = NSArray()
     var sectionTitleArray = NSMutableArray()
+    
+    var bannerView: GADBannerView! //Ads
+
     
     @IBOutlet var activitySpinner: UIActivityIndicatorView!
     @IBOutlet var userCountLabel: UILabel!
@@ -103,6 +108,21 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
         
         let builder = GAIDictionaryBuilder.createScreenView()
         tracker?.send(builder?.build() as! [AnyHashable: Any])
+        
+        //ads
+    
+        bannerView =  GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        
+        addBannerViewToView(bannerView)
+        //bannerView.adUnitID = "ca-app-pub-6421137549100021/7517677074" // real one
+        bannerView.adUnitID = adID // Test one
+        //request.testDevices = @[ kGADSimulatorID ]
+        let request = GADRequest()
+        request.testDevices = [ kGADSimulatorID ];
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+        bannerView.delegate = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -132,20 +152,13 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
                         
                     }
                     
-                                        
 
                     self.sectionTitleArray1 = self.userDict.keys.sorted { $0.localizedCaseInsensitiveCompare($1) == ComparisonResult.orderedAscending } as NSArray
-                    
                     
                     self.sectionTitleArray = self.sectionTitleArray1.mutableCopy() as! NSMutableArray
                     
                     
                     self.activitySpinner.stopAnimating()
-                    
-                    
-                    
-                    
-                    
                     
                     if (self.refresh.isRefreshing) {
                         self.refresh.endRefreshing()
@@ -359,6 +372,32 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
             
         }
         
+    }
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
+    }
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        bannerView.alpha = 0
+        UIView.animate(withDuration: 1, animations: {
+            bannerView.alpha = 1
+        })
     }
     
 }

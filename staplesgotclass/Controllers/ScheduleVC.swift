@@ -13,6 +13,9 @@ import GoogleMobileAds
 
 
 let sweetBlue = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
+//let adID = "ca-app-pub-3940256099942544/2934735716" // Test one
+let adID = "ca-app-pub-6421137549100021/7517677074" // Real one
+
 
 
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
@@ -157,7 +160,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         
         addBannerViewToView(bannerView)
         //bannerView.adUnitID = "ca-app-pub-6421137549100021/7517677074" // real one
-                bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716" // Test one
+                bannerView.adUnitID = adID // Test one
         //request.testDevices = @[ kGADSimulatorID ]
         let request = GADRequest()
         request.testDevices = [ kGADSimulatorID ];

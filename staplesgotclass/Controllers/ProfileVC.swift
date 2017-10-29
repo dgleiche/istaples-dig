@@ -18,7 +18,7 @@ class ProfileVC: UITableViewController, MFMailComposeViewControllerDelegate {
     @IBOutlet var initialLabel: UILabel!
     @IBOutlet var initialView: UIView!
     var currentUser: User?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
