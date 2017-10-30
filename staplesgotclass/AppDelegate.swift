@@ -74,6 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             session = WCSession.default()
         }
         registerForPushNotifications()
+        StoreManager.shared.setup()
 
         return true
     }

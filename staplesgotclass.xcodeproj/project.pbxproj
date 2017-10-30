@@ -15,6 +15,7 @@
 		36476E4E1FA65FE600BE50AC /* ads.png in Resources */ = {isa = PBXBuildFile; fileRef = 36476E491FA65C8500BE50AC /* ads.png */; };
 		36476E4F1FA65FEA00BE50AC /* adsFilled.png in Resources */ = {isa = PBXBuildFile; fileRef = 36476E4A1FA65C8600BE50AC /* adsFilled.png */; };
 		36476E501FA65FEC00BE50AC /* adsFilled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36476E4B1FA65C8700BE50AC /* adsFilled@2x.png */; };
+		36476E521FA7AF9700BE50AC /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36476E511FA7AF9000BE50AC /* StoreManager.swift */; };
 		366433701F7D19C400DF2720 /* ColorTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3664336F1F7D19C400DF2720 /* ColorTable.swift */; };
 		36B3D11A1F7AA548004D9462 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B3D1191F7AA548004D9462 /* ColorCell.swift */; };
 		36BDB98E1F9FB9FD0093E352 /* (null) in Resources */ = {isa = PBXBuildFile; };
@@ -171,6 +172,7 @@
 		36476E4A1FA65C8600BE50AC /* adsFilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = adsFilled.png; sourceTree = "<group>"; };
 		36476E4B1FA65C8700BE50AC /* adsFilled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "adsFilled@2x.png"; sourceTree = "<group>"; };
 		36476E4C1FA65C8900BE50AC /* ads@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ads@2x.png"; sourceTree = "<group>"; };
+		36476E511FA7AF9000BE50AC /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		3664336F1F7D19C400DF2720 /* ColorTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTable.swift; sourceTree = "<group>"; };
 		36B3D1191F7AA548004D9462 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
 		36FBEC041F616EE3002C7527 /* SportsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsManager.swift; sourceTree = "<group>"; };
@@ -473,6 +475,7 @@
 				775DC4481CED537F00046768 /* UserManager.swift */,
 				775DC44A1CED558A00046768 /* Period.swift */,
 				775DC44C1CED55CD00046768 /* User.swift */,
+				36476E511FA7AF9000BE50AC /* StoreManager.swift */,
 				775DC44E1CED583400046768 /* NetworkManager.swift */,
 				FC3A411E1D5C31AB000738F2 /* DailyScheduleManager.swift */,
 				36FBEC041F616EE3002C7527 /* SportsManager.swift */,
@@ -782,6 +785,7 @@
 				"${BUILT_PRODUCTS_DIR}/KDCircularProgress/KDCircularProgress.framework",
 				"${BUILT_PRODUCTS_DIR}/MLPAutoCompleteTextField/MLPAutoCompleteTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
+				"${BUILT_PRODUCTS_DIR}/PopupDialog/PopupDialog.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
@@ -798,6 +802,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KDCircularProgress.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MLPAutoCompleteTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopupDialog.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
@@ -895,6 +900,7 @@
 				FC9A2D3D1D6EB23E00436546 /* SetHomeworkVC.swift in Sources */,
 				FC99DE2A1CF5652C0006F62E /* QuarterTable.swift in Sources */,
 				773A35F61D6834B8005BF01A /* IntExtension.swift in Sources */,
+				36476E521FA7AF9700BE50AC /* StoreManager.swift in Sources */,
 				36FBEC051F616EE3002C7527 /* SportsManager.swift in Sources */,
 				FC53CF851CF3E8690034266F /* EditPeriodVC.swift in Sources */,
 				77D54F761CECBEC600C11FA5 /* LoginVC.swift in Sources */,

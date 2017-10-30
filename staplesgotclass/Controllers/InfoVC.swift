@@ -30,8 +30,33 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
         
         self.versionNumberLabel.text = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
         adsSwitch2.setOn(((defaults.object(forKey: "ads") as? Bool) ?? true), animated: false)
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.SKProductsDidLoadFromiTunes), name: NSNotification.Name.init("SKProductsHaveLoaded"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.StoreManagerDidPurchaseNonConsumable(notification:)), name: NSNotification.Name.init("DidPurchaseNonConsumableProductNotification"), object: nil)
+        SKProductsDidLoadFromiTunes()
+
     }
     override func viewDidAppear(_ animated: Bool) {
+    }
+    func StoreManagerDidPurchaseNonConsumable(notification:Notification){
+        guard let id = notification.userInfo?["id"] else {
+            return
+        }
+        DispatchQueue.main.async {
+            //self.tableView.reloadData()
+        }
+    }
+    
+    
+    func SKProductsDidLoadFromiTunes(){
+        
+        
+        DispatchQueue.main.async { //main thread to update UI
+
+        }
+        
+        
     }
     
     func logout() {
@@ -41,7 +66,9 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
     
     @IBAction func ads(_ sender: Any) {
         adsSwitch = adsSwitch2.isOn
+        StoreManager.shared.buy(product: StoreManager.shared.productsFromStore[0])
         defaults.set(adsSwitch, forKey: "ads")
+        
     }
     func sendMail(_ address: String) {
         let toRecipents = [address]
