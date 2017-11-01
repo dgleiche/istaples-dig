@@ -66,7 +66,7 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
     
     @IBAction func ads(_ sender: Any) {
         adsSwitch = adsSwitch2.isOn
-        StoreManager.shared.buy(product: StoreManager.shared.productsFromStore[0])
+        //StoreManager.shared.buy(product: StoreManager.shared.productsFromStore[0])
         defaults.set(adsSwitch, forKey: "ads")
         
     }

@@ -97,12 +97,11 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
 
         noResultsView.isHidden = true
         noResultsView.addSubview(noResultsLabel)
-        
-
-        self.tableView.insertSubview(noResultsView, belowSubview: (navigationController?.navigationBar)!)
+        self.tableView.insertSubview(noResultsView, belowSubview: self.tableView)
 
         
-        
+        self.activitySpinner.startAnimating()
+
         let currentDate = NSDate()
         let dateFormatter = DateFormatter()
         
@@ -172,6 +171,9 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
         self.refreshControl?.endRefreshing()
     }
     func removeAll(){
+        
+        self.activitySpinner.startAnimating()
+        self.activitySpinner.isHidden = false
         
         allGames.removeAll()
         allGamesV.removeAll()
@@ -291,7 +293,8 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
             self.gameNSDatesJV = self.gameNSDatesJV.removeDuplicates()
             self.gameNSDatesFR = self.gameNSDatesFR.removeDuplicates()
             self.gameNSDatesAll = self.gameNSDatesAll.removeDuplicates()
-
+            self.activitySpinner.stopAnimating()
+            self.activitySpinner.isHidden = true
             self.tableView.reloadData()
             //self.bannerView.superview?.bringSubview(toFront: self.bannerView)
 
@@ -335,16 +338,14 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
         if searchController.isActive && searchController.searchBar.text != "" {
             if (filteredGames.count == 0){
                 noResultsView.isHidden = false
-                
+                return 0
             }else{
                 noResultsView.isHidden = true
-            }
-           return (self.convertedFilteredGames[filteredUniqueDates[section]]?.count ?? Int())
             
-        }else{
-            if (noResultsView != nil) {
-                noResultsView.isHidden = true
+                return (self.convertedFilteredGames[filteredUniqueDates[section]]?.count ?? Int())
             }
+        }else{
+
             switch gameLevel {
             case "V":
                 uniqueNSGameDates = gameNSDatesV

@@ -811,6 +811,17 @@
                                 <constraint firstItem="e2w-6u-fnf" firstAttribute="leading" secondItem="7an-FY-YRr" secondAttribute="leading" constant="8" id="zsx-Zd-qhG"/>
                             </constraints>
                         </view>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="Dx0-EI-8IF">
+                            <rect key="frame" x="0.0" y="202" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Qnw-fq-3XI">
+                                    <rect key="frame" x="177" y="12" width="20" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </activityIndicatorView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="56" id="VQj-Q0-Bxb" customClass="SportsCell" customModule="staplesgotclass" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="146" width="375" height="56"/>
@@ -876,6 +887,7 @@
                         <nil key="title"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="activitySpinner" destination="Qnw-fq-3XI" id="qKy-bT-33x"/>
                         <outlet property="levelSelector" destination="e2w-6u-fnf" id="UeS-AI-M7l"/>
                     </connections>
                 </viewController>
