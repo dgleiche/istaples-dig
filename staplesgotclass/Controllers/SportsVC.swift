@@ -98,8 +98,8 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
         noResultsView.isHidden = true
         noResultsView.addSubview(noResultsLabel)
         
-        
-        self.tableView.insertSubview(noResultsView, belowSubview: self.tableView)
+
+        self.tableView.insertSubview(noResultsView, belowSubview: (navigationController?.navigationBar)!)
 
         
         
@@ -139,7 +139,9 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
             bannerView.rootViewController = self
             bannerView.load(GADRequest())
             bannerView.delegate = self
-            bannerView.superview?.bringSubview(toFront: bannerView)
+            //bannerView.superview?.bringSubview(toFront: bannerView)
+            self.tableView.insertSubview(bannerView, belowSubview: (navigationController?.navigationBar)!)
+
         }
 
     }
@@ -410,7 +412,7 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SportsCell
         self.tableView.rowHeight = 73.0
         var tag = ""
-        var event: SportingEvent = allGames[0]
+        var event: SportingEvent = SportingEvent(sport: "sportName", stringDate: "gameDate", gameNSDate: Date() as NSDate, weekday: "weekDay", time: "time", school: "location", gameLevel: "level", home: "homeAway", gameType: "gameType", season: "season", opponent: "opponent", directionsURL: "", id_num: "id_num", bus: "bus", busTime: "busTime")
         if searchController.isActive && searchController.searchBar.text != "" {
 
             if (filteredUniqueDates.count != 0 && convertedFilteredGames[filteredUniqueDates[0]]?[0] != nil){
