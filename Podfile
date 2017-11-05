@@ -15,7 +15,7 @@ target 'staplesgotclass' do
     pod 'HTMLEntities', :git => 'https://github.com/IBM-Swift/swift-html-entities.git'
     pod 'SWXMLHash'
     pod 'Google-Mobile-Ads-SDK'
-    pod 'PopupDialog'
+    pod 'PopupDialog', '~> 0.6'
 
 end
 
