@@ -617,14 +617,15 @@
 				TargetAttributes = {
 					777771C21D7D3D7C006F47EE = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 9FC732TXJR;
 						LastSwiftMigration = 0830;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					777771CE1D7D3D7C006F47EE = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 9FC732TXJR;
 						LastSwiftMigration = 0830;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -633,8 +634,9 @@
 					};
 					77D54F6F1CECBEC600C11FA5 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 9FC732TXJR;
 						LastSwiftMigration = 0830;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -981,13 +983,14 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 9FC732TXJR;
 				IBSC_MODULE = staplesWatchApp_Extension;
 				INFOPLIST_FILE = staplesWatchApp/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "2ac0a657-e953-4e4b-bd62-6a7a881b41a3";
+				PROVISIONING_PROFILE_SPECIFIER = iStaplesWatchAppDev;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -1001,14 +1004,15 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 9FC732TXJR;
 				IBSC_MODULE = staplesWatchApp_Extension;
 				INFOPLIST_FILE = staplesWatchApp/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "00298428-bd88-468a-acfd-c64668fb783a";
+				PROVISIONING_PROFILE_SPECIFIER = iStaplesWatchAppAppStore;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -1022,6 +1026,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "staplesWatchApp Extension/staplesWatchApp Extension.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 9FC732TXJR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1031,8 +1036,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "b9d98cfd-2e90-44e6-8d36-5ada3a1b9ce0";
+				PROVISIONING_PROFILE_SPECIFIER = iStaplesWatchExtensionDev;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -1045,7 +1050,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "staplesWatchApp Extension/staplesWatchApp Extension.entitlements";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 9FC732TXJR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1055,8 +1061,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "e156ce1c-7f17-488c-be92-2fce1363a0ed";
+				PROVISIONING_PROFILE_SPECIFIER = iStaplesWatchExtensionAppStore;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -1172,8 +1178,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = staplesgotclass/staplesgotclass.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mica Diamond (87W69NV3X4)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 9FC732TXJR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1185,8 +1193,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "1c27b053-4411-4971-b576-9a6d766cf518";
+				PROVISIONING_PROFILE_SPECIFIER = "SHSGotClass Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "staplesgotclass/staplesgotclass-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -1199,8 +1207,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = staplesgotclass/staplesgotclass.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 9FC732TXJR;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1212,8 +1222,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dcdwebdesign.staplesgotclass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "18f1810c-d283-448e-ac21-05512ca1d97a";
+				PROVISIONING_PROFILE_SPECIFIER = "SHSGotClass App Store";
 				SWIFT_OBJC_BRIDGING_HEADER = "staplesgotclass/staplesgotclass-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
