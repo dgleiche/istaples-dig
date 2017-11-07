@@ -47,7 +47,10 @@ class SportingEventVC: UITableViewController {
 
             self.headers.append("Location")
             self.information.append(self.currentEvent!.school)
-
+            
+            self.headers.append("Opponent")
+            self.information.append(self.currentEvent!.opponent)
+            
             self.headers.append("School")
             if (self.currentEvent!.directionsURL.range(of: "school") != nil){
                 self.schoolName =  self.currentEvent!.directionsURL.components(separatedBy: "school=")
@@ -56,8 +59,6 @@ class SportingEventVC: UITableViewController {
                 self.information.append("")
             }
             
-            self.headers.append("Opponent")
-            self.information.append(self.currentEvent!.opponent)
 
             self.headers.append("Game Level")
             self.information.append(self.currentEvent!.gameLevel)

@@ -987,7 +987,10 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     
     func addBannerViewToView(_ bannerView: GADBannerView) {
         bannerView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(bannerView)
+
+        tableView.insertSubview(bannerView, aboveSubview: tableView)
+        tableView.bringSubview(toFront: bannerView)
+
         view.addConstraints(
             [NSLayoutConstraint(item: bannerView,
                                 attribute: .bottom,

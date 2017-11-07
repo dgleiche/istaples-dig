@@ -140,6 +140,8 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
             bannerView.delegate = self
             //bannerView.superview?.bringSubview(toFront: bannerView)
             self.tableView.insertSubview(bannerView, belowSubview: (navigationController?.navigationBar)!)
+            tableView.bringSubview(toFront: bannerView)
+
 
         }
 
@@ -373,8 +375,10 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
 
     }
 
-//
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+
+        var gameDate1 = ""
         
         if (uniqueNSGameDates.count != 0 && gamesDictionary[uniqueNSGameDates[0]]?[0] != nil){
             
@@ -400,12 +404,32 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
             let day = gameDate.substring(from: index)
             let dateArray : [String] = gameDate.components(separatedBy: "-")
             let monthName = DateFormatter().monthSymbols[Int(dateArray[1])! - 1]
-
-            let gameDate1 = convertDaytoWeekday(date: uniqueNSGameDates[section]) + ", " + monthName + " " + day
-            return gameDate1
+            
+            gameDate1 = convertDaytoWeekday(date: uniqueNSGameDates[section]) + ", " + monthName + " " + day
         }
-        return ""
+        tableView.bringSubview(toFront: bannerView)
+        return gameDate1
     }
+    
+//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+//    {
+//        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 30))
+//        headerView.backgroundColor = UIColor(red:0.36, green:0.45, blue:0.49, alpha:1.0)
+//
+//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 30))
+//
+//
+//
+//        label.text = gameDate1
+//        label.textColor = UIColor.white
+//        label.textAlignment = .center
+//        headerView.addSubview(label)
+//
+//        tableView.bringSubview(toFront: bannerView)
+//
+//        return headerView
+//    }
+    
     
 
     
@@ -671,7 +695,10 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
     }
     func addBannerViewToView(_ bannerView: GADBannerView) {
         bannerView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(bannerView)
+        
+        tableView.insertSubview(bannerView, aboveSubview: tableView)
+        tableView.bringSubview(toFront: bannerView)
+
         view.addConstraints(
             [NSLayoutConstraint(item: bannerView,
                                 attribute: .bottom,
