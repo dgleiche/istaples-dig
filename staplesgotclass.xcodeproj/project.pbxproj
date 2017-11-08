@@ -17,6 +17,7 @@
 		36476E501FA65FEC00BE50AC /* adsFilled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36476E4B1FA65C8700BE50AC /* adsFilled@2x.png */; };
 		36476E521FA7AF9700BE50AC /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36476E511FA7AF9000BE50AC /* StoreManager.swift */; };
 		366433701F7D19C400DF2720 /* ColorTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3664336F1F7D19C400DF2720 /* ColorTable.swift */; };
+		3696AAA91FB3B08E000C2187 /* adScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = 3696AAA81FB3B08C000C2187 /* adScreenshot.png */; };
 		36B3D11A1F7AA548004D9462 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B3D1191F7AA548004D9462 /* ColorCell.swift */; };
 		36BDB98E1F9FB9FD0093E352 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		36FBEC051F616EE3002C7527 /* SportsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FBEC041F616EE3002C7527 /* SportsManager.swift */; };
@@ -174,6 +175,7 @@
 		36476E4C1FA65C8900BE50AC /* ads@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ads@2x.png"; sourceTree = "<group>"; };
 		36476E511FA7AF9000BE50AC /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		3664336F1F7D19C400DF2720 /* ColorTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTable.swift; sourceTree = "<group>"; };
+		3696AAA81FB3B08C000C2187 /* adScreenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = adScreenshot.png; sourceTree = "<group>"; };
 		36B3D1191F7AA548004D9462 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
 		36FBEC041F616EE3002C7527 /* SportsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportsManager.swift; sourceTree = "<group>"; };
 		36FBEC061F61EE2E002C7527 /* SportingEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SportingEvent.swift; path = ../Views/SportingEvent.swift; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 			isa = PBXGroup;
 			children = (
 				771C2C911CFD3165002C7A41 /* compare.png */,
+				3696AAA81FB3B08C000C2187 /* adScreenshot.png */,
 				36476E491FA65C8500BE50AC /* ads.png */,
 				36476E4C1FA65C8900BE50AC /* ads@2x.png */,
 				36476E4A1FA65C8600BE50AC /* adsFilled.png */,
@@ -719,6 +722,7 @@
 				775A18EE1D70105000D1AA9C /* usersIcon.png in Resources */,
 				77390BE91D7564E40095FD9E /* clockFilled@2x.png in Resources */,
 				77D54F791CECBEC600C11FA5 /* Main.storyboard in Resources */,
+				3696AAA91FB3B08E000C2187 /* adScreenshot.png in Resources */,
 				77390BE81D7564E40095FD9E /* clockFilled.png in Resources */,
 				FC2078E81CFB7E6400D86F54 /* sync.png in Resources */,
 				36476E4D1FA65FE300BE50AC /* ads@2x.png in Resources */,

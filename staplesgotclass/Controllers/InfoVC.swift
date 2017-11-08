@@ -5,11 +5,11 @@
 //  Created by Dylan on 5/30/16.
 //  Copyright © 2016 Dylan Diamond. All rights reserved.
 //
-
 import UIKit
 import MessageUI
-var adsSwitch = true
+import PopupDialog
 
+var adsSwitch = true
 
 class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
     @IBOutlet var versionNumberLabel: UILabel!
@@ -66,6 +66,9 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
     
     @IBAction func ads(_ sender: Any) {
         adsSwitch = adsSwitch2.isOn
+        if !adsSwitch {
+            self.showAlertPopup()
+        }
         //StoreManager.shared.buy(product: StoreManager.shared.productsFromStore[0])
         defaults.set(adsSwitch, forKey: "ads")
         
@@ -140,6 +143,9 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
     }
     
     
+    
+    
+    
     //Set the text for the two info things
     
     let aboutText = "iStaples allows students of Staples High School to track their classes and their classmates. This app is designed to be easier and more mobile than the web interface, staplesgotclass.com. You can also view your friends' schedules, along with their classmates."
@@ -161,4 +167,44 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
             newView.text = securityText
         }
     }
+    func showAlertPopup() {
+        // Prepare the popup assets
+        let title = "Remove Ads"
+        let message = "Remove ads from all pages on iStaples for $2.99. This is a one time purchase."
+        let image = UIImage(named: "adScreenshot.png")
+        
+        // Create the dialog
+        let pv = PopupDialogDefaultView.appearance()
+        pv.titleFont    = UIFont(name: "HelveticaNeue-Light", size: 25)!
+        let popup = PopupDialog(title: title, message: message, image: image, buttonAlignment: .horizontal, gestureDismissal: false)
+        
+        // Create buttons
+        let buttonOne = CancelButton(title: "Not Now", height: 40) {
+            self.dismiss(animated: true, completion: nil)
+        }
+        let buttonTwo = DefaultButton(title: "Redeem", height: 40) {
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        let buttonThree = SolidBlueButton(title: "Buy $2.99", height: 55) {
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        // Add buttons to dialog
+        popup.addButtons([buttonOne, buttonTwo, buttonThree])
+        
+        // Present dialog
+        self.present(popup, animated: true, completion: nil)
+    }
 }
+public final class SolidBlueButton: PopupDialogButton {
+    
+    override public func setupView() {
+        defaultTitleFont      = UIFont.boldSystemFont(ofSize: 16)
+        defaultTitleColor     = UIColor.white
+        defaultButtonColor    = UIColor(red:0.00, green:0.44, blue:0.71, alpha:1.0)
+        defaultSeparatorColor = UIColor.clear
+        super.setupView()
+    }
+}
+
