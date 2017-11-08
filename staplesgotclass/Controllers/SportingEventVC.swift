@@ -32,7 +32,7 @@ class SportingEventVC: UITableViewController {
         self.navigationItem.title = "SPORTING EVENT"
         
         if (currentEvent != nil) {
-            self.navigationItem.title = "\(self.currentEvent!.sport)"
+            self.navigationItem.title = "\(self.currentEvent!.sport)".uppercased()
 
 
             
@@ -72,9 +72,9 @@ class SportingEventVC: UITableViewController {
             var opponentName = self.currentEvent!.opponent.components(separatedBy: " ")
             opponentName.append("Staples")
             if (opponentName[0] != "") {
-                nameLabel.attributedText = "Staples vs \(self.currentEvent!.opponent)".color(opponentName)
+                nameLabel.attributedText = "Staples \nvs \n \(self.currentEvent!.opponent)".color(opponentName)
             }else{
-                nameLabel.attributedText = "Staples vs \(opponentName[0])".color(opponentName)
+                nameLabel.attributedText = "Staples \nvs \n \(opponentName[0])".color(opponentName)
             }
 
             if (self.currentEvent!.bus == "yes"){
@@ -134,30 +134,26 @@ extension String {
             for word in words {
                 if word.lowercased() == string.lowercased() {
                     let startIndex = position
-                    let endIndex = word.characters.count
+                    let endIndex = word.count
                     let range = NSMakeRange(startIndex, endIndex)
                     ranges.append(range)
                 }
-                position += (word.characters.count + 1)
+                position += (word.count + 1)
             }
         }
         return ranges
     }
     func color(_ words: [String]) -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString(string: self)
-        print(words)
         for word in words {
             let ranges = getRanges(of: word)
             for range in ranges {
                 if word.contains("Staples"){
                     attributedString.addAttributes([NSForegroundColorAttributeName: UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)], range: range)
-                    print("Staples")
                 }else{
                     attributedString.addAttributes([NSForegroundColorAttributeName: UIColor(red:0.83, green:0.18, blue:0.18, alpha:1.0)], range: range)
-                    print("\(word)")
                 }
             }
-            print("\(word)")
         }
         return attributedString
     }
