@@ -170,7 +170,7 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
     func showAlertPopup() {
         // Prepare the popup assets
         let title = "Remove Ads"
-        let message = "Remove ads from all pages on iStaples for $2.99. This is a one time purchase."
+        let message = "Remove ads from all pages on iStaples for $3.99. This is a one time purchase. Please restart app for purchase to take effect."
         let image = UIImage(named: "adScreenshot.png")
         
         // Create the dialog
@@ -180,13 +180,15 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
         
         // Create buttons
         let buttonOne = CancelButton(title: "Not Now", height: 40) {
+            defaults.set(false, forKey: "ads")
             self.dismiss(animated: true, completion: nil)
+            
         }
         let buttonTwo = DefaultButton(title: "Redeem", height: 40) {
             self.dismiss(animated: true, completion: nil)
         }
         
-        let buttonThree = SolidBlueButton(title: "Buy $2.99", height: 55) {
+        let buttonThree = SolidBlueButton(title: "Buy $3.99", height: 55) {
             self.dismiss(animated: true, completion: nil)
         }
         

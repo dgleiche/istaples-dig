@@ -330,12 +330,15 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
     override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let displayedCell = cell as! ClassmateCell
         displayedCell.classmateImageView.image = nil
-        tableView.bringSubview(toFront: bannerView)
-
+        if bannerView != nil {
+            tableView.bringSubview(toFront: bannerView)
+        }
     }
     
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        //tableView.bringSubview(toFront: bannerView)
+        if bannerView != nil {
+            tableView.bringSubview(toFront: bannerView)
+        }
         return ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     }
     

@@ -407,7 +407,9 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
             
             gameDate1 = convertDaytoWeekday(date: uniqueNSGameDates[section]) + ", " + monthName + " " + day
         }
-        tableView.bringSubview(toFront: bannerView)
+        if bannerView != nil {
+            tableView.bringSubview(toFront: bannerView)
+        }
         return gameDate1
     }
     

@@ -680,7 +680,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ClassCell
         
         var indexSchedulePeriod: SchedulePeriod?
-        
+        var defaultObject: String = "0"
         if (self.isCurrentSchedule == true && indexPath.section == 0 && tableView.numberOfSections == 2) {
             //get up next period
             if let nextPeriod = DailyScheduleManager.sharedInstance!.getNextSchedulePeriodInSchedule() {
@@ -695,12 +695,11 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         
         if (indexSchedulePeriod != nil) {
             if (indexSchedulePeriod?.realPeriod != nil) {
+                defaultObject = String(describing: (defaults.object(forKey: "\(indexSchedulePeriod!.realPeriod!.periodNumber)") ?? "0")) //SET PERIOD COLOR
                 //there is a real period assigned so show number and class name
                 cell.classTitleLabel.text = indexSchedulePeriod!.realPeriod!.name
                 cell.teacherLabel.text = indexSchedulePeriod!.realPeriod!.teacherName
                 cell.periodNumberLabel.text = "\(indexSchedulePeriod!.realPeriod!.periodNumber)"
-                let defaultObject: String = String(describing: (defaults.object(forKey: "\(indexSchedulePeriod!.realPeriod!.periodNumber)") ?? "0"))
-                print(Int(defaultObject)!)
                 cell.periodNumberLabel.textColor = colors[Int(defaultObject)!]
                 cell.isUserInteractionEnabled = true //allow selection bc of real period
             }
@@ -711,6 +710,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 cell.classTitleLabel.text = (indexSchedulePeriod!.isCustom) ? indexSchedulePeriod!.name : nil
                 cell.teacherLabel.text = nil
                 cell.isUserInteractionEnabled = false //disable selection because no real period
+                //defaultObject = String(describing: (defaults.object(forKey: "\(String(describing: indexSchedulePeriod?.realPeriod!.periodNumber))") ?? "0"))
             }
             
             if (indexSchedulePeriod!.isLunchPeriod) {
@@ -756,16 +756,14 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 cell.classTitleLabel.font = UIFont(name: "HelveticaNeue", size: 17)
             }
             else if (indexSchedulePeriod == DailyScheduleManager.sharedInstance?.currentPeriod) {
-                let defaultObject: String = String(describing: (defaults.object(forKey: "\(indexSchedulePeriod!.realPeriod!.periodNumber)") ?? "0"))
-                print(Int(defaultObject)!)
+                
+                
                 cell.periodNumberLabel.textColor = colors[Int(defaultObject)!]
                 //cell.periodNumberLabel.textColor = UIColor(red:0.3, green:0.8, blue:0.13, alpha:1.0)
                 cell.classTitleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 19)
             }
             else {
                 //cell.periodNumberLabel.textColor = UIColor(red:0.0, green:0.38, blue:0.76, alpha:1.0)
-                let defaultObject: String = String(describing: (defaults.object(forKey: "\(indexSchedulePeriod!.realPeriod!.periodNumber)") ?? "0"))
-                print(Int(defaultObject)!)
                 cell.periodNumberLabel.textColor = colors[Int(defaultObject)!]
                 
                 
@@ -774,9 +772,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         }
         else {
             cell.periodNumberLabel.textColor = UIColor(red:0.0, green:0.38, blue:0.76, alpha:1.0)
-            print("Period Number: \(cell.periodNumberLabel.text!)")
-            let defaultObject: String = String(describing: (defaults.object(forKey: "\(String(describing: cell.periodNumberLabel.text!))") ?? "0"))
-            print("Color Int for Period: \(Int(defaultObject)!)")
+           
             cell.periodNumberLabel.textColor = colors[Int(defaultObject)!]
         
             
