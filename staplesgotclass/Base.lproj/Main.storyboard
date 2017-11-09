@@ -125,13 +125,13 @@
                         <viewLayoutGuide key="safeArea" id="DRf-Rq-ljx"/>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="Zy2-uZ-9vf"/>
-                                <exclude reference="yuU-Qa-FaN"/>
-                                <exclude reference="AFo-mY-hWZ"/>
                                 <exclude reference="GJ4-RV-6pd"/>
+                                <exclude reference="jXC-J7-3Hj"/>
+                                <exclude reference="yuU-Qa-FaN"/>
+                                <exclude reference="Zy2-uZ-9vf"/>
+                                <exclude reference="AFo-mY-hWZ"/>
                                 <exclude reference="ySu-Kl-sdR"/>
                                 <exclude reference="zBk-uu-Q1c"/>
-                                <exclude reference="jXC-J7-3Hj"/>
                             </mask>
                         </variation>
                     </view>

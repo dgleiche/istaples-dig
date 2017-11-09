@@ -9,7 +9,7 @@ import UIKit
 import MessageUI
 import PopupDialog
 
-var adsSwitch = true
+var removeAds = false
 
 class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
     @IBOutlet var versionNumberLabel: UILabel!
@@ -29,7 +29,7 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
         self.navigationItem.title = "INFO"
         
         self.versionNumberLabel.text = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
-        adsSwitch2.setOn(((defaults.object(forKey: "ads") as? Bool) ?? true), animated: false)
+        adsSwitch2.setOn(( (defaults.object(forKey: "ads") as? Bool) ?? false), animated: false)
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.SKProductsDidLoadFromiTunes), name: NSNotification.Name.init("SKProductsHaveLoaded"), object: nil)
@@ -65,12 +65,12 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
     }
     
     @IBAction func ads(_ sender: Any) {
-        adsSwitch = adsSwitch2.isOn
-        if !adsSwitch {
+        removeAds = adsSwitch2.isOn
+        if removeAds {
             self.showAlertPopup()
         }
         //StoreManager.shared.buy(product: StoreManager.shared.productsFromStore[0])
-        defaults.set(adsSwitch, forKey: "ads")
+        defaults.set(removeAds, forKey: "ads")
         
     }
     func sendMail(_ address: String) {
@@ -180,7 +180,7 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
         
         // Create buttons
         let buttonOne = CancelButton(title: "Not Now", height: 40) {
-            defaults.set(false, forKey: "ads")
+            defaults.set(true, forKey: "ads")
             self.dismiss(animated: true, completion: nil)
             
         }

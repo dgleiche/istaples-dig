@@ -110,21 +110,34 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
         tracker?.send(builder?.build() as! [AnyHashable: Any])
         
         //ads
-        adsSwitch = ((defaults.object(forKey: "ads") as? Bool) ?? true)
+        removeAds = ((defaults.object(forKey: "ads") as? Bool) ?? false)
 
-        if (adsSwitch){
-            bannerView =  GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-            
-            addBannerViewToView(bannerView)
-            //bannerView.adUnitID = "ca-app-pub-6421137549100021/7517677074" // real one
-            bannerView.adUnitID = adID // Test one
-            //request.testDevices = @[ kGADSimulatorID ]
-            let request = GADRequest()
-            request.testDevices = [ kGADSimulatorID ];
-            bannerView.rootViewController = self
-            bannerView.load(GADRequest())
-            bannerView.delegate = self
+        if (!removeAds){
+            functionsToAddBannerViewToView()
         }
+        if (removeAds && bannerView != nil) {
+            print("removed view from view")
+            bannerView.isHidden = true
+            bannerView.removeFromSuperview()
+        }else {
+            functionsToAddBannerViewToView()
+        }
+        
+    }
+    func functionsToAddBannerViewToView(){
+        bannerView =  GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        
+        addBannerViewToView(bannerView)
+        //bannerView.adUnitID = "ca-app-pub-6421137549100021/7517677074" // real one
+        bannerView.adUnitID = adID // Test one
+        //request.testDevices = @[ kGADSimulatorID ]
+        let request = GADRequest()
+        request.testDevices = [ kGADSimulatorID ];
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+        bannerView.delegate = self
+        self.tableView.insertSubview(bannerView, belowSubview: (navigationController?.navigationBar)!)
+        tableView.bringSubview(toFront: bannerView)
         
     }
     
@@ -132,6 +145,18 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
         if (self.userDict.count == 0) {
             self.getUsers()
         }
+        removeAds = ((defaults.object(forKey: "ads") as? Bool) ?? false)
+        print(removeAds)
+        if (removeAds && bannerView != nil) {
+            print("removed view from view")
+            bannerView.isHidden = true
+            bannerView.removeFromSuperview()
+        }else {
+            functionsToAddBannerViewToView()
+        }
+    }
+    override func viewDidAppear(_ animated: Bool) {
+
     }
     @IBAction func refresh(_ sender: AnyObject) {
         self.getUsers()
@@ -383,32 +408,53 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
     }
     func addBannerViewToView(_ bannerView: GADBannerView) {
         bannerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        tableView.insertSubview(bannerView, aboveSubview: tableView)
-        tableView.bringSubview(toFront: bannerView)
-        
-        view.addConstraints(
-            [NSLayoutConstraint(item: bannerView,
-                                attribute: .bottom,
-                                relatedBy: .equal,
-                                toItem: bottomLayoutGuide,
-                                attribute: .top,
-                                multiplier: 1,
-                                constant: 0),
-             NSLayoutConstraint(item: bannerView,
-                                attribute: .centerX,
-                                relatedBy: .equal,
-                                toItem: view,
-                                attribute: .centerX,
-                                multiplier: 1,
-                                constant: 0)
+        view.addSubview(bannerView)
+        if #available(iOS 11.0, *) {
+            // In iOS 11, we need to constrain the view to the safe area.
+            positionBannerViewFullWidthAtBottomOfSafeArea(bannerView)
+        }
+        else {
+            // In lower iOS versions, safe area is not available so we use
+            // bottom layout guide and view edges.
+            positionBannerViewFullWidthAtBottomOfView(bannerView)
+        }
+    }
+    
+    // MARK: - view positioning
+    @available (iOS 11, *)
+    func positionBannerViewFullWidthAtBottomOfSafeArea(_ bannerView: UIView) {
+        // Position the banner. Stick it to the bottom of the Safe Area.
+        // Make it constrained to the edges of the safe area.
+        let guide = view.safeAreaLayoutGuide
+        NSLayoutConstraint.activate([
+            guide.leftAnchor.constraint(equalTo: bannerView.leftAnchor),
+            guide.rightAnchor.constraint(equalTo: bannerView.rightAnchor),
+            guide.bottomAnchor.constraint(equalTo: bannerView.bottomAnchor)
             ])
     }
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        bannerView.alpha = 0
-        UIView.animate(withDuration: 1, animations: {
-            bannerView.alpha = 1
-        })
+    
+    func positionBannerViewFullWidthAtBottomOfView(_ bannerView: UIView) {
+        view.addConstraint(NSLayoutConstraint(item: bannerView,
+                                              attribute: .leading,
+                                              relatedBy: .equal,
+                                              toItem: view,
+                                              attribute: .leading,
+                                              multiplier: 1,
+                                              constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: bannerView,
+                                              attribute: .trailing,
+                                              relatedBy: .equal,
+                                              toItem: view,
+                                              attribute: .trailing,
+                                              multiplier: 1,
+                                              constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: bannerView,
+                                              attribute: .bottom,
+                                              relatedBy: .equal,
+                                              toItem: bottomLayoutGuide,
+                                              attribute: .top,
+                                              multiplier: 1,
+                                              constant: 0))
     }
     
 }
