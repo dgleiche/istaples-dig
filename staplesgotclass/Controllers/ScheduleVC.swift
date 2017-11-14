@@ -14,7 +14,7 @@ import GoogleMobileAds
 
 let sweetBlue = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
 //let adID = "ca-app-pub-3940256099942544/2934735716" // Test one
-let adID = "ca-app-pub-6421137549100021/7517677074" // Real one
+let adID = "ca-app-pub-9482699020493042/9986897473" // Real one
 
 
 

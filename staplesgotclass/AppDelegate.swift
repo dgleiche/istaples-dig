@@ -11,6 +11,8 @@ import Parse
 import RealmSwift
 import WatchConnectivity
 import UserNotifications
+import GoogleMobileAds
+
 
 
 @UIApplicationMain
@@ -35,6 +37,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var configureError: NSError?
         GGLContext.sharedInstance().configureWithError(&configureError)
         assert(configureError == nil, "Error configuring Google services: \(String(describing: configureError))")
+        
+        GADMobileAds.configure(withApplicationID: "ca-app-pub-9482699020493042~4926142487")
+
         
         let configuration = ParseClientConfiguration {
             $0.applicationId = "ZgeDasDpmqNAakqJcK0C"
