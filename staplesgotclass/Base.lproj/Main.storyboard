@@ -808,12 +808,15 @@
                             <rect key="frame" x="0.0" y="202" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Qnw-fq-3XI">
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Qnw-fq-3XI">
                                     <rect key="frame" x="177" y="12" width="20" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </activityIndicatorView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="Qnw-fq-3XI" firstAttribute="centerX" secondItem="Dx0-EI-8IF" secondAttribute="centerX" id="Ggp-CW-U6b"/>
+                                <constraint firstItem="Qnw-fq-3XI" firstAttribute="centerY" secondItem="Dx0-EI-8IF" secondAttribute="centerY" id="SBa-pa-nP9"/>
+                            </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="56" id="VQj-Q0-Bxb" customClass="SportsCell" customModule="staplesgotclass" customModuleProvider="target">
@@ -2686,7 +2689,7 @@
         <segue reference="Fa7-BJ-f92"/>
         <segue reference="uxm-2y-bLg"/>
         <segue reference="ub8-Te-EcC"/>
-        <segue reference="xTU-HF-hhu"/>
+        <segue reference="Wk5-fx-GIZ"/>
         <segue reference="X5m-eg-DKD"/>
     </inferredMetricsTieBreakers>
 </document>
