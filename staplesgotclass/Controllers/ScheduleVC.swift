@@ -207,17 +207,17 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         }
         
     }
-    override func viewWillAppear(_ animated: Bool) {
-        removeAds = ((defaults.object(forKey: "ads") as? Bool) ?? false)
-        
-        if (removeAds && bannerView != nil) {
-            print("removed view from view")
-            bannerView.isHidden = true
-            bannerView.removeFromSuperview()
-        }else {
-            functionsToAddBannerViewToView()
-        }
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        removeAds = ((defaults.object(forKey: "ads") as? Bool) ?? false)
+//
+//        if (removeAds && bannerView != nil) {
+//            print("removed view from view")
+//            bannerView.isHidden = true
+//            bannerView.removeFromSuperview()
+//        }else {
+//            functionsToAddBannerViewToView()
+//        }
+//    }
     
     func functionsToAddBannerViewToView(){
         bannerView =  GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
@@ -282,6 +282,9 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 self.selectedSchedule = DailyScheduleManager.sharedInstance?.currentSchedule
                 if (DailyScheduleManager.sharedInstance?.currentSchedule?.isStatic == false) {
                     self.navigationItem.prompt = "\(self.selectedSchedule!.name!)"
+                    self.navigationItem
+                    //UILabel.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).textColor = UIColor.white
+
                 }
                 else {
                     self.navigationItem.prompt = nil
@@ -469,6 +472,10 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 if (currentPeriod.realPeriod != nil) {
                     //real period set
                     self.currentPeriodNumberLabel.text = "\(currentPeriod.realPeriod!.periodNumber)"
+                    let defaultObject = String(describing: (defaults.object(forKey: "\(currentPeriod.realPeriod!.periodNumber)") ?? "0")) //SET PERIOD COLOR
+                    
+                
+                    self.currentPeriodNumberLabel.textColor = colors[Int(defaultObject)!]
                     self.currentPeriodTitleLabel.text = currentPeriod.realPeriod!.name
                     if (currentPeriod.isLunch) {
                         if (currentPeriod.lunchNumber != 0) {
@@ -546,13 +553,17 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
     func changeSchedule(withAnimation animation: String?) {
         self.selectedSchedule = DailyScheduleManager.sharedInstance?.getSchedule(withDate: self.selectedDate)
         print("selectected schedule: \(String(describing: self.selectedSchedule))")
-        if (self.selectedSchedule == DailyScheduleManager.sharedInstance?.currentSchedule && self.selectedSchedule != nil && (Calendar.current as NSCalendar).compare(self.selectedDate, to: Date(), toUnitGranularity: .day) == .orderedSame) {
+        if (self.selectedSchedule != nil && (Calendar.current as NSCalendar).compare(self.selectedDate, to: Date(), toUnitGranularity: .day) == .orderedSame) {
             self.isCurrentSchedule = true
+            print("WE ARE HERE!!")
             if (DailyScheduleManager.sharedInstance?.getCurrentPeriod() != nil) {
+                print("showing period status")
                 self.showPeriodStatusBar()
             }
         }
         else {
+            print("shit")
+            print("\((Calendar.current as NSCalendar).compare(self.selectedDate, to: Date(), toUnitGranularity: .day) == .orderedSame) and \(self.selectedSchedule == DailyScheduleManager.sharedInstance?.currentSchedule)")
             self.isCurrentSchedule = false
             self.hidePeriodStatusBar(withDuration: 0)
         }
@@ -563,24 +574,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         else {
             self.navigationItem.prompt = "\(self.selectedSchedule!.name!)"
         }
-        //        if (animation != nil) {
-        //            let range: NSRange!
-        //            if (self.isCurrentSchedule) {
-        //             range = NSMakeRange(0, 1)
-        //            }
-        //            else {
-        //                range = NSMakeRange(0, 0)
-        //            }
-        //            let sections = NSIndexSet(indexesInRange: range)
-        //            self.tableView.beginUpdates()
-        //            self.tableView.reloadSections(sections, withRowAnimation: animation!)
-        //            self.tableView.endUpdates()
-        //        }
-        //        else {
-        //        self.tableView.reloadData()
-        //        }
-        
-        
+
         let transition = CATransition()
         transition.duration = 0.4
         transition.type = kCATransitionPush
@@ -736,6 +730,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 cell.classTitleLabel.text = indexSchedulePeriod!.realPeriod!.name
                 cell.teacherLabel.text = indexSchedulePeriod!.realPeriod!.teacherName
                 cell.periodNumberLabel.text = "\(indexSchedulePeriod!.realPeriod!.periodNumber)"
+                
                 cell.periodNumberLabel.textColor = colors[Int(defaultObject)!]
                 cell.isUserInteractionEnabled = true //allow selection bc of real period
             }
@@ -791,7 +786,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 cell.periodNumberLabel.textColor = UIColor.lightGray
                 cell.classTitleLabel.font = UIFont(name: "HelveticaNeue", size: 17)
             }
-            else if (indexSchedulePeriod == DailyScheduleManager.sharedInstance?.currentPeriod) {
+            else if (indexSchedulePeriod?.id == DailyScheduleManager.sharedInstance?.currentPeriod?.id) {
                 
                 
                 cell.periodNumberLabel.textColor = colors[Int(defaultObject)!]
