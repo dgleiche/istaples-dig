@@ -80,7 +80,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         registerForPushNotifications()
         StoreManager.shared.setup()
-
         return true
     }
     
