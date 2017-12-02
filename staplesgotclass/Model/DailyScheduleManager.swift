@@ -297,6 +297,7 @@ class DailyScheduleManager: NSObject {
             for period in schedule.periods {
                 if secondsFromMidnight > period.startSeconds {
                     if secondsFromMidnight < period.endSeconds {
+                        print("Found it! \(period.id)")
                         //Seconds are completely encapsulated in this period, thus this period is the current period
                         return period
                     }

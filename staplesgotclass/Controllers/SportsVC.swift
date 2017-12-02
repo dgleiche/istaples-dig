@@ -155,11 +155,12 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
         tableView.bringSubview(toFront: bannerView)
     }
     override func viewWillAppear(_ animated: Bool) {
-        if (self.uniqueNSGameDatesV.count == 0) {
-            removeAll()
+        if (self.uniqueNSGameDates.count == 0) {
             getGames()
             self.updatedLast = Date(timeIntervalSinceReferenceDate: Date().timeIntervalSinceReferenceDate)
         }
+        
+        
         removeAds = ((defaults.object(forKey: "ads") as? Bool) ?? false)
         if (removeAds && bannerView != nil) {
             print("removed view from view")
@@ -307,9 +308,9 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
 
                 
             }
-            self.gameNSDatesV = self.gameNSDatesV.removeDuplicates()
-            self.gameNSDatesJV = self.gameNSDatesJV.removeDuplicates()
-            self.gameNSDatesFR = self.gameNSDatesFR.removeDuplicates()
+            self.gameNSDatesV   = self.gameNSDatesV.removeDuplicates()
+            self.gameNSDatesJV  = self.gameNSDatesJV.removeDuplicates()
+            self.gameNSDatesFR  = self.gameNSDatesFR.removeDuplicates()
             self.gameNSDatesAll = self.gameNSDatesAll.removeDuplicates()
             self.activitySpinner.stopAnimating()
             self.activitySpinner.isHidden = true
@@ -678,8 +679,9 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
                 
                 
             }else{
-                if (uniqueNSGameDates.count != 0 && gamesDictionary[uniqueNSGameDates[0]]?[0] != nil){
-                    var indexEvent = allGames[0] // just a place holder for no apparent reason because swift hates me, Don't remove
+                print("Game date count: \(uniqueNSGameDates.count)")
+                //if (uniqueNSGameDates.count != 0){
+                var indexEvent: SportingEvent //= allGames[0] // just a place holder for no apparent reason because swift hates me, Don't remove
                     
                     switch gameLevel {
                     case "V":
@@ -696,12 +698,13 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
                         indexEvent = (gamesDictionaryAll[uniqueNSGameDates[selectedIndexPath![0]]]?[selectedIndexPath![1]])!
                     default:
                         uniqueNSGameDates = gameNSDatesV
+                        indexEvent = allGames[0]
                     }
                 
                 newView.currentEvent = indexEvent
                 
                 //print(indexEvent!.sport)
-                }
+                //}
             }
             let backButton = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
             
