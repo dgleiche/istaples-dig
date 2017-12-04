@@ -577,55 +577,10 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Ads" footerTitle="" id="491-cg-GTi" userLabel="Ads">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="47" id="9r0-Sv-gVy">
-                                        <rect key="frame" x="0.0" y="728.00000000000011" width="375" height="47"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9r0-Sv-gVy" id="mpK-iS-eCr">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="46.666666666666664"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ads.png" translatesAutoresizingMaskIntoConstraints="NO" id="fWd-1m-JSU">
-                                                    <rect key="frame" x="8" y="11" width="25" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="g8z-ht-wTt"/>
-                                                        <constraint firstAttribute="width" constant="25" id="m5c-6X-obx"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remove Ads" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUE-xK-kuN">
-                                                    <rect key="frame" x="41" y="11.666666666666664" width="148" height="24"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="148" id="9Mw-2a-Pgf"/>
-                                                        <constraint firstAttribute="height" constant="24" id="IiW-vp-BUy"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NnG-Qc-f9a">
-                                                    <rect key="frame" x="320" y="7" width="49" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="onTintColor" red="0.16031424701213837" green="0.37381666898727417" blue="0.73343551158905029" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <connections>
-                                                        <action selector="ads:" destination="ct3-ii-lcc" eventType="valueChanged" id="nIC-7T-dhB"/>
-                                                    </connections>
-                                                </switch>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="fWd-1m-JSU" firstAttribute="centerY" secondItem="mpK-iS-eCr" secondAttribute="centerY" id="7U9-qu-pQV"/>
-                                                <constraint firstAttribute="leadingMargin" secondItem="fWd-1m-JSU" secondAttribute="leading" id="MAI-4A-uMS"/>
-                                                <constraint firstItem="AUE-xK-kuN" firstAttribute="leading" secondItem="fWd-1m-JSU" secondAttribute="trailing" constant="8" id="cXC-od-kdS"/>
-                                                <constraint firstItem="AUE-xK-kuN" firstAttribute="centerY" secondItem="mpK-iS-eCr" secondAttribute="centerY" id="lWw-2B-p3N"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                             <tableViewSection headerTitle="" id="Akj-Xn-qGx">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="aea-C7-Dqw">
-                                        <rect key="frame" x="0.0" y="811.00000000000011" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="700.66666666666674" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aea-C7-Dqw" id="2YL-c1-uXV">
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
@@ -684,6 +639,51 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vwG-1E-hCa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewSection headerTitle="Ads" footerTitle="" id="491-cg-GTi" userLabel="Ads">
+                    <cells>
+                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="47" id="9r0-Sv-gVy">
+                            <rect key="frame" x="0.0" y="728.00000000000011" width="375" height="47"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9r0-Sv-gVy" id="mpK-iS-eCr">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="46.666666666666664"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ads.png" translatesAutoresizingMaskIntoConstraints="NO" id="fWd-1m-JSU">
+                                        <rect key="frame" x="8" y="11" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="g8z-ht-wTt"/>
+                                            <constraint firstAttribute="width" constant="25" id="m5c-6X-obx"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remove Ads" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUE-xK-kuN">
+                                        <rect key="frame" x="41" y="11.666666666666664" width="148" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="148" id="9Mw-2a-Pgf"/>
+                                            <constraint firstAttribute="height" constant="24" id="IiW-vp-BUy"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NnG-Qc-f9a">
+                                        <rect key="frame" x="320" y="7" width="49" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="onTintColor" red="0.16031424701213837" green="0.37381666898727417" blue="0.73343551158905029" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <connections>
+                                            <action selector="ads:" destination="ct3-ii-lcc" eventType="valueChanged" id="nIC-7T-dhB"/>
+                                        </connections>
+                                    </switch>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="fWd-1m-JSU" firstAttribute="centerY" secondItem="mpK-iS-eCr" secondAttribute="centerY" id="7U9-qu-pQV"/>
+                                    <constraint firstAttribute="leadingMargin" secondItem="fWd-1m-JSU" secondAttribute="leading" id="MAI-4A-uMS"/>
+                                    <constraint firstItem="AUE-xK-kuN" firstAttribute="leading" secondItem="fWd-1m-JSU" secondAttribute="trailing" constant="8" id="cXC-od-kdS"/>
+                                    <constraint firstItem="AUE-xK-kuN" firstAttribute="centerY" secondItem="mpK-iS-eCr" secondAttribute="centerY" id="lWw-2B-p3N"/>
+                                </constraints>
+                            </tableViewCellContentView>
+                        </tableViewCell>
+                    </cells>
+                </tableViewSection>
             </objects>
             <point key="canvasLocation" x="4219" y="4163"/>
         </scene>
