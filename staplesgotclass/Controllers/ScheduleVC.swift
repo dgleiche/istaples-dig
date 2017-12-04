@@ -159,16 +159,16 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         //ads
         removeAds = ((defaults.object(forKey: "ads") as? Bool) ?? false)
         
-        if (!removeAds){
-            functionsToAddBannerViewToView()
-        }
-        if (removeAds && bannerView != nil) {
-            print("removed view from view")
-            bannerView.isHidden = true
-            bannerView.removeFromSuperview()
-        }else {
-            functionsToAddBannerViewToView()
-        }
+//        if (!removeAds){
+//            functionsToAddBannerViewToView()
+//        }
+//        if (removeAds && bannerView != nil) {
+//            print("removed view from view")
+//            bannerView.isHidden = true
+//            bannerView.removeFromSuperview()
+//        }else {
+//            functionsToAddBannerViewToView()
+//        }
         
     }
 
@@ -198,13 +198,13 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         //ads
         removeAds = ((defaults.object(forKey: "ads") as? Bool) ?? false)
         
-        if (removeAds && bannerView != nil) {
-            print("removed view from view")
-            bannerView.isHidden = true
-            bannerView.removeFromSuperview()
-        }else {
-            functionsToAddBannerViewToView()
-        }
+//        if (removeAds && bannerView != nil) {
+//            print("removed view from view")
+//            bannerView.isHidden = true
+//            bannerView.removeFromSuperview()
+//        }else {
+//            functionsToAddBannerViewToView()
+//        }
         
     }
 //    override func viewWillAppear(_ animated: Bool) {
@@ -305,6 +305,10 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         }
         else {
             UserManager.sharedInstance?.refreshNeeded = false
+            if (DailyScheduleManager.sharedInstance?.showAds)! {
+                functionsToAddBannerViewToView()
+                removeAds = !(DailyScheduleManager.sharedInstance?.showAds)!
+            }
         }
     }
     

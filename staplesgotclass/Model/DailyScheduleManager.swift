@@ -37,6 +37,8 @@ class DailyScheduleManager: NSObject {
     var realmPeriodsToDelete: [RealmPeriod]?
     
     var currentQuarter = 1
+    var showAds = false
+
     
     let realm = try! Realm()
     
@@ -231,6 +233,10 @@ class DailyScheduleManager: NSObject {
                                             if (config != nil) {
                                                 if let currentQ = config!["currentQuarter"] as? Int {
                                                     self.currentQuarter = currentQ
+                                                }
+                                                
+                                                if let showAds = config!["showAds"] as? Bool {
+                                                    self.showAds = showAds
                                                 }
                                             }
                                             
