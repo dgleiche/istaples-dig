@@ -68,6 +68,7 @@ class ClassesVC: UITableViewController {
                     
                     if (DailyScheduleManager.sharedInstance?.fetchInProgress != true && UserManager.sharedInstance?.refreshNeeded == true) {
                         //add current user to Realm with all of the data
+                        print("refreshing class data")
                         let realm = try! Realm()
                         
                         let realmUser = RealmUser()

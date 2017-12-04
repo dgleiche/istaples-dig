@@ -22,7 +22,7 @@ class ColorCell: UICollectionViewCell {
     }
     func select(){
         self.innerCircle.isHidden = false
-        self.innerCircle.layer.cornerRadius = 27.5
+        self.innerCircle.layer.cornerRadius = self.innerCircle.layer.frame.size.width / 2
         self.innerCircle.layer.borderWidth = 6
         self.innerCircle.layer.borderColor = UIColor.white.cgColor
         self.innerCircle.layer.shadowColor = UIColor.black.cgColor

@@ -13,8 +13,8 @@ import GoogleMobileAds
 
 
 let sweetBlue = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
-let adID = "ca-app-pub-3940256099942544/2934735716" // Test one
-//let adID = "ca-app-pub-9482699020493042/9986897473" // Real one
+//let adID = "ca-app-pub-3940256099942544/2934735716" // Test one
+let adID = "ca-app-pub-9482699020493042/9986897473" // Real one
 
 
 
@@ -161,16 +161,16 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         //ads
         removeAds = ((defaults.object(forKey: "ads") as? Bool) ?? false)
         
-        if (!removeAds){
-            functionsToAddBannerViewToView()
-        }
-        if (removeAds && bannerView != nil) {
-            print("removed view from view")
-            bannerView.isHidden = true
-            bannerView.removeFromSuperview()
-        }else {
-            functionsToAddBannerViewToView()
-        }
+//        if (!removeAds){
+//            functionsToAddBannerViewToView()
+//        }
+//        if (removeAds && bannerView != nil) {
+//            print("removed view from view")
+//            bannerView.isHidden = true
+//            bannerView.removeFromSuperview()
+//        }else {
+//            functionsToAddBannerViewToView()
+//        }
         
     }
 
@@ -200,13 +200,13 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         //ads
         removeAds = ((defaults.object(forKey: "ads") as? Bool) ?? false)
         
-        if (removeAds && bannerView != nil) {
-            print("removed view from view")
-            bannerView.isHidden = true
-            bannerView.removeFromSuperview()
-        }else {
-            functionsToAddBannerViewToView()
-        }
+//        if (removeAds && bannerView != nil) {
+//            print("removed view from view")
+//            bannerView.isHidden = true
+//            bannerView.removeFromSuperview()
+//        }else {
+//            functionsToAddBannerViewToView()
+//        }
         
     }
 //    override func viewWillAppear(_ animated: Bool) {
@@ -308,6 +308,10 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         }
         else {
             UserManager.sharedInstance?.refreshNeeded = false
+            if (DailyScheduleManager.sharedInstance?.showAds)! {
+                functionsToAddBannerViewToView()
+                removeAds = !(DailyScheduleManager.sharedInstance?.showAds)!
+            }
         }
     }
     
