@@ -124,19 +124,11 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
         self.tableView.reloadData()
         
         //ads
-        removeAds = ((defaults.object(forKey: "ads") as? Bool) ?? false)
 
         if (!removeAds){
             functionsToAddBannerViewToView()
         }
-        if (removeAds && bannerView != nil) {
-            print("removed view from view")
-            bannerView.isHidden = true
-            bannerView.removeFromSuperview()
-        }else {
-            functionsToAddBannerViewToView()
-        }
-
+        
     }
     func functionsToAddBannerViewToView(){
         bannerView =  GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
@@ -158,16 +150,6 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
         if (self.uniqueNSGameDates.count == 0) {
             getGames()
             self.updatedLast = Date(timeIntervalSinceReferenceDate: Date().timeIntervalSinceReferenceDate)
-        }
-        
-        
-        removeAds = ((defaults.object(forKey: "ads") as? Bool) ?? false)
-        if (removeAds && bannerView != nil) {
-            print("removed view from view")
-            bannerView.isHidden = true
-            bannerView.removeFromSuperview()
-        }else {
-            functionsToAddBannerViewToView()
         }
     }
     

@@ -110,16 +110,7 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
         tracker?.send(builder?.build() as! [AnyHashable: Any])
         
         //ads
-        removeAds = ((defaults.object(forKey: "ads") as? Bool) ?? false)
-
         if (!removeAds){
-            functionsToAddBannerViewToView()
-        }
-        if (removeAds && bannerView != nil) {
-            print("removed view from view")
-            bannerView.isHidden = true
-            bannerView.removeFromSuperview()
-        }else {
             functionsToAddBannerViewToView()
         }
         
@@ -144,15 +135,6 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
     override func viewWillAppear(_ animated: Bool) {
         if (self.userDict.count == 0) {
             self.getUsers()
-        }
-        removeAds = ((defaults.object(forKey: "ads") as? Bool) ?? false)
-        print(removeAds)
-        if (removeAds && bannerView != nil) {
-            print("removed view from view")
-            bannerView.isHidden = true
-            bannerView.removeFromSuperview()
-        }else {
-            functionsToAddBannerViewToView()
         }
     }
     override func viewDidAppear(_ animated: Bool) {

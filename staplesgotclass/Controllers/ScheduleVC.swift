@@ -158,9 +158,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         //App ID: ca-app-pub-6421137549100021~7706337193
         //Ad unit ID: ca-app-pub-6421137549100021/7517677074 //Name: adBanner
         
-        //ads
-        removeAds = ((defaults.object(forKey: "ads") as? Bool) ?? false)
-        
+        //ads        
 //        if (!removeAds){
 //            functionsToAddBannerViewToView()
 //        }
@@ -198,7 +196,6 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         print("setup timers in view did appear")
         
         //ads
-        removeAds = ((defaults.object(forKey: "ads") as? Bool) ?? false)
         
 //        if (removeAds && bannerView != nil) {
 //            print("removed view from view")
@@ -284,8 +281,6 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 self.selectedSchedule = DailyScheduleManager.sharedInstance?.currentSchedule
                 if (DailyScheduleManager.sharedInstance?.currentSchedule?.isStatic == false) {
                     self.navigationItem.prompt = "\(self.selectedSchedule!.name!)"
-
-                    self.navigationItem
                     //UILabel.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).textColor = UIColor.white
 
                 }
@@ -310,8 +305,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             UserManager.sharedInstance?.refreshNeeded = false
             if (DailyScheduleManager.sharedInstance?.showAds)! {
                 functionsToAddBannerViewToView()
-                removeAds = !(DailyScheduleManager.sharedInstance?.showAds)!
             }
+            removeAds = !(DailyScheduleManager.sharedInstance?.showAds)!
         }
     }
     
