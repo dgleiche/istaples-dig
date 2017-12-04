@@ -107,7 +107,7 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
         if indexPath.section == 1 && indexPath.row == 0 {
             UIApplication.shared.openURL(URL(string: "http://staplesgotclass.com")!)
         }
-        else if indexPath.section == 3 {
+        else if indexPath.section == 2 {
             switch indexPath.row {
             case 0:
                 print("Email Diamond")
@@ -117,7 +117,7 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
                 sendMail("dgleiche@me.com")
             case 2:
                 print("Email Neal")
-                sendMail("ns51387@students.westportps.org")
+                sendMail("nealsoni00@gmail.com")
             case 3:
                 print("Email Sharkey")
                 sendMail("sharkeyjack11@gmail.com")

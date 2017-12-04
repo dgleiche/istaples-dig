@@ -144,6 +144,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             loginPage.modalTransitionStyle = .flipHorizontal
             self.tabBarController?.present(loginPage, animated: true, completion: nil)
         }
+        UILabel.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).textColor = UIColor.white
+
         
         NotificationCenter.default.addObserver(self, selector: #selector(ScheduleVC.callSetup), name: NSNotification.Name(rawValue: "loggedIn"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ScheduleVC.applicationDidBecomeActive), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
@@ -282,6 +284,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 self.selectedSchedule = DailyScheduleManager.sharedInstance?.currentSchedule
                 if (DailyScheduleManager.sharedInstance?.currentSchedule?.isStatic == false) {
                     self.navigationItem.prompt = "\(self.selectedSchedule!.name!)"
+
                     self.navigationItem
                     //UILabel.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).textColor = UIColor.white
 
