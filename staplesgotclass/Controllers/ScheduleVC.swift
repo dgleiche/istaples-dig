@@ -794,6 +794,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 cell.periodNumberLabel.textColor = colors[Int(defaultObject)!]
                 //cell.periodNumberLabel.textColor = UIColor(red:0.3, green:0.8, blue:0.13, alpha:1.0)
                 cell.classTitleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 19)
+                cell.backgroundColor = colors[Int(defaultObject)!].withAlphaComponent(0.12)
+
             }
             else {
                 //cell.periodNumberLabel.textColor = UIColor(red:0.0, green:0.38, blue:0.76, alpha:1.0)

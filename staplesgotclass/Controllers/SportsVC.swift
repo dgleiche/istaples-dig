@@ -250,43 +250,64 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
                     location = "Location Unknown"
                 }
                 
-                
-                let event = SportingEvent(sport: sportName, stringDate: gameDate, gameNSDate: gameNSDate, weekday: weekDay, time: time, school: location, gameLevel: level, home: homeAway, gameType: gameType, season: season, opponent: opponent, directionsURL: directionsURL, id_num: id_num, bus: bus, busTime: busTime)
-                
-                if level == "V" {
-                    if (self.gamesDictionaryV[gameNSDate]?.append(event)) == nil {
-                        self.gamesDictionaryV[gameNSDate] = [event]
-                    }
-                    //print("new game: \(event.sport)")
-                    //print("added \(String(describing: self.gamesDictionaryV[gameNSDate]))");
-                    self.gameNSDatesV.append(gameNSDate)
-                    self.allGamesV.append(event)
-                }
-                if level == "JV" {
-                    if (self.gamesDictionaryJV[gameNSDate]?.append(event)) == nil {
-                        self.gamesDictionaryJV[gameNSDate] = [event]
-                    }
-                    //print("new game: \(event.sport)")
-                    //print("added \(String(describing: self.gamesDictionaryV[gameNSDate]))");
-                    self.gameNSDatesJV.append(gameNSDate)
-                    self.allGamesJV.append(event)
-                }
-                if level == "FR" {
-                    if (self.gamesDictionaryFR[gameNSDate]?.append(event)) == nil {
-                        self.gamesDictionaryFR[gameNSDate] = [event]
-                    }
-                    //print("new game: \(event.sport)")
-                    //print("added \(String(describing: self.gamesDictionaryV[gameNSDate]))");
-                    self.gameNSDatesFR.append(gameNSDate)
-                    self.allGamesFR.append(event)
+                if gameType != "Practice" {
 
+                    let event = SportingEvent(sport: sportName, stringDate: gameDate, gameNSDate: gameNSDate, weekday: weekDay, time: time, school: location, gameLevel: level, home: homeAway, gameType: gameType, season: season, opponent: opponent, directionsURL: directionsURL, id_num: id_num, bus: bus, busTime: busTime)
+                    
+                    if level == "V" {
+                        if (self.gamesDictionaryV[gameNSDate]?.append(event)) == nil {
+                            self.gamesDictionaryV[gameNSDate] = [event]
+                        }
+                        //print("new game: \(event.sport)")
+                        //print("added \(String(describing: self.gamesDictionaryV[gameNSDate]))");
+                        self.gameNSDatesV.append(gameNSDate)
+                        self.allGamesV.append(event)
+                    }
+                    if level == "JV" {
+                        if (self.gamesDictionaryJV[gameNSDate]?.append(event)) == nil {
+                            self.gamesDictionaryJV[gameNSDate] = [event]
+                        }
+                        //print("new game: \(event.sport)")
+                        //print("added \(String(describing: self.gamesDictionaryV[gameNSDate]))");
+                        self.gameNSDatesJV.append(gameNSDate)
+                        self.allGamesJV.append(event)
+                    }
+                    if level == "FR" {
+                        if (self.gamesDictionaryFR[gameNSDate]?.append(event)) == nil {
+                            self.gamesDictionaryFR[gameNSDate] = [event]
+                        }
+                        //print("new game: \(event.sport)")
+                        //print("added \(String(describing: self.gamesDictionaryV[gameNSDate]))");
+                        self.gameNSDatesFR.append(gameNSDate)
+                        self.allGamesFR.append(event)
+
+                    }
+                    if level == "ALL"{
+                        if (self.gamesDictionaryFR[gameNSDate]?.append(event)) == nil {
+                            self.gamesDictionaryFR[gameNSDate] = [event]
+                        }
+                        self.gameNSDatesFR.append(gameNSDate)
+                        self.allGamesFR.append(event)
+                        
+                        if (self.gamesDictionaryJV[gameNSDate]?.append(event)) == nil {
+                            self.gamesDictionaryJV[gameNSDate] = [event]
+                        }
+                        self.gameNSDatesJV.append(gameNSDate)
+                        self.allGamesJV.append(event)
+                        
+                        if (self.gamesDictionaryV[gameNSDate]?.append(event)) == nil {
+                            self.gamesDictionaryV[gameNSDate] = [event]
+                        }
+                        self.gameNSDatesV.append(gameNSDate)
+                        self.allGamesV.append(event)
+                        
+                    }
+                    if (self.gamesDictionaryAll[gameNSDate]?.append(event)) == nil {
+                        self.gamesDictionaryAll[gameNSDate] = [event]
+                    }
+                    self.gameNSDatesAll.append(gameNSDate)
+                    self.allGames.append(event)
                 }
-                if (self.gamesDictionaryAll[gameNSDate]?.append(event)) == nil {
-                    self.gamesDictionaryAll[gameNSDate] = [event]
-                }
-                self.gameNSDatesAll.append(gameNSDate)
-                self.allGames.append(event)
-                
 
                 
             }
