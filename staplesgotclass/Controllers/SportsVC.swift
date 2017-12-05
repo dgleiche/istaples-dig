@@ -282,6 +282,26 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
                         self.allGamesFR.append(event)
 
                     }
+                    if level == "ALL"{
+                        if (self.gamesDictionaryFR[gameNSDate]?.append(event)) == nil {
+                            self.gamesDictionaryFR[gameNSDate] = [event]
+                        }
+                        self.gameNSDatesFR.append(gameNSDate)
+                        self.allGamesFR.append(event)
+                        
+                        if (self.gamesDictionaryJV[gameNSDate]?.append(event)) == nil {
+                            self.gamesDictionaryJV[gameNSDate] = [event]
+                        }
+                        self.gameNSDatesJV.append(gameNSDate)
+                        self.allGamesJV.append(event)
+                        
+                        if (self.gamesDictionaryV[gameNSDate]?.append(event)) == nil {
+                            self.gamesDictionaryV[gameNSDate] = [event]
+                        }
+                        self.gameNSDatesV.append(gameNSDate)
+                        self.allGamesV.append(event)
+                        
+                    }
                     if (self.gamesDictionaryAll[gameNSDate]?.append(event)) == nil {
                         self.gamesDictionaryAll[gameNSDate] = [event]
                     }
