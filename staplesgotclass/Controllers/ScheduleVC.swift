@@ -307,6 +307,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 functionsToAddBannerViewToView()
             }
             removeAds = !(DailyScheduleManager.sharedInstance?.showAds)!
+            print("remove ads \(removeAds)")
         }
     }
     

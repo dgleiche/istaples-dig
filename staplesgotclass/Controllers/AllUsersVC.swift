@@ -111,6 +111,7 @@ class AllUsersVC: UITableViewController, UISearchBarDelegate, UISearchController
         
         //ads
         if (!removeAds){
+            print("adding bannerview to allUsers: Remove ads is \(removeAds)")
             functionsToAddBannerViewToView()
         }
         

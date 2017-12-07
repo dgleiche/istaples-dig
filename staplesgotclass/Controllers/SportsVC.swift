@@ -123,9 +123,15 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
 
         self.tableView.reloadData()
         
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker?.set(kGAIScreenName, value: "Sports")
+        
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker?.send(builder?.build() as! [AnyHashable: Any])
+        
         //ads
-
         if (!removeAds){
+            print("adding bannerview to view: Remove ads is \(removeAds)")
             functionsToAddBannerViewToView()
         }
         
@@ -142,9 +148,9 @@ class SportsViewController: UITableViewController, UISearchBarDelegate, UISearch
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
         bannerView.delegate = self
-        //bannerView.superview?.bringSubview(toFront: bannerView)
         self.tableView.insertSubview(bannerView, belowSubview: (navigationController?.navigationBar)!)
         tableView.bringSubview(toFront: bannerView)
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         if (self.uniqueNSGameDates.count == 0) {
