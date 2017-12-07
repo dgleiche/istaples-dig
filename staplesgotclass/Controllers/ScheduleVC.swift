@@ -499,11 +499,15 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                     }
                     else {
                         self.currentLunchLabel.text = nil
+                        self.currentPeriodNumberLabel.textColor = colors[0]
+
                     }
                 }
                 else {
                     //no real period, probs modified
                     self.currentPeriodNumberLabel.text = String(currentPeriod.name!.characters.first!)
+                    self.currentPeriodNumberLabel.textColor = colors[0]
+
                     self.currentPeriodTitleLabel.text = currentPeriod.name!
                     self.currentLunchLabel.text = nil
                 }
@@ -787,6 +791,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
             if (DailyScheduleManager.sharedInstance?.secondsFromMidnight() > indexSchedulePeriod?.endSeconds) {
                 cell.periodNumberLabel.textColor = UIColor.lightGray
                 cell.classTitleLabel.font = UIFont(name: "HelveticaNeue", size: 17)
+                cell.backgroundColor = nil
+
             }
             else if (indexSchedulePeriod?.id == DailyScheduleManager.sharedInstance?.currentPeriod?.id) {
                 
@@ -803,6 +809,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                 
                 
                 cell.classTitleLabel.font = UIFont(name: "HelveticaNeue", size: 17)
+                cell.backgroundColor = nil
+
             }
         }
         else {
@@ -812,6 +820,8 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
         
             
             cell.classTitleLabel.font = UIFont(name: "HelveticaNeue", size: 17)
+            cell.backgroundColor = nil
+
         }
         
         return cell
