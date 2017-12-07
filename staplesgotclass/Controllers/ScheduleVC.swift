@@ -499,7 +499,7 @@ class ScheduleVC: UITableViewController, DailyScheduleManagerDelegate, GIDSignIn
                     }
                     else {
                         self.currentLunchLabel.text = nil
-                        self.currentPeriodNumberLabel.textColor = colors[0]
+                        //self.currentPeriodNumberLabel.textColor = colors[0]
 
                     }
                 }
