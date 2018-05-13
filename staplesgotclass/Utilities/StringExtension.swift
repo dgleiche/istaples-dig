@@ -67,4 +67,34 @@ extension String {
         }
         return newString
     }
+    func getInitals() -> String{
+        let school = self.replacingOccurrences(of: "of", with: "").replacingOccurrences(of: "the", with: "").replacingOccurrences(of: " @ ", with: "").replacingOccurrences(of: " & ", with: "").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
+        var initials = ""
+        for word in school.split(separator: " "){
+            if (initials.characters.count < 2){
+                initials = initials + String(word)[0]
+            }
+        }
+        return initials
+    }
+}
+
+extension String {
+    func getRanges(of string: String) -> [NSRange] {
+        var ranges:[NSRange] = []
+        if contains(string) {
+            let words = self.components(separatedBy: " ")
+            var position: Int = 0
+            for word in words {
+                if word.lowercased() == string.lowercased() {
+                    let startIndex = position
+                    let endIndex = word.count
+                    let range = NSMakeRange(startIndex, endIndex)
+                    ranges.append(range)
+                }
+                position += (word.count + 1)
+            }
+        }
+        return ranges
+    }
 }

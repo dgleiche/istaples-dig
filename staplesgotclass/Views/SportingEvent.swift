@@ -1,9 +1,9 @@
 //
 //  SportingEvent.swift
-//  staplesgotclass
+//  CTSports
 //
-//  Created by Neal Soni on 9/7/17.
-//  Copyright © 2017 Dylan Diamond. All rights reserved.
+//  Created by Neal Soni on 12/13/17.
+//  Copyright © 2017 Neal Soni. All rights reserved.
 //
 
 import Foundation
@@ -26,8 +26,8 @@ class SportingEvent: NSObject {
     var bus: String
     var busTime: String
     var searchCriteria: String
-    
-    init(sport: String, stringDate: String, gameNSDate: NSDate, weekday: String, time: String, school: String, gameLevel: String, home: String, gameType: String, season: String, opponent: String, directionsURL: String, id_num: String, bus: String, busTime: String){
+    var exactDate: NSDate
+    init(sport: String, stringDate: String, gameNSDate: NSDate, weekday: String, time: String, school: String, gameLevel: String, home: String, gameType: String, season: String, opponent: String, directionsURL: String, id_num: String, bus: String, busTime: String, exactDate: NSDate){
         
         self.stringDate = stringDate
         self.sport = sport
@@ -46,5 +46,6 @@ class SportingEvent: NSObject {
         self.bus = bus
         self.busTime = busTime
         self.searchCriteria =  self.sport + " " + self.stringDate + " " + self.opponent + " " + self.school
+        self.exactDate = exactDate
     }
 }

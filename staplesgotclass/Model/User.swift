@@ -16,6 +16,7 @@ class User: NSObject {
     var schedule: [Period]?
     let profilePicURL: String?
     var profilePic: UIImage? = nil
+    var isPublic = true
     var id: Int?
     
     init(name: String, email: String, profilePicURL: String?) {
@@ -73,6 +74,17 @@ class User: NSObject {
                     completion!(false)
                 }
                 
+            }
+            else {
+                completion!(false)
+            }
+        }
+    }
+    func setPublic(isPublic: Bool, completion: ((Bool) -> Void)?) {
+        self.network.performRequest(withMethod: "POST", endpoint: "setPublic", parameters: ["public": "\(isPublic)"], headers: nil) { (response: DataResponse<Any>) in
+            if (response.response?.statusCode == 200) {
+                self.isPublic = isPublic
+                completion!(true)
             }
             else {
                 completion!(false)

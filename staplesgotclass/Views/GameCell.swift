@@ -9,7 +9,7 @@
 
 import UIKit
 
-class SportsCell: UITableViewCell {
+class OldSportsCell: UITableViewCell {
     @IBOutlet weak var sport: UILabel!
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var school: UILabel!

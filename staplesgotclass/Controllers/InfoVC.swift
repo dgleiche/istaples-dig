@@ -14,7 +14,8 @@ var removeAds = false
 class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
     @IBOutlet var versionNumberLabel: UILabel!
     @IBOutlet weak var adsSwitch2: UISwitch!
-    
+    @IBOutlet weak var publicSwitch: UISwitch!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.42, blue:0.81, alpha:1.0)
@@ -100,7 +101,15 @@ class InfoVC: UITableViewController, MFMailComposeViewControllerDelegate {
         }
         self.dismiss(animated: true, completion: nil)
     }
-    
+    @IBAction func setPublic(_ sender: Any) {
+        UserManager.sharedInstance?.currentUser.setPublic(isPublic: self.publicSwitch.isOn, completion: { (success: Bool) in
+            if (!success) {
+                self.publicSwitch.setOn(!self.publicSwitch.isOn, animated: false)
+                let alert = UIAlertController(title: "Error", message: "Error setting public setting. Please try again.", preferredStyle: .alert)
+//                self.showAlert("Error setting public setting. Please try again.")
+            }
+        })
+    }
     //MARK: Table View Functions
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
